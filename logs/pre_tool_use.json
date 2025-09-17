@@ -5774,5 +5774,38 @@
       "command": "ls -la /Users/jacksontumbidge/Projects/GamePlanPro/ | grep -E \"(\\.db|sqlite|server)\" ",
       "description": "Check for any remaining SQLite files"
     }
+  },
+  {
+    "session_id": "16e3693d-1334-4079-949f-94f5f0d0a50f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/16e3693d-1334-4079-949f-94f5f0d0a50f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__supabase__execute_sql",
+    "tool_input": {
+      "query": "SELECT * FROM players ORDER BY last_name, first_name;"
+    }
+  },
+  {
+    "session_id": "16e3693d-1334-4079-949f-94f5f0d0a50f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/16e3693d-1334-4079-949f-94f5f0d0a50f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__supabase__execute_sql",
+    "tool_input": {
+      "query": "SELECT * FROM teams ORDER BY id;"
+    }
+  },
+  {
+    "session_id": "16e3693d-1334-4079-949f-94f5f0d0a50f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/16e3693d-1334-4079-949f-94f5f0d0a50f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__supabase__execute_sql",
+    "tool_input": {
+      "query": "SELECT id, organization, first_name, last_name, email, role FROM users ORDER BY id;"
+    }
   }
 ]
