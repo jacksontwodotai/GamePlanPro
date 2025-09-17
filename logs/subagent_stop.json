@@ -1,0 +1,10 @@
+[
+  {
+    "session_id": "881edc15-b576-4a72-be9b-996d8e23faa9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/881edc15-b576-4a72-be9b-996d8e23faa9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "SubagentStop",
+    "stop_hook_active": false
+  }
+]
