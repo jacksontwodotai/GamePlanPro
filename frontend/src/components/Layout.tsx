@@ -13,7 +13,7 @@ import { cn } from '../lib/utils'
 const navigation = [
   {
     name: 'Dashboard',
-    href: '/',
+    href: '/dashboard',
     icon: Home,
   },
   {
@@ -35,7 +35,7 @@ export default function Layout() {
     <nav className={cn("flex flex-col space-y-1", className)}>
       {navigation.map((item) => {
         const isActive = location.pathname === item.href ||
-          (item.href !== '/' && location.pathname.startsWith(item.href))
+          location.pathname.startsWith(item.href + '/')
 
         return (
           <Button
@@ -66,7 +66,7 @@ export default function Layout() {
         <div className="bg-white border-r border-zinc-200 shadow-xl h-full flex flex-col">
           {/* Logo Header */}
           <div className="flex items-center h-20 px-6 border-b border-zinc-100">
-            <Link to="/" className="flex items-center space-x-3">
+            <Link to="/dashboard" className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center shadow-lg">
                 <Shield className="h-6 w-6 text-white" />
               </div>
@@ -97,7 +97,7 @@ export default function Layout() {
       {/* Mobile Navigation */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-zinc-200 shadow-sm">
         <div className="flex items-center justify-between p-4">
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/dashboard" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center shadow-md">
               <Shield className="h-5 w-5 text-white" />
             </div>
@@ -113,7 +113,7 @@ export default function Layout() {
             <SheetContent side="left" className="w-80 p-0">
               <div className="flex flex-col h-full">
                 <div className="p-6 border-b border-zinc-100">
-                  <Link to="/" className="flex items-center space-x-3">
+                  <Link to="/dashboard" className="flex items-center space-x-3">
                     <div className="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center shadow-lg">
                       <Shield className="h-6 w-6 text-white" />
                     </div>

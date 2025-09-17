@@ -231,12 +231,12 @@ export default function TeamListView() {
   }
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
+    <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="bg-white rounded-xl p-6 shadow-sm flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Teams</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-3xl font-bold text-gray-900">Teams</h1>
+          <p className="text-gray-600">
             Manage your organization's teams
           </p>
         </div>
@@ -259,9 +259,9 @@ export default function TeamListView() {
       )}
 
       {/* Search */}
-      <Card>
+      <Card className="bg-white border-gray-200">
         <CardHeader>
-          <CardTitle>Search Teams</CardTitle>
+          <CardTitle className="text-gray-900">Search Teams</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="relative">
@@ -279,12 +279,12 @@ export default function TeamListView() {
       {/* Teams Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredTeams.map((team) => (
-          <Card key={team.id} className="hover:shadow-md transition-shadow">
+          <Card key={team.id} className="bg-white border-gray-200 hover:shadow-lg transition-shadow">
             <CardHeader>
               <div className="flex items-start justify-between">
                 <div className="flex items-center space-x-2">
-                  <Shield className="h-5 w-5 text-primary" />
-                  <CardTitle className="text-lg">{team.name}</CardTitle>
+                  <Shield className="h-5 w-5 text-orange-500" />
+                  <CardTitle className="text-lg text-gray-900">{team.name}</CardTitle>
                 </div>
                 <div className="flex space-x-1">
                   <Button
@@ -303,7 +303,7 @@ export default function TeamListView() {
                   </Button>
                 </div>
               </div>
-              <CardDescription>{team.organization}</CardDescription>
+              <CardDescription className="text-gray-600">{team.organization}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-2 text-sm">

@@ -427,12 +427,12 @@ export default function PlayerManagementInterface() {
   }
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
+    <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="bg-white rounded-xl p-6 shadow-sm flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Players</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-3xl font-bold text-gray-900">Players</h1>
+          <p className="text-gray-600">
             Manage player profiles and information
           </p>
         </div>
@@ -455,9 +455,9 @@ export default function PlayerManagementInterface() {
       )}
 
       {/* Search */}
-      <Card>
+      <Card className="bg-white border-gray-200">
         <CardHeader>
-          <CardTitle>Search Players</CardTitle>
+          <CardTitle className="text-gray-900">Search Players</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="relative">
@@ -475,12 +475,12 @@ export default function PlayerManagementInterface() {
       {/* Players Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {players.map((player) => (
-          <Card key={player.id} className="hover:shadow-md transition-shadow">
+          <Card key={player.id} className="bg-white border-gray-200 hover:shadow-lg transition-shadow">
             <CardHeader>
               <div className="flex items-start justify-between">
                 <div className="flex items-center space-x-2">
-                  <Users className="h-5 w-5 text-primary" />
-                  <CardTitle className="text-lg">
+                  <Users className="h-5 w-5 text-orange-500" />
+                  <CardTitle className="text-lg text-gray-900">
                     {player.first_name} {player.last_name}
                   </CardTitle>
                 </div>
@@ -511,10 +511,10 @@ export default function PlayerManagementInterface() {
                   </Button>
                 </div>
               </div>
-              <CardDescription>{player.organization}</CardDescription>
+              <CardDescription className="text-gray-600">{player.organization}</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-2 text-sm">
+              <div className="space-y-2 text-sm text-gray-700">
                 {player.email && (
                   <div className="flex items-center space-x-2">
                     <Mail className="h-4 w-4 text-muted-foreground" />
@@ -603,7 +603,7 @@ export default function PlayerManagementInterface() {
       )}
 
       {players.length === 0 && !loading && (
-        <Card>
+        <Card className="bg-white border-gray-200">
           <CardContent className="text-center py-12">
             <Users className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
             <h3 className="text-lg font-medium mb-2">
