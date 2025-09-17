@@ -494,6 +494,75 @@ app.delete('/api/teams/:id', async (req, res) => {
 });
 
 // Roster management endpoints
+// POST /api/teams/{team_id}/roster - Add player to team roster
+app.post('/api/teams/:team_id/roster', async (req, res) => {
+    const { team_id } = req.params;
+    const { player_id, start_date, jersey_number, position } = req.body;
+
+    if (!player_id || !start_date) {
+        return res.status(400).json({ error: 'player_id and start_date are required' });
+    }
+
+    // Validate start date is not in the past
+    const startDate = new Date(start_date);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (startDate < today) {
+        return res.status(400).json({ error: 'Start date cannot be in the past' });
+    }
+
+    // Validate position is not empty
+    if (position !== undefined && position !== null && position.trim() === '') {
+        return res.status(400).json({ error: 'Position cannot be empty' });
+    }
+
+    try {
+        // Check if jersey number is unique within the team
+        if (jersey_number) {
+            const { data: existingJersey, error: jerseyCheckError } = await supabase
+                .from('roster_entries')
+                .select('id')
+                .eq('team_id', team_id)
+                .eq('jersey_number', jersey_number)
+                .or('end_date.is.null,end_date.gt.now()')
+                .single();
+
+            if (!jerseyCheckError || existingJersey) {
+                return res.status(409).json({ error: `Jersey number ${jersey_number} is already taken in this team` });
+            }
+        }
+
+        const { data, error } = await supabase
+            .from('roster_entries')
+            .insert([{
+                team_id: parseInt(team_id),
+                player_id,
+                start_date,
+                jersey_number: jersey_number || null,
+                position: position || null
+            }])
+            .select()
+            .single();
+
+        if (error) {
+            console.error('Supabase error:', error);
+            if (error.code === '23505') { // Unique constraint violation
+                return res.status(409).json({ error: 'Player already on roster for this start date' });
+            }
+            return res.status(500).json({ error: 'Failed to add player to roster' });
+        }
+
+        res.status(201).json({
+            message: 'Player added to roster successfully',
+            roster_entry_id: data.id
+        });
+    } catch (error) {
+        console.error('Add to roster error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Legacy endpoint - kept for backwards compatibility
 app.post('/api/roster', async (req, res) => {
     const { team_id, player_id, start_date, jersey_number, position } = req.body;
 
@@ -652,6 +721,207 @@ app.delete('/api/roster/:roster_entry_id', async (req, res) => {
         });
     } catch (error) {
         console.error('Remove from roster error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Division Management Endpoints
+// POST /api/structure/divisions - Create division
+app.post('/api/structure/divisions', async (req, res) => {
+    const { name, description } = req.body;
+
+    // TODO: Add proper authentication/authorization check here
+    // For now, we'll proceed without auth check
+
+    if (!name) {
+        return res.status(400).json({ error: 'Division name is required' });
+    }
+
+    try {
+        // Check if division name already exists
+        const { data: existingDivision, error: checkError } = await supabase
+            .from('divisions')
+            .select('id')
+            .eq('name', name)
+            .single();
+
+        if (existingDivision) {
+            return res.status(409).json({ error: 'Division name already exists' });
+        }
+
+        // Create the division
+        const { data, error } = await supabase
+            .from('divisions')
+            .insert([{
+                name,
+                description: description || null
+            }])
+            .select()
+            .single();
+
+        if (error) {
+            console.error('Supabase error:', error);
+            return res.status(500).json({ error: 'Failed to create division' });
+        }
+
+        res.status(201).json(data);
+    } catch (error) {
+        console.error('Create division error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/structure/divisions - List all divisions
+app.get('/api/structure/divisions', async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 50;
+    const from = (page - 1) * limit;
+    const to = from + limit - 1;
+
+    try {
+        const { data, error, count } = await supabase
+            .from('divisions')
+            .select('*', { count: 'exact' })
+            .order('name', { ascending: true })
+            .range(from, to);
+
+        if (error) {
+            console.error('Supabase error:', error);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        res.json({
+            divisions: data,
+            pagination: {
+                page: page,
+                limit: limit,
+                total: count,
+                totalPages: Math.ceil(count / limit)
+            }
+        });
+    } catch (error) {
+        console.error('List divisions error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/structure/divisions/{division_id} - Get specific division
+app.get('/api/structure/divisions/:division_id', async (req, res) => {
+    const { division_id } = req.params;
+
+    try {
+        const { data, error } = await supabase
+            .from('divisions')
+            .select('*')
+            .eq('id', division_id)
+            .single();
+
+        if (error) {
+            console.error('Supabase error:', error);
+            if (error.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Division not found' });
+            }
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        res.json(data);
+    } catch (error) {
+        console.error('Get division error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// PUT /api/structure/divisions/{division_id} - Update division
+app.put('/api/structure/divisions/:division_id', async (req, res) => {
+    const { division_id } = req.params;
+    const { name, description } = req.body;
+
+    // TODO: Add proper authentication/authorization check here
+
+    const updates = {};
+    if (name !== undefined) {
+        // Check if new name already exists (excluding current division)
+        const { data: existingDivision } = await supabase
+            .from('divisions')
+            .select('id')
+            .eq('name', name)
+            .neq('id', division_id)
+            .single();
+
+        if (existingDivision) {
+            return res.status(409).json({ error: 'Division name already exists' });
+        }
+        updates.name = name;
+    }
+    if (description !== undefined) updates.description = description;
+
+    if (Object.keys(updates).length === 0) {
+        return res.status(400).json({ error: 'No fields to update' });
+    }
+
+    try {
+        const { data, error } = await supabase
+            .from('divisions')
+            .update(updates)
+            .eq('id', division_id)
+            .select()
+            .single();
+
+        if (error) {
+            console.error('Supabase error:', error);
+            if (error.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Division not found' });
+            }
+            return res.status(500).json({ error: 'Failed to update division' });
+        }
+
+        res.json(data);
+    } catch (error) {
+        console.error('Update division error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// DELETE /api/structure/divisions/{division_id} - Delete division
+app.delete('/api/structure/divisions/:division_id', async (req, res) => {
+    const { division_id } = req.params;
+
+    // TODO: Add proper authentication/authorization check here
+
+    try {
+        // Check if any teams are using this division
+        const { data: teams, error: checkError } = await supabase
+            .from('teams')
+            .select('id')
+            .eq('division_id', division_id)
+            .limit(1);
+
+        if (checkError) {
+            console.error('Supabase error:', checkError);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        if (teams && teams.length > 0) {
+            return res.status(409).json({ error: 'Cannot delete division that is assigned to teams' });
+        }
+
+        // Delete the division
+        const { error } = await supabase
+            .from('divisions')
+            .delete()
+            .eq('id', division_id);
+
+        if (error) {
+            console.error('Supabase error:', error);
+            if (error.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Division not found' });
+            }
+            return res.status(500).json({ error: 'Failed to delete division' });
+        }
+
+        res.status(200).json({ message: 'Division deleted successfully' });
+    } catch (error) {
+        console.error('Delete division error:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });

@@ -10,7 +10,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from './ui/dialog'
-import { Search, Plus, Edit, Trash2, Users, AlertTriangle, Phone, Mail, Calendar, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Search, Plus, Edit, Trash2, Users, AlertTriangle, Phone, Mail, Calendar, ChevronLeft, ChevronRight, UserPlus } from 'lucide-react'
+import { Select } from './ui/select'
 
 interface Player {
   id: number
@@ -26,6 +27,22 @@ interface Player {
   medical_alerts?: string
   address?: string
   created_at: string
+}
+
+interface Team {
+  id: number
+  name: string
+  organization: string
+  division?: string
+  age_group?: string
+  skill_level?: string
+}
+
+interface RosterFormData {
+  team_id: string
+  start_date: string
+  jersey_number: string
+  position: string
 }
 
 interface PlayerFormData {
@@ -52,6 +69,19 @@ export default function PlayerManagementInterface() {
   const [totalPlayers, setTotalPlayers] = useState(0)
   const playersPerPage = 9
 
+  // Roster assignment state
+  const [showRosterModal, setShowRosterModal] = useState(false)
+  const [selectedPlayerForRoster, setSelectedPlayerForRoster] = useState<Player | null>(null)
+  const [teams, setTeams] = useState<Team[]>([])
+  const [rosterFormData, setRosterFormData] = useState<RosterFormData>({
+    team_id: '',
+    start_date: '',
+    jersey_number: '',
+    position: ''
+  })
+  const [rosterFormErrors, setRosterFormErrors] = useState<Partial<RosterFormData>>({})
+  const [rosterFormLoading, setRosterFormLoading] = useState(false)
+
   // Form state
   const [showCreateForm, setShowCreateForm] = useState(false)
   const [showEditForm, setShowEditForm] = useState(false)
@@ -75,6 +105,7 @@ export default function PlayerManagementInterface() {
 
   useEffect(() => {
     fetchPlayers(1, searchTerm)
+    fetchTeams()
   }, [])
 
   useEffect(() => {
@@ -85,6 +116,19 @@ export default function PlayerManagementInterface() {
     }, 300)
     return () => clearTimeout(timeoutId)
   }, [searchTerm])
+
+  const fetchTeams = async () => {
+    try {
+      const response = await fetch('/api/teams')
+      if (!response.ok) {
+        throw new Error('Failed to fetch teams')
+      }
+      const data = await response.json()
+      setTeams(data)
+    } catch (err) {
+      console.error('Fetch teams error:', err)
+    }
+  }
 
   const fetchPlayers = async (page: number = currentPage, search: string = searchTerm) => {
     try {
@@ -281,6 +325,90 @@ export default function PlayerManagementInterface() {
     setShowDeleteDialog(true)
   }
 
+  const openRosterModal = (player: Player) => {
+    setSelectedPlayerForRoster(player)
+    const today = new Date()
+    const formattedDate = today.toISOString().split('T')[0]
+    setRosterFormData({
+      team_id: '',
+      start_date: formattedDate,
+      jersey_number: '',
+      position: ''
+    })
+    setRosterFormErrors({})
+    setShowRosterModal(true)
+  }
+
+  const validateRosterForm = (): boolean => {
+    const errors: Partial<RosterFormData> = {}
+
+    if (!rosterFormData.team_id) {
+      errors.team_id = 'Please select a team'
+    }
+
+    if (!rosterFormData.start_date) {
+      errors.start_date = 'Start date is required'
+    } else {
+      const startDate = new Date(rosterFormData.start_date)
+      const today = new Date()
+      today.setHours(0, 0, 0, 0)
+      if (startDate < today) {
+        errors.start_date = 'Start date cannot be in the past'
+      }
+    }
+
+    if (rosterFormData.jersey_number && isNaN(Number(rosterFormData.jersey_number))) {
+      errors.jersey_number = 'Jersey number must be a number'
+    }
+
+    if (rosterFormData.position && !rosterFormData.position.trim()) {
+      errors.position = 'Position cannot be empty'
+    }
+
+    setRosterFormErrors(errors)
+    return Object.keys(errors).length === 0
+  }
+
+  const handleAssignToRoster = async () => {
+    if (!selectedPlayerForRoster || !validateRosterForm()) return
+
+    try {
+      setRosterFormLoading(true)
+      const response = await fetch(`/api/teams/${rosterFormData.team_id}/roster`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          player_id: selectedPlayerForRoster.id,
+          start_date: rosterFormData.start_date,
+          jersey_number: rosterFormData.jersey_number ? Number(rosterFormData.jersey_number) : null,
+          position: rosterFormData.position || null
+        })
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to assign player to roster')
+      }
+
+      // Success
+      setError(null)
+      setShowRosterModal(false)
+      setSelectedPlayerForRoster(null)
+
+      // Show success message (you could add a toast notification here)
+      const teamName = teams.find(t => t.id === Number(rosterFormData.team_id))?.name || 'team'
+      alert(`${selectedPlayerForRoster.first_name} ${selectedPlayerForRoster.last_name} successfully assigned to ${teamName}!`)
+    } catch (err) {
+      console.error('Roster assignment error:', err)
+      setError(err instanceof Error ? err.message : 'Failed to assign player to roster')
+    } finally {
+      setRosterFormLoading(false)
+    }
+  }
+
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page)
@@ -360,7 +488,16 @@ export default function PlayerManagementInterface() {
                   <Button
                     variant="ghost"
                     size="sm"
+                    onClick={() => openRosterModal(player)}
+                    title="Assign to Team"
+                  >
+                    <UserPlus className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
                     onClick={() => openEditForm(player)}
+                    title="Edit Player"
                   >
                     <Edit className="h-4 w-4" />
                   </Button>
@@ -368,6 +505,7 @@ export default function PlayerManagementInterface() {
                     variant="ghost"
                     size="sm"
                     onClick={() => openDeleteDialog(player)}
+                    title="Delete Player"
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>
@@ -809,6 +947,91 @@ export default function PlayerManagementInterface() {
             </Button>
             <Button variant="destructive" onClick={handleDeletePlayer} disabled={formLoading}>
               {formLoading ? 'Deleting...' : 'Delete Player'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Roster Assignment Modal */}
+      <Dialog open={showRosterModal} onOpenChange={setShowRosterModal}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Assign Player to Team</DialogTitle>
+            <DialogDescription>
+              Assign {selectedPlayerForRoster?.first_name} {selectedPlayerForRoster?.last_name} to a team roster
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4">
+            <div>
+              <label className="text-sm font-medium">Team *</label>
+              <Select
+                value={rosterFormData.team_id}
+                onChange={(e) => setRosterFormData({ ...rosterFormData, team_id: e.target.value })}
+                className={rosterFormErrors.team_id ? 'border-destructive' : ''}
+              >
+                <option value="">Select a team...</option>
+                {teams.map((team) => (
+                  <option key={team.id} value={team.id}>
+                    {team.name}
+                  </option>
+                ))}
+              </Select>
+              {rosterFormErrors.team_id && (
+                <p className="text-sm text-destructive mt-1">{rosterFormErrors.team_id}</p>
+              )}
+            </div>
+
+            <div>
+              <label className="text-sm font-medium">Start Date *</label>
+              <Input
+                type="date"
+                value={rosterFormData.start_date}
+                onChange={(e) => setRosterFormData({ ...rosterFormData, start_date: e.target.value })}
+                min={new Date().toISOString().split('T')[0]}
+                className={rosterFormErrors.start_date ? 'border-destructive' : ''}
+              />
+              {rosterFormErrors.start_date && (
+                <p className="text-sm text-destructive mt-1">{rosterFormErrors.start_date}</p>
+              )}
+            </div>
+
+            <div>
+              <label className="text-sm font-medium">Jersey Number</label>
+              <Input
+                type="number"
+                value={rosterFormData.jersey_number}
+                onChange={(e) => setRosterFormData({ ...rosterFormData, jersey_number: e.target.value })}
+                placeholder="Enter jersey number"
+                min="0"
+                max="99"
+                className={rosterFormErrors.jersey_number ? 'border-destructive' : ''}
+              />
+              {rosterFormErrors.jersey_number && (
+                <p className="text-sm text-destructive mt-1">{rosterFormErrors.jersey_number}</p>
+              )}
+            </div>
+
+            <div>
+              <label className="text-sm font-medium">Position</label>
+              <Input
+                value={rosterFormData.position}
+                onChange={(e) => setRosterFormData({ ...rosterFormData, position: e.target.value })}
+                placeholder="e.g., Forward, Defense, Goalkeeper"
+                className={rosterFormErrors.position ? 'border-destructive' : ''}
+              />
+              {rosterFormErrors.position && (
+                <p className="text-sm text-destructive mt-1">{rosterFormErrors.position}</p>
+              )}
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowRosterModal(false)}>
+              Cancel
+            </Button>
+            <Button onClick={handleAssignToRoster} disabled={rosterFormLoading}>
+              {rosterFormLoading ? 'Assigning...' : 'Assign to Team'}
             </Button>
           </DialogFooter>
         </DialogContent>
