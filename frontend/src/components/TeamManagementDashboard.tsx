@@ -68,7 +68,7 @@ export default function TeamManagementDashboard() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500"></div>
       </div>
     )
   }
@@ -76,10 +76,13 @@ export default function TeamManagementDashboard() {
   if (error) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="dashboard-card w-full max-w-md">
-          <h2 className="text-red-600 mb-4">Error</h2>
-          <p className="text-gray-600 mb-4">{error}</p>
-          <button onClick={fetchDashboardData} className="dashboard-button">
+        <div className="bg-white rounded-2xl border border-zinc-100 shadow-xl p-8 w-full max-w-md">
+          <h2 className="text-xl font-bold text-red-600 mb-4">Error</h2>
+          <p className="text-zinc-600 mb-6">{error}</p>
+          <button
+            onClick={fetchDashboardData}
+            className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-xl transition-colors duration-300 shadow-md hover:shadow-lg"
+          >
             Try Again
           </button>
         </div>
@@ -88,134 +91,167 @@ export default function TeamManagementDashboard() {
   }
 
   return (
-    <div style={{maxWidth: '1200px', margin: '0 auto', padding: '24px'}}>
+    <div className="w-full">
       {/* Header */}
-      <div className="dashboard-card">
-        <h1 style={{fontSize: '28px', fontWeight: 'bold', marginBottom: '8px'}}>Team Management Dashboard</h1>
-        <p style={{color: '#666', margin: 0}}>
-          Overview of teams, players, and roster management
+      <div className="mb-12 text-center">
+        <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">Team Management Dashboard</h1>
+        <p className="text-xl text-zinc-300 max-w-3xl mx-auto leading-relaxed">
+          Overview of teams, players, and roster management - streamline your operations in one place
         </p>
       </div>
 
       {/* Stats Cards */}
-      <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px', marginBottom: '24px'}}>
-        <div className="dashboard-card">
-          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px'}}>
-            <h3 style={{fontSize: '14px', fontWeight: '500', margin: 0}}>Total Teams</h3>
-            <Shield style={{width: '16px', height: '16px', color: '#666'}} />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div className="bg-white rounded-2xl border border-zinc-100 shadow-xl hover:shadow-2xl transition-all duration-300 p-6 hover:-translate-y-1 hover:border-orange-200">
+          <div className="flex items-center justify-between mb-4">
+            <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+              <Shield className="w-6 h-6 text-orange-600" />
+            </div>
           </div>
-          <div style={{fontSize: '32px', fontWeight: 'bold', marginBottom: '4px'}}>{stats.totalTeams}</div>
-          <p style={{fontSize: '12px', color: '#666', margin: 0}}>
-            Active teams in the system
-          </p>
+          <h3 className="text-sm font-medium text-zinc-600 mb-2">Total Teams</h3>
+          <div className="text-3xl font-bold text-black mb-1">{stats.totalTeams}</div>
+          <p className="text-sm text-zinc-500">Active teams in the system</p>
         </div>
 
-        <div className="dashboard-card">
-          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px'}}>
-            <h3 style={{fontSize: '14px', fontWeight: '500', margin: 0}}>Total Players</h3>
-            <Users style={{width: '16px', height: '16px', color: '#666'}} />
+        <div className="bg-white rounded-2xl border border-zinc-100 shadow-xl hover:shadow-2xl transition-all duration-300 p-6 hover:-translate-y-1 hover:border-orange-200">
+          <div className="flex items-center justify-between mb-4">
+            <div className="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center">
+              <Users className="w-6 h-6 text-orange-500" />
+            </div>
           </div>
-          <div style={{fontSize: '32px', fontWeight: 'bold', marginBottom: '4px'}}>{stats.totalPlayers}</div>
-          <p style={{fontSize: '12px', color: '#666', margin: 0}}>
-            Registered players
-          </p>
+          <h3 className="text-sm font-medium text-zinc-600 mb-2">Total Players</h3>
+          <div className="text-3xl font-bold text-black mb-1">{stats.totalPlayers}</div>
+          <p className="text-sm text-zinc-500">Registered players</p>
         </div>
 
-        <div className="dashboard-card">
-          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px'}}>
-            <h3 style={{fontSize: '14px', fontWeight: '500', margin: 0}}>Active Roster Entries</h3>
-            <UserPlus style={{width: '16px', height: '16px', color: '#666'}} />
+        <div className="bg-white rounded-2xl border border-zinc-100 shadow-xl hover:shadow-2xl transition-all duration-300 p-6 hover:-translate-y-1 hover:border-orange-200">
+          <div className="flex items-center justify-between mb-4">
+            <div className="w-12 h-12 bg-zinc-100 rounded-xl flex items-center justify-center">
+              <UserPlus className="w-6 h-6 text-zinc-600" />
+            </div>
           </div>
-          <div style={{fontSize: '32px', fontWeight: 'bold', marginBottom: '4px'}}>{stats.totalRosterEntries}</div>
-          <p style={{fontSize: '12px', color: '#666', margin: 0}}>
-            Current player assignments
-          </p>
+          <h3 className="text-sm font-medium text-zinc-600 mb-2">Active Roster Entries</h3>
+          <div className="text-3xl font-bold text-black mb-1">{stats.totalRosterEntries}</div>
+          <p className="text-sm text-zinc-500">Current player assignments</p>
         </div>
 
-        <div className="dashboard-card">
-          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px'}}>
-            <h3 style={{fontSize: '14px', fontWeight: '500', margin: 0}}>Recent Activity</h3>
-            <Calendar style={{width: '16px', height: '16px', color: '#666'}} />
+        <div className="bg-white rounded-2xl border border-zinc-100 shadow-xl hover:shadow-2xl transition-all duration-300 p-6 hover:-translate-y-1 hover:border-orange-200">
+          <div className="flex items-center justify-between mb-4">
+            <div className="w-12 h-12 bg-orange-200 rounded-xl flex items-center justify-center">
+              <Calendar className="w-6 h-6 text-orange-700" />
+            </div>
           </div>
-          <div style={{fontSize: '32px', fontWeight: 'bold', marginBottom: '4px'}}>{stats.recentActivity}</div>
-          <p style={{fontSize: '12px', color: '#666', margin: 0}}>
-            Changes this week
-          </p>
+          <h3 className="text-sm font-medium text-zinc-600 mb-2">Recent Activity</h3>
+          <div className="text-3xl font-bold text-black mb-1">{stats.recentActivity}</div>
+          <p className="text-sm text-zinc-500">Changes this week</p>
         </div>
       </div>
 
       {/* Quick Actions */}
-      <div className="dashboard-card">
-        <h2 style={{marginBottom: '8px'}}>Quick Actions</h2>
-        <p style={{color: '#666', marginBottom: '16px'}}>
-          Common team management tasks
+      <div className="bg-white rounded-3xl border border-zinc-100 shadow-xl p-10 mb-12">
+        <h2 className="text-3xl font-bold text-black mb-3">Quick Actions</h2>
+        <p className="text-lg text-zinc-600 mb-8">
+          Common team management tasks to get you started
         </p>
-        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px'}}>
-          <Link to="/teams" className="dashboard-button" style={{height: 'auto', padding: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', textAlign: 'center', textDecoration: 'none'}}>
-            <Shield style={{width: '24px', height: '24px'}} />
-            <span>Manage Teams</span>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Link
+            to="/teams"
+            className="group relative bg-gradient-to-br from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold rounded-2xl shadow-lg hover:shadow-2xl flex flex-col items-center justify-center p-8 h-40 text-center hover:scale-105 transition-all duration-300 overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <Shield className="w-10 h-10 mb-4 relative z-10" />
+            <span className="text-lg relative z-10">Manage Teams</span>
           </Link>
 
-          <Link to="/players" className="dashboard-button" style={{height: 'auto', padding: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', textAlign: 'center', textDecoration: 'none'}}>
-            <Users style={{width: '24px', height: '24px'}} />
-            <span>Manage Players</span>
+          <Link
+            to="/players"
+            className="group relative bg-gradient-to-br from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold rounded-2xl shadow-lg hover:shadow-2xl flex flex-col items-center justify-center p-8 h-40 text-center hover:scale-105 transition-all duration-300 overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <Users className="w-10 h-10 mb-4 relative z-10" />
+            <span className="text-lg relative z-10">Manage Players</span>
           </Link>
 
-          <Link to="/teams/create" className="dashboard-button" style={{height: 'auto', padding: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', textAlign: 'center', textDecoration: 'none'}}>
-            <UserPlus style={{width: '24px', height: '24px'}} />
-            <span>Create Team</span>
+          <Link
+            to="/teams/create"
+            className="group relative bg-gradient-to-br from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold rounded-2xl shadow-lg hover:shadow-2xl flex flex-col items-center justify-center p-8 h-40 text-center hover:scale-105 transition-all duration-300 overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <UserPlus className="w-10 h-10 mb-4 relative z-10" />
+            <span className="text-lg relative z-10">Create Team</span>
           </Link>
 
-          <Link to="/players/create" className="dashboard-button" style={{height: 'auto', padding: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', textAlign: 'center', textDecoration: 'none'}}>
-            <UserPlus style={{width: '24px', height: '24px'}} />
-            <span>Add Player</span>
+          <Link
+            to="/players/create"
+            className="group relative bg-gradient-to-br from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold rounded-2xl shadow-lg hover:shadow-2xl flex flex-col items-center justify-center p-8 h-40 text-center hover:scale-105 transition-all duration-300 overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <UserPlus className="w-10 h-10 mb-4 relative z-10" />
+            <span className="text-lg relative z-10">Add Player</span>
           </Link>
         </div>
       </div>
 
       {/* Recent Teams */}
-      <div className="dashboard-card">
-        <h2 style={{marginBottom: '8px'}}>Recent Teams</h2>
-        <p style={{color: '#666', marginBottom: '16px'}}>
-          Recently created or updated teams
+      <div className="bg-white rounded-3xl border border-zinc-100 shadow-xl p-10">
+        <h2 className="text-3xl font-bold text-black mb-3">Recent Teams</h2>
+        <p className="text-lg text-zinc-600 mb-8">
+          Recently created or updated teams in your organization
         </p>
         {teams.length > 0 ? (
-          <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
+          <div className="space-y-4">
             {teams.slice(0, 5).map((team) => (
               <div
                 key={team.id}
-                style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px', border: '1px solid #d4d4d4', borderRadius: '8px', transition: 'background-color 0.2s'}}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f9f9f9'}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                className="flex items-center justify-between p-6 border border-zinc-100 rounded-xl hover:bg-zinc-50 hover:border-orange-200 transition-all duration-300"
               >
-                <div>
-                  <h4 style={{fontWeight: '500', margin: '0 0 4px 0'}}>{team.name}</h4>
-                  <p style={{fontSize: '14px', color: '#666', margin: 0}}>
-                    {team.division} • {team.age_group} • {team.skill_level}
-                  </p>
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+                    <Shield className="w-6 h-6 text-orange-600" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-black mb-1">{team.name}</h4>
+                    <p className="text-zinc-600">
+                      {team.division} • {team.age_group} • {team.skill_level}
+                    </p>
+                  </div>
                 </div>
-                <Link to={`/teams/${team.id}`} className="dashboard-button">
-                  View
+                <Link
+                  to={`/teams/${team.id}`}
+                  className="group relative bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold px-8 py-3 rounded-xl text-sm hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <span className="relative z-10">View Team</span>
                 </Link>
               </div>
             ))}
             {teams.length > 5 && (
-              <div style={{paddingTop: '8px'}}>
-                <Link to="/teams" className="dashboard-button" style={{width: '100%', textAlign: 'center', display: 'block'}}>
-                  View All Teams
+              <div className="pt-4 border-t border-zinc-100">
+                <Link
+                  to="/teams"
+                  className="group relative bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold w-full flex justify-center py-4 rounded-xl text-base hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <span className="relative z-10">View All Teams</span>
                 </Link>
               </div>
             )}
           </div>
         ) : (
-          <div style={{textAlign: 'center', padding: '32px 0'}}>
-            <Shield style={{width: '48px', height: '48px', margin: '0 auto 16px auto', color: '#666'}} />
-            <h3 style={{fontSize: '18px', fontWeight: '500', marginBottom: '8px'}}>No teams yet</h3>
-            <p style={{color: '#666', marginBottom: '16px'}}>
-              Get started by creating your first team
+          <div className="text-center py-16">
+            <div className="w-20 h-20 bg-zinc-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Shield className="w-10 h-10 text-zinc-400" />
+            </div>
+            <h3 className="text-xl font-semibold text-black mb-2">No teams yet</h3>
+            <p className="text-zinc-600 mb-6 max-w-md mx-auto">
+              Get started by creating your first team and begin managing your roster
             </p>
-            <Link to="/teams/create" className="dashboard-button">
-              Create Team
+            <Link
+              to="/teams/create"
+              className="group relative bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold px-10 py-4 rounded-xl text-lg hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <span className="relative z-10">Create Your First Team</span>
             </Link>
           </div>
         )}
