@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Shield, Eye, EyeOff, ArrowRight, Users, Zap } from 'lucide-react'
+import { Shield, Eye, EyeOff, ArrowRight, Users, Zap, UserCheck, ShieldCheck } from 'lucide-react'
 
 export default function Login() {
   const [isSignUp, setIsSignUp] = useState(false)
@@ -11,7 +11,8 @@ export default function Login() {
     password: '',
     firstName: '',
     lastName: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    role: 'user' // Default to user role
   })
 
   useEffect(() => {
@@ -41,7 +42,8 @@ export default function Login() {
         body: JSON.stringify({
           organization: formData.organization,
           email: formData.email,
-          password: formData.password
+          password: formData.password,
+          role: formData.role
         })
       })
 
@@ -78,7 +80,8 @@ export default function Login() {
           firstName: formData.firstName,
           lastName: formData.lastName,
           email: formData.email,
-          password: formData.password
+          password: formData.password,
+          role: formData.role
         })
       })
 
@@ -168,6 +171,49 @@ export default function Login() {
               </div>
 
               <form onSubmit={handleLogin} className="space-y-6">
+                {/* Role Selection */}
+                <div className="mb-6">
+                  <label className="block text-sm font-semibold text-slate-700 mb-3">
+                    I am signing in as:
+                  </label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setFormData({ ...formData, role: 'user' })}
+                      className={`relative px-4 py-3.5 rounded-xl border-2 transition-all duration-200 ${
+                        formData.role === 'user'
+                          ? 'border-orange-500 bg-orange-50 text-orange-700'
+                          : 'border-slate-200 bg-white/50 hover:bg-white/70 text-slate-600'
+                      }`}
+                    >
+                      <div className="flex items-center justify-center">
+                        <UserCheck className="w-5 h-5 mr-2" />
+                        <span className="font-medium">User</span>
+                      </div>
+                      {formData.role === 'user' && (
+                        <div className="absolute top-2 right-2 w-2 h-2 bg-orange-500 rounded-full"></div>
+                      )}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setFormData({ ...formData, role: 'admin' })}
+                      className={`relative px-4 py-3.5 rounded-xl border-2 transition-all duration-200 ${
+                        formData.role === 'admin'
+                          ? 'border-orange-500 bg-orange-50 text-orange-700'
+                          : 'border-slate-200 bg-white/50 hover:bg-white/70 text-slate-600'
+                      }`}
+                    >
+                      <div className="flex items-center justify-center">
+                        <ShieldCheck className="w-5 h-5 mr-2" />
+                        <span className="font-medium">Admin</span>
+                      </div>
+                      {formData.role === 'admin' && (
+                        <div className="absolute top-2 right-2 w-2 h-2 bg-orange-500 rounded-full"></div>
+                      )}
+                    </button>
+                  </div>
+                </div>
+
                 <div>
                   <label htmlFor="organization" className="block text-sm font-semibold text-slate-700 mb-2">
                     Organization
@@ -274,6 +320,49 @@ export default function Login() {
               </div>
 
               <form onSubmit={handleSignUp} className="space-y-6">
+                {/* Role Selection for Sign Up */}
+                <div className="mb-6">
+                  <label className="block text-sm font-semibold text-slate-700 mb-3">
+                    I want to register as:
+                  </label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setFormData({ ...formData, role: 'user' })}
+                      className={`relative px-4 py-3.5 rounded-xl border-2 transition-all duration-200 ${
+                        formData.role === 'user'
+                          ? 'border-orange-500 bg-orange-50 text-orange-700'
+                          : 'border-slate-200 bg-white/50 hover:bg-white/70 text-slate-600'
+                      }`}
+                    >
+                      <div className="flex items-center justify-center">
+                        <UserCheck className="w-5 h-5 mr-2" />
+                        <span className="font-medium">User</span>
+                      </div>
+                      {formData.role === 'user' && (
+                        <div className="absolute top-2 right-2 w-2 h-2 bg-orange-500 rounded-full"></div>
+                      )}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setFormData({ ...formData, role: 'admin' })}
+                      className={`relative px-4 py-3.5 rounded-xl border-2 transition-all duration-200 ${
+                        formData.role === 'admin'
+                          ? 'border-orange-500 bg-orange-50 text-orange-700'
+                          : 'border-slate-200 bg-white/50 hover:bg-white/70 text-slate-600'
+                      }`}
+                    >
+                      <div className="flex items-center justify-center">
+                        <ShieldCheck className="w-5 h-5 mr-2" />
+                        <span className="font-medium">Admin</span>
+                      </div>
+                      {formData.role === 'admin' && (
+                        <div className="absolute top-2 right-2 w-2 h-2 bg-orange-500 rounded-full"></div>
+                      )}
+                    </button>
+                  </div>
+                </div>
+
                 <div>
                   <label htmlFor="organization" className="block text-sm font-semibold text-slate-700 mb-2">
                     Organization
