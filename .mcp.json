@@ -6,11 +6,6 @@
       "headers": {
         "X-API-Key": "sf-wx6Ec5ZlPxsy3PXUjm96HPknOW8M2R5r"
       }
-    },
-    "playwright": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["@playwright/mcp@latest", "--headless"]
     }
   }
 }

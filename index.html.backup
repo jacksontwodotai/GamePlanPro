@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamePlanPro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            background-color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #000000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            padding: 24px;
+        }
+
+        .card h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #000000;
+            margin-bottom: 6px;
+        }
+
+        .dropdown {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #000000;
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: white;
+            color: #000000;
+        }
+
+        .dropdown:focus {
+            outline: none;
+            border-color: #f16826;
+            ring: 2px;
+            ring-color: rgba(241, 104, 38, 0.1);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #000000;
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: white;
+            color: #000000;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #f16826;
+            ring: 2px;
+            ring-color: rgba(241, 104, 38, 0.1);
+        }
+
+        .input-field::placeholder {
+            color: #737373;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: #f16826;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #d4571f;
+        }
+
+        .btn-secondary {
+            background-color: #f16826;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #d4571f;
+        }
+
+        .btn-danger {
+            background-color: #737373;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #525252;
+        }
+
+        .selected-org {
+            background-color: #ffffff;
+            border: 1px solid #000000;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+            font-size: 14px;
+            color: #000000;
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .forgot-password {
+            color: #737373;
+            text-decoration: none;
+            font-size: 14px;
+            float: right;
+            margin-bottom: 6px;
+        }
+
+        .forgot-password:hover {
+            color: #f16826;
+            text-decoration: underline;
+        }
+
+        .org-info {
+            background-color: #ffffff;
+            border: 1px solid #000000;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .org-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 8px;
+        }
+
+        .org-info p {
+            font-size: 13px;
+            color: #737373;
+            margin-bottom: 4px;
+        }
+
+        .footer-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            color: #737373;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: #f16826;
+            text-decoration: underline;
+        }
+
+        .footer-links .divider {
+            margin: 8px 0;
+        }
+
+        .legal-text {
+            text-align: center;
+            font-size: 12px;
+            color: #737373;
+            margin-top: 20px;
+        }
+
+        .legal-text a {
+            color: #f16826;
+            text-decoration: none;
+        }
+
+        .legal-text a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sign In Card -->
+        <div class="card" id="signInCard">
+            <h2>Sign In</h2>
+            <p style="color: #737373; margin-bottom: 20px; font-size: 14px;">Enter your credentials to access your account</p>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="organization">Organization</label>
+                    <select class="dropdown" id="organization" required>
+                        <option value="">Choose an organization...</option>
+                        <option value="northside-dragons">Northside Dragons</option>
+                        <option value="maroochydore-clippers">Maroochydore Clippers</option>
+                        <option value="gameplan-pro">GamePlan Pro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="input-field" placeholder="name@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <div class="password-container">
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="input-field" placeholder="Enter your password" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-secondary">
+                    Sign In
+                </button>
+            </form>
+
+            <div class="footer-links">
+                <div class="divider">
+                    <a href="#" id="showCreateAccount">Don't have an account? Sign up</a>
+                </div>
+            </div>
+
+            <div class="legal-text">
+                By signing in, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+            </div>
+        </div>
+
+        <!-- Create Account Card -->
+        <div class="card" id="createAccountCard" style="display: none;">
+            <h2>Create Account</h2>
+            <p style="color: #737373; margin-bottom: 20px; font-size: 14px;">Create a new account to get started</p>
+
+            <form id="createAccountForm">
+                <div class="form-group">
+                    <label for="createOrganization">Organization</label>
+                    <select class="dropdown" id="createOrganization" required>
+                        <option value="">Choose an organization...</option>
+                        <option value="northside-dragons">Northside Dragons</option>
+                        <option value="maroochydore-clippers">Maroochydore Clippers</option>
+                        <option value="gameplan-pro">GamePlan Pro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="createFirstName">First Name</label>
+                    <input type="text" id="createFirstName" class="input-field" placeholder="Enter your first name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="createLastName">Last Name</label>
+                    <input type="text" id="createLastName" class="input-field" placeholder="Enter your last name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="createEmail">Email</label>
+                    <input type="email" id="createEmail" class="input-field" placeholder="name@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="createPassword">Password</label>
+                    <input type="password" id="createPassword" class="input-field" placeholder="Enter your password" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" class="input-field" placeholder="Confirm your password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Create Account
+                </button>
+            </form>
+
+            <div class="footer-links">
+                <div class="divider">
+                    <a href="#" id="showSignIn">Already have an account? Sign in</a>
+                </div>
+            </div>
+
+            <div class="legal-text">
+                By creating an account, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Card switching functionality
+        document.getElementById('showCreateAccount').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('signInCard').style.display = 'none';
+            document.getElementById('createAccountCard').style.display = 'block';
+        });
+
+        document.getElementById('showSignIn').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('createAccountCard').style.display = 'none';
+            document.getElementById('signInCard').style.display = 'block';
+        });
+
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const organization = document.getElementById('organization').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (organization && email && password) {
+                try {
+                    const response = await fetch('/api/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ organization, email, password })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        // Store user session
+                        localStorage.setItem('user', JSON.stringify(data.user));
+                        // Redirect to dashboard on same port
+                        window.location.href = '/dashboard';
+                    } else {
+                        alert(`Login failed: ${data.error}`);
+                    }
+                } catch (error) {
+                    console.error('Login error:', error);
+                    alert('Login failed. Please try again.');
+                }
+            }
+        });
+
+        // Create account form submission
+        document.getElementById('createAccountForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const organization = document.getElementById('createOrganization').value;
+            const firstName = document.getElementById('createFirstName').value;
+            const lastName = document.getElementById('createLastName').value;
+            const email = document.getElementById('createEmail').value;
+            const password = document.getElementById('createPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Validate passwords match
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+
+            if (organization && firstName && lastName && email && password) {
+                try {
+                    const response = await fetch('/api/create-account', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ organization, firstName, lastName, email, password })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        alert(`Account created successfully! Welcome, ${firstName}!`);
+
+                        // Switch back to sign in after successful creation
+                        document.getElementById('createAccountCard').style.display = 'none';
+                        document.getElementById('signInCard').style.display = 'block';
+
+                        // Clear the form
+                        document.getElementById('createAccountForm').reset();
+                    } else {
+                        alert(`Account creation failed: ${data.error}`);
+                    }
+                } catch (error) {
+                    console.error('Account creation error:', error);
+                    alert('Account creation failed. Please try again.');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -82,5 +82,12 @@
     "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
     "hook_event_name": "Notification",
     "message": "Claude is waiting for your input"
+  },
+  {
+    "session_id": "3181ef6a-fd57-4e23-8a4f-2568c9dc2a3d",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/3181ef6a-fd57-4e23-8a4f-2568c9dc2a3d.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "hook_event_name": "Notification",
+    "message": "Claude is waiting for your input"
   }
 ]

@@ -542,5 +542,85 @@
     "permission_mode": "bypassPermissions",
     "hook_event_name": "Stop",
     "stop_hook_active": false
+  },
+  {
+    "session_id": "df3c3efa-e679-49ce-80a6-41e5efbedd27",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/df3c3efa-e679-49ce-80a6-41e5efbedd27.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "Stop",
+    "stop_hook_active": false
+  },
+  {
+    "session_id": "3181ef6a-fd57-4e23-8a4f-2568c9dc2a3d",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/3181ef6a-fd57-4e23-8a4f-2568c9dc2a3d.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "Stop",
+    "stop_hook_active": false
+  },
+  {
+    "session_id": "df3c3efa-e679-49ce-80a6-41e5efbedd27",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/df3c3efa-e679-49ce-80a6-41e5efbedd27.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "Stop",
+    "stop_hook_active": false
+  },
+  {
+    "session_id": "df3c3efa-e679-49ce-80a6-41e5efbedd27",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/df3c3efa-e679-49ce-80a6-41e5efbedd27.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "Stop",
+    "stop_hook_active": false
+  },
+  {
+    "session_id": "6db9dbc1-6af7-4472-856d-dc57dee773ff",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6db9dbc1-6af7-4472-856d-dc57dee773ff.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "Stop",
+    "stop_hook_active": false
+  },
+  {
+    "session_id": "6db9dbc1-6af7-4472-856d-dc57dee773ff",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6db9dbc1-6af7-4472-856d-dc57dee773ff.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "Stop",
+    "stop_hook_active": false
+  },
+  {
+    "session_id": "16e3693d-1334-4079-949f-94f5f0d0a50f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/16e3693d-1334-4079-949f-94f5f0d0a50f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "Stop",
+    "stop_hook_active": false
+  },
+  {
+    "session_id": "16e3693d-1334-4079-949f-94f5f0d0a50f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/16e3693d-1334-4079-949f-94f5f0d0a50f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "Stop",
+    "stop_hook_active": false
+  },
+  {
+    "session_id": "16e3693d-1334-4079-949f-94f5f0d0a50f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/16e3693d-1334-4079-949f-94f5f0d0a50f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "Stop",
+    "stop_hook_active": false
+  },
+  {
+    "session_id": "16e3693d-1334-4079-949f-94f5f0d0a50f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/16e3693d-1334-4079-949f-94f5f0d0a50f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "Stop",
+    "stop_hook_active": false
   }
 ]

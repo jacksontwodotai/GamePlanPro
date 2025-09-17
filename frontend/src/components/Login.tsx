@@ -96,7 +96,8 @@ export default function Login() {
           password: '',
           firstName: '',
           lastName: '',
-          confirmPassword: ''
+          confirmPassword: '',
+          role: 'user'
         })
       } else {
         alert(`Account creation failed: ${data.error}`)

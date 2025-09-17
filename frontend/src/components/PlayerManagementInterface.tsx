@@ -10,7 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from './ui/dialog'
-import { Search, Plus, Edit, Trash2, Users, AlertTriangle, Phone, Mail, Calendar } from 'lucide-react'
+import { Search, Plus, Edit, Trash2, Users, AlertTriangle, Phone, Mail, Calendar, ChevronLeft, ChevronRight } from 'lucide-react'
 
 interface Player {
   id: number
@@ -44,10 +44,13 @@ interface PlayerFormData {
 
 export default function PlayerManagementInterface() {
   const [players, setPlayers] = useState<Player[]>([])
-  const [filteredPlayers, setFilteredPlayers] = useState<Player[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
+  const [totalPlayers, setTotalPlayers] = useState(0)
+  const playersPerPage = 9
 
   // Form state
   const [showCreateForm, setShowCreateForm] = useState(false)
@@ -71,29 +74,34 @@ export default function PlayerManagementInterface() {
   const [formErrors, setFormErrors] = useState<Partial<PlayerFormData>>({})
 
   useEffect(() => {
-    fetchPlayers()
+    fetchPlayers(1, searchTerm)
   }, [])
 
   useEffect(() => {
-    // Filter players based on search term
-    const filtered = players.filter(player =>
-      `${player.first_name} ${player.last_name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      player.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      player.phone?.includes(searchTerm) ||
-      player.organization.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    setFilteredPlayers(filtered)
-  }, [players, searchTerm])
+    // Debounce search
+    const timeoutId = setTimeout(() => {
+      setCurrentPage(1)
+      fetchPlayers(1, searchTerm)
+    }, 300)
+    return () => clearTimeout(timeoutId)
+  }, [searchTerm])
 
-  const fetchPlayers = async () => {
+  const fetchPlayers = async (page: number = currentPage, search: string = searchTerm) => {
     try {
       setLoading(true)
-      const response = await fetch('/api/players')
+      const params = new URLSearchParams({
+        page: page.toString(),
+        limit: playersPerPage.toString(),
+        search: search
+      })
+      const response = await fetch(`/api/players?${params}`)
       if (!response.ok) {
         throw new Error('Failed to fetch players')
       }
       const data = await response.json()
-      setPlayers(data)
+      setPlayers(data.players)
+      setTotalPages(data.pagination.totalPages)
+      setTotalPlayers(data.pagination.total)
       setError(null)
     } catch (err) {
       setError('Failed to load players')
@@ -156,7 +164,7 @@ export default function PlayerManagementInterface() {
       }
 
       // Refresh players list
-      await fetchPlayers()
+      await fetchPlayers(currentPage, searchTerm)
       setShowCreateForm(false)
       resetForm()
     } catch (err) {
@@ -186,7 +194,7 @@ export default function PlayerManagementInterface() {
       }
 
       // Refresh players list
-      await fetchPlayers()
+      await fetchPlayers(currentPage, searchTerm)
       setShowEditForm(false)
       resetForm()
       setSelectedPlayer(null)
@@ -213,7 +221,10 @@ export default function PlayerManagementInterface() {
       }
 
       // Refresh players list
-      await fetchPlayers()
+      // Go back to page 1 if current page becomes empty after deletion
+      const newPage = players.length === 1 && currentPage > 1 ? currentPage - 1 : currentPage
+      setCurrentPage(newPage)
+      await fetchPlayers(newPage, searchTerm)
       setShowDeleteDialog(false)
       setSelectedPlayer(null)
     } catch (err) {
@@ -268,6 +279,13 @@ export default function PlayerManagementInterface() {
   const openDeleteDialog = (player: Player) => {
     setSelectedPlayer(player)
     setShowDeleteDialog(true)
+  }
+
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page)
+      fetchPlayers(page, searchTerm)
+    }
   }
 
   if (loading) {
@@ -328,7 +346,7 @@ export default function PlayerManagementInterface() {
 
       {/* Players Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredPlayers.map((player) => (
+        {players.map((player) => (
           <Card key={player.id} className="hover:shadow-md transition-shadow">
             <CardHeader>
               <div className="flex items-start justify-between">
@@ -389,7 +407,64 @@ export default function PlayerManagementInterface() {
         ))}
       </div>
 
-      {filteredPlayers.length === 0 && !loading && (
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center space-x-2 mt-6">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+
+          <div className="flex items-center space-x-1">
+            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+              let page: number
+              if (totalPages <= 5) {
+                page = i + 1
+              } else if (currentPage <= 3) {
+                page = i + 1
+              } else if (currentPage >= totalPages - 2) {
+                page = totalPages - 4 + i
+              } else {
+                page = currentPage - 2 + i
+              }
+
+              return (
+                <Button
+                  key={page}
+                  variant={page === currentPage ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => handlePageChange(page)}
+                  className="min-w-[40px]"
+                >
+                  {page}
+                </Button>
+              )
+            })}
+          </div>
+
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </div>
+      )}
+
+      {/* Player Count Info */}
+      {totalPlayers > 0 && (
+        <div className="text-center text-sm text-muted-foreground mt-2">
+          Showing {((currentPage - 1) * playersPerPage) + 1} - {Math.min(currentPage * playersPerPage, totalPlayers)} of {totalPlayers} players
+        </div>
+      )}
+
+      {players.length === 0 && !loading && (
         <Card>
           <CardContent className="text-center py-12">
             <Users className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
