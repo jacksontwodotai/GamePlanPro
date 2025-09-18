@@ -254,6 +254,8 @@ app.post('/api/players', async (req, res) => {
         last_name,
         email,
         phone,
+        player_email,
+        player_phone,
         date_of_birth,
         gender,
         organization,
@@ -261,16 +263,45 @@ app.post('/api/players', async (req, res) => {
         emergency_contact_phone,
         emergency_contact_relation,
         medical_alerts,
-        address
+        address,
+        parent_guardian_name,
+        parent_guardian_email,
+        parent_guardian_phone,
+        equipment_notes
     } = req.body;
 
     if (!first_name || !last_name || !organization) {
         return res.status(400).json({ error: 'first_name, last_name, and organization are required' });
     }
 
-    // Email validation
+    // Email validation for legacy email field
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         return res.status(400).json({ error: 'Invalid email format' });
+    }
+
+    // Email validation for new player_email field
+    if (player_email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(player_email)) {
+        return res.status(400).json({ error: 'Invalid player email format' });
+    }
+
+    // Parent/Guardian email validation
+    if (parent_guardian_email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(parent_guardian_email)) {
+        return res.status(400).json({ error: 'Invalid parent/guardian email format' });
+    }
+
+    // Phone validation for legacy phone field
+    if (phone && !/^[+]?[\d\s()-.]{10,}$/.test(phone)) {
+        return res.status(400).json({ error: 'Invalid phone format' });
+    }
+
+    // Phone validation for new player_phone field
+    if (player_phone && !/^[+]?[\d\s()-.]{10,}$/.test(player_phone)) {
+        return res.status(400).json({ error: 'Invalid player phone format' });
+    }
+
+    // Parent/Guardian phone validation
+    if (parent_guardian_phone && !/^[+]?[\d\s()-.]{10,}$/.test(parent_guardian_phone)) {
+        return res.status(400).json({ error: 'Invalid parent/guardian phone format' });
     }
 
     // Gender validation
@@ -286,6 +317,8 @@ app.post('/api/players', async (req, res) => {
                 last_name,
                 email,
                 phone,
+                player_email,
+                player_phone,
                 date_of_birth,
                 gender,
                 organization,
@@ -293,7 +326,11 @@ app.post('/api/players', async (req, res) => {
                 emergency_contact_phone,
                 emergency_contact_relation,
                 medical_alerts,
-                address
+                address,
+                parent_guardian_name,
+                parent_guardian_email,
+                parent_guardian_phone,
+                equipment_notes
             }])
             .select()
             .single();
@@ -460,6 +497,8 @@ app.put('/api/players/:id', async (req, res) => {
         last_name,
         email,
         phone,
+        player_email,
+        player_phone,
         date_of_birth,
         gender,
         organization,
@@ -467,7 +506,11 @@ app.put('/api/players/:id', async (req, res) => {
         emergency_contact_phone,
         emergency_contact_relation,
         medical_alerts,
-        address
+        address,
+        parent_guardian_name,
+        parent_guardian_email,
+        parent_guardian_phone,
+        equipment_notes
     } = req.body;
 
     try {
@@ -491,6 +534,8 @@ app.put('/api/players/:id', async (req, res) => {
         if (last_name !== undefined) updates.last_name = last_name;
         if (email !== undefined) updates.email = email;
         if (phone !== undefined) updates.phone = phone;
+        if (player_email !== undefined) updates.player_email = player_email;
+        if (player_phone !== undefined) updates.player_phone = player_phone;
         if (date_of_birth !== undefined) updates.date_of_birth = date_of_birth;
         if (gender !== undefined) updates.gender = gender;
         if (organization !== undefined) updates.organization = organization;
@@ -499,6 +544,10 @@ app.put('/api/players/:id', async (req, res) => {
         if (emergency_contact_phone !== undefined) updates.emergency_contact_phone = emergency_contact_phone;
         if (emergency_contact_relation !== undefined) updates.emergency_contact_relation = emergency_contact_relation;
         if (medical_alerts !== undefined) updates.medical_alerts = medical_alerts;
+        if (parent_guardian_name !== undefined) updates.parent_guardian_name = parent_guardian_name;
+        if (parent_guardian_email !== undefined) updates.parent_guardian_email = parent_guardian_email;
+        if (parent_guardian_phone !== undefined) updates.parent_guardian_phone = parent_guardian_phone;
+        if (equipment_notes !== undefined) updates.equipment_notes = equipment_notes;
 
         // Validate required fields if provided
         if (updates.first_name && !updates.first_name.trim()) {
@@ -511,9 +560,34 @@ app.put('/api/players/:id', async (req, res) => {
             return res.status(400).json({ error: 'organization cannot be empty' });
         }
 
-        // Email validation
+        // Email validation for legacy email field
         if (updates.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(updates.email)) {
             return res.status(400).json({ error: 'Invalid email format' });
+        }
+
+        // Email validation for new player_email field
+        if (updates.player_email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(updates.player_email)) {
+            return res.status(400).json({ error: 'Invalid player email format' });
+        }
+
+        // Parent/Guardian email validation
+        if (updates.parent_guardian_email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(updates.parent_guardian_email)) {
+            return res.status(400).json({ error: 'Invalid parent/guardian email format' });
+        }
+
+        // Phone validation for legacy phone field
+        if (updates.phone && !/^[+]?[\d\s()-.]{10,}$/.test(updates.phone)) {
+            return res.status(400).json({ error: 'Invalid phone format' });
+        }
+
+        // Phone validation for new player_phone field
+        if (updates.player_phone && !/^[+]?[\d\s()-.]{10,}$/.test(updates.player_phone)) {
+            return res.status(400).json({ error: 'Invalid player phone format' });
+        }
+
+        // Parent/Guardian phone validation
+        if (updates.parent_guardian_phone && !/^[+]?[\d\s()-.]{10,}$/.test(updates.parent_guardian_phone)) {
+            return res.status(400).json({ error: 'Invalid parent/guardian phone format' });
         }
 
         // Gender validation

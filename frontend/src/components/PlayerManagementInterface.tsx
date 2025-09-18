@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import { Button } from './ui/button'
 import { Input } from './ui/input'
 import {
@@ -16,16 +16,25 @@ interface Player {
   id: number
   first_name: string
   last_name: string
-  email?: string
-  phone?: string
+  email?: string // Legacy field - kept for backwards compatibility
+  phone?: string // Legacy field - kept for backwards compatibility
+  player_email?: string // New unique email field
+  player_phone?: string // New phone field
   date_of_birth?: string
+  gender?: 'male' | 'female' | 'other' | 'prefer_not_to_say'
   organization: string
   emergency_contact_name?: string
   emergency_contact_phone?: string
   emergency_contact_relation?: string
   medical_alerts?: string
   address?: string
+  parent_guardian_name?: string
+  parent_guardian_email?: string
+  parent_guardian_phone?: string
+  equipment_notes?: string
   created_at: string
+  updated_at?: string
+  uuid?: string
 }
 
 interface Team {
@@ -47,15 +56,22 @@ interface RosterFormData {
 interface PlayerFormData {
   first_name: string
   last_name: string
-  email: string
-  phone: string
+  email: string // Legacy field for backwards compatibility
+  phone: string // Legacy field for backwards compatibility
+  player_email: string // New unique email field
+  player_phone: string // New phone field
   date_of_birth: string
+  gender: string
   organization: string
   emergency_contact_name: string
   emergency_contact_phone: string
   emergency_contact_relation: string
   medical_alerts: string
   address: string
+  parent_guardian_name: string
+  parent_guardian_email: string
+  parent_guardian_phone: string
+  equipment_notes: string
 }
 
 const containerVariants = {
@@ -99,10 +115,12 @@ export default function PlayerManagementInterface() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const [totalPlayers, setTotalPlayers] = useState(0)
   const playersPerPage = 9
+  const abortControllerRef = useRef<AbortController | null>(null)
 
   // Roster assignment state
   const [showRosterModal, setShowRosterModal] = useState(false)
@@ -138,24 +156,60 @@ export default function PlayerManagementInterface() {
   const [formLoading, setFormLoading] = useState(false)
   const [formErrors, setFormErrors] = useState<Partial<PlayerFormData>>({})
 
+  // Debounce search term to prevent excessive API calls
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm)
+    }, 300) // 300ms debounce
+
+    return () => clearTimeout(timer)
+  }, [searchTerm])
+
+  // Reset to page 1 when search term changes
+  useEffect(() => {
+    if (searchTerm !== debouncedSearchTerm) {
+      setCurrentPage(1)
+    }
+  }, [debouncedSearchTerm])
+
   useEffect(() => {
     fetchPlayers()
     fetchTeams()
-  }, [currentPage, searchTerm])
+  }, [fetchPlayers])
 
-  const fetchPlayers = async () => {
+  // Cleanup: abort any pending requests when component unmounts
+  useEffect(() => {
+    return () => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort()
+      }
+    }
+  }, [])
+
+  const fetchPlayers = useCallback(async () => {
     try {
+      // Cancel previous request if it exists
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort()
+      }
+
+      // Create new abort controller for this request
+      abortControllerRef.current = new AbortController()
+
       setLoading(true)
       const params = new URLSearchParams({
         page: currentPage.toString(),
         limit: playersPerPage.toString()
       })
 
-      if (searchTerm) {
-        params.append('search', searchTerm)
+      if (debouncedSearchTerm) {
+        params.append('search', debouncedSearchTerm)
       }
 
-      const response = await fetch(`/api/players?${params}`)
+      const response = await fetch(`/api/players?${params}`, {
+        signal: abortControllerRef.current.signal
+      })
+
       if (!response.ok) {
         throw new Error('Failed to fetch players')
       }
@@ -166,12 +220,15 @@ export default function PlayerManagementInterface() {
       setTotalPlayers(data.pagination?.total || 0)
       setError(null)
     } catch (err) {
-      setError('Failed to load players')
-      console.error('Fetch players error:', err)
+      // Don't show error if request was aborted (user is still typing)
+      if (err instanceof Error && err.name !== 'AbortError') {
+        setError('Failed to load players')
+        console.error('Fetch players error:', err)
+      }
     } finally {
       setLoading(false)
     }
-  }
+  }, [currentPage, debouncedSearchTerm])
 
   const fetchTeams = async () => {
     try {
@@ -200,7 +257,7 @@ export default function PlayerManagementInterface() {
       errors.organization = 'Organization is required'
     }
 
-    // Email format validation
+    // Email format validation for legacy email field
     if (data.email && data.email.trim()) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       if (!emailRegex.test(data.email.trim())) {
@@ -208,12 +265,46 @@ export default function PlayerManagementInterface() {
       }
     }
 
-    // Phone format validation (supports various formats)
+    // Email format validation for new player_email field
+    if (data.player_email && data.player_email.trim()) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(data.player_email.trim())) {
+        errors.player_email = 'Please enter a valid email address'
+      }
+    }
+
+    // Parent/Guardian email validation
+    if (data.parent_guardian_email && data.parent_guardian_email.trim()) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(data.parent_guardian_email.trim())) {
+        errors.parent_guardian_email = 'Please enter a valid email address'
+      }
+    }
+
+    // Phone format validation for legacy phone field
     if (data.phone && data.phone.trim()) {
       const phoneRegex = /^[+]?[\d\s()-.]{10,}$/
       const digitCount = data.phone.replace(/\D/g, '').length
       if (!phoneRegex.test(data.phone) || digitCount < 10) {
         errors.phone = 'Please enter a valid phone number (minimum 10 digits)'
+      }
+    }
+
+    // Phone format validation for new player_phone field
+    if (data.player_phone && data.player_phone.trim()) {
+      const phoneRegex = /^[+]?[\d\s()-.]{10,}$/
+      const digitCount = data.player_phone.replace(/\D/g, '').length
+      if (!phoneRegex.test(data.player_phone) || digitCount < 10) {
+        errors.player_phone = 'Please enter a valid phone number (minimum 10 digits)'
+      }
+    }
+
+    // Parent/Guardian phone validation
+    if (data.parent_guardian_phone && data.parent_guardian_phone.trim()) {
+      const phoneRegex = /^[+]?[\d\s()-.]{10,}$/
+      const digitCount = data.parent_guardian_phone.replace(/\D/g, '').length
+      if (!phoneRegex.test(data.parent_guardian_phone) || digitCount < 10) {
+        errors.parent_guardian_phone = 'Please enter a valid phone number (minimum 10 digits)'
       }
     }
 
@@ -356,13 +447,20 @@ export default function PlayerManagementInterface() {
       last_name: '',
       email: '',
       phone: '',
+      player_email: '',
+      player_phone: '',
       date_of_birth: '',
+      gender: '',
       organization: '',
       emergency_contact_name: '',
       emergency_contact_phone: '',
       emergency_contact_relation: '',
       medical_alerts: '',
-      address: ''
+      address: '',
+      parent_guardian_name: '',
+      parent_guardian_email: '',
+      parent_guardian_phone: '',
+      equipment_notes: ''
     })
     setFormErrors({})
   }
@@ -389,13 +487,20 @@ export default function PlayerManagementInterface() {
       last_name: player.last_name,
       email: player.email || '',
       phone: player.phone || '',
+      player_email: player.player_email || '',
+      player_phone: player.player_phone || '',
       date_of_birth: player.date_of_birth || '',
+      gender: player.gender || '',
       organization: player.organization,
       emergency_contact_name: player.emergency_contact_name || '',
       emergency_contact_phone: player.emergency_contact_phone || '',
       emergency_contact_relation: player.emergency_contact_relation || '',
       medical_alerts: player.medical_alerts || '',
-      address: player.address || ''
+      address: player.address || '',
+      parent_guardian_name: player.parent_guardian_name || '',
+      parent_guardian_email: player.parent_guardian_email || '',
+      parent_guardian_phone: player.parent_guardian_phone || '',
+      equipment_notes: player.equipment_notes || ''
     })
     setFormErrors({})
     setShowEditForm(true)
@@ -567,8 +672,23 @@ export default function PlayerManagementInterface() {
               placeholder="Search by name, email, phone..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:bg-white dark:focus:bg-gray-800 focus:ring-2 focus:ring-gray-400 focus:border-gray-400 transition-all duration-200"
+              className="pl-10 pr-10 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:bg-white dark:focus:bg-gray-800 focus:ring-2 focus:ring-gray-400 focus:border-gray-400 transition-all duration-200"
             />
+            {/* Show spinner when search is debouncing */}
+            {searchTerm !== debouncedSearchTerm && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                className="absolute right-3 top-3"
+              >
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                  className="w-4 h-4 border-2 border-gray-300 border-t-gray-600 rounded-full"
+                />
+              </motion.div>
+            )}
           </div>
         </motion.div>
 
@@ -577,19 +697,26 @@ export default function PlayerManagementInterface() {
           variants={containerVariants}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          <AnimatePresence mode="popLayout">
-            {players.map((player) => (
+          <AnimatePresence mode="wait">
+            {!loading && (
               <motion.div
-                key={player.id}
-                variants={itemVariants}
-                initial="hidden"
-                animate="visible"
-                exit={{ scale: 0.8, opacity: 0 }}
-                whileHover="hover"
-                layout
-                custom={0}
-                className="relative group"
+                key={debouncedSearchTerm + currentPage} // Stable key prevents animation conflicts
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="contents" // Use contents to avoid extra wrapper
               >
+                {players.map((player, index) => (
+                  <motion.div
+                    key={player.id}
+                    variants={itemVariants}
+                    initial="hidden"
+                    animate="visible"
+                    whileHover="hover"
+                    custom={index}
+                    className="relative group"
+                  >
                 <motion.div
                   variants={cardHoverVariants}
                   className="glass-card glass-card-hover p-6 h-full relative overflow-hidden glow-border"
@@ -677,11 +804,13 @@ export default function PlayerManagementInterface() {
                     </div>
                   </div>
 
-                  {/* Shimmer Effect */}
-                  <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    {/* Shimmer Effect */}
+                    <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </motion.div>
                 </motion.div>
+                ))}
               </motion.div>
-            ))}
+            )}
           </AnimatePresence>
         </motion.div>
 
