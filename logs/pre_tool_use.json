@@ -964,5 +964,417 @@
     "tool_input": {
       "work_order_number": "25"
     }
+  },
+  {
+    "session_id": "5eace9c7-74ef-49f6-985b-0d055d5b1291",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/5eace9c7-74ef-49f6-985b-0d055d5b1291.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__get_work_order",
+    "tool_input": {
+      "work_order_number": "28"
+    }
+  },
+  {
+    "session_id": "5eace9c7-74ef-49f6-985b-0d055d5b1291",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/5eace9c7-74ef-49f6-985b-0d055d5b1291.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing player form patterns and validation logic",
+          "status": "pending",
+          "activeForm": "Analyzing existing player form patterns and validation logic"
+        },
+        {
+          "content": "Create PlayerProfileEdit component with form structure",
+          "status": "pending",
+          "activeForm": "Creating PlayerProfileEdit component with form structure"
+        },
+        {
+          "content": "Implement data fetching and form pre-population",
+          "status": "pending",
+          "activeForm": "Implementing data fetching and form pre-population"
+        },
+        {
+          "content": "Add client-side validation and form submission logic",
+          "status": "pending",
+          "activeForm": "Adding client-side validation and form submission logic"
+        },
+        {
+          "content": "Implement enhanced security for medical information",
+          "status": "pending",
+          "activeForm": "Implementing enhanced security for medical information"
+        },
+        {
+          "content": "Add success/error handling and user feedback",
+          "status": "pending",
+          "activeForm": "Adding success/error handling and user feedback"
+        },
+        {
+          "content": "Style component and add navigation controls",
+          "status": "pending",
+          "activeForm": "Styling component and adding navigation controls"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "5eace9c7-74ef-49f6-985b-0d055d5b1291",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/5eace9c7-74ef-49f6-985b-0d055d5b1291.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing player form patterns and validation logic",
+          "status": "in_progress",
+          "activeForm": "Analyzing existing player form patterns and validation logic"
+        },
+        {
+          "content": "Create PlayerProfileEdit component with form structure",
+          "status": "pending",
+          "activeForm": "Creating PlayerProfileEdit component with form structure"
+        },
+        {
+          "content": "Implement data fetching and form pre-population",
+          "status": "pending",
+          "activeForm": "Implementing data fetching and form pre-population"
+        },
+        {
+          "content": "Add client-side validation and form submission logic",
+          "status": "pending",
+          "activeForm": "Adding client-side validation and form submission logic"
+        },
+        {
+          "content": "Implement enhanced security for medical information",
+          "status": "pending",
+          "activeForm": "Implementing enhanced security for medical information"
+        },
+        {
+          "content": "Add success/error handling and user feedback",
+          "status": "pending",
+          "activeForm": "Adding success/error handling and user feedback"
+        },
+        {
+          "content": "Style component and add navigation controls",
+          "status": "pending",
+          "activeForm": "Styling component and adding navigation controls"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "5eace9c7-74ef-49f6-985b-0d055d5b1291",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/5eace9c7-74ef-49f6-985b-0d055d5b1291.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing player form patterns and validation logic",
+          "status": "completed",
+          "activeForm": "Analyzing existing player form patterns and validation logic"
+        },
+        {
+          "content": "Create PlayerProfileEdit component with form structure",
+          "status": "in_progress",
+          "activeForm": "Creating PlayerProfileEdit component with form structure"
+        },
+        {
+          "content": "Implement data fetching and form pre-population",
+          "status": "pending",
+          "activeForm": "Implementing data fetching and form pre-population"
+        },
+        {
+          "content": "Add client-side validation and form submission logic",
+          "status": "pending",
+          "activeForm": "Adding client-side validation and form submission logic"
+        },
+        {
+          "content": "Implement enhanced security for medical information",
+          "status": "pending",
+          "activeForm": "Implementing enhanced security for medical information"
+        },
+        {
+          "content": "Add success/error handling and user feedback",
+          "status": "pending",
+          "activeForm": "Adding success/error handling and user feedback"
+        },
+        {
+          "content": "Style component and add navigation controls",
+          "status": "pending",
+          "activeForm": "Styling component and adding navigation controls"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__playwright__browser_navigate",
+    "tool_input": {
+      "url": "http://localhost:5173"
+    }
+  },
+  {
+    "session_id": "5eace9c7-74ef-49f6-985b-0d055d5b1291",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/5eace9c7-74ef-49f6-985b-0d055d5b1291.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Write",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerProfileEdit.tsx",
+      "content": "import { useEffect, useState } from 'react'\nimport { useNavigate, useParams } from 'react-router-dom'\nimport { motion, AnimatePresence } from 'framer-motion'\nimport {\n  ArrowLeft,\n  Save,\n  X,\n  Users,\n  Phone,\n  Mail,\n  Calendar,\n  MapPin,\n  AlertTriangle,\n  Shield,\n  User,\n  Heart,\n  CheckCircle,\n  Lock,\n  Unlock\n} from 'lucide-react'\nimport { Button } from './ui/button'\nimport { Input } from './ui/input'\nimport { Card, CardContent, CardHeader, CardTitle } from './ui/card'\nimport { useApi } from '../hooks/useApi'\n\ninterface Player {\n  id: number\n  first_name: string\n  last_name: string\n  email?: string\n  phone?: string\n  date_of_birth?: string\n  organization: string\n  emergency_contact_name?: string\n  emergency_contact_phone?: string\n  emergency_contact_relation?: string\n  medical_alerts?: string\n  address?: string\n  created_at: string\n}\n\ninterface PlayerFormData {\n  first_name: string\n  last_name: string\n  email: string\n  phone: string\n  date_of_birth: string\n  organization: string\n  emergency_contact_name: string\n  emergency_contact_phone: string\n  emergency_contact_relation: string\n  medical_alerts: string\n  address: string\n}\n\ninterface UserPermissions {\n  canEditPlayer: boolean\n  canEditMedicalInfo: boolean\n  role: 'admin' | 'coach' | 'viewer'\n  requiresSecondaryAuth: boolean\n}\n\nconst containerVariants = {\n  hidden: { opacity: 0 },\n  visible: {\n    opacity: 1,\n    transition: {\n      staggerChildren: 0.1,\n      delayChildren: 0.2\n    }\n  }\n} as const\n\nconst itemVariants = {\n  hidden: { y: 20, opacity: 0 },\n  visible: {\n    y: 0,\n    opacity: 1,\n    transition: {\n      type: \"spring\" as const,\n      stiffness: 100,\n      damping: 15\n    }\n  }\n} as const\n\nconst PlayerProfileEdit = () => {\n  const { id } = useParams<{ id: string }>()\n  const navigate = useNavigate()\n  const { data: player, loading: fetchLoading, error: fetchError, execute: fetchPlayer } = useApi<Player>()\n  const { loading: updateLoading, error: updateError, execute: updatePlayer } = useApi()\n\n  const [userPermissions] = useState<UserPermissions>({\n    canEditPlayer: true,\n    canEditMedicalInfo: true, // In real app, this would come from auth context\n    role: 'admin',\n    requiresSecondaryAuth: false\n  })\n\n  const [formData, setFormData] = useState<PlayerFormData>({\n    first_name: '',\n    last_name: '',\n    email: '',\n    phone: '',\n    date_of_birth: '',\n    organization: '',\n    emergency_contact_name: '',\n    emergency_contact_phone: '',\n    emergency_contact_relation: '',\n    medical_alerts: '',\n    address: ''\n  })\n\n  const [formErrors, setFormErrors] = useState<Partial<PlayerFormData>>({})\n  const [showMedicalSection, setShowMedicalSection] = useState(false)\n  const [medicalAuthConfirmed, setMedicalAuthConfirmed] = useState(false)\n  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false)\n  const [showSuccessMessage, setShowSuccessMessage] = useState(false)\n  const [confirmCancel, setConfirmCancel] = useState(false)\n\n  useEffect(() => {\n    if (id) {\n      loadPlayerData(id)\n    }\n  }, [id])\n\n  useEffect(() => {\n    if (player) {\n      populateForm(player)\n    }\n  }, [player])\n\n  const loadPlayerData = async (playerId: string) => {\n    try {\n      await fetchPlayer(`/api/players/${playerId}`)\n    } catch (err) {\n      console.error('Failed to fetch player:', err)\n    }\n  }\n\n  const populateForm = (playerData: Player) => {\n    setFormData({\n      first_name: playerData.first_name || '',\n      last_name: playerData.last_name || '',\n      email: playerData.email || '',\n      phone: playerData.phone || '',\n      date_of_birth: playerData.date_of_birth || '',\n      organization: playerData.organization || '',\n      emergency_contact_name: playerData.emergency_contact_name || '',\n      emergency_contact_phone: playerData.emergency_contact_phone || '',\n      emergency_contact_relation: playerData.emergency_contact_relation || '',\n      medical_alerts: playerData.medical_alerts || '',\n      address: playerData.address || ''\n    })\n    setHasUnsavedChanges(false)\n  }\n\n  const handleInputChange = (field: keyof PlayerFormData, value: string) => {\n    setFormData(prev => ({ ...prev, [field]: value }))\n    setHasUnsavedChanges(true)\n\n    // Clear field error when user starts typing\n    if (formErrors[field]) {\n      setFormErrors(prev => ({ ...prev, [field]: undefined }))\n    }\n  }\n\n  const validateForm = (): boolean => {\n    const errors: Partial<PlayerFormData> = {}\n\n    // Required field validation\n    if (!formData.first_name.trim()) {\n      errors.first_name = 'First name is required'\n    }\n    if (!formData.last_name.trim()) {\n      errors.last_name = 'Last name is required'\n    }\n    if (!formData.organization.trim()) {\n      errors.organization = 'Organization is required'\n    }\n\n    // Email format validation\n    if (formData.email && formData.email.trim()) {\n      const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/\n      if (!emailRegex.test(formData.email.trim())) {\n        errors.email = 'Please enter a valid email address'\n      }\n    }\n\n    // Phone format validation\n    if (formData.phone && formData.phone.trim()) {\n      const phoneRegex = /^[+]?[\\d\\s()-.]{10,}$/\n      const digitCount = formData.phone.replace(/\\D/g, '').length\n      if (!phoneRegex.test(formData.phone) || digitCount < 10) {\n        errors.phone = 'Please enter a valid phone number (minimum 10 digits)'\n      }\n    }\n\n    // Emergency contact phone validation\n    if (formData.emergency_contact_phone && formData.emergency_contact_phone.trim()) {\n      const phoneRegex = /^[+]?[\\d\\s()-.]{10,}$/\n      const digitCount = formData.emergency_contact_phone.replace(/\\D/g, '').length\n      if (!phoneRegex.test(formData.emergency_contact_phone) || digitCount < 10) {\n        errors.emergency_contact_phone = 'Please enter a valid emergency contact phone number'\n      }\n    }\n\n    // Date of birth validation\n    if (formData.date_of_birth) {\n      const birthDate = new Date(formData.date_of_birth)\n      const today = new Date()\n      const age = today.getFullYear() - birthDate.getFullYear()\n\n      if (birthDate > today) {\n        errors.date_of_birth = 'Date of birth cannot be in the future'\n      } else if (age > 120) {\n        errors.date_of_birth = 'Please enter a valid date of birth'\n      }\n    }\n\n    setFormErrors(errors)\n    return Object.keys(errors).length === 0\n  }\n\n  const handleSave = async () => {\n    if (!validateForm()) {\n      return\n    }\n\n    if (!player?.id) {\n      return\n    }\n\n    try {\n      await updatePlayer(`/api/players/${player.id}`, {\n        method: 'PUT',\n        body: formData\n      })\n\n      setHasUnsavedChanges(false)\n      setShowSuccessMessage(true)\n\n      // Hide success message after 3 seconds\n      setTimeout(() => {\n        setShowSuccessMessage(false)\n      }, 3000)\n\n      // Refresh player data to show updated values\n      await loadPlayerData(player.id.toString())\n    } catch (err) {\n      console.error('Failed to update player:', err)\n    }\n  }\n\n  const handleCancel = () => {\n    if (hasUnsavedChanges) {\n      setConfirmCancel(true)\n    } else {\n      navigateBack()\n    }\n  }\n\n  const confirmCancelChanges = () => {\n    setConfirmCancel(false)\n    navigateBack()\n  }\n\n  const navigateBack = () => {\n    if (player?.id) {\n      navigate(`/players/view/${player.id}`)\n    } else {\n      navigate('/players/list')\n    }\n  }\n\n  const handleMedicalAuthConfirm = () => {\n    setMedicalAuthConfirmed(true)\n    setShowMedicalSection(true)\n  }\n\n  if (fetchLoading) {\n    return (\n      <div className=\"min-h-screen relative overflow-hidden\">\n        <div className=\"fixed inset-0 overflow-hidden pointer-events-none\">\n          <motion.div\n            animate={{\n              x: [0, 100, -100, 0],\n              y: [0, -100, 100, 0],\n            }}\n            transition={{\n              duration: 30,\n              repeat: Infinity,\n              ease: \"linear\"\n            }}\n            className=\"absolute top-20 right-20 w-[500px] h-[500px] bg-gradient-to-r from-blue-200/20 to-blue-400/20 rounded-full blur-3xl\"\n          />\n        </div>\n\n        <div className=\"relative z-10 flex items-center justify-center min-h-screen\">\n          <motion.div\n            animate={{ rotate: 360 }}\n            transition={{ duration: 1, repeat: Infinity, ease: \"linear\" }}\n            className=\"w-16 h-16 border-4 border-gray-200 border-t-blue-600 rounded-full\"\n          />\n          <div className=\"ml-4\">\n            <h3 className=\"text-lg font-semibold text-gray-900 dark:text-white\">Loading Player Data</h3>\n            <p className=\"text-gray-600 dark:text-gray-400\">Please wait while we fetch the player information...</p>\n          </div>\n        </div>\n      </div>\n    )\n  }\n\n  if (fetchError || !player) {\n    return (\n      <div className=\"min-h-screen relative overflow-hidden\">\n        <div className=\"fixed inset-0 overflow-hidden pointer-events-none\">\n          <motion.div\n            animate={{\n              x: [0, 100, -100, 0],\n              y: [0, -100, 100, 0],\n            }}\n            transition={{\n              duration: 30,\n              repeat: Infinity,\n              ease: \"linear\"\n            }}\n            className=\"absolute top-20 right-20 w-[500px] h-[500px] bg-gradient-to-r from-red-200/20 to-red-400/20 rounded-full blur-3xl\"\n          />\n        </div>\n\n        <div className=\"relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8\">\n          <motion.div\n            initial={{ opacity: 0, y: 20 }}\n            animate={{ opacity: 1, y: 0 }}\n            className=\"glass-card glass-card-hover p-8 text-center\"\n          >\n            <AlertTriangle className=\"h-16 w-16 mx-auto text-red-500 mb-4\" />\n            <h2 className=\"text-2xl font-bold text-gray-900 dark:text-white mb-2\">Unable to Load Player</h2>\n            <p className=\"text-gray-600 dark:text-gray-400 mb-6\">\n              {fetchError || 'Failed to load player data for editing.'}\n            </p>\n            <div className=\"flex justify-center space-x-4\">\n              <Button\n                variant=\"outline\"\n                onClick={() => navigate('/players/list')}\n                className=\"flex items-center\"\n              >\n                <ArrowLeft className=\"h-4 w-4 mr-2\" />\n                Back to Player List\n              </Button>\n              {id && (\n                <Button\n                  onClick={() => loadPlayerData(id)}\n                  className=\"bg-blue-600 hover:bg-blue-700 text-white\"\n                >\n                  Try Again\n                </Button>\n              )}\n            </div>\n          </motion.div>\n        </div>\n      </div>\n    )\n  }\n\n  if (!userPermissions.canEditPlayer) {\n    return (\n      <div className=\"min-h-screen relative overflow-hidden\">\n        <div className=\"relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8\">\n          <motion.div\n            initial={{ opacity: 0, y: 20 }}\n            animate={{ opacity: 1, y: 0 }}\n            className=\"glass-card glass-card-hover p-8 text-center\"\n          >\n            <Lock className=\"h-16 w-16 mx-auto text-red-500 mb-4\" />\n            <h2 className=\"text-2xl font-bold text-gray-900 dark:text-white mb-2\">Access Denied</h2>\n            <p className=\"text-gray-600 dark:text-gray-400 mb-6\">\n              You do not have permission to edit player profiles.\n            </p>\n            <Button\n              variant=\"outline\"\n              onClick={() => navigate(`/players/view/${player.id}`)}\n              className=\"flex items-center\"\n            >\n              <ArrowLeft className=\"h-4 w-4 mr-2\" />\n              View Player Profile\n            </Button>\n          </motion.div>\n        </div>\n      </div>\n    )\n  }\n\n  return (\n    <motion.div\n      initial=\"hidden\"\n      animate=\"visible\"\n      className=\"min-h-screen relative overflow-hidden\"\n    >\n      {/* Animated Background Elements */}\n      <div className=\"fixed inset-0 overflow-hidden pointer-events-none\">\n        <motion.div\n          animate={{\n            x: [0, 100, -100, 0],\n            y: [0, -100, 100, 0],\n          }}\n          transition={{\n            duration: 30,\n            repeat: Infinity,\n            ease: \"linear\"\n          }}\n          className=\"absolute top-20 right-20 w-[500px] h-[500px] bg-gradient-to-r from-green-200/20 to-green-400/20 rounded-full blur-3xl\"\n        />\n        <motion.div\n          animate={{\n            x: [0, -150, 150, 0],\n            y: [0, 150, -150, 0],\n          }}\n          transition={{\n            duration: 35,\n            repeat: Infinity,\n            ease: \"linear\"\n          }}\n          className=\"absolute bottom-20 left-20 w-[400px] h-[400px] bg-gradient-to-r from-blue-300/20 to-blue-500/20 rounded-full blur-3xl\"\n        />\n      </div>\n\n      <div className=\"relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6\">\n        {/* Success Message */}\n        <AnimatePresence>\n          {showSuccessMessage && (\n            <motion.div\n              initial={{ opacity: 0, y: -20 }}\n              animate={{ opacity: 1, y: 0 }}\n              exit={{ opacity: 0, y: -20 }}\n              className=\"glass-card p-4 border-green-500/20 bg-green-50/50 dark:bg-green-900/20\"\n            >\n              <div className=\"flex items-center space-x-2 text-green-700 dark:text-green-400\">\n                <CheckCircle className=\"h-5 w-5\" />\n                <span className=\"font-medium\">Player profile updated successfully!</span>\n              </div>\n            </motion.div>\n          )}\n        </AnimatePresence>\n\n        {/* Update Error */}\n        <AnimatePresence>\n          {updateError && (\n            <motion.div\n              initial={{ opacity: 0, y: -20 }}\n              animate={{ opacity: 1, y: 0 }}\n              exit={{ opacity: 0, y: -20 }}\n              className=\"glass-card p-4 border-red-500/20 bg-red-50/50 dark:bg-red-900/20\"\n            >\n              <div className=\"flex items-center space-x-2 text-red-700 dark:text-red-400\">\n                <AlertTriangle className=\"h-5 w-5\" />\n                <span className=\"font-medium\">Failed to update player: {updateError}</span>\n              </div>\n            </motion.div>\n          )}\n        </AnimatePresence>\n\n        {/* Header Section */}\n        <motion.div\n          variants={itemVariants}\n          className=\"glass-card glass-card-hover p-6\"\n        >\n          <div className=\"flex items-center justify-between\">\n            <div className=\"flex items-center space-x-4\">\n              <Button\n                variant=\"ghost\"\n                onClick={handleCancel}\n                className=\"text-gray-600 hover:text-gray-900 hover:bg-gray-100\"\n              >\n                <ArrowLeft className=\"h-4 w-4 mr-2\" />\n                Cancel\n              </Button>\n              <div className=\"h-6 w-px bg-gray-300\" />\n              <div className=\"flex items-center space-x-3\">\n                <div className=\"w-12 h-12 rounded-full bg-gradient-to-br from-green-600 to-green-800 flex items-center justify-center text-white font-bold text-lg shadow-lg\">\n                  {player.first_name.charAt(0)}{player.last_name.charAt(0)}\n                </div>\n                <div>\n                  <h1 className=\"text-2xl font-bold text-gray-900 dark:text-white\">\n                    Edit {player.first_name} {player.last_name}\n                  </h1>\n                  <p className=\"text-gray-600 dark:text-gray-400\">Update player profile information</p>\n                  {hasUnsavedChanges && (\n                    <p className=\"text-sm text-orange-600 dark:text-orange-400\">\u2022 Unsaved changes</p>\n                  )}\n                </div>\n              </div>\n            </div>\n            <div className=\"flex space-x-3\">\n              <Button\n                variant=\"outline\"\n                onClick={handleCancel}\n                disabled={updateLoading}\n              >\n                <X className=\"h-4 w-4 mr-2\" />\n                Cancel\n              </Button>\n              <Button\n                onClick={handleSave}\n                disabled={updateLoading || !hasUnsavedChanges}\n                className=\"bg-green-600 hover:bg-green-700 text-white\"\n              >\n                <Save className=\"h-4 w-4 mr-2\" />\n                {updateLoading ? 'Saving...' : 'Save Changes'}\n              </Button>\n            </div>\n          </div>\n        </motion.div>\n\n        <motion.div\n          variants={containerVariants}\n          className=\"grid grid-cols-1 lg:grid-cols-2 gap-6\"\n        >\n          {/* Personal Information Card */}\n          <motion.div variants={itemVariants}>\n            <Card className=\"glass-card glass-card-hover glow-border\">\n              <CardHeader>\n                <CardTitle className=\"flex items-center text-gray-900 dark:text-white\">\n                  <User className=\"h-5 w-5 mr-2 text-blue-600\" />\n                  Personal Information\n                </CardTitle>\n              </CardHeader>\n              <CardContent className=\"space-y-4\">\n                <div className=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n                  <div>\n                    <label className=\"block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2\">\n                      First Name *\n                    </label>\n                    <Input\n                      value={formData.first_name}\n                      onChange={(e) => handleInputChange('first_name', e.target.value)}\n                      placeholder=\"Enter first name\"\n                      className={`${\n                        formErrors.first_name\n                          ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'\n                          : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500/20'\n                      }`}\n                    />\n                    {formErrors.first_name && (\n                      <p className=\"text-sm text-red-500 mt-1 flex items-center\">\n                        <AlertTriangle className=\"w-4 h-4 mr-1\" />\n                        {formErrors.first_name}\n                      </p>\n                    )}\n                  </div>\n\n                  <div>\n                    <label className=\"block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2\">\n                      Last Name *\n                    </label>\n                    <Input\n                      value={formData.last_name}\n                      onChange={(e) => handleInputChange('last_name', e.target.value)}\n                      placeholder=\"Enter last name\"\n                      className={`${\n                        formErrors.last_name\n                          ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'\n                          : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500/20'\n                      }`}\n                    />\n                    {formErrors.last_name && (\n                      <p className=\"text-sm text-red-500 mt-1 flex items-center\">\n                        <AlertTriangle className=\"w-4 h-4 mr-1\" />\n                        {formErrors.last_name}\n                      </p>\n                    )}\n                  </div>\n\n                  <div>\n                    <label className=\"block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2\">\n                      Organization *\n                    </label>\n                    <Input\n                      value={formData.organization}\n                      onChange={(e) => handleInputChange('organization', e.target.value)}\n                      placeholder=\"Enter organization\"\n                      className={`${\n                        formErrors.organization\n                          ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'\n                          : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500/20'\n                      }`}\n                    />\n                    {formErrors.organization && (\n                      <p className=\"text-sm text-red-500 mt-1 flex items-center\">\n                        <AlertTriangle className=\"w-4 h-4 mr-1\" />\n                        {formErrors.organization}\n                      </p>\n                    )}\n                  </div>\n\n                  <div>\n                    <label className=\"block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2\">\n                      Date of Birth\n                    </label>\n                    <Input\n                      type=\"date\"\n                      value={formData.date_of_birth}\n                      onChange={(e) => handleInputChange('date_of_birth', e.target.value)}\n                      className={`${\n                        formErrors.date_of_birth\n                          ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'\n                          : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500/20'\n                      }`}\n                    />\n                    {formErrors.date_of_birth && (\n                      <p className=\"text-sm text-red-500 mt-1 flex items-center\">\n                        <AlertTriangle className=\"w-4 h-4 mr-1\" />\n                        {formErrors.date_of_birth}\n                      </p>\n                    )}\n                  </div>\n                </div>\n\n                <div>\n                  <label className=\"block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2\">\n                    Address\n                  </label>\n                  <Input\n                    value={formData.address}\n                    onChange={(e) => handleInputChange('address', e.target.value)}\n                    placeholder=\"123 Main St, City, State, ZIP\"\n                    className=\"border-gray-300 focus:border-blue-500 focus:ring-blue-500/20\"\n                  />\n                </div>\n              </CardContent>\n            </Card>\n          </motion.div>\n\n          {/* Contact Information Card */}\n          <motion.div variants={itemVariants}>\n            <Card className=\"glass-card glass-card-hover glow-border\">\n              <CardHeader>\n                <CardTitle className=\"flex items-center text-gray-900 dark:text-white\">\n                  <Phone className=\"h-5 w-5 mr-2 text-green-600\" />\n                  Contact Information\n                </CardTitle>\n              </CardHeader>\n              <CardContent className=\"space-y-4\">\n                <div>\n                  <label className=\"block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2\">\n                    Email Address\n                  </label>\n                  <Input\n                    type=\"email\"\n                    value={formData.email}\n                    onChange={(e) => handleInputChange('email', e.target.value)}\n                    placeholder=\"player@example.com\"\n                    className={`${\n                      formErrors.email\n                        ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'\n                        : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500/20'\n                    }`}\n                  />\n                  {formErrors.email && (\n                    <p className=\"text-sm text-red-500 mt-1 flex items-center\">\n                      <AlertTriangle className=\"w-4 h-4 mr-1\" />\n                      {formErrors.email}\n                    </p>\n                  )}\n                </div>\n\n                <div>\n                  <label className=\"block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2\">\n                    Phone Number\n                  </label>\n                  <Input\n                    value={formData.phone}\n                    onChange={(e) => handleInputChange('phone', e.target.value)}\n                    placeholder=\"(555) 123-4567\"\n                    className={`${\n                      formErrors.phone\n                        ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'\n                        : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500/20'\n                    }`}\n                  />\n                  {formErrors.phone && (\n                    <p className=\"text-sm text-red-500 mt-1 flex items-center\">\n                      <AlertTriangle className=\"w-4 h-4 mr-1\" />\n                      {formErrors.phone}\n                    </p>\n                  )}\n                </div>\n              </CardContent>\n            </Card>\n          </motion.div>\n\n          {/* Emergency Contact Card */}\n          <motion.div variants={itemVariants}>\n            <Card className=\"glass-card glass-card-hover glow-border\">\n              <CardHeader>\n                <CardTitle className=\"flex items-center text-gray-900 dark:text-white\">\n                  <Heart className=\"h-5 w-5 mr-2 text-red-600\" />\n                  Emergency Contact\n                </CardTitle>\n              </CardHeader>\n              <CardContent className=\"space-y-4\">\n                <div>\n                  <label className=\"block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2\">\n                    Contact Name\n                  </label>\n                  <Input\n                    value={formData.emergency_contact_name}\n                    onChange={(e) => handleInputChange('emergency_contact_name', e.target.value)}\n                    placeholder=\"Emergency contact name\"\n                    className=\"border-gray-300 focus:border-blue-500 focus:ring-blue-500/20\"\n                  />\n                </div>\n\n                <div>\n                  <label className=\"block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2\">\n                    Contact Phone\n                  </label>\n                  <Input\n                    value={formData.emergency_contact_phone}\n                    onChange={(e) => handleInputChange('emergency_contact_phone', e.target.value)}\n                    placeholder=\"Emergency contact phone\"\n                    className={`${\n                      formErrors.emergency_contact_phone\n                        ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'\n                        : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500/20'\n                    }`}\n                  />\n                  {formErrors.emergency_contact_phone && (\n                    <p className=\"text-sm text-red-500 mt-1 flex items-center\">\n                      <AlertTriangle className=\"w-4 h-4 mr-1\" />\n                      {formErrors.emergency_contact_phone}\n                    </p>\n                  )}\n                </div>\n\n                <div>\n                  <label className=\"block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2\">\n                    Relationship\n                  </label>\n                  <Input\n                    value={formData.emergency_contact_relation}\n                    onChange={(e) => handleInputChange('emergency_contact_relation', e.target.value)}\n                    placeholder=\"Parent, Guardian, etc.\"\n                    className=\"border-gray-300 focus:border-blue-500 focus:ring-blue-500/20\"\n                  />\n                </div>\n              </CardContent>\n            </Card>\n          </motion.div>\n\n          {/* Medical Information Card - Enhanced Security */}\n          <motion.div variants={itemVariants}>\n            <Card className=\"glass-card glass-card-hover glow-border border-orange-200/50\">\n              <CardHeader>\n                <CardTitle className=\"flex items-center justify-between text-gray-900 dark:text-white\">\n                  <div className=\"flex items-center\">\n                    <Shield className=\"h-5 w-5 mr-2 text-orange-600\" />\n                    Medical Information\n                  </div>\n                  <div className=\"flex items-center space-x-2\">\n                    <Lock className=\"h-4 w-4 text-orange-600\" />\n                    <span className=\"text-xs text-orange-600 font-medium\">SENSITIVE DATA</span>\n                  </div>\n                </CardTitle>\n              </CardHeader>\n              <CardContent>\n                {!userPermissions.canEditMedicalInfo ? (\n                  <div className=\"p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/50 rounded-lg\">\n                    <div className=\"flex items-center text-red-700 dark:text-red-400\">\n                      <AlertTriangle className=\"h-5 w-5 mr-2\" />\n                      <div>\n                        <p className=\"font-medium\">Access Restricted</p>\n                        <p className=\"text-sm\">You do not have permission to edit medical information.</p>\n                      </div>\n                    </div>\n                  </div>\n                ) : !showMedicalSection ? (\n                  <div className=\"space-y-4\">\n                    <div className=\"p-4 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800/50 rounded-lg\">\n                      <div className=\"flex items-center text-orange-700 dark:text-orange-400 mb-3\">\n                        <Shield className=\"h-5 w-5 mr-2\" />\n                        <div>\n                          <p className=\"font-medium\">Secure Medical Information Access</p>\n                          <p className=\"text-sm\">This section contains sensitive medical data that requires confirmation to access.</p>\n                        </div>\n                      </div>\n                    </div>\n                    <Button\n                      onClick={handleMedicalAuthConfirm}\n                      className=\"w-full bg-orange-600 hover:bg-orange-700 text-white\"\n                    >\n                      <Unlock className=\"h-4 w-4 mr-2\" />\n                      Confirm Access to Medical Information\n                    </Button>\n                  </div>\n                ) : (\n                  <div className=\"space-y-4\">\n                    <div className=\"p-3 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800/50 rounded-lg\">\n                      <div className=\"flex items-center text-orange-700 dark:text-orange-400 text-sm\">\n                        <Shield className=\"h-4 w-4 mr-2\" />\n                        <span>Editing confidential medical information - handle with care</span>\n                      </div>\n                    </div>\n\n                    <div>\n                      <label className=\"block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2\">\n                        Medical Alerts & Conditions\n                      </label>\n                      <textarea\n                        value={formData.medical_alerts}\n                        onChange={(e) => handleInputChange('medical_alerts', e.target.value)}\n                        rows={4}\n                        placeholder=\"Enter any medical conditions, allergies, or important notes...\"\n                        className=\"w-full px-3 py-2 border border-gray-300 rounded-lg focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-all duration-200 resize-none\"\n                      />\n                    </div>\n\n                    <div className=\"text-xs text-gray-500 bg-gray-50 dark:bg-gray-800/50 p-2 rounded\">\n                      <Shield className=\"h-3 w-3 inline mr-1\" />\n                      All medical information is confidential and protected. Changes are logged for audit purposes.\n                    </div>\n                  </div>\n                )}\n              </CardContent>\n            </Card>\n          </motion.div>\n        </motion.div>\n\n        {/* Action Buttons */}\n        <motion.div\n          variants={itemVariants}\n          className=\"flex justify-center space-x-4 pt-6\"\n        >\n          <Button\n            variant=\"outline\"\n            onClick={handleCancel}\n            disabled={updateLoading}\n            className=\"flex items-center\"\n          >\n            <X className=\"h-4 w-4 mr-2\" />\n            Cancel Changes\n          </Button>\n          <Button\n            onClick={handleSave}\n            disabled={updateLoading || !hasUnsavedChanges}\n            className=\"bg-green-600 hover:bg-green-700 text-white flex items-center\"\n          >\n            <Save className=\"h-4 w-4 mr-2\" />\n            {updateLoading ? 'Saving Changes...' : 'Save Player Profile'}\n          </Button>\n        </motion.div>\n      </div>\n\n      {/* Confirmation Dialog */}\n      <AnimatePresence>\n        {confirmCancel && (\n          <motion.div\n            initial={{ opacity: 0 }}\n            animate={{ opacity: 1 }}\n            exit={{ opacity: 0 }}\n            className=\"fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4\"\n          >\n            <motion.div\n              initial={{ scale: 0.9, opacity: 0 }}\n              animate={{ scale: 1, opacity: 1 }}\n              exit={{ scale: 0.9, opacity: 0 }}\n              className=\"glass-card glass-card-hover p-6 max-w-md w-full\"\n            >\n              <div className=\"text-center\">\n                <AlertTriangle className=\"h-12 w-12 mx-auto text-orange-500 mb-4\" />\n                <h3 className=\"text-lg font-semibold text-gray-900 dark:text-white mb-2\">\n                  Discard Changes?\n                </h3>\n                <p className=\"text-gray-600 dark:text-gray-400 mb-6\">\n                  You have unsaved changes. Are you sure you want to discard them and return to the previous page?\n                </p>\n                <div className=\"flex space-x-3\">\n                  <Button\n                    variant=\"outline\"\n                    onClick={() => setConfirmCancel(false)}\n                    className=\"flex-1\"\n                  >\n                    Keep Editing\n                  </Button>\n                  <Button\n                    onClick={confirmCancelChanges}\n                    className=\"flex-1 bg-red-600 hover:bg-red-700 text-white\"\n                  >\n                    Discard Changes\n                  </Button>\n                </div>\n              </div>\n            </motion.div>\n          </motion.div>\n        )}\n      </AnimatePresence>\n    </motion.div>\n  )\n}\n\nexport default PlayerProfileEdit"
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__playwright__browser_close",
+    "tool_input": {}
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__playwright__browser_navigate",
+    "tool_input": {
+      "url": "http://localhost:5173"
+    }
+  },
+  {
+    "session_id": "5eace9c7-74ef-49f6-985b-0d055d5b1291",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/5eace9c7-74ef-49f6-985b-0d055d5b1291.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing player form patterns and validation logic",
+          "status": "completed",
+          "activeForm": "Analyzing existing player form patterns and validation logic"
+        },
+        {
+          "content": "Create PlayerProfileEdit component with form structure",
+          "status": "completed",
+          "activeForm": "Creating PlayerProfileEdit component with form structure"
+        },
+        {
+          "content": "Implement data fetching and form pre-population",
+          "status": "completed",
+          "activeForm": "Implementing data fetching and form pre-population"
+        },
+        {
+          "content": "Add client-side validation and form submission logic",
+          "status": "completed",
+          "activeForm": "Adding client-side validation and form submission logic"
+        },
+        {
+          "content": "Implement enhanced security for medical information",
+          "status": "completed",
+          "activeForm": "Implementing enhanced security for medical information"
+        },
+        {
+          "content": "Add success/error handling and user feedback",
+          "status": "completed",
+          "activeForm": "Adding success/error handling and user feedback"
+        },
+        {
+          "content": "Style component and add navigation controls",
+          "status": "completed",
+          "activeForm": "Styling component and adding navigation controls"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "5eace9c7-74ef-49f6-985b-0d055d5b1291",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/5eace9c7-74ef-49f6-985b-0d055d5b1291.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__mark_work_order_complete",
+    "tool_input": {
+      "work_order_number": "28"
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd /Users/jacksontumbidge/Projects/GamePlanPro/frontend && npm run dev &",
+      "description": "Start development server in background",
+      "run_in_background": true
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "919033"
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__playwright__browser_navigate",
+    "tool_input": {
+      "url": "http://localhost:3001"
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "pkill -f \"chrome.*mcp-chrome\"",
+      "description": "Kill existing Chrome processes"
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__playwright__browser_navigate",
+    "tool_input": {
+      "url": "http://localhost:3001"
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Examine PlayerManagementInterface for search visibility issues",
+          "status": "in_progress",
+          "activeForm": "Examining PlayerManagementInterface for search visibility issues"
+        },
+        {
+          "content": "Fix search text visibility in players tab",
+          "status": "pending",
+          "activeForm": "Fixing search text visibility in players tab"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx"
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Examine PlayerManagementInterface for search visibility issues",
+          "status": "completed",
+          "activeForm": "Examining PlayerManagementInterface for search visibility issues"
+        },
+        {
+          "content": "Fix search text visibility in players tab",
+          "status": "in_progress",
+          "activeForm": "Fixing search text visibility in players tab"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "old_string": "            <Input\n              placeholder=\"Search by name, email, phone...\"\n              value={searchTerm}\n              onChange={(e) => setSearchTerm(e.target.value)}\n              className=\"pl-10 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50\"\n            />",
+      "new_string": "            <Input\n              placeholder=\"Search by name, email, phone...\"\n              value={searchTerm}\n              onChange={(e) => setSearchTerm(e.target.value)}\n              className=\"pl-10 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:bg-white dark:focus:bg-gray-800 focus:ring-2 focus:ring-gray-400 focus:border-gray-400 transition-all duration-200\"\n            />"
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Examine PlayerManagementInterface for search visibility issues",
+          "status": "completed",
+          "activeForm": "Examining PlayerManagementInterface for search visibility issues"
+        },
+        {
+          "content": "Fix search text visibility in players tab",
+          "status": "completed",
+          "activeForm": "Fixing search text visibility in players tab"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "919033"
+    }
   }
 ]
