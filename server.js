@@ -252,6 +252,7 @@ app.post('/api/players', async (req, res) => {
         email,
         phone,
         date_of_birth,
+        gender,
         organization,
         emergency_contact_name,
         emergency_contact_phone,
@@ -269,6 +270,11 @@ app.post('/api/players', async (req, res) => {
         return res.status(400).json({ error: 'Invalid email format' });
     }
 
+    // Gender validation
+    if (gender && !['male', 'female', 'other', 'prefer_not_to_say'].includes(gender)) {
+        return res.status(400).json({ error: 'Invalid gender value' });
+    }
+
     try {
         const { data, error } = await supabase
             .from('players')
@@ -278,6 +284,7 @@ app.post('/api/players', async (req, res) => {
                 email,
                 phone,
                 date_of_birth,
+                gender,
                 organization,
                 emergency_contact_name,
                 emergency_contact_phone,
@@ -307,24 +314,49 @@ app.get('/api/players', async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const search = req.query.search || '';
+    const team_id = req.query.team_id;
     const from = (page - 1) * limit;
     const to = from + limit - 1;
 
     try {
-        let query = supabase
-            .from('players')
-            .select('*', { count: 'exact' });
+        let query;
+
+        // If filtering by team_id, join with roster_entries
+        if (team_id) {
+            query = supabase
+                .from('roster_entries')
+                .select(`
+                    player_id,
+                    players (*)
+                `, { count: 'exact' })
+                .eq('team_id', team_id)
+                .is('end_date', null); // Only active roster entries
+        } else {
+            query = supabase
+                .from('players')
+                .select('*', { count: 'exact' });
+        }
 
         // Add search filter if provided
-        if (search) {
+        if (search && !team_id) {
             query = query.or(`first_name.ilike.%${search}%,last_name.ilike.%${search}%,email.ilike.%${search}%,phone.ilike.%${search}%,organization.ilike.%${search}%`);
+        } else if (search && team_id) {
+            // For team filtering, search on the joined players data
+            query = query.or(`players.first_name.ilike.%${search}%,players.last_name.ilike.%${search}%,players.email.ilike.%${search}%`);
         }
 
         // Add pagination and ordering
-        query = query
-            .order('last_name', { ascending: true })
-            .order('first_name', { ascending: true })
-            .range(from, to);
+        if (team_id) {
+            query = query
+                .order('players(last_name)', { ascending: true })
+                .order('players(first_name)', { ascending: true })
+                .range(from, to);
+        } else {
+            query = query
+                .order('last_name', { ascending: true })
+                .order('first_name', { ascending: true })
+                .range(from, to);
+        }
 
         const { data, error, count } = await query;
 
@@ -333,8 +365,11 @@ app.get('/api/players', async (req, res) => {
             return res.status(500).json({ error: 'Internal server error' });
         }
 
+        // Format response based on whether team filtering was used
+        const players = team_id && data ? data.map(entry => entry.players) : data;
+
         res.json({
-            players: data,
+            players: players,
             pagination: {
                 page: page,
                 limit: limit,
@@ -348,26 +383,65 @@ app.get('/api/players', async (req, res) => {
     }
 });
 
-// GET /api/players/{id} - Get single player
+// GET /api/players/{id} - Get single player with roster history
 app.get('/api/players/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
-        const { data, error } = await supabase
+        // Get player details
+        const { data: player, error: playerError } = await supabase
             .from('players')
             .select('*')
             .eq('id', id)
             .single();
 
-        if (error) {
-            console.error('Supabase error:', error);
-            if (error.code === 'PGRST116') {
+        if (playerError) {
+            console.error('Supabase error:', playerError);
+            if (playerError.code === 'PGRST116') {
                 return res.status(404).json({ error: 'Player not found' });
             }
             return res.status(500).json({ error: 'Internal server error' });
         }
 
-        res.json(data);
+        // Get roster history (current and past team assignments)
+        const { data: rosterHistory, error: rosterError } = await supabase
+            .from('roster_entries')
+            .select(`
+                *,
+                teams (id, name, organization)
+            `)
+            .eq('player_id', id)
+            .order('start_date', { ascending: false });
+
+        if (rosterError) {
+            console.error('Roster history error:', rosterError);
+            // Don't fail the request if roster fetch fails
+            player.roster_history = [];
+        } else {
+            // Add roster history to player object
+            player.roster_history = rosterHistory.map(entry => ({
+                team_id: entry.team_id,
+                team_name: entry.teams?.name,
+                team_organization: entry.teams?.organization,
+                start_date: entry.start_date,
+                end_date: entry.end_date,
+                jersey_number: entry.jersey_number,
+                position: entry.position,
+                is_active: !entry.end_date
+            }));
+
+            // Add current team info for convenience
+            const currentTeam = player.roster_history.find(r => r.is_active);
+            if (currentTeam) {
+                player.current_team = {
+                    id: currentTeam.team_id,
+                    name: currentTeam.team_name,
+                    organization: currentTeam.team_organization
+                };
+            }
+        }
+
+        res.json(player);
     } catch (error) {
         console.error('Get player error:', error);
         res.status(500).json({ error: 'Internal server error' });
@@ -383,6 +457,7 @@ app.put('/api/players/:id', async (req, res) => {
         email,
         phone,
         date_of_birth,
+        gender,
         organization,
         emergency_contact_name,
         emergency_contact_phone,
@@ -400,6 +475,11 @@ app.put('/api/players/:id', async (req, res) => {
         return res.status(400).json({ error: 'Invalid email format' });
     }
 
+    // Gender validation
+    if (gender && !['male', 'female', 'other', 'prefer_not_to_say'].includes(gender)) {
+        return res.status(400).json({ error: 'Invalid gender value' });
+    }
+
     try {
         const { data, error } = await supabase
             .from('players')
@@ -409,6 +489,7 @@ app.put('/api/players/:id', async (req, res) => {
                 email,
                 phone,
                 date_of_birth,
+                gender,
                 organization,
                 emergency_contact_name,
                 emergency_contact_phone,
@@ -443,30 +524,24 @@ app.delete('/api/players/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
-        // Check if player has active roster entries
-        const { data: rosterEntries, error: rosterError } = await supabase
+        // First, delete all roster entries for this player
+        const { error: rosterDeleteError } = await supabase
             .from('roster_entries')
-            .select('id')
-            .eq('player_id', id)
-            .or('end_date.is.null,end_date.gt.now()')
-            .limit(1);
+            .delete()
+            .eq('player_id', id);
 
-        if (rosterError) {
-            console.error('Supabase error:', rosterError);
-            return res.status(500).json({ error: 'Internal server error' });
+        if (rosterDeleteError) {
+            console.error('Error deleting roster entries:', rosterDeleteError);
+            return res.status(500).json({ error: 'Failed to remove player from teams' });
         }
 
-        if (rosterEntries && rosterEntries.length > 0) {
-            return res.status(409).json({
-                error: 'Cannot delete player with active roster assignments. Please remove from all teams first.'
-            });
-        }
-
-        // Delete the player
-        const { error } = await supabase
+        // Then delete the player
+        const { data, error } = await supabase
             .from('players')
             .delete()
-            .eq('id', id);
+            .eq('id', id)
+            .select()
+            .single();
 
         if (error) {
             console.error('Supabase error:', error);

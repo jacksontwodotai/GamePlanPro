@@ -6418,5 +6418,111 @@
       "command": "cd frontend && npm run build",
       "description": "Build the React frontend with new changes"
     }
+  },
+  {
+    "session_id": "c7527cfd-1703-4da9-afca-8fa09970257e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/c7527cfd-1703-4da9-afca-8fa09970257e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "AUTH_|SUPABASE_|password|email|admin",
+      "glob": "**/*.{js,env,json,md}",
+      "output_mode": "files_with_matches"
+    }
+  },
+  {
+    "session_id": "c7527cfd-1703-4da9-afca-8fa09970257e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/c7527cfd-1703-4da9-afca-8fa09970257e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la | grep -E \"\\.env|config\"",
+      "description": "Check for environment or config files"
+    }
+  },
+  {
+    "session_id": "c7527cfd-1703-4da9-afca-8fa09970257e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/c7527cfd-1703-4da9-afca-8fa09970257e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "limit": 100
+    }
+  },
+  {
+    "session_id": "c7527cfd-1703-4da9-afca-8fa09970257e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/c7527cfd-1703-4da9-afca-8fa09970257e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "curl -X POST http://localhost:2004/api/create-account \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"organization\": \"GamePlanPro Admin\",\n    \"firstName\": \"Admin\",\n    \"lastName\": \"User\",\n    \"email\": \"admin@gameplanpro.com\",\n    \"password\": \"AdminPass123!\",\n    \"role\": \"admin\"\n  }'",
+      "description": "Create admin account via API"
+    }
+  },
+  {
+    "session_id": "c7527cfd-1703-4da9-afca-8fa09970257e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/c7527cfd-1703-4da9-afca-8fa09970257e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ps aux | grep node | grep -v grep",
+      "description": "Check if Node.js server is running"
+    }
+  },
+  {
+    "session_id": "c7527cfd-1703-4da9-afca-8fa09970257e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/c7527cfd-1703-4da9-afca-8fa09970257e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__supabase__execute_sql",
+    "tool_input": {
+      "query": "SELECT email, role, organization, first_name, last_name FROM users LIMIT 5;"
+    }
+  },
+  {
+    "session_id": "c7527cfd-1703-4da9-afca-8fa09970257e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/c7527cfd-1703-4da9-afca-8fa09970257e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__supabase__execute_sql",
+    "tool_input": {
+      "query": "INSERT INTO users (organization, first_name, last_name, email, password_hash, role) \nVALUES ('GamePlanPro', 'Admin', 'User', 'admin@gameplanpro.local', '$2a$10$YourHashHere', 'admin')\nON CONFLICT (email) DO NOTHING\nRETURNING id, email;"
+    }
+  },
+  {
+    "session_id": "c7527cfd-1703-4da9-afca-8fa09970257e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/c7527cfd-1703-4da9-afca-8fa09970257e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "node -e \"const bcrypt = require('bcryptjs'); bcrypt.hash('GamePlan2024!', 10, (err, hash) => console.log(hash));\"",
+      "description": "Generate bcrypt password hash"
+    }
+  },
+  {
+    "session_id": "c7527cfd-1703-4da9-afca-8fa09970257e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/c7527cfd-1703-4da9-afca-8fa09970257e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__supabase__execute_sql",
+    "tool_input": {
+      "query": "UPDATE users \nSET password_hash = '$2a$10$LBWkNSeYgGDBjA2JvzjX/.PnQsiGENeD253GdTg/Jct0K7lDSjABO'\nWHERE email = 'admin@gameplanpro.local';"
+    }
   }
 ]
