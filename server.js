@@ -1297,6 +1297,278 @@ app.delete('/api/structure/skill-levels/:skill_level_id', async (req, res) => {
     }
 });
 
+// Age Group Management Endpoints
+// POST /api/structure/age-groups - Create age group
+app.post('/api/structure/age-groups', async (req, res) => {
+    const { name, min_age, max_age, description } = req.body;
+
+    // TODO: Add proper authentication/authorization check here
+    // For now, we'll proceed without auth check
+
+    if (!name || min_age === undefined || max_age === undefined) {
+        return res.status(400).json({ error: 'Name, min_age, and max_age are required' });
+    }
+
+    // Validate min_age and max_age are positive integers
+    if (!Number.isInteger(min_age) || !Number.isInteger(max_age) || min_age < 0 || max_age < 0) {
+        return res.status(400).json({ error: 'min_age and max_age must be positive integers' });
+    }
+
+    // Validate min_age is less than max_age
+    if (min_age >= max_age) {
+        return res.status(400).json({ error: 'min_age must be less than max_age' });
+    }
+
+    try {
+        // Check if age group name already exists
+        const { data: existingAgeGroup, error: checkError } = await supabase
+            .from('age_groups')
+            .select('id')
+            .eq('name', name)
+            .single();
+
+        if (existingAgeGroup) {
+            return res.status(409).json({ error: 'Age group name already exists' });
+        }
+
+        // Create the age group
+        const { data, error } = await supabase
+            .from('age_groups')
+            .insert([{
+                name,
+                min_age,
+                max_age,
+                description: description || null
+            }])
+            .select()
+            .single();
+
+        if (error) {
+            console.error('Supabase error:', error);
+            return res.status(500).json({ error: 'Failed to create age group' });
+        }
+
+        res.status(201).json(data);
+    } catch (error) {
+        console.error('Create age group error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/structure/age-groups - List all age groups
+app.get('/api/structure/age-groups', async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 50;
+    const search = req.query.search || '';
+    const from = (page - 1) * limit;
+    const to = from + limit - 1;
+
+    try {
+        let query = supabase
+            .from('age_groups')
+            .select('*', { count: 'exact' });
+
+        // Add search filter if provided
+        if (search) {
+            query = query.or(`name.ilike.%${search}%,description.ilike.%${search}%`);
+        }
+
+        // Add pagination and ordering
+        query = query
+            .order('min_age', { ascending: true })
+            .order('name', { ascending: true })
+            .range(from, to);
+
+        const { data, error, count } = await query;
+
+        if (error) {
+            console.error('Supabase error:', error);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        res.json({
+            age_groups: data,
+            pagination: {
+                page: page,
+                limit: limit,
+                total: count,
+                totalPages: Math.ceil(count / limit)
+            }
+        });
+    } catch (error) {
+        console.error('Get age groups error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/structure/age-groups/{age_group_id} - Get specific age group
+app.get('/api/structure/age-groups/:age_group_id', async (req, res) => {
+    const { age_group_id } = req.params;
+
+    try {
+        const { data, error } = await supabase
+            .from('age_groups')
+            .select('*')
+            .eq('id', age_group_id)
+            .single();
+
+        if (error) {
+            console.error('Supabase error:', error);
+            if (error.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Age group not found' });
+            }
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        res.json(data);
+    } catch (error) {
+        console.error('Get age group error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// PUT /api/structure/age-groups/{age_group_id} - Update age group
+app.put('/api/structure/age-groups/:age_group_id', async (req, res) => {
+    const { age_group_id } = req.params;
+    const { name, min_age, max_age, description } = req.body;
+
+    // TODO: Add proper authentication/authorization check here
+
+    const updates = {};
+
+    if (name !== undefined) {
+        if (!name.trim()) {
+            return res.status(400).json({ error: 'Age group name cannot be empty' });
+        }
+        // Check if new name already exists (excluding current age group)
+        const { data: existingAgeGroup } = await supabase
+            .from('age_groups')
+            .select('id')
+            .eq('name', name)
+            .neq('id', age_group_id)
+            .single();
+
+        if (existingAgeGroup) {
+            return res.status(409).json({ error: 'Age group name already exists' });
+        }
+        updates.name = name.trim();
+    }
+
+    if (min_age !== undefined) {
+        if (!Number.isInteger(min_age) || min_age < 0) {
+            return res.status(400).json({ error: 'min_age must be a positive integer' });
+        }
+        updates.min_age = min_age;
+    }
+
+    if (max_age !== undefined) {
+        if (!Number.isInteger(max_age) || max_age < 0) {
+            return res.status(400).json({ error: 'max_age must be a positive integer' });
+        }
+        updates.max_age = max_age;
+    }
+
+    if (description !== undefined) {
+        updates.description = description?.trim() || null;
+    }
+
+    // Validate min_age < max_age if both are being updated or exist
+    if (updates.min_age !== undefined || updates.max_age !== undefined) {
+        // Get current values if not being updated
+        if (updates.min_age === undefined || updates.max_age === undefined) {
+            const { data: currentAgeGroup } = await supabase
+                .from('age_groups')
+                .select('min_age, max_age')
+                .eq('id', age_group_id)
+                .single();
+
+            if (currentAgeGroup) {
+                const finalMinAge = updates.min_age !== undefined ? updates.min_age : currentAgeGroup.min_age;
+                const finalMaxAge = updates.max_age !== undefined ? updates.max_age : currentAgeGroup.max_age;
+
+                if (finalMinAge >= finalMaxAge) {
+                    return res.status(400).json({ error: 'min_age must be less than max_age' });
+                }
+            }
+        } else {
+            // Both values are being updated
+            if (updates.min_age >= updates.max_age) {
+                return res.status(400).json({ error: 'min_age must be less than max_age' });
+            }
+        }
+    }
+
+    if (Object.keys(updates).length === 0) {
+        return res.status(400).json({ error: 'No fields to update' });
+    }
+
+    try {
+        const { data, error } = await supabase
+            .from('age_groups')
+            .update(updates)
+            .eq('id', age_group_id)
+            .select()
+            .single();
+
+        if (error) {
+            console.error('Supabase error:', error);
+            if (error.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Age group not found' });
+            }
+            return res.status(500).json({ error: 'Failed to update age group' });
+        }
+
+        res.json(data);
+    } catch (error) {
+        console.error('Update age group error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// DELETE /api/structure/age-groups/{age_group_id} - Delete age group
+app.delete('/api/structure/age-groups/:age_group_id', async (req, res) => {
+    const { age_group_id } = req.params;
+
+    // TODO: Add proper authentication/authorization check here
+
+    try {
+        // Check if any teams are using this age group
+        const { data: teams, error: checkError } = await supabase
+            .from('teams')
+            .select('id')
+            .eq('age_group', age_group_id)
+            .limit(1);
+
+        if (checkError) {
+            console.error('Supabase error:', checkError);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        if (teams && teams.length > 0) {
+            return res.status(409).json({ error: 'Cannot delete age group that is assigned to teams' });
+        }
+
+        // Delete the age group
+        const { error } = await supabase
+            .from('age_groups')
+            .delete()
+            .eq('id', age_group_id);
+
+        if (error) {
+            console.error('Supabase error:', error);
+            if (error.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Age group not found' });
+            }
+            return res.status(500).json({ error: 'Failed to delete age group' });
+        }
+
+        res.status(200).json({ message: 'Age group deleted successfully' });
+    } catch (error) {
+        console.error('Delete age group error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`GamePlanPro server running on http://localhost:${PORT}`);
