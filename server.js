@@ -2668,6 +2668,353 @@ app.get('/api/test/payments/:payment_id', async (req, res) => {
     }
 });
 
+// Program Management Endpoints
+
+// POST /api/programs - Create new program
+app.post('/api/programs', authenticateUser, async (req, res) => {
+    const {
+        name,
+        description,
+        season,
+        start_date,
+        end_date,
+        registration_open_date,
+        registration_close_date,
+        max_capacity,
+        base_fee
+    } = req.body;
+
+    // Validate required fields
+    if (!name || !start_date || !end_date || !registration_open_date || !registration_close_date || base_fee === undefined) {
+        return res.status(400).json({
+            error: 'name, start_date, end_date, registration_open_date, registration_close_date, and base_fee are required'
+        });
+    }
+
+    // Validate base_fee is non-negative
+    if (base_fee < 0) {
+        return res.status(400).json({ error: 'base_fee must be non-negative' });
+    }
+
+    // Validate max_capacity if provided
+    if (max_capacity !== undefined && max_capacity !== null && max_capacity <= 0) {
+        return res.status(400).json({ error: 'max_capacity must be greater than 0' });
+    }
+
+    // Validate date constraints
+    const startDate = new Date(start_date);
+    const endDate = new Date(end_date);
+    const regOpenDate = new Date(registration_open_date);
+    const regCloseDate = new Date(registration_close_date);
+
+    if (startDate >= endDate) {
+        return res.status(400).json({ error: 'start_date must be before end_date' });
+    }
+
+    if (regOpenDate >= regCloseDate) {
+        return res.status(400).json({ error: 'registration_open_date must be before registration_close_date' });
+    }
+
+    if (regCloseDate > startDate) {
+        return res.status(400).json({ error: 'registration_close_date must be on or before start_date' });
+    }
+
+    try {
+        const { data: program, error } = await supabase
+            .from('programs')
+            .insert([{
+                name,
+                description: description || null,
+                season: season || null,
+                start_date,
+                end_date,
+                registration_open_date,
+                registration_close_date,
+                max_capacity: max_capacity || null,
+                base_fee
+            }])
+            .select()
+            .single();
+
+        if (error) {
+            console.error('Program creation error:', error);
+            return res.status(500).json({ error: 'Failed to create program' });
+        }
+
+        res.status(201).json({
+            message: 'Program created successfully',
+            program
+        });
+    } catch (error) {
+        console.error('Create program error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/programs - List programs with filtering
+app.get('/api/programs', authenticateUser, async (req, res) => {
+    const {
+        season,
+        is_active,
+        registration_status,
+        page = 1,
+        limit = 10
+    } = req.query;
+
+    const offset = (parseInt(page) - 1) * parseInt(limit);
+
+    try {
+        let query = supabase
+            .from('programs')
+            .select('*, registrations(count)', { count: 'exact' });
+
+        // Apply filters
+        if (season) {
+            query = query.eq('season', season);
+        }
+
+        if (is_active !== undefined) {
+            query = query.eq('is_active', is_active === 'true');
+        }
+
+        // Handle registration_status filter
+        const now = new Date().toISOString().split('T')[0]; // Current date in YYYY-MM-DD format
+
+        if (registration_status) {
+            switch (registration_status) {
+                case 'upcoming':
+                    query = query.gt('registration_open_date', now);
+                    break;
+                case 'open':
+                    query = query.lte('registration_open_date', now)
+                               .gte('registration_close_date', now);
+                    break;
+                case 'closed':
+                    query = query.lt('registration_close_date', now)
+                               .gte('start_date', now);
+                    break;
+                case 'ended':
+                    query = query.lt('end_date', now);
+                    break;
+            }
+        }
+
+        // Add pagination and ordering
+        query = query
+            .order('start_date', { ascending: true })
+            .range(offset, offset + parseInt(limit) - 1);
+
+        const { data, error, count } = await query;
+
+        if (error) {
+            console.error('Programs fetch error:', error);
+            return res.status(500).json({ error: 'Failed to fetch programs' });
+        }
+
+        res.json({
+            programs: data || [],
+            pagination: {
+                page: parseInt(page),
+                limit: parseInt(limit),
+                total: count || 0,
+                totalPages: Math.ceil((count || 0) / parseInt(limit))
+            }
+        });
+    } catch (error) {
+        console.error('Get programs error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/programs/{program_id} - Get program details
+app.get('/api/programs/:program_id', authenticateUser, async (req, res) => {
+    const { program_id } = req.params;
+
+    try {
+        // Get program with registration count
+        const { data: program, error } = await supabase
+            .from('programs')
+            .select(`
+                *,
+                registrations(count)
+            `)
+            .eq('id', program_id)
+            .single();
+
+        if (error) {
+            console.error('Program fetch error:', error);
+            if (error.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Program not found' });
+            }
+            return res.status(500).json({ error: 'Failed to fetch program' });
+        }
+
+        // Add computed registration_count field
+        const registrationCount = program.registrations?.[0]?.count || 0;
+        const { registrations, ...programData } = program;
+
+        res.json({
+            ...programData,
+            registration_count: registrationCount
+        });
+    } catch (error) {
+        console.error('Get program error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// PUT /api/programs/{program_id} - Update program
+app.put('/api/programs/:program_id', authenticateUser, async (req, res) => {
+    const { program_id } = req.params;
+    const {
+        name,
+        description,
+        season,
+        start_date,
+        end_date,
+        registration_open_date,
+        registration_close_date,
+        max_capacity,
+        base_fee,
+        is_active
+    } = req.body;
+
+    // Build update object with only provided fields
+    const updates = {};
+
+    if (name !== undefined) updates.name = name;
+    if (description !== undefined) updates.description = description;
+    if (season !== undefined) updates.season = season;
+    if (start_date !== undefined) updates.start_date = start_date;
+    if (end_date !== undefined) updates.end_date = end_date;
+    if (registration_open_date !== undefined) updates.registration_open_date = registration_open_date;
+    if (registration_close_date !== undefined) updates.registration_close_date = registration_close_date;
+    if (max_capacity !== undefined) updates.max_capacity = max_capacity;
+    if (base_fee !== undefined) updates.base_fee = base_fee;
+    if (is_active !== undefined) updates.is_active = is_active;
+
+    if (Object.keys(updates).length === 0) {
+        return res.status(400).json({ error: 'No fields to update' });
+    }
+
+    // Validate constraints for provided fields
+    if (updates.base_fee !== undefined && updates.base_fee < 0) {
+        return res.status(400).json({ error: 'base_fee must be non-negative' });
+    }
+
+    if (updates.max_capacity !== undefined && updates.max_capacity !== null && updates.max_capacity <= 0) {
+        return res.status(400).json({ error: 'max_capacity must be greater than 0' });
+    }
+
+    // For date validation, we need current values if not all dates are being updated
+    try {
+        // Get current program for date validation
+        const { data: currentProgram, error: fetchError } = await supabase
+            .from('programs')
+            .select('start_date, end_date, registration_open_date, registration_close_date')
+            .eq('id', program_id)
+            .single();
+
+        if (fetchError) {
+            if (fetchError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Program not found' });
+            }
+            return res.status(500).json({ error: 'Failed to fetch program' });
+        }
+
+        // Use current values for dates not being updated
+        const finalStartDate = new Date(updates.start_date || currentProgram.start_date);
+        const finalEndDate = new Date(updates.end_date || currentProgram.end_date);
+        const finalRegOpenDate = new Date(updates.registration_open_date || currentProgram.registration_open_date);
+        const finalRegCloseDate = new Date(updates.registration_close_date || currentProgram.registration_close_date);
+
+        // Validate date constraints
+        if (finalStartDate >= finalEndDate) {
+            return res.status(400).json({ error: 'start_date must be before end_date' });
+        }
+
+        if (finalRegOpenDate >= finalRegCloseDate) {
+            return res.status(400).json({ error: 'registration_open_date must be before registration_close_date' });
+        }
+
+        if (finalRegCloseDate > finalStartDate) {
+            return res.status(400).json({ error: 'registration_close_date must be on or before start_date' });
+        }
+
+        // Perform the update
+        const { data: updatedProgram, error: updateError } = await supabase
+            .from('programs')
+            .update(updates)
+            .eq('id', program_id)
+            .select()
+            .single();
+
+        if (updateError) {
+            console.error('Program update error:', updateError);
+            return res.status(500).json({ error: 'Failed to update program' });
+        }
+
+        res.json({
+            message: 'Program updated successfully',
+            program: updatedProgram
+        });
+    } catch (error) {
+        console.error('Update program error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// DELETE /api/programs/{program_id} - Delete program
+app.delete('/api/programs/:program_id', authenticateUser, async (req, res) => {
+    const { program_id } = req.params;
+
+    try {
+        // Check if program exists and has registrations
+        const { data: program, error: fetchError } = await supabase
+            .from('programs')
+            .select(`
+                id,
+                name,
+                registrations(count)
+            `)
+            .eq('id', program_id)
+            .single();
+
+        if (fetchError) {
+            if (fetchError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Program not found' });
+            }
+            return res.status(500).json({ error: 'Failed to fetch program' });
+        }
+
+        const registrationCount = program.registrations?.[0]?.count || 0;
+
+        // Check for existing registrations
+        if (registrationCount > 0) {
+            return res.status(409).json({
+                error: 'Cannot delete program with existing registrations',
+                registration_count: registrationCount
+            });
+        }
+
+        // Delete the program
+        const { error: deleteError } = await supabase
+            .from('programs')
+            .delete()
+            .eq('id', program_id);
+
+        if (deleteError) {
+            console.error('Program deletion error:', deleteError);
+            return res.status(500).json({ error: 'Failed to delete program' });
+        }
+
+        res.json({ message: 'Program deleted successfully' });
+    } catch (error) {
+        console.error('Delete program error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`GamePlanPro server running on http://localhost:${PORT}`);
