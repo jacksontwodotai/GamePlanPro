@@ -7389,5 +7389,14 @@
       "command": "cd frontend && npm install @radix-ui/react-dropdown-menu",
       "description": "Install dropdown menu dependency"
     }
+  },
+  {
+    "session_id": "ba4dd267-a5ec-4011-941e-2218fd18f6d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ba4dd267-a5ec-4011-941e-2218fd18f6d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__get_work_order",
+    "tool_input": {}
   }
 ]
