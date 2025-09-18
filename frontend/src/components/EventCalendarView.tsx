@@ -42,11 +42,31 @@ const EventCalendarView = () => {
     {
       id: '2',
       title: 'Team Practice',
-      date: '2025-09-18',
+      date: '2025-09-19',
       time: '16:00',
       venue: 'Training Field',
       teams: ['Team C'],
       type: 'practice',
+      status: 'scheduled'
+    },
+    {
+      id: '3',
+      title: 'Weekly Training',
+      date: '2025-09-21',
+      time: '10:00',
+      venue: 'Practice Ground',
+      teams: ['Team A'],
+      type: 'practice',
+      status: 'scheduled'
+    },
+    {
+      id: '4',
+      title: 'Tournament Finals',
+      date: '2025-09-22',
+      time: '15:30',
+      venue: 'Championship Arena',
+      teams: ['Team A', 'Team B', 'Team C'],
+      type: 'tournament',
       status: 'scheduled'
     }
   ])

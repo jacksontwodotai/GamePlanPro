@@ -5,6 +5,7 @@ import TeamManagementDashboard from './components/TeamManagementDashboard'
 import TeamListView from './components/TeamListView'
 import PlayerManagementInterface from './components/PlayerManagementInterface'
 import PlayerProfileDashboard from './components/PlayerProfileDashboard'
+import PlayerManagementDashboard from './components/PlayerManagementDashboard'
 import EventSchedulerDashboard from './components/EventSchedulerDashboard'
 import TeamStructureDashboard from './components/TeamStructureDashboard'
 import DivisionManagement from './components/DivisionManagement'
@@ -31,6 +32,7 @@ function App() {
         <Route path="/players" element={<Layout />}>
           <Route index element={<PlayerProfileDashboard />} />
           <Route path="list" element={<PlayerManagementInterface />} />
+          <Route path="enhanced" element={<PlayerManagementDashboard />} />
           <Route path="create" element={<PlayerManagementInterface />} />
           <Route path=":id" element={<PlayerManagementInterface />} />
         </Route>
