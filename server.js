@@ -926,6 +926,234 @@ app.delete('/api/structure/divisions/:division_id', async (req, res) => {
     }
 });
 
+// Skill Level Management Endpoints
+// POST /api/structure/skill-levels - Create skill level
+app.post('/api/structure/skill-levels', async (req, res) => {
+    const { name, description, level } = req.body;
+
+    // Validate required fields
+    if (!name || !name.trim()) {
+        return res.status(400).json({ error: 'Skill level name is required' });
+    }
+
+    try {
+        // Check if skill level with same name already exists
+        const { data: existing, error: checkError } = await supabase
+            .from('skill_levels')
+            .select('id')
+            .ilike('name', name.trim())
+            .single();
+
+        if (existing) {
+            return res.status(409).json({ error: 'A skill level with this name already exists' });
+        }
+
+        // Create new skill level
+        const { data, error } = await supabase
+            .from('skill_levels')
+            .insert([{
+                name: name.trim(),
+                description: description?.trim() || null,
+                level: level || null
+            }])
+            .select()
+            .single();
+
+        if (error) {
+            console.error('Supabase error:', error);
+            return res.status(500).json({ error: 'Failed to create skill level' });
+        }
+
+        res.status(201).json({
+            message: 'Skill level created successfully',
+            skill_level: data
+        });
+    } catch (error) {
+        console.error('Create skill level error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/structure/skill-levels - List all skill levels
+app.get('/api/structure/skill-levels', async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 50;
+    const search = req.query.search || '';
+    const from = (page - 1) * limit;
+    const to = from + limit - 1;
+
+    try {
+        let query = supabase
+            .from('skill_levels')
+            .select('*', { count: 'exact' });
+
+        // Add search filter if provided
+        if (search) {
+            query = query.or(`name.ilike.%${search}%,description.ilike.%${search}%`);
+        }
+
+        // Add pagination and ordering
+        query = query
+            .order('level', { ascending: true, nullsLast: true })
+            .order('name', { ascending: true })
+            .range(from, to);
+
+        const { data, error, count } = await query;
+
+        if (error) {
+            console.error('Supabase error:', error);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        res.json({
+            skill_levels: data,
+            pagination: {
+                page: page,
+                limit: limit,
+                total: count,
+                totalPages: Math.ceil(count / limit)
+            }
+        });
+    } catch (error) {
+        console.error('Get skill levels error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/structure/skill-levels/{id} - Get single skill level
+app.get('/api/structure/skill-levels/:skill_level_id', async (req, res) => {
+    const { skill_level_id } = req.params;
+
+    try {
+        const { data, error } = await supabase
+            .from('skill_levels')
+            .select('*')
+            .eq('id', skill_level_id)
+            .single();
+
+        if (error) {
+            console.error('Supabase error:', error);
+            if (error.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Skill level not found' });
+            }
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        res.json(data);
+    } catch (error) {
+        console.error('Get skill level error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// PUT /api/structure/skill-levels/{id} - Update skill level
+app.put('/api/structure/skill-levels/:skill_level_id', async (req, res) => {
+    const { skill_level_id } = req.params;
+    const { name, description, level } = req.body;
+
+    // Build update object with only provided fields
+    const updateData = {};
+    if (name !== undefined) {
+        if (!name.trim()) {
+            return res.status(400).json({ error: 'Skill level name cannot be empty' });
+        }
+        updateData.name = name.trim();
+    }
+    if (description !== undefined) {
+        updateData.description = description?.trim() || null;
+    }
+    if (level !== undefined) {
+        updateData.level = level;
+    }
+
+    // Check if there's anything to update
+    if (Object.keys(updateData).length === 0) {
+        return res.status(400).json({ error: 'No fields to update' });
+    }
+
+    try {
+        // If updating name, check if it already exists
+        if (updateData.name) {
+            const { data: existing, error: checkError } = await supabase
+                .from('skill_levels')
+                .select('id')
+                .ilike('name', updateData.name)
+                .neq('id', skill_level_id)
+                .single();
+
+            if (existing) {
+                return res.status(409).json({ error: 'A skill level with this name already exists' });
+            }
+        }
+
+        // Update the skill level
+        const { data, error } = await supabase
+            .from('skill_levels')
+            .update(updateData)
+            .eq('id', skill_level_id)
+            .select()
+            .single();
+
+        if (error) {
+            console.error('Supabase error:', error);
+            if (error.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Skill level not found' });
+            }
+            return res.status(500).json({ error: 'Failed to update skill level' });
+        }
+
+        res.json({
+            message: 'Skill level updated successfully',
+            skill_level: data
+        });
+    } catch (error) {
+        console.error('Update skill level error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// DELETE /api/structure/skill-levels/{id} - Delete skill level
+app.delete('/api/structure/skill-levels/:skill_level_id', async (req, res) => {
+    const { skill_level_id } = req.params;
+
+    try {
+        // Check if skill level is used by any teams
+        const { data: teams, error: checkError } = await supabase
+            .from('teams')
+            .select('id')
+            .eq('skill_level', skill_level_id)
+            .limit(1);
+
+        if (checkError) {
+            console.error('Supabase error:', checkError);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        if (teams && teams.length > 0) {
+            return res.status(409).json({ error: 'Cannot delete skill level that is assigned to teams' });
+        }
+
+        // Delete the skill level
+        const { error } = await supabase
+            .from('skill_levels')
+            .delete()
+            .eq('id', skill_level_id);
+
+        if (error) {
+            console.error('Supabase error:', error);
+            if (error.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Skill level not found' });
+            }
+            return res.status(500).json({ error: 'Failed to delete skill level' });
+        }
+
+        res.status(200).json({ message: 'Skill level deleted successfully' });
+    } catch (error) {
+        console.error('Delete skill level error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`GamePlanPro server running on http://localhost:${PORT}`);
