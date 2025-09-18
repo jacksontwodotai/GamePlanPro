@@ -115,8 +115,8 @@ const EventModal = () => {
     closeEventModal && closeEventModal()
   }
 
-  // Don't render if modal is not open or context is not available
-  if (!modalOpen || !context || modalMode === 'view') {
+  // Don't render if modal is not open, in view mode, or context is not available
+  if (!modalOpen || !context || modalMode === 'view' || modalMode === null) {
     return null
   }
 

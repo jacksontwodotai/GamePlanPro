@@ -4,6 +4,7 @@ import { EventSchedulerProvider } from '../contexts/EventSchedulerContext'
 import EventCalendarView from './EventCalendarView'
 import EventErrorBoundary from './EventErrorBoundary'
 import EventModal from './EventModal'
+import EventDetailsModal from './EventDetailsModal'
 import EventForm from './EventForm'
 import {
   Calendar,
@@ -387,8 +388,9 @@ const EventSchedulerDashboard = () => {
             </Routes>
           </div>
 
-          {/* Event Modal */}
+          {/* Event Modals */}
           <EventModal />
+          <EventDetailsModal />
         </div>
       </EventErrorBoundary>
     </EventSchedulerProvider>

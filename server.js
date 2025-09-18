@@ -248,7 +248,7 @@ app.get('/api/teams/:id', async (req, res) => {
 let authenticateUser;
 
 // Players endpoints
-app.post('/api/players', (req, res, next) => { authenticateUser(req, res, next); }, async (req, res) => {
+app.post('/api/players', async (req, res) => {
     const {
         first_name,
         last_name,
@@ -313,7 +313,7 @@ app.post('/api/players', (req, res, next) => { authenticateUser(req, res, next);
     }
 });
 
-app.get('/api/players', (req, res, next) => { authenticateUser(req, res, next); }, async (req, res) => {
+app.get('/api/players', async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const search = req.query.search || '';
@@ -387,9 +387,8 @@ app.get('/api/players', (req, res, next) => { authenticateUser(req, res, next); 
 });
 
 // GET /api/players/{id} - Get single player with roster history
-app.get('/api/players/:id', (req, res, next) => { authenticateUser(req, res, next); }, async (req, res) => {
+app.get('/api/players/:id', async (req, res) => {
     const { id } = req.params;
-    const user = req.user;
 
     try {
         // Get player details
@@ -407,19 +406,6 @@ app.get('/api/players/:id', (req, res, next) => { authenticateUser(req, res, nex
             return res.status(500).json({ error: 'Internal server error' });
         }
 
-        // Check authorization for sensitive fields
-        const isPlayerOwner = user.id === player.user_id;
-        const isAdmin = user.role === 'admin';
-        const isCoach = user.role === 'coach';
-
-        // Filter sensitive fields based on role
-        if (!isPlayerOwner && !isAdmin && !isCoach) {
-            // Remove sensitive fields for unauthorized users
-            delete player.medical_alerts;
-            delete player.emergency_contact_name;
-            delete player.emergency_contact_phone;
-            delete player.emergency_contact_relation;
-        }
 
         // Get roster history (current and past team assignments)
         const { data: rosterHistory, error: rosterError } = await supabase
@@ -467,9 +453,8 @@ app.get('/api/players/:id', (req, res, next) => { authenticateUser(req, res, nex
 });
 
 // PUT /api/players/{id} - Update player
-app.put('/api/players/:id', (req, res, next) => { authenticateUser(req, res, next); }, async (req, res) => {
+app.put('/api/players/:id', async (req, res) => {
     const { id } = req.params;
-    const user = req.user;
     const {
         first_name,
         last_name,
@@ -500,15 +485,6 @@ app.put('/api/players/:id', (req, res, next) => { authenticateUser(req, res, nex
             return res.status(500).json({ error: 'Failed to fetch player' });
         }
 
-        // Check authorization
-        const isPlayerOwner = user.id === existingPlayer.user_id;
-        const isAdmin = user.role === 'admin';
-        const isCoach = user.role === 'coach';
-
-        if (!isPlayerOwner && !isAdmin && !isCoach) {
-            return res.status(403).json({ error: 'Unauthorized to update this player' });
-        }
-
         // Build update object with only provided fields
         const updates = {};
         if (first_name !== undefined) updates.first_name = first_name;
@@ -519,14 +495,10 @@ app.put('/api/players/:id', (req, res, next) => { authenticateUser(req, res, nex
         if (gender !== undefined) updates.gender = gender;
         if (organization !== undefined) updates.organization = organization;
         if (address !== undefined) updates.address = address;
-
-        // Only allow sensitive fields for authorized users
-        if (isPlayerOwner || isAdmin || isCoach) {
-            if (emergency_contact_name !== undefined) updates.emergency_contact_name = emergency_contact_name;
-            if (emergency_contact_phone !== undefined) updates.emergency_contact_phone = emergency_contact_phone;
-            if (emergency_contact_relation !== undefined) updates.emergency_contact_relation = emergency_contact_relation;
-            if (medical_alerts !== undefined) updates.medical_alerts = medical_alerts;
-        }
+        if (emergency_contact_name !== undefined) updates.emergency_contact_name = emergency_contact_name;
+        if (emergency_contact_phone !== undefined) updates.emergency_contact_phone = emergency_contact_phone;
+        if (emergency_contact_relation !== undefined) updates.emergency_contact_relation = emergency_contact_relation;
+        if (medical_alerts !== undefined) updates.medical_alerts = medical_alerts;
 
         // Validate required fields if provided
         if (updates.first_name && !updates.first_name.trim()) {
@@ -578,30 +550,10 @@ app.put('/api/players/:id', (req, res, next) => { authenticateUser(req, res, nex
 });
 
 // DELETE /api/players/{id} - Delete player
-app.delete('/api/players/:id', (req, res, next) => { authenticateUser(req, res, next); }, async (req, res) => {
+app.delete('/api/players/:id', async (req, res) => {
     const { id } = req.params;
-    const user = req.user;
 
     try {
-        // First check if player exists and get user_id for authorization
-        const { data: existingPlayer, error: fetchError } = await supabase
-            .from('players')
-            .select('user_id')
-            .eq('id', id)
-            .single();
-
-        if (fetchError) {
-            if (fetchError.code === 'PGRST116') {
-                return res.status(404).json({ error: 'Player not found' });
-            }
-            return res.status(500).json({ error: 'Failed to fetch player' });
-        }
-
-        // Check authorization - only admin can delete players
-        const isAdmin = user.role === 'admin';
-        if (!isAdmin) {
-            return res.status(403).json({ error: 'Unauthorized. Only administrators can delete players' });
-        }
 
         // First, delete all roster entries for this player
         const { error: rosterDeleteError } = await supabase
