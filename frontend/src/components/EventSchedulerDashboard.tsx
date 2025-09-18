@@ -1,8 +1,10 @@
-import { useState } from 'react'
-import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from 'react-router-dom'
 import { EventSchedulerProvider } from '../contexts/EventSchedulerContext'
 import EventCalendarView from './EventCalendarView'
 import EventErrorBoundary from './EventErrorBoundary'
+import EventModal from './EventModal'
+import EventForm from './EventForm'
 import {
   Calendar,
   Plus,
@@ -22,6 +24,143 @@ import {
   DropdownMenuSeparator,
   DropdownMenuLabel
 } from './ui/dropdown-menu'
+
+// Standalone Create Event Page
+const CreateEventPage = () => {
+  const navigate = useNavigate()
+
+  const handleSubmit = async (formData: any) => {
+    try {
+      const response = await fetch('/api/events', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Failed to create event')
+      }
+
+      // Success - navigate back to calendar
+      navigate('/events/calendar')
+    } catch (err) {
+      console.error('Create event error:', err)
+      throw err // Re-throw to let the form handle it
+    }
+  }
+
+  const handleCancel = () => {
+    navigate('/events/calendar')
+  }
+
+  return (
+    <EventForm
+      mode="create"
+      isModal={false}
+      onSubmit={handleSubmit}
+      onCancel={handleCancel}
+    />
+  )
+}
+
+// Standalone Edit Event Page
+const EditEventPage = () => {
+  const navigate = useNavigate()
+  const { id } = useParams<{ id: string }>()
+  const [event, setEvent] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if (id) {
+      fetchEvent(id)
+    }
+  }, [id])
+
+  const fetchEvent = async (eventId: string) => {
+    try {
+      setLoading(true)
+      const response = await fetch(`/api/events/${eventId}`)
+      if (!response.ok) {
+        throw new Error('Failed to fetch event')
+      }
+      const eventData = await response.json()
+      setEvent(eventData)
+    } catch (err) {
+      console.error('Fetch event error:', err)
+      // Navigate back if event not found
+      navigate('/events/calendar')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleSubmit = async (formData: any) => {
+    try {
+      const response = await fetch(`/api/events/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Failed to update event')
+      }
+
+      // Success - navigate back to calendar
+      navigate('/events/calendar')
+    } catch (err) {
+      console.error('Update event error:', err)
+      throw err // Re-throw to let the form handle it
+    }
+  }
+
+  const handleCancel = () => {
+    navigate('/events/calendar')
+  }
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="flex items-center space-x-4">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500"></div>
+          <span className="text-gray-700">Loading event...</span>
+        </div>
+      </div>
+    )
+  }
+
+  if (!event) {
+    return (
+      <div className="text-center py-12 text-zinc-500">
+        <Calendar className="h-12 w-12 mx-auto mb-3 text-zinc-300" />
+        <p>Event not found</p>
+        <Button
+          variant="outline"
+          onClick={() => navigate('/events/calendar')}
+          className="mt-3"
+        >
+          Back to Calendar
+        </Button>
+      </div>
+    )
+  }
+
+  return (
+    <EventForm
+      mode="edit"
+      event={event}
+      isModal={false}
+      onSubmit={handleSubmit}
+      onCancel={handleCancel}
+    />
+  )
+}
 
 const EventSchedulerDashboard = () => {
   const navigate = useNavigate()
@@ -243,26 +382,13 @@ const EventSchedulerDashboard = () => {
                   </div>
                 </Card>
               } />
-              <Route path="create" element={
-                <Card className="border-zinc-200 shadow-xl bg-white p-6">
-                  <div className="text-center py-12 text-zinc-500">
-                    <Plus className="h-12 w-12 mx-auto mb-3 text-zinc-300" />
-                    <p>Create New Event</p>
-                    <p className="text-sm mt-2">Event creation form will be displayed here</p>
-                  </div>
-                </Card>
-              } />
-              <Route path="edit/:id" element={
-                <Card className="border-zinc-200 shadow-xl bg-white p-6">
-                  <div className="text-center py-12 text-zinc-500">
-                    <Settings className="h-12 w-12 mx-auto mb-3 text-zinc-300" />
-                    <p>Edit Event</p>
-                    <p className="text-sm mt-2">Event editing form will be displayed here</p>
-                  </div>
-                </Card>
-              } />
+              <Route path="create" element={<CreateEventPage />} />
+              <Route path="edit/:id" element={<EditEventPage />} />
             </Routes>
           </div>
+
+          {/* Event Modal */}
+          <EventModal />
         </div>
       </EventErrorBoundary>
     </EventSchedulerProvider>

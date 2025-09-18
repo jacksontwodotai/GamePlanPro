@@ -1569,6 +1569,1105 @@ app.delete('/api/structure/age-groups/:age_group_id', async (req, res) => {
     }
 });
 
+// GET /api/venues - Get all venues
+app.get('/api/venues', async (req, res) => {
+    try {
+        const { data, error } = await supabase
+            .from('venues')
+            .select('*')
+            .order('name', { ascending: true });
+
+        if (error) {
+            console.error('Supabase error:', error);
+            return res.status(500).json({ error: 'Failed to fetch venues' });
+        }
+
+        res.json(data || []);
+    } catch (error) {
+        console.error('Fetch venues error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// POST /api/events - Create new event
+app.post('/api/events', async (req, res) => {
+    try {
+        const {
+            title,
+            description,
+            event_type,
+            start_time,
+            end_time,
+            venue_id,
+            team_ids,
+            is_recurring,
+            recurrence_rule
+        } = req.body;
+
+        // Validate required fields
+        if (!title || !event_type || !start_time || !end_time || !venue_id || !team_ids || team_ids.length === 0) {
+            return res.status(400).json({
+                error: 'Missing required fields: title, event_type, start_time, end_time, venue_id, team_ids'
+            });
+        }
+
+        // Validate event type
+        if (!['game', 'practice', 'tournament'].includes(event_type)) {
+            return res.status(400).json({
+                error: 'Invalid event_type. Must be: game, practice, or tournament'
+            });
+        }
+
+        // Validate time logic
+        const startDate = new Date(start_time);
+        const endDate = new Date(end_time);
+        if (endDate <= startDate) {
+            return res.status(400).json({
+                error: 'End time must be after start time'
+            });
+        }
+
+        // Validate recurring event
+        if (is_recurring && !recurrence_rule) {
+            return res.status(400).json({
+                error: 'Recurrence rule is required for recurring events'
+            });
+        }
+
+        // Insert the event
+        const { data: eventData, error: eventError } = await supabase
+            .from('events')
+            .insert([{
+                title,
+                description: description || null,
+                event_type,
+                start_time,
+                end_time,
+                venue_id,
+                is_recurring: is_recurring || false,
+                recurrence_rule: recurrence_rule || null,
+                status: 'scheduled'
+            }])
+            .select()
+            .single();
+
+        if (eventError) {
+            console.error('Supabase error:', eventError);
+            return res.status(500).json({ error: 'Failed to create event' });
+        }
+
+        // Insert team relationships
+        const teamRelationships = team_ids.map(teamId => ({
+            event_id: eventData.id,
+            team_id: parseInt(teamId)
+        }));
+
+        const { error: teamError } = await supabase
+            .from('event_teams')
+            .insert(teamRelationships);
+
+        if (teamError) {
+            console.error('Supabase team relationship error:', teamError);
+            // Clean up the event if team relationships failed
+            await supabase.from('events').delete().eq('id', eventData.id);
+            return res.status(500).json({ error: 'Failed to create event team relationships' });
+        }
+
+        res.status(201).json({
+            message: 'Event created successfully',
+            event: { ...eventData, team_ids }
+        });
+    } catch (error) {
+        console.error('Create event error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/events - Get all events with optional filtering
+app.get('/api/events', async (req, res) => {
+    try {
+        const {
+            team_ids,
+            venue_id,
+            event_type,
+            start_date,
+            end_date,
+            page = 1,
+            limit = 50
+        } = req.query;
+
+        let query = supabase
+            .from('events')
+            .select(`
+                *,
+                venues(name, address),
+                event_teams(team_id, teams(id, name))
+            `)
+            .order('start_time', { ascending: true });
+
+        // Apply filters
+        if (team_ids) {
+            const teamIdsArray = Array.isArray(team_ids) ? team_ids : [team_ids];
+            // Filter events that have any of the specified teams
+            query = query.in('event_teams.team_id', teamIdsArray);
+        }
+
+        if (venue_id) {
+            query = query.eq('venue_id', venue_id);
+        }
+
+        if (event_type) {
+            query = query.eq('event_type', event_type);
+        }
+
+        if (start_date) {
+            query = query.gte('start_time', start_date);
+        }
+
+        if (end_date) {
+            query = query.lte('start_time', end_date);
+        }
+
+        // Apply pagination
+        const offset = (parseInt(page) - 1) * parseInt(limit);
+        query = query.range(offset, offset + parseInt(limit) - 1);
+
+        const { data, error } = await query;
+
+        // Get count separately for pagination
+        let countQuery = supabase
+            .from('events')
+            .select('id', { count: 'exact', head: true });
+
+        if (team_ids) {
+            const teamIdsArray = Array.isArray(team_ids) ? team_ids : [team_ids];
+            countQuery = countQuery.in('event_teams.team_id', teamIdsArray);
+        }
+
+        if (venue_id) {
+            countQuery = countQuery.eq('venue_id', venue_id);
+        }
+
+        if (event_type) {
+            countQuery = countQuery.eq('event_type', event_type);
+        }
+
+        if (start_date) {
+            countQuery = countQuery.gte('start_time', start_date);
+        }
+
+        if (end_date) {
+            countQuery = countQuery.lte('start_time', end_date);
+        }
+
+        const { count } = await countQuery;
+
+        if (error) {
+            console.error('Supabase error:', error);
+            return res.status(500).json({ error: 'Failed to fetch events' });
+        }
+
+        res.json({
+            events: data || [],
+            pagination: {
+                page: parseInt(page),
+                limit: parseInt(limit),
+                total: count || 0,
+                totalPages: Math.ceil((count || 0) / parseInt(limit))
+            }
+        });
+    } catch (error) {
+        console.error('Fetch events error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/events/{id} - Get single event
+app.get('/api/events/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const { data, error } = await supabase
+            .from('events')
+            .select('*')
+            .eq('id', id)
+            .single();
+
+        if (error) {
+            console.error('Supabase error:', error);
+            if (error.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Event not found' });
+            }
+            return res.status(500).json({ error: 'Failed to fetch event' });
+        }
+
+        res.json(data);
+    } catch (error) {
+        console.error('Fetch event error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// PUT /api/events/{id} - Update event
+app.put('/api/events/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const {
+            title,
+            description,
+            event_type,
+            start_time,
+            end_time,
+            venue_id,
+            team_ids,
+            is_recurring,
+            recurrence_rule,
+            status
+        } = req.body;
+
+        // Validate event type if provided
+        if (event_type && !['game', 'practice', 'tournament'].includes(event_type)) {
+            return res.status(400).json({
+                error: 'Invalid event_type. Must be: game, practice, or tournament'
+            });
+        }
+
+        // Validate status if provided
+        if (status && !['scheduled', 'completed', 'cancelled'].includes(status)) {
+            return res.status(400).json({
+                error: 'Invalid status. Must be: scheduled, completed, or cancelled'
+            });
+        }
+
+        // Validate time logic if both times are provided
+        if (start_time && end_time) {
+            const startDate = new Date(start_time);
+            const endDate = new Date(end_time);
+            if (endDate <= startDate) {
+                return res.status(400).json({
+                    error: 'End time must be after start time'
+                });
+            }
+        }
+
+        // Validate recurring event
+        if (is_recurring && !recurrence_rule) {
+            return res.status(400).json({
+                error: 'Recurrence rule is required for recurring events'
+            });
+        }
+
+        // Build update object with only provided fields
+        const updateData = {};
+        if (title !== undefined) updateData.title = title;
+        if (description !== undefined) updateData.description = description;
+        if (event_type !== undefined) updateData.event_type = event_type;
+        if (start_time !== undefined) updateData.start_time = start_time;
+        if (end_time !== undefined) updateData.end_time = end_time;
+        if (venue_id !== undefined) updateData.venue_id = venue_id;
+        if (team_ids !== undefined) updateData.team_ids = team_ids;
+        if (is_recurring !== undefined) updateData.is_recurring = is_recurring;
+        if (recurrence_rule !== undefined) updateData.recurrence_rule = recurrence_rule;
+        if (status !== undefined) updateData.status = status;
+
+        // Update the event
+        const { data, error } = await supabase
+            .from('events')
+            .update(updateData)
+            .eq('id', id)
+            .select()
+            .single();
+
+        if (error) {
+            console.error('Supabase error:', error);
+            if (error.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Event not found' });
+            }
+            return res.status(500).json({ error: 'Failed to update event' });
+        }
+
+        res.json({
+            message: 'Event updated successfully',
+            event: data
+        });
+    } catch (error) {
+        console.error('Update event error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// DELETE /api/events/{id} - Delete event
+app.delete('/api/events/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Delete the event
+        const { error } = await supabase
+            .from('events')
+            .delete()
+            .eq('id', id);
+
+        if (error) {
+            console.error('Supabase error:', error);
+            if (error.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Event not found' });
+            }
+            return res.status(500).json({ error: 'Failed to delete event' });
+        }
+
+        res.status(200).json({ message: 'Event deleted successfully' });
+    } catch (error) {
+        console.error('Delete event error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Authentication middleware
+const authenticateUser = async (req, res, next) => {
+    try {
+        const authHeader = req.headers.authorization;
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return res.status(401).json({ error: 'Missing or invalid authorization header' });
+        }
+
+        const token = authHeader.substring(7);
+
+        // Verify the JWT token with Supabase
+        const { data: user, error } = await supabase.auth.getUser(token);
+
+        if (error || !user) {
+            return res.status(401).json({ error: 'Invalid or expired token' });
+        }
+
+        req.user = user.user;
+        next();
+    } catch (error) {
+        console.error('Authentication error:', error);
+        return res.status(401).json({ error: 'Authentication failed' });
+    }
+};
+
+// Registration Management Endpoints
+
+// POST /api/registrations - Create new registration
+app.post('/api/registrations', authenticateUser, async (req, res) => {
+    const { user_id, team_id, player_id, registration_fee, notes } = req.body;
+
+    // Validate required fields
+    if (!user_id || !team_id || !player_id || !registration_fee) {
+        return res.status(400).json({
+            error: 'user_id, team_id, player_id, and registration_fee are required'
+        });
+    }
+
+    // Validate registration fee is positive
+    if (registration_fee <= 0) {
+        return res.status(400).json({ error: 'Registration fee must be greater than 0' });
+    }
+
+    try {
+        // Check if registration already exists for this combination
+        const { data: existingRegistration, error: checkError } = await supabase
+            .from('registrations')
+            .select('id')
+            .eq('user_id', user_id)
+            .eq('team_id', team_id)
+            .eq('player_id', player_id)
+            .single();
+
+        if (existingRegistration) {
+            return res.status(409).json({
+                error: 'Registration already exists for this user/team/player combination'
+            });
+        }
+
+        // Create the registration
+        const { data: registration, error } = await supabase
+            .from('registrations')
+            .insert([{
+                user_id,
+                team_id,
+                player_id,
+                registration_fee,
+                notes: notes || null
+            }])
+            .select()
+            .single();
+
+        if (error) {
+            console.error('Registration creation error:', error);
+            return res.status(500).json({ error: 'Failed to create registration' });
+        }
+
+        res.status(201).json({
+            message: 'Registration created successfully',
+            registration
+        });
+    } catch (error) {
+        console.error('Create registration error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/registrations - List registrations with filtering
+app.get('/api/registrations', authenticateUser, async (req, res) => {
+    const {
+        user_id,
+        team_id,
+        player_id,
+        status,
+        page = 1,
+        limit = 10
+    } = req.query;
+
+    const offset = (parseInt(page) - 1) * parseInt(limit);
+
+    try {
+        let query = supabase
+            .from('registrations')
+            .select(`
+                *,
+                users (
+                    id,
+                    first_name,
+                    last_name,
+                    email,
+                    organization
+                ),
+                teams (
+                    id,
+                    name,
+                    organization,
+                    division,
+                    age_group,
+                    skill_level
+                ),
+                players (
+                    id,
+                    first_name,
+                    last_name,
+                    email,
+                    phone,
+                    date_of_birth
+                )
+            `, { count: 'exact' });
+
+        // Apply filters
+        if (user_id) {
+            query = query.eq('user_id', user_id);
+        }
+        if (team_id) {
+            query = query.eq('team_id', team_id);
+        }
+        if (player_id) {
+            query = query.eq('player_id', player_id);
+        }
+        if (status) {
+            query = query.eq('status', status);
+        }
+
+        // Add pagination and ordering
+        query = query
+            .order('registration_date', { ascending: false })
+            .range(offset, offset + parseInt(limit) - 1);
+
+        const { data, error, count } = await query;
+
+        if (error) {
+            console.error('Registrations fetch error:', error);
+            return res.status(500).json({ error: 'Failed to fetch registrations' });
+        }
+
+        res.json({
+            registrations: data || [],
+            pagination: {
+                page: parseInt(page),
+                limit: parseInt(limit),
+                total: count || 0,
+                totalPages: Math.ceil((count || 0) / parseInt(limit))
+            }
+        });
+    } catch (error) {
+        console.error('Get registrations error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/registrations/{registration_id} - Get registration details
+app.get('/api/registrations/:registration_id', authenticateUser, async (req, res) => {
+    const { registration_id } = req.params;
+
+    try {
+        const { data: registration, error } = await supabase
+            .from('registrations')
+            .select(`
+                *,
+                users (
+                    id,
+                    first_name,
+                    last_name,
+                    email,
+                    organization
+                ),
+                teams (
+                    id,
+                    name,
+                    organization,
+                    division,
+                    age_group,
+                    skill_level
+                ),
+                players (
+                    id,
+                    first_name,
+                    last_name,
+                    email,
+                    phone,
+                    date_of_birth,
+                    emergency_contact_name,
+                    emergency_contact_phone
+                )
+            `)
+            .eq('id', registration_id)
+            .single();
+
+        if (error) {
+            console.error('Registration fetch error:', error);
+            if (error.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Registration not found' });
+            }
+            return res.status(500).json({ error: 'Failed to fetch registration' });
+        }
+
+        res.json(registration);
+    } catch (error) {
+        console.error('Get registration error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Payment Processing Endpoints
+
+// POST /api/payments/process - Process a new payment
+app.post('/api/payments/process', authenticateUser, async (req, res) => {
+    const { registration_id, amount, payment_method_details } = req.body;
+
+    // Validate required fields
+    if (!registration_id || !amount || !payment_method_details) {
+        return res.status(400).json({
+            error: 'registration_id, amount, and payment_method_details are required'
+        });
+    }
+
+    // Validate amount is positive
+    if (amount <= 0) {
+        return res.status(400).json({ error: 'Amount must be greater than 0' });
+    }
+
+    // Validate payment method details structure
+    if (!payment_method_details.method) {
+        return res.status(400).json({
+            error: 'payment_method_details must include a method field'
+        });
+    }
+
+    try {
+        // Get registration details
+        const { data: registration, error: regError } = await supabase
+            .from('registrations')
+            .select('*')
+            .eq('id', registration_id)
+            .single();
+
+        if (regError) {
+            console.error('Registration fetch error:', regError);
+            if (regError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Registration not found' });
+            }
+            return res.status(500).json({ error: 'Failed to fetch registration' });
+        }
+
+        // Check if payment amount doesn't exceed balance due
+        if (amount > registration.balance_due) {
+            return res.status(400).json({
+                error: 'Payment amount cannot exceed balance due'
+            });
+        }
+
+        // Create payment record with 'Pending' status
+        const { data: payment, error: paymentError } = await supabase
+            .from('payments')
+            .insert([{
+                registration_id,
+                amount,
+                payment_method: payment_method_details.method,
+                payment_method_details,
+                status: 'Pending'
+            }])
+            .select()
+            .single();
+
+        if (paymentError) {
+            console.error('Payment creation error:', paymentError);
+            return res.status(500).json({ error: 'Failed to create payment' });
+        }
+
+        // Update registration amount_paid and recalculate balance_due
+        const newAmountPaid = parseFloat(registration.amount_paid) + parseFloat(amount);
+        const { data: updatedRegistration, error: updateError } = await supabase
+            .from('registrations')
+            .update({
+                amount_paid: newAmountPaid
+            })
+            .eq('id', registration_id)
+            .select()
+            .single();
+
+        if (updateError) {
+            console.error('Registration update error:', updateError);
+            // Rollback payment creation if registration update fails
+            await supabase.from('payments').delete().eq('id', payment.id);
+            return res.status(500).json({ error: 'Failed to update registration' });
+        }
+
+        // Update registration status to 'Complete' when balance_due = 0
+        if (updatedRegistration.balance_due === 0) {
+            await supabase
+                .from('registrations')
+                .update({ status: 'Complete' })
+                .eq('id', registration_id);
+        }
+
+        // Update payment status to 'Completed' (simulating successful processing)
+        const { data: completedPayment, error: completeError } = await supabase
+            .from('payments')
+            .update({
+                status: 'Completed',
+                processed_at: new Date().toISOString(),
+                transaction_id: `txn_${Date.now()}_${payment.id}`
+            })
+            .eq('id', payment.id)
+            .select()
+            .single();
+
+        if (completeError) {
+            console.error('Payment completion error:', completeError);
+            return res.status(500).json({ error: 'Failed to complete payment' });
+        }
+
+        res.status(201).json({
+            message: 'Payment processed successfully',
+            payment: completedPayment
+        });
+    } catch (error) {
+        console.error('Process payment error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/payments - List payments with filtering
+app.get('/api/payments', authenticateUser, async (req, res) => {
+    const {
+        registration_id,
+        status,
+        method,
+        page = 1,
+        limit = 10
+    } = req.query;
+
+    const offset = (parseInt(page) - 1) * parseInt(limit);
+
+    try {
+        let query = supabase
+            .from('payments')
+            .select(`
+                *,
+                registrations (
+                    id,
+                    amount_due,
+                    amount_paid,
+                    balance_due,
+                    status,
+                    registration_date,
+                    users (
+                        id,
+                        first_name,
+                        last_name,
+                        email
+                    ),
+                    teams (
+                        id,
+                        name,
+                        organization
+                    ),
+                    players (
+                        id,
+                        first_name,
+                        last_name,
+                        email
+                    )
+                )
+            `, { count: 'exact' });
+
+        // Apply filters
+        if (registration_id) {
+            query = query.eq('registration_id', registration_id);
+        }
+        if (status) {
+            query = query.eq('status', status);
+        }
+        if (method) {
+            query = query.eq('payment_method', method);
+        }
+
+        // Add pagination and ordering
+        query = query
+            .order('created_at', { ascending: false })
+            .range(offset, offset + parseInt(limit) - 1);
+
+        const { data, error, count } = await query;
+
+        if (error) {
+            console.error('Payments fetch error:', error);
+            return res.status(500).json({ error: 'Failed to fetch payments' });
+        }
+
+        res.json({
+            payments: data || [],
+            pagination: {
+                page: parseInt(page),
+                limit: parseInt(limit),
+                total: count || 0,
+                totalPages: Math.ceil((count || 0) / parseInt(limit))
+            }
+        });
+    } catch (error) {
+        console.error('Get payments error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/payments/{payment_id} - Get payment details
+app.get('/api/payments/:payment_id', authenticateUser, async (req, res) => {
+    const { payment_id } = req.params;
+
+    try {
+        const { data: payment, error } = await supabase
+            .from('payments')
+            .select(`
+                *,
+                registrations (
+                    id,
+                    amount_due,
+                    amount_paid,
+                    balance_due,
+                    status,
+                    registration_date,
+                    notes,
+                    users (
+                        id,
+                        first_name,
+                        last_name,
+                        email,
+                        organization
+                    ),
+                    teams (
+                        id,
+                        name,
+                        organization,
+                        division,
+                        age_group,
+                        skill_level
+                    ),
+                    players (
+                        id,
+                        first_name,
+                        last_name,
+                        email,
+                        phone,
+                        date_of_birth
+                    )
+                )
+            `)
+            .eq('id', payment_id)
+            .single();
+
+        if (error) {
+            console.error('Payment fetch error:', error);
+            if (error.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Payment not found' });
+            }
+            return res.status(500).json({ error: 'Failed to fetch payment' });
+        }
+
+        res.json(payment);
+    } catch (error) {
+        console.error('Get payment error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// TEST ENDPOINTS WITHOUT AUTHENTICATION (FOR TESTING ONLY)
+
+// POST /api/test/payments/process - Test payment processing without auth
+app.post('/api/test/payments/process', async (req, res) => {
+    const { registration_id, amount, payment_method_details } = req.body;
+
+    // Validate required fields
+    if (!registration_id || !amount || !payment_method_details) {
+        return res.status(400).json({
+            error: 'registration_id, amount, and payment_method_details are required'
+        });
+    }
+
+    // Validate amount is positive
+    if (amount <= 0) {
+        return res.status(400).json({ error: 'Amount must be greater than 0' });
+    }
+
+    // Validate payment method details structure
+    if (!payment_method_details.method) {
+        return res.status(400).json({
+            error: 'payment_method_details must include a method field'
+        });
+    }
+
+    try {
+        // Get registration details
+        const { data: registration, error: regError } = await supabase
+            .from('registrations')
+            .select('*')
+            .eq('id', registration_id)
+            .single();
+
+        if (regError) {
+            console.error('Registration fetch error:', regError);
+            if (regError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Registration not found' });
+            }
+            return res.status(500).json({ error: 'Failed to fetch registration' });
+        }
+
+        // Check if payment amount doesn't exceed balance due
+        if (amount > registration.balance_due) {
+            return res.status(400).json({
+                error: 'Payment amount cannot exceed balance due'
+            });
+        }
+
+        // Create payment record with 'Pending' status
+        const { data: payment, error: paymentError } = await supabase
+            .from('payments')
+            .insert([{
+                registration_id,
+                amount,
+                payment_method: payment_method_details.method,
+                payment_method_details,
+                status: 'Pending'
+            }])
+            .select()
+            .single();
+
+        if (paymentError) {
+            console.error('Payment creation error:', paymentError);
+            return res.status(500).json({ error: 'Failed to create payment' });
+        }
+
+        // Update registration amount_paid and recalculate balance_due
+        const newAmountPaid = parseFloat(registration.amount_paid) + parseFloat(amount);
+        const { data: updatedRegistration, error: updateError } = await supabase
+            .from('registrations')
+            .update({
+                amount_paid: newAmountPaid
+            })
+            .eq('id', registration_id)
+            .select()
+            .single();
+
+        if (updateError) {
+            console.error('Registration update error:', updateError);
+            // Rollback payment creation if registration update fails
+            await supabase.from('payments').delete().eq('id', payment.id);
+            return res.status(500).json({ error: 'Failed to update registration' });
+        }
+
+        // Update registration status to 'Complete' when balance_due = 0
+        if (updatedRegistration.balance_due === 0) {
+            await supabase
+                .from('registrations')
+                .update({ status: 'Complete' })
+                .eq('id', registration_id);
+        }
+
+        // Update payment status to 'Completed' (simulating successful processing)
+        const { data: completedPayment, error: completeError } = await supabase
+            .from('payments')
+            .update({
+                status: 'Completed',
+                processed_at: new Date().toISOString(),
+                transaction_id: `txn_${Date.now()}_${payment.id}`
+            })
+            .eq('id', payment.id)
+            .select()
+            .single();
+
+        if (completeError) {
+            console.error('Payment completion error:', completeError);
+            return res.status(500).json({ error: 'Failed to complete payment' });
+        }
+
+        res.status(201).json({
+            message: 'Payment processed successfully',
+            payment: completedPayment
+        });
+    } catch (error) {
+        console.error('Process payment error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/test/payments - Test payment list without auth
+app.get('/api/test/payments', async (req, res) => {
+    const {
+        registration_id,
+        status,
+        method,
+        page = 1,
+        limit = 10
+    } = req.query;
+
+    const offset = (parseInt(page) - 1) * parseInt(limit);
+
+    try {
+        let query = supabase
+            .from('payments')
+            .select(`
+                *,
+                registrations (
+                    id,
+                    amount_due,
+                    amount_paid,
+                    balance_due,
+                    status,
+                    registration_date,
+                    users (
+                        id,
+                        first_name,
+                        last_name,
+                        email
+                    ),
+                    teams (
+                        id,
+                        name,
+                        organization
+                    ),
+                    players (
+                        id,
+                        first_name,
+                        last_name,
+                        email
+                    )
+                )
+            `, { count: 'exact' });
+
+        // Apply filters
+        if (registration_id) {
+            query = query.eq('registration_id', registration_id);
+        }
+        if (status) {
+            query = query.eq('status', status);
+        }
+        if (method) {
+            query = query.eq('payment_method', method);
+        }
+
+        // Add pagination and ordering
+        query = query
+            .order('created_at', { ascending: false })
+            .range(offset, offset + parseInt(limit) - 1);
+
+        const { data, error, count } = await query;
+
+        if (error) {
+            console.error('Payments fetch error:', error);
+            return res.status(500).json({ error: 'Failed to fetch payments' });
+        }
+
+        res.json({
+            payments: data || [],
+            pagination: {
+                page: parseInt(page),
+                limit: parseInt(limit),
+                total: count || 0,
+                totalPages: Math.ceil((count || 0) / parseInt(limit))
+            }
+        });
+    } catch (error) {
+        console.error('Get payments error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/test/payments/{payment_id} - Test payment details without auth
+app.get('/api/test/payments/:payment_id', async (req, res) => {
+    const { payment_id } = req.params;
+
+    try {
+        const { data: payment, error } = await supabase
+            .from('payments')
+            .select(`
+                *,
+                registrations (
+                    id,
+                    amount_due,
+                    amount_paid,
+                    balance_due,
+                    status,
+                    registration_date,
+                    notes,
+                    users (
+                        id,
+                        first_name,
+                        last_name,
+                        email,
+                        organization
+                    ),
+                    teams (
+                        id,
+                        name,
+                        organization,
+                        division,
+                        age_group,
+                        skill_level
+                    ),
+                    players (
+                        id,
+                        first_name,
+                        last_name,
+                        email,
+                        phone,
+                        date_of_birth
+                    )
+                )
+            `)
+            .eq('id', payment_id)
+            .single();
+
+        if (error) {
+            console.error('Payment fetch error:', error);
+            if (error.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Payment not found' });
+            }
+            return res.status(500).json({ error: 'Failed to fetch payment' });
+        }
+
+        res.json(payment);
+    } catch (error) {
+        console.error('Get payment error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`GamePlanPro server running on http://localhost:${PORT}`);
