@@ -17,7 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 // Serve static files from frontend dist directory
-app.use(express.static('./frontend/dist'));
+app.use(express.static(path.join(__dirname, 'frontend/dist')));
 
 // Serve React app for all routes (SPA)
 app.get('*', (req, res, next) => {

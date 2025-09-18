@@ -109,38 +109,43 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full">
+    <div className="min-h-screen bg-gradient-to-br from-gray-100/10 to-gray-400/20 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-200/20 to-gray-500/20"></div>
+      <div className="absolute top-32 left-20 w-32 h-32 bg-green-500/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-32 right-20 w-32 h-32 bg-gray-600/10 rounded-full blur-3xl"></div>
+
+      <div className="max-w-md w-full relative z-10">
         {/* Logo and Header */}
-        <div className="text-center mb-8">
-          <div className="flex justify-center mb-4">
-            <div className="w-12 h-12 bg-green-700 rounded flex items-center justify-center">
-              <Shield className="w-6 h-6 text-white" />
+        <div className="text-center mb-8 animate-fade-in">
+          <div className="flex justify-center mb-6">
+            <div className="w-16 h-16 bg-gradient-to-r from-green-600 to-green-700 rounded-xl flex items-center justify-center shadow-lg glow-border floating-element">
+              <Shield className="w-8 h-8 text-white" />
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900">GamePlan Pro</h1>
-          <p className="mt-2 text-sm text-gray-600">
+          <h1 className="text-4xl font-bold gradient-text mb-2">GamePlan Pro</h1>
+          <p className="text-sm text-muted-foreground">
             {isSignUp ? 'Create a new account' : 'Sign in to your account'}
           </p>
         </div>
 
         {/* Form */}
-        <div className="bg-white shadow-sm rounded-lg border border-gray-200 p-8">
+        <div className="glass-card glass-card-hover p-8 animate-slide-up">
           <form onSubmit={isSignUp ? handleSignUp : handleLogin} className="space-y-6">
             {/* Sign In Form */}
             {!isSignUp ? (
               <>
                 {/* Role Selection */}
-                <div>
-                  <label className="basecamp-label">I am signing in as:</label>
-                  <div className="mt-2 grid grid-cols-2 gap-3">
+                <div className="space-y-3">
+                  <label className="block text-sm font-medium text-foreground">I am signing in as:</label>
+                  <div className="grid grid-cols-2 gap-3">
                     <button
                       type="button"
                       onClick={() => setFormData({ ...formData, role: 'user' })}
-                      className={`py-2 px-4 border rounded text-sm font-medium transition-colors ${
+                      className={`py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ${
                         formData.role === 'user'
-                          ? 'border-green-500 bg-green-50 text-green-700'
-                          : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+                          ? 'bg-green-100 text-green-700 border-2 border-green-500 shadow-md'
+                          : 'bg-background border-2 border-border text-foreground hover:bg-secondary hover:shadow-md'
                       }`}
                     >
                       User
@@ -148,10 +153,10 @@ export default function Login() {
                     <button
                       type="button"
                       onClick={() => setFormData({ ...formData, role: 'admin' })}
-                      className={`py-2 px-4 border rounded text-sm font-medium transition-colors ${
+                      className={`py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ${
                         formData.role === 'admin'
-                          ? 'border-green-500 bg-green-50 text-green-700'
-                          : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+                          ? 'bg-green-100 text-green-700 border-2 border-green-500 shadow-md'
+                          : 'bg-background border-2 border-border text-foreground hover:bg-secondary hover:shadow-md'
                       }`}
                     >
                       Admin
@@ -159,8 +164,8 @@ export default function Login() {
                   </div>
                 </div>
 
-                <div>
-                  <label htmlFor="organization" className="basecamp-label">
+                <div className="space-y-2">
+                  <label htmlFor="organization" className="block text-sm font-medium text-foreground">
                     Organization
                   </label>
                   <select
@@ -168,7 +173,7 @@ export default function Login() {
                     value={formData.organization}
                     onChange={handleInputChange}
                     required
-                    className="basecamp-select mt-1"
+                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
                   >
                     <option value="">Choose an organization...</option>
                     <option value="northside-dragons">Northside Dragons</option>
@@ -177,8 +182,8 @@ export default function Login() {
                   </select>
                 </div>
 
-                <div>
-                  <label htmlFor="email" className="basecamp-label">
+                <div className="space-y-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-foreground">
                     Email address
                   </label>
                   <input
@@ -189,18 +194,18 @@ export default function Login() {
                     placeholder="name@example.com"
                     required
                     autoFocus
-                    className="basecamp-input mt-1"
+                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
                   />
                 </div>
 
-                <div>
-                  <div className="flex justify-between items-center mb-1">
-                    <label htmlFor="password" className="basecamp-label">
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <label htmlFor="password" className="block text-sm font-medium text-foreground">
                       Password
                     </label>
                     <button
                       type="button"
-                      className="text-sm text-blue-600 hover:text-blue-800"
+                      className="text-sm text-green-600 hover:text-green-700 transition-colors duration-200"
                     >
                       Forgot password?
                     </button>
@@ -213,12 +218,12 @@ export default function Login() {
                       onChange={handleInputChange}
                       placeholder="Enter your password"
                       required
-                      className="basecamp-input pr-10"
+                      className="w-full px-4 py-3 pr-12 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors duration-200"
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
@@ -228,9 +233,9 @@ export default function Login() {
                 <div>
                   <button
                     type="submit"
-                    className="basecamp-button w-full"
+                    className="button-primary w-full py-4 text-base font-semibold"
                   >
-                    Sign in
+                    <span>Sign in</span>
                   </button>
                 </div>
               </>
@@ -238,16 +243,16 @@ export default function Login() {
               /* Sign Up Form */
               <>
                 {/* Role Selection for Sign Up */}
-                <div>
-                  <label className="basecamp-label">I want to register as:</label>
-                  <div className="mt-2 grid grid-cols-2 gap-3">
+                <div className="space-y-3">
+                  <label className="block text-sm font-medium text-foreground">I want to register as:</label>
+                  <div className="grid grid-cols-2 gap-3">
                     <button
                       type="button"
                       onClick={() => setFormData({ ...formData, role: 'user' })}
-                      className={`py-2 px-4 border rounded text-sm font-medium transition-colors ${
+                      className={`py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ${
                         formData.role === 'user'
-                          ? 'border-green-500 bg-green-50 text-green-700'
-                          : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+                          ? 'bg-green-100 text-green-700 border-2 border-green-500 shadow-md'
+                          : 'bg-background border-2 border-border text-foreground hover:bg-secondary hover:shadow-md'
                       }`}
                     >
                       User
@@ -255,10 +260,10 @@ export default function Login() {
                     <button
                       type="button"
                       onClick={() => setFormData({ ...formData, role: 'admin' })}
-                      className={`py-2 px-4 border rounded text-sm font-medium transition-colors ${
+                      className={`py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ${
                         formData.role === 'admin'
-                          ? 'border-green-500 bg-green-50 text-green-700'
-                          : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+                          ? 'bg-green-100 text-green-700 border-2 border-green-500 shadow-md'
+                          : 'bg-background border-2 border-border text-foreground hover:bg-secondary hover:shadow-md'
                       }`}
                     >
                       Admin
@@ -266,8 +271,8 @@ export default function Login() {
                   </div>
                 </div>
 
-                <div>
-                  <label htmlFor="organization" className="basecamp-label">
+                <div className="space-y-2">
+                  <label htmlFor="organization" className="block text-sm font-medium text-foreground">
                     Organization
                   </label>
                   <select
@@ -275,7 +280,7 @@ export default function Login() {
                     value={formData.organization}
                     onChange={handleInputChange}
                     required
-                    className="basecamp-select mt-1"
+                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
                   >
                     <option value="">Choose an organization...</option>
                     <option value="northside-dragons">Northside Dragons</option>
@@ -285,8 +290,8 @@ export default function Login() {
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="firstName" className="basecamp-label">
+                  <div className="space-y-2">
+                    <label htmlFor="firstName" className="block text-sm font-medium text-foreground">
                       First name
                     </label>
                     <input
@@ -296,12 +301,12 @@ export default function Login() {
                       onChange={handleInputChange}
                       placeholder="First name"
                       required
-                      className="basecamp-input mt-1"
+                      className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
                     />
                   </div>
 
-                  <div>
-                    <label htmlFor="lastName" className="basecamp-label">
+                  <div className="space-y-2">
+                    <label htmlFor="lastName" className="block text-sm font-medium text-foreground">
                       Last name
                     </label>
                     <input
@@ -311,13 +316,13 @@ export default function Login() {
                       onChange={handleInputChange}
                       placeholder="Last name"
                       required
-                      className="basecamp-input mt-1"
+                      className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
                     />
                   </div>
                 </div>
 
-                <div>
-                  <label htmlFor="email" className="basecamp-label">
+                <div className="space-y-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-foreground">
                     Email address
                   </label>
                   <input
@@ -327,12 +332,12 @@ export default function Login() {
                     onChange={handleInputChange}
                     placeholder="name@example.com"
                     required
-                    className="basecamp-input mt-1"
+                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
                   />
                 </div>
 
-                <div>
-                  <label htmlFor="password" className="basecamp-label">
+                <div className="space-y-2">
+                  <label htmlFor="password" className="block text-sm font-medium text-foreground">
                     Password
                   </label>
                   <div className="relative">
@@ -343,20 +348,20 @@ export default function Login() {
                       onChange={handleInputChange}
                       placeholder="Create a password"
                       required
-                      className="basecamp-input pr-10"
+                      className="w-full px-4 py-3 pr-12 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors duration-200"
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
                   </div>
                 </div>
 
-                <div>
-                  <label htmlFor="confirmPassword" className="basecamp-label">
+                <div className="space-y-2">
+                  <label htmlFor="confirmPassword" className="block text-sm font-medium text-foreground">
                     Confirm password
                   </label>
                   <div className="relative">
@@ -367,12 +372,12 @@ export default function Login() {
                       onChange={handleInputChange}
                       placeholder="Confirm your password"
                       required
-                      className="basecamp-input pr-10"
+                      className="w-full px-4 py-3 pr-12 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
                     />
                     <button
                       type="button"
                       onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors duration-200"
                     >
                       {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
@@ -382,9 +387,9 @@ export default function Login() {
                 <div>
                   <button
                     type="submit"
-                    className="basecamp-button w-full"
+                    className="button-primary w-full py-4 text-base font-semibold"
                   >
-                    Create account
+                    <span>Create account</span>
                   </button>
                 </div>
               </>
@@ -392,21 +397,21 @@ export default function Login() {
           </form>
 
           {/* Toggle between Sign In and Sign Up */}
-          <div className="mt-6 text-center">
+          <div className="mt-8 text-center">
             <button
               onClick={() => setIsSignUp(!isSignUp)}
-              className="text-sm text-blue-600 hover:text-blue-800"
+              className="text-sm text-green-600 hover:text-green-700 font-medium transition-colors duration-200"
             >
               {isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Sign up"}
             </button>
           </div>
 
           {/* Terms and Privacy */}
-          <div className="mt-6 text-center text-xs text-gray-500">
+          <div className="mt-6 text-center text-xs text-muted-foreground">
             By {isSignUp ? 'creating an account' : 'signing in'}, you agree to our{' '}
-            <a href="#" className="text-blue-600 hover:text-blue-800">Terms of Service</a>
+            <a href="#" className="text-green-600 hover:text-green-700 transition-colors duration-200">Terms of Service</a>
             {' '}and{' '}
-            <a href="#" className="text-blue-600 hover:text-blue-800">Privacy Policy</a>
+            <a href="#" className="text-green-600 hover:text-green-700 transition-colors duration-200">Privacy Policy</a>
           </div>
         </div>
       </div>

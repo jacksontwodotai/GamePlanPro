@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Button } from './ui/button'
 import { Input } from './ui/input'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
 import {
   Dialog,
   DialogContent,
@@ -10,8 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from './ui/dialog'
-import { Search, Plus, Edit, Trash2, Users, AlertTriangle, Phone, Mail, Calendar, ChevronLeft, ChevronRight, UserPlus, Sparkles, Zap, Heart } from 'lucide-react'
-import { Select } from './ui/select'
+import { Search, Edit, Users, AlertTriangle, Phone, Mail, Calendar, ChevronLeft, ChevronRight, UserPlus, Sparkles, Zap, Heart } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 interface Player {
@@ -121,9 +119,6 @@ export default function PlayerManagementInterface() {
 
   // Form state
   const [showCreateForm, setShowCreateForm] = useState(false)
-  const [showEditForm, setShowEditForm] = useState(false)
-  const [showDeleteDialog, setShowDeleteDialog] = useState(false)
-  const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null)
   const [formData, setFormData] = useState<PlayerFormData>({
     first_name: '',
     last_name: '',
@@ -248,6 +243,7 @@ export default function PlayerManagementInterface() {
     }
   }
 
+  /*
   const handleEditPlayer = async () => {
     if (!selectedPlayer || !validateForm(formData)) return
 
@@ -302,6 +298,7 @@ export default function PlayerManagementInterface() {
       setFormLoading(false)
     }
   }
+  */
 
   const handleAssignToTeam = async () => {
     if (!selectedPlayerForRoster || !validateRosterForm(rosterFormData)) return
@@ -370,7 +367,7 @@ export default function PlayerManagementInterface() {
   }
 
   const openEditForm = (player: Player) => {
-    setSelectedPlayer(player)
+    // setSelectedPlayer(player)
     setFormData({
       first_name: player.first_name,
       last_name: player.last_name,
@@ -385,13 +382,15 @@ export default function PlayerManagementInterface() {
       address: player.address || ''
     })
     setFormErrors({})
-    setShowEditForm(true)
+    setShowCreateForm(true)
   }
 
+  /*
   const openDeleteDialog = (player: Player) => {
     setSelectedPlayer(player)
     setShowDeleteDialog(true)
   }
+  */
 
   const openRosterModal = (player: Player) => {
     setSelectedPlayerForRoster(player)
@@ -494,7 +493,7 @@ export default function PlayerManagementInterface() {
             { label: 'Active Teams', value: teams.length, icon: Heart, gradient: 'from-gray-700 to-gray-900' },
             { label: 'Current Page', value: `${currentPage}/${totalPages}`, icon: Calendar, gradient: 'from-gray-500 to-gray-700' },
             { label: 'Per Page', value: playersPerPage, icon: Zap, gradient: 'from-gray-800 to-black' },
-          ].map((stat, index) => (
+          ].map((stat) => (
             <motion.div
               key={stat.label}
               variants={itemVariants}
@@ -558,7 +557,7 @@ export default function PlayerManagementInterface() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           <AnimatePresence mode="popLayout">
-            {players.map((player, index) => (
+            {players.map((player) => (
               <motion.div
                 key={player.id}
                 variants={itemVariants}
@@ -567,7 +566,7 @@ export default function PlayerManagementInterface() {
                 exit={{ scale: 0.8, opacity: 0 }}
                 whileHover="hover"
                 layout
-                custom={index}
+                custom={0}
                 className="relative group"
               >
                 <motion.div
