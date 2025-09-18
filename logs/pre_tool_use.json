@@ -2685,5 +2685,541 @@
     "tool_input": {
       "work_order_number": "016"
     }
+  },
+  {
+    "session_id": "5eace9c7-74ef-49f6-985b-0d055d5b1291",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/5eace9c7-74ef-49f6-985b-0d055d5b1291.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "offset": 170,
+      "limit": 20
+    }
+  },
+  {
+    "session_id": "5eace9c7-74ef-49f6-985b-0d055d5b1291",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/5eace9c7-74ef-49f6-985b-0d055d5b1291.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "old_string": "  }, [debouncedSearchTerm])\n\n  useEffect(() => {\n    fetchPlayers()\n    fetchTeams()\n  }, [fetchPlayers])\n\n  // Cleanup: abort any pending requests when component unmounts\n  useEffect(() => {\n    return () => {\n      if (abortControllerRef.current) {\n        abortControllerRef.current.abort()\n      }\n    }\n  }, [])\n\n  const fetchPlayers = useCallback(async () => {",
+      "new_string": "  }, [debouncedSearchTerm])\n\n  // Cleanup: abort any pending requests when component unmounts\n  useEffect(() => {\n    return () => {\n      if (abortControllerRef.current) {\n        abortControllerRef.current.abort()\n      }\n    }\n  }, [])\n\n  const fetchPlayers = useCallback(async () => {"
+    }
+  },
+  {
+    "session_id": "5eace9c7-74ef-49f6-985b-0d055d5b1291",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/5eace9c7-74ef-49f6-985b-0d055d5b1291.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "offset": 230,
+      "limit": 20
+    }
+  },
+  {
+    "session_id": "5eace9c7-74ef-49f6-985b-0d055d5b1291",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/5eace9c7-74ef-49f6-985b-0d055d5b1291.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "old_string": "  const fetchTeams = async () => {\n    try {\n      const response = await fetch('/api/teams')\n      if (!response.ok) {\n        throw new Error('Failed to fetch teams')\n      }\n      const data = await response.json()\n      setTeams(data.teams || data)\n    } catch (err) {\n      console.error('Fetch teams error:', err)\n    }\n  }\n\n  const validateForm = (data: PlayerFormData): boolean => {",
+      "new_string": "  const fetchTeams = async () => {\n    try {\n      const response = await fetch('/api/teams')\n      if (!response.ok) {\n        throw new Error('Failed to fetch teams')\n      }\n      const data = await response.json()\n      setTeams(data.teams || data)\n    } catch (err) {\n      console.error('Fetch teams error:', err)\n    }\n  }\n\n  // Effect to fetch initial data after functions are defined\n  useEffect(() => {\n    fetchPlayers()\n    fetchTeams()\n  }, [fetchPlayers])\n\n  const validateForm = (data: PlayerFormData): boolean => {"
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__get_work_order",
+    "tool_input": {
+      "work_order_number": "019"
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze work order 019 requirements for roster management API",
+          "status": "in_progress",
+          "activeForm": "Analyzing work order 019 requirements"
+        },
+        {
+          "content": "Explore existing codebase structure and patterns",
+          "status": "pending",
+          "activeForm": "Exploring existing codebase structure"
+        },
+        {
+          "content": "Examine existing data models and database schema",
+          "status": "pending",
+          "activeForm": "Examining existing data models"
+        },
+        {
+          "content": "Review existing API endpoint patterns and authorization",
+          "status": "pending",
+          "activeForm": "Reviewing existing API patterns"
+        },
+        {
+          "content": "Create detailed implementation plan",
+          "status": "pending",
+          "activeForm": "Creating implementation plan"
+        },
+        {
+          "content": "Implement roster management API endpoints",
+          "status": "pending",
+          "activeForm": "Implementing roster management endpoints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "find . -type f -name \"*.ts\" -o -name \"*.js\" -o -name \"*.py\" | grep -E \"(api|route|endpoint)\" | head -20",
+      "description": "Find API-related files to understand project structure"
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "find . -path \"*/node_modules\" -prune -o -type f -name \"*.ts\" -o -name \"*.js\" -o -name \"*.py\" | grep -v node_modules | head -20",
+      "description": "Find project files excluding node_modules"
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la",
+      "description": "List top-level directories"
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "limit": 100
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze work order 019 requirements for roster management API",
+          "status": "completed",
+          "activeForm": "Analyzing work order 019 requirements"
+        },
+        {
+          "content": "Explore existing codebase structure and patterns",
+          "status": "in_progress",
+          "activeForm": "Exploring existing codebase structure"
+        },
+        {
+          "content": "Examine existing data models and database schema",
+          "status": "pending",
+          "activeForm": "Examining existing data models"
+        },
+        {
+          "content": "Review existing API endpoint patterns and authorization",
+          "status": "pending",
+          "activeForm": "Reviewing existing API patterns"
+        },
+        {
+          "content": "Create detailed implementation plan",
+          "status": "pending",
+          "activeForm": "Creating implementation plan"
+        },
+        {
+          "content": "Implement roster management API endpoints",
+          "status": "pending",
+          "activeForm": "Implementing roster management endpoints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "roster|team|player",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "output_mode": "content",
+      "-n": true,
+      "-i": true
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze work order 019 requirements for roster management API",
+          "status": "completed",
+          "activeForm": "Analyzing work order 019 requirements"
+        },
+        {
+          "content": "Explore existing codebase structure and patterns",
+          "status": "completed",
+          "activeForm": "Exploring existing codebase structure"
+        },
+        {
+          "content": "Examine existing data models and database schema",
+          "status": "in_progress",
+          "activeForm": "Examining existing data models"
+        },
+        {
+          "content": "Review existing API endpoint patterns and authorization",
+          "status": "pending",
+          "activeForm": "Reviewing existing API patterns"
+        },
+        {
+          "content": "Create detailed implementation plan",
+          "status": "pending",
+          "activeForm": "Creating implementation plan"
+        },
+        {
+          "content": "Implement roster management API endpoints",
+          "status": "pending",
+          "activeForm": "Implementing roster management endpoints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__supabase__list_tables",
+    "tool_input": {}
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze work order 019 requirements for roster management API",
+          "status": "completed",
+          "activeForm": "Analyzing work order 019 requirements"
+        },
+        {
+          "content": "Explore existing codebase structure and patterns",
+          "status": "completed",
+          "activeForm": "Exploring existing codebase structure"
+        },
+        {
+          "content": "Examine existing data models and database schema",
+          "status": "completed",
+          "activeForm": "Examining existing data models"
+        },
+        {
+          "content": "Review existing API endpoint patterns and authorization",
+          "status": "in_progress",
+          "activeForm": "Reviewing existing API patterns"
+        },
+        {
+          "content": "Create detailed implementation plan",
+          "status": "pending",
+          "activeForm": "Creating implementation plan"
+        },
+        {
+          "content": "Implement roster management API endpoints",
+          "status": "pending",
+          "activeForm": "Implementing roster management endpoints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "auth|middleware|token|jwt",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "output_mode": "content",
+      "-n": true,
+      "-i": true
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze work order 019 requirements for roster management API",
+          "status": "completed",
+          "activeForm": "Analyzing work order 019 requirements"
+        },
+        {
+          "content": "Explore existing codebase structure and patterns",
+          "status": "completed",
+          "activeForm": "Exploring existing codebase structure"
+        },
+        {
+          "content": "Examine existing data models and database schema",
+          "status": "completed",
+          "activeForm": "Examining existing data models"
+        },
+        {
+          "content": "Review existing API endpoint patterns and authorization",
+          "status": "completed",
+          "activeForm": "Reviewing existing API patterns"
+        },
+        {
+          "content": "Create detailed implementation plan",
+          "status": "in_progress",
+          "activeForm": "Creating implementation plan"
+        },
+        {
+          "content": "Implement roster management API endpoints",
+          "status": "pending",
+          "activeForm": "Implementing roster management endpoints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze work order 019 requirements for roster management API",
+          "status": "completed",
+          "activeForm": "Analyzing work order 019 requirements"
+        },
+        {
+          "content": "Explore existing codebase structure and patterns",
+          "status": "completed",
+          "activeForm": "Exploring existing codebase structure"
+        },
+        {
+          "content": "Examine existing data models and database schema",
+          "status": "completed",
+          "activeForm": "Examining existing data models"
+        },
+        {
+          "content": "Review existing API endpoint patterns and authorization",
+          "status": "completed",
+          "activeForm": "Reviewing existing API patterns"
+        },
+        {
+          "content": "Create detailed implementation plan",
+          "status": "completed",
+          "activeForm": "Creating implementation plan"
+        },
+        {
+          "content": "Implement roster management API endpoints",
+          "status": "pending",
+          "activeForm": "Implementing roster management endpoints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze work order 019 requirements for roster management API",
+          "status": "completed",
+          "activeForm": "Analyzing work order 019 requirements"
+        },
+        {
+          "content": "Explore existing codebase structure and patterns",
+          "status": "completed",
+          "activeForm": "Exploring existing codebase structure"
+        },
+        {
+          "content": "Examine existing data models and database schema",
+          "status": "completed",
+          "activeForm": "Examining existing data models"
+        },
+        {
+          "content": "Review existing API endpoint patterns and authorization",
+          "status": "completed",
+          "activeForm": "Reviewing existing API patterns"
+        },
+        {
+          "content": "Create detailed implementation plan",
+          "status": "completed",
+          "activeForm": "Creating implementation plan"
+        },
+        {
+          "content": "Implement roster management API endpoints",
+          "status": "in_progress",
+          "activeForm": "Implementing roster management endpoints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "offset": 744,
+      "limit": 200
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "offset": 940,
+      "limit": 50
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "old_string": "// Roster management endpoints\n// POST /api/teams/{team_id}/roster - Add player to team roster\napp.post('/api/teams/:team_id/roster', async (req, res) => {\n    const { team_id } = req.params;\n    const { player_id, start_date, jersey_number, position } = req.body;\n\n    if (!player_id || !start_date) {\n        return res.status(400).json({ error: 'player_id and start_date are required' });\n    }\n\n    // Validate start date is not in the past\n    const startDate = new Date(start_date);\n    const today = new Date();\n    today.setHours(0, 0, 0, 0);\n    if (startDate < today) {\n        return res.status(400).json({ error: 'Start date cannot be in the past' });\n    }\n\n    // Validate position is not empty\n    if (position !== undefined && position !== null && position.trim() === '') {\n        return res.status(400).json({ error: 'Position cannot be empty' });\n    }\n\n    try {\n        // Check if jersey number is unique within the team\n        if (jersey_number) {\n            const { data: existingJersey, error: jerseyCheckError } = await supabase\n                .from('roster_entries')\n                .select('id')\n                .eq('team_id', team_id)\n                .eq('jersey_number', jersey_number)\n                .or('end_date.is.null,end_date.gt.now()')\n                .single();\n\n            if (!jerseyCheckError || existingJersey) {\n                return res.status(409).json({ error: `Jersey number ${jersey_number} is already taken in this team` });\n            }\n        }\n\n        const { data, error } = await supabase\n            .from('roster_entries')\n            .insert([{\n                team_id: parseInt(team_id),\n                player_id,\n                start_date,\n                jersey_number: jersey_number || null,\n                position: position || null\n            }])\n            .select()\n            .single();\n\n        if (error) {\n            console.error('Supabase error:', error);\n            if (error.code === '23505') { // Unique constraint violation\n                return res.status(409).json({ error: 'Player already on roster for this start date' });\n            }\n            return res.status(500).json({ error: 'Failed to add player to roster' });\n        }\n\n        res.status(201).json({\n            message: 'Player added to roster successfully',\n            roster_entry_id: data.id\n        });\n    } catch (error) {\n        console.error('Add to roster error:', error);\n        res.status(500).json({ error: 'Internal server error' });\n    }\n});\n\n// Legacy endpoint - kept for backwards compatibility\napp.post('/api/roster', async (req, res) => {\n    const { team_id, player_id, start_date, jersey_number, position } = req.body;\n\n    if (!team_id || !player_id || !start_date) {\n        return res.status(400).json({ error: 'team_id, player_id, and start_date are required' });\n    }\n\n    try {\n        const { data, error } = await supabase\n            .from('roster_entries')\n            .insert([{\n                team_id,\n                player_id,\n                start_date,\n                jersey_number: jersey_number || null,\n                position: position || null\n            }])\n            .select()\n            .single();\n\n        if (error) {\n            console.error('Supabase error:', error);\n            if (error.code === '23505') { // Unique constraint violation\n                return res.status(409).json({ error: 'Player already on roster for this start date' });\n            }\n            return res.status(500).json({ error: 'Failed to add player to roster' });\n        }\n\n        res.status(201).json({\n            message: 'Player added to roster successfully',\n            roster_entry_id: data.id\n        });\n    } catch (error) {\n        console.error('Add to roster error:', error);\n        res.status(500).json({ error: 'Internal server error' });\n    }\n});\n\n// GET /api/roster/{team_id} - Get team roster\napp.get('/api/roster/:team_id', async (req, res) => {\n    const { team_id } = req.params;\n\n    try {\n        // Get team details\n        const { data: team, error: teamError } = await supabase\n            .from('teams')\n            .select('*')\n            .eq('id', team_id)\n            .single();\n\n        if (teamError) {\n            if (teamError.code === 'PGRST116') {\n                return res.status(404).json({ error: 'Team not found' });\n            }\n            return res.status(500).json({ error: 'Internal server error' });\n        }\n\n        // Get roster entries with player details\n        const { data: roster, error: rosterError } = await supabase\n            .from('roster_entries')\n            .select(`\n                *,\n                players (\n                    id,\n                    first_name,\n                    last_name,\n                    email,\n                    phone,\n                    date_of_birth\n                )\n            `)\n            .eq('team_id', team_id)\n            .or('end_date.is.null,end_date.gt.now()')\n            .order('jersey_number', { ascending: true });\n\n        if (rosterError) {\n            console.error('Supabase error:', rosterError);\n            return res.status(500).json({ error: 'Internal server error' });\n        }\n\n        // Flatten the response\n        const formattedRoster = roster.map(entry => ({\n            ...entry.players,\n            roster_entry_id: entry.id,\n            jersey_number: entry.jersey_number,\n            position: entry.position,\n            start_date: entry.start_date,\n            end_date: entry.end_date\n        }));\n\n        res.json({\n            team: team,\n            roster: formattedRoster\n        });\n    } catch (error) {\n        console.error('Get roster error:', error);\n        res.status(500).json({ error: 'Internal server error' });\n    }\n});\n\n// PUT /api/roster/{roster_entry_id} - Update roster entry\napp.put('/api/roster/:roster_entry_id', async (req, res) => {\n    const { roster_entry_id } = req.params;\n    const { jersey_number, position, end_date } = req.body;\n\n    try {\n        const { data, error } = await supabase\n            .from('roster_entries')\n            .update({\n                jersey_number: jersey_number || null,\n                position: position || null,\n                end_date: end_date || null\n            })\n            .eq('id', roster_entry_id)\n            .select()\n            .single();\n\n        if (error) {\n            console.error('Supabase error:', error);\n            if (error.code === 'PGRST116') {\n                return res.status(404).json({ error: 'Roster entry not found' });\n            }\n            return res.status(500).json({ error: 'Failed to update roster entry' });\n        }\n\n        res.json({\n            message: 'Roster entry updated successfully',\n            roster_entry: data\n        });\n    } catch (error) {\n        console.error('Update roster error:', error);\n        res.status(500).json({ error: 'Internal server error' });\n    }\n});\n\n// DELETE /api/roster/{roster_entry_id} - Remove from roster\napp.delete('/api/roster/:roster_entry_id', async (req, res) => {\n    const { roster_entry_id } = req.params;\n\n    try {\n        const { error } = await supabase\n            .from('roster_entries')\n            .delete()\n            .eq('id', roster_entry_id);\n\n        if (error) {\n            console.error('Supabase error:', error);\n            if (error.code === 'PGRST116') {\n                return res.status(404).json({ error: 'Roster entry not found' });\n            }\n            return res.status(500).json({ error: 'Failed to remove from roster' });\n        }\n\n        res.json({\n            message: 'Player removed from roster successfully'\n        });\n    } catch (error) {\n        console.error('Remove from roster error:', error);\n        res.status(500).json({ error: 'Internal server error' });\n    }\n});",
+      "new_string": "// Roster management endpoints\n// POST /api/rosters - Add player to team roster\napp.post('/api/rosters', authenticateUser, async (req, res) => {\n    const { player_id, team_id, start_date, jersey_number, position } = req.body;\n\n    if (!player_id || !team_id || !start_date) {\n        return res.status(400).json({ error: 'player_id, team_id, and start_date are required' });\n    }\n\n    try {\n        // Validate player and team exist\n        const { data: player, error: playerError } = await supabase\n            .from('players')\n            .select('id')\n            .eq('id', player_id)\n            .single();\n\n        if (playerError) {\n            return res.status(400).json({ error: 'Invalid player_id' });\n        }\n\n        const { data: team, error: teamError } = await supabase\n            .from('teams')\n            .select('id')\n            .eq('id', team_id)\n            .single();\n\n        if (teamError) {\n            return res.status(400).json({ error: 'Invalid team_id' });\n        }\n\n        // Check if player is already actively rostered on this team for overlapping dates\n        const { data: existingRoster, error: rosterCheckError } = await supabase\n            .from('roster_entries')\n            .select('id, start_date, end_date')\n            .eq('player_id', player_id)\n            .eq('team_id', team_id)\n            .or('end_date.is.null,end_date.gte.' + start_date);\n\n        if (!rosterCheckError && existingRoster && existingRoster.length > 0) {\n            // Check for actual date overlaps\n            const startDate = new Date(start_date);\n            for (const entry of existingRoster) {\n                const entryStart = new Date(entry.start_date);\n                const entryEnd = entry.end_date ? new Date(entry.end_date) : null;\n\n                if (!entryEnd || startDate <= entryEnd) {\n                    return res.status(400).json({ error: 'Player is already actively rostered on this team for overlapping dates' });\n                }\n            }\n        }\n\n        // Check if jersey number is unique within the team (for active players)\n        if (jersey_number) {\n            const { data: existingJersey, error: jerseyCheckError } = await supabase\n                .from('roster_entries')\n                .select('id')\n                .eq('team_id', team_id)\n                .eq('jersey_number', jersey_number)\n                .is('end_date', null);\n\n            if (!jerseyCheckError && existingJersey && existingJersey.length > 0) {\n                return res.status(400).json({ error: `Jersey number ${jersey_number} is already taken by an active player on this team` });\n            }\n        }\n\n        const { data, error } = await supabase\n            .from('roster_entries')\n            .insert([{\n                team_id: parseInt(team_id),\n                player_id: parseInt(player_id),\n                start_date,\n                jersey_number: jersey_number || null,\n                position: position || null\n            }])\n            .select(`\n                *,\n                players (id, first_name, last_name, email),\n                teams (id, name, organization)\n            `)\n            .single();\n\n        if (error) {\n            console.error('Supabase error:', error);\n            return res.status(500).json({ error: 'Failed to create roster entry' });\n        }\n\n        res.status(201).json({\n            message: 'Player added to roster successfully',\n            roster_entry: data\n        });\n    } catch (error) {\n        console.error('Create roster entry error:', error);\n        res.status(500).json({ error: 'Internal server error' });\n    }\n});\n\n// GET /api/rosters - Get roster entries with filtering and pagination\napp.get('/api/rosters', authenticateUser, async (req, res) => {\n    const { team_id, player_id, is_active, page = 1, limit = 50 } = req.query;\n\n    try {\n        let query = supabase\n            .from('roster_entries')\n            .select(`\n                *,\n                players (id, first_name, last_name, email, phone, date_of_birth),\n                teams (id, name, organization)\n            `, { count: 'exact' });\n\n        // Apply filters\n        if (team_id) {\n            query = query.eq('team_id', team_id);\n        }\n        if (player_id) {\n            query = query.eq('player_id', player_id);\n        }\n        if (is_active === 'true') {\n            query = query.is('end_date', null);\n        } else if (is_active === 'false') {\n            query = query.not('end_date', 'is', null);\n        }\n\n        // Apply pagination\n        const offset = (parseInt(page) - 1) * parseInt(limit);\n        query = query.range(offset, offset + parseInt(limit) - 1);\n\n        // Order by creation date (most recent first)\n        query = query.order('created_at', { ascending: false });\n\n        const { data, error, count } = await query;\n\n        if (error) {\n            console.error('Supabase error:', error);\n            return res.status(500).json({ error: 'Failed to fetch roster entries' });\n        }\n\n        res.json({\n            roster_entries: data,\n            pagination: {\n                page: parseInt(page),\n                limit: parseInt(limit),\n                total: count,\n                pages: Math.ceil(count / parseInt(limit))\n            }\n        });\n    } catch (error) {\n        console.error('Get roster entries error:', error);\n        res.status(500).json({ error: 'Internal server error' });\n    }\n});\n\n// GET /api/rosters/{roster_entry_id} - Get specific roster entry\napp.get('/api/rosters/:roster_entry_id', authenticateUser, async (req, res) => {\n    const { roster_entry_id } = req.params;\n\n    try {\n        const { data, error } = await supabase\n            .from('roster_entries')\n            .select(`\n                *,\n                players (\n                    id, first_name, last_name, email, phone, date_of_birth,\n                    emergency_contact_name, emergency_contact_phone, emergency_contact_relation,\n                    medical_alerts, address, gender\n                ),\n                teams (id, name, organization, division, age_group, skill_level)\n            `)\n            .eq('id', roster_entry_id)\n            .single();\n\n        if (error) {\n            console.error('Supabase error:', error);\n            if (error.code === 'PGRST116') {\n                return res.status(404).json({ error: 'Roster entry not found' });\n            }\n            return res.status(500).json({ error: 'Failed to fetch roster entry' });\n        }\n\n        res.json(data);\n    } catch (error) {\n        console.error('Get roster entry error:', error);\n        res.status(500).json({ error: 'Internal server error' });\n    }\n});\n\n// PUT /api/rosters/{roster_entry_id} - Update roster entry\napp.put('/api/rosters/:roster_entry_id', authenticateUser, async (req, res) => {\n    const { roster_entry_id } = req.params;\n    const { end_date, jersey_number, position } = req.body;\n\n    try {\n        // Get current roster entry to validate jersey number changes\n        const { data: currentEntry, error: fetchError } = await supabase\n            .from('roster_entries')\n            .select('team_id, jersey_number')\n            .eq('id', roster_entry_id)\n            .single();\n\n        if (fetchError) {\n            if (fetchError.code === 'PGRST116') {\n                return res.status(404).json({ error: 'Roster entry not found' });\n            }\n            return res.status(500).json({ error: 'Failed to fetch roster entry' });\n        }\n\n        // If jersey number is being changed, check uniqueness\n        if (jersey_number && jersey_number !== currentEntry.jersey_number) {\n            const { data: existingJersey, error: jerseyCheckError } = await supabase\n                .from('roster_entries')\n                .select('id')\n                .eq('team_id', currentEntry.team_id)\n                .eq('jersey_number', jersey_number)\n                .is('end_date', null)\n                .neq('id', roster_entry_id);\n\n            if (!jerseyCheckError && existingJersey && existingJersey.length > 0) {\n                return res.status(400).json({ error: `Jersey number ${jersey_number} is already taken by another active player on this team` });\n            }\n        }\n\n        const updates = {};\n        if (end_date !== undefined) updates.end_date = end_date;\n        if (jersey_number !== undefined) updates.jersey_number = jersey_number;\n        if (position !== undefined) updates.position = position;\n\n        const { data, error } = await supabase\n            .from('roster_entries')\n            .update(updates)\n            .eq('id', roster_entry_id)\n            .select(`\n                *,\n                players (id, first_name, last_name, email),\n                teams (id, name, organization)\n            `)\n            .single();\n\n        if (error) {\n            console.error('Supabase error:', error);\n            return res.status(500).json({ error: 'Failed to update roster entry' });\n        }\n\n        res.json({\n            message: 'Roster entry updated successfully',\n            roster_entry: data\n        });\n    } catch (error) {\n        console.error('Update roster entry error:', error);\n        res.status(500).json({ error: 'Internal server error' });\n    }\n});\n\n// DELETE /api/rosters/{roster_entry_id} - Remove player from roster\napp.delete('/api/rosters/:roster_entry_id', authenticateUser, async (req, res) => {\n    const { roster_entry_id } = req.params;\n\n    try {\n        // Get the roster entry to check if it's active\n        const { data: rosterEntry, error: fetchError } = await supabase\n            .from('roster_entries')\n            .select('start_date, end_date')\n            .eq('id', roster_entry_id)\n            .single();\n\n        if (fetchError) {\n            if (fetchError.code === 'PGRST116') {\n                return res.status(404).json({ error: 'Roster entry not found' });\n            }\n            return res.status(500).json({ error: 'Failed to fetch roster entry' });\n        }\n\n        const today = new Date().toISOString().split('T')[0];\n        const startDate = new Date(rosterEntry.start_date);\n        const todayDate = new Date(today);\n\n        // If entry was never active (start date is in the future), physically delete\n        if (startDate > todayDate) {\n            const { error } = await supabase\n                .from('roster_entries')\n                .delete()\n                .eq('id', roster_entry_id);\n\n            if (error) {\n                console.error('Supabase error:', error);\n                return res.status(500).json({ error: 'Failed to delete roster entry' });\n            }\n\n            res.json({\n                message: 'Roster entry deleted successfully'\n            });\n        } else {\n            // Logical deletion: set end_date to today if not already set\n            if (!rosterEntry.end_date) {\n                const { error } = await supabase\n                    .from('roster_entries')\n                    .update({ end_date: today })\n                    .eq('id', roster_entry_id);\n\n                if (error) {\n                    console.error('Supabase error:', error);\n                    return res.status(500).json({ error: 'Failed to end roster entry' });\n                }\n\n                res.json({\n                    message: 'Player removed from roster successfully'\n                });\n            } else {\n                res.json({\n                    message: 'Player already removed from roster'\n                });\n            }\n        }\n    } catch (error) {\n        console.error('Delete roster entry error:', error);\n        res.status(500).json({ error: 'Internal server error' });\n    }\n});"
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze work order 019 requirements for roster management API",
+          "status": "completed",
+          "activeForm": "Analyzing work order 019 requirements"
+        },
+        {
+          "content": "Explore existing codebase structure and patterns",
+          "status": "completed",
+          "activeForm": "Exploring existing codebase structure"
+        },
+        {
+          "content": "Examine existing data models and database schema",
+          "status": "completed",
+          "activeForm": "Examining existing data models"
+        },
+        {
+          "content": "Review existing API endpoint patterns and authorization",
+          "status": "completed",
+          "activeForm": "Reviewing existing API patterns"
+        },
+        {
+          "content": "Create detailed implementation plan",
+          "status": "completed",
+          "activeForm": "Creating implementation plan"
+        },
+        {
+          "content": "Implement roster management API endpoints",
+          "status": "completed",
+          "activeForm": "Implementing roster management endpoints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__mark_work_order_complete",
+    "tool_input": {
+      "work_order_number": "019"
+    }
   }
 ]

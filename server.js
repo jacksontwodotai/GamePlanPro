@@ -742,41 +742,68 @@ app.delete('/api/teams/:id', async (req, res) => {
 });
 
 // Roster management endpoints
-// POST /api/teams/{team_id}/roster - Add player to team roster
-app.post('/api/teams/:team_id/roster', async (req, res) => {
-    const { team_id } = req.params;
-    const { player_id, start_date, jersey_number, position } = req.body;
+// POST /api/rosters - Add player to team roster
+app.post('/api/rosters', authenticateUser, async (req, res) => {
+    const { player_id, team_id, start_date, jersey_number, position } = req.body;
 
-    if (!player_id || !start_date) {
-        return res.status(400).json({ error: 'player_id and start_date are required' });
-    }
-
-    // Validate start date is not in the past
-    const startDate = new Date(start_date);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    if (startDate < today) {
-        return res.status(400).json({ error: 'Start date cannot be in the past' });
-    }
-
-    // Validate position is not empty
-    if (position !== undefined && position !== null && position.trim() === '') {
-        return res.status(400).json({ error: 'Position cannot be empty' });
+    if (!player_id || !team_id || !start_date) {
+        return res.status(400).json({ error: 'player_id, team_id, and start_date are required' });
     }
 
     try {
-        // Check if jersey number is unique within the team
+        // Validate player and team exist
+        const { data: player, error: playerError } = await supabase
+            .from('players')
+            .select('id')
+            .eq('id', player_id)
+            .single();
+
+        if (playerError) {
+            return res.status(400).json({ error: 'Invalid player_id' });
+        }
+
+        const { data: team, error: teamError } = await supabase
+            .from('teams')
+            .select('id')
+            .eq('id', team_id)
+            .single();
+
+        if (teamError) {
+            return res.status(400).json({ error: 'Invalid team_id' });
+        }
+
+        // Check if player is already actively rostered on this team for overlapping dates
+        const { data: existingRoster, error: rosterCheckError } = await supabase
+            .from('roster_entries')
+            .select('id, start_date, end_date')
+            .eq('player_id', player_id)
+            .eq('team_id', team_id)
+            .or('end_date.is.null,end_date.gte.' + start_date);
+
+        if (!rosterCheckError && existingRoster && existingRoster.length > 0) {
+            // Check for actual date overlaps
+            const startDate = new Date(start_date);
+            for (const entry of existingRoster) {
+                const entryStart = new Date(entry.start_date);
+                const entryEnd = entry.end_date ? new Date(entry.end_date) : null;
+
+                if (!entryEnd || startDate <= entryEnd) {
+                    return res.status(400).json({ error: 'Player is already actively rostered on this team for overlapping dates' });
+                }
+            }
+        }
+
+        // Check if jersey number is unique within the team (for active players)
         if (jersey_number) {
             const { data: existingJersey, error: jerseyCheckError } = await supabase
                 .from('roster_entries')
                 .select('id')
                 .eq('team_id', team_id)
                 .eq('jersey_number', jersey_number)
-                .or('end_date.is.null,end_date.gt.now()')
-                .single();
+                .is('end_date', null);
 
-            if (!jerseyCheckError || existingJersey) {
-                return res.status(409).json({ error: `Jersey number ${jersey_number} is already taken in this team` });
+            if (!jerseyCheckError && existingJersey && existingJersey.length > 0) {
+                return res.status(400).json({ error: `Jersey number ${jersey_number} is already taken by an active player on this team` });
             }
         }
 
@@ -784,148 +811,105 @@ app.post('/api/teams/:team_id/roster', async (req, res) => {
             .from('roster_entries')
             .insert([{
                 team_id: parseInt(team_id),
-                player_id,
+                player_id: parseInt(player_id),
                 start_date,
                 jersey_number: jersey_number || null,
                 position: position || null
             }])
-            .select()
+            .select(`
+                *,
+                players (id, first_name, last_name, email),
+                teams (id, name, organization)
+            `)
             .single();
 
         if (error) {
             console.error('Supabase error:', error);
-            if (error.code === '23505') { // Unique constraint violation
-                return res.status(409).json({ error: 'Player already on roster for this start date' });
-            }
-            return res.status(500).json({ error: 'Failed to add player to roster' });
+            return res.status(500).json({ error: 'Failed to create roster entry' });
         }
 
         res.status(201).json({
             message: 'Player added to roster successfully',
-            roster_entry_id: data.id
+            roster_entry: data
         });
     } catch (error) {
-        console.error('Add to roster error:', error);
+        console.error('Create roster entry error:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
 
-// Legacy endpoint - kept for backwards compatibility
-app.post('/api/roster', async (req, res) => {
-    const { team_id, player_id, start_date, jersey_number, position } = req.body;
+// GET /api/rosters - Get roster entries with filtering and pagination
+app.get('/api/rosters', authenticateUser, async (req, res) => {
+    const { team_id, player_id, is_active, page = 1, limit = 50 } = req.query;
 
-    if (!team_id || !player_id || !start_date) {
-        return res.status(400).json({ error: 'team_id, player_id, and start_date are required' });
+    try {
+        let query = supabase
+            .from('roster_entries')
+            .select(`
+                *,
+                players (id, first_name, last_name, email, phone, date_of_birth),
+                teams (id, name, organization)
+            `, { count: 'exact' });
+
+        // Apply filters
+        if (team_id) {
+            query = query.eq('team_id', team_id);
+        }
+        if (player_id) {
+            query = query.eq('player_id', player_id);
+        }
+        if (is_active === 'true') {
+            query = query.is('end_date', null);
+        } else if (is_active === 'false') {
+            query = query.not('end_date', 'is', null);
+        }
+
+        // Apply pagination
+        const offset = (parseInt(page) - 1) * parseInt(limit);
+        query = query.range(offset, offset + parseInt(limit) - 1);
+
+        // Order by creation date (most recent first)
+        query = query.order('created_at', { ascending: false });
+
+        const { data, error, count } = await query;
+
+        if (error) {
+            console.error('Supabase error:', error);
+            return res.status(500).json({ error: 'Failed to fetch roster entries' });
+        }
+
+        res.json({
+            roster_entries: data,
+            pagination: {
+                page: parseInt(page),
+                limit: parseInt(limit),
+                total: count,
+                pages: Math.ceil(count / parseInt(limit))
+            }
+        });
+    } catch (error) {
+        console.error('Get roster entries error:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
+});
+
+// GET /api/rosters/{roster_entry_id} - Get specific roster entry
+app.get('/api/rosters/:roster_entry_id', authenticateUser, async (req, res) => {
+    const { roster_entry_id } = req.params;
 
     try {
         const { data, error } = await supabase
-            .from('roster_entries')
-            .insert([{
-                team_id,
-                player_id,
-                start_date,
-                jersey_number: jersey_number || null,
-                position: position || null
-            }])
-            .select()
-            .single();
-
-        if (error) {
-            console.error('Supabase error:', error);
-            if (error.code === '23505') { // Unique constraint violation
-                return res.status(409).json({ error: 'Player already on roster for this start date' });
-            }
-            return res.status(500).json({ error: 'Failed to add player to roster' });
-        }
-
-        res.status(201).json({
-            message: 'Player added to roster successfully',
-            roster_entry_id: data.id
-        });
-    } catch (error) {
-        console.error('Add to roster error:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-});
-
-// GET /api/roster/{team_id} - Get team roster
-app.get('/api/roster/:team_id', async (req, res) => {
-    const { team_id } = req.params;
-
-    try {
-        // Get team details
-        const { data: team, error: teamError } = await supabase
-            .from('teams')
-            .select('*')
-            .eq('id', team_id)
-            .single();
-
-        if (teamError) {
-            if (teamError.code === 'PGRST116') {
-                return res.status(404).json({ error: 'Team not found' });
-            }
-            return res.status(500).json({ error: 'Internal server error' });
-        }
-
-        // Get roster entries with player details
-        const { data: roster, error: rosterError } = await supabase
             .from('roster_entries')
             .select(`
                 *,
                 players (
-                    id,
-                    first_name,
-                    last_name,
-                    email,
-                    phone,
-                    date_of_birth
-                )
+                    id, first_name, last_name, email, phone, date_of_birth,
+                    emergency_contact_name, emergency_contact_phone, emergency_contact_relation,
+                    medical_alerts, address, gender
+                ),
+                teams (id, name, organization, division, age_group, skill_level)
             `)
-            .eq('team_id', team_id)
-            .or('end_date.is.null,end_date.gt.now()')
-            .order('jersey_number', { ascending: true });
-
-        if (rosterError) {
-            console.error('Supabase error:', rosterError);
-            return res.status(500).json({ error: 'Internal server error' });
-        }
-
-        // Flatten the response
-        const formattedRoster = roster.map(entry => ({
-            ...entry.players,
-            roster_entry_id: entry.id,
-            jersey_number: entry.jersey_number,
-            position: entry.position,
-            start_date: entry.start_date,
-            end_date: entry.end_date
-        }));
-
-        res.json({
-            team: team,
-            roster: formattedRoster
-        });
-    } catch (error) {
-        console.error('Get roster error:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-});
-
-// PUT /api/roster/{roster_entry_id} - Update roster entry
-app.put('/api/roster/:roster_entry_id', async (req, res) => {
-    const { roster_entry_id } = req.params;
-    const { jersey_number, position, end_date } = req.body;
-
-    try {
-        const { data, error } = await supabase
-            .from('roster_entries')
-            .update({
-                jersey_number: jersey_number || null,
-                position: position || null,
-                end_date: end_date || null
-            })
             .eq('id', roster_entry_id)
-            .select()
             .single();
 
         if (error) {
@@ -933,6 +917,69 @@ app.put('/api/roster/:roster_entry_id', async (req, res) => {
             if (error.code === 'PGRST116') {
                 return res.status(404).json({ error: 'Roster entry not found' });
             }
+            return res.status(500).json({ error: 'Failed to fetch roster entry' });
+        }
+
+        res.json(data);
+    } catch (error) {
+        console.error('Get roster entry error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// PUT /api/rosters/{roster_entry_id} - Update roster entry
+app.put('/api/rosters/:roster_entry_id', authenticateUser, async (req, res) => {
+    const { roster_entry_id } = req.params;
+    const { end_date, jersey_number, position } = req.body;
+
+    try {
+        // Get current roster entry to validate jersey number changes
+        const { data: currentEntry, error: fetchError } = await supabase
+            .from('roster_entries')
+            .select('team_id, jersey_number')
+            .eq('id', roster_entry_id)
+            .single();
+
+        if (fetchError) {
+            if (fetchError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Roster entry not found' });
+            }
+            return res.status(500).json({ error: 'Failed to fetch roster entry' });
+        }
+
+        // If jersey number is being changed, check uniqueness
+        if (jersey_number && jersey_number !== currentEntry.jersey_number) {
+            const { data: existingJersey, error: jerseyCheckError } = await supabase
+                .from('roster_entries')
+                .select('id')
+                .eq('team_id', currentEntry.team_id)
+                .eq('jersey_number', jersey_number)
+                .is('end_date', null)
+                .neq('id', roster_entry_id);
+
+            if (!jerseyCheckError && existingJersey && existingJersey.length > 0) {
+                return res.status(400).json({ error: `Jersey number ${jersey_number} is already taken by another active player on this team` });
+            }
+        }
+
+        const updates = {};
+        if (end_date !== undefined) updates.end_date = end_date;
+        if (jersey_number !== undefined) updates.jersey_number = jersey_number;
+        if (position !== undefined) updates.position = position;
+
+        const { data, error } = await supabase
+            .from('roster_entries')
+            .update(updates)
+            .eq('id', roster_entry_id)
+            .select(`
+                *,
+                players (id, first_name, last_name, email),
+                teams (id, name, organization)
+            `)
+            .single();
+
+        if (error) {
+            console.error('Supabase error:', error);
             return res.status(500).json({ error: 'Failed to update roster entry' });
         }
 
@@ -941,34 +988,73 @@ app.put('/api/roster/:roster_entry_id', async (req, res) => {
             roster_entry: data
         });
     } catch (error) {
-        console.error('Update roster error:', error);
+        console.error('Update roster entry error:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
 
-// DELETE /api/roster/{roster_entry_id} - Remove from roster
-app.delete('/api/roster/:roster_entry_id', async (req, res) => {
+// DELETE /api/rosters/{roster_entry_id} - Remove player from roster
+app.delete('/api/rosters/:roster_entry_id', authenticateUser, async (req, res) => {
     const { roster_entry_id } = req.params;
 
     try {
-        const { error } = await supabase
+        // Get the roster entry to check if it's active
+        const { data: rosterEntry, error: fetchError } = await supabase
             .from('roster_entries')
-            .delete()
-            .eq('id', roster_entry_id);
+            .select('start_date, end_date')
+            .eq('id', roster_entry_id)
+            .single();
 
-        if (error) {
-            console.error('Supabase error:', error);
-            if (error.code === 'PGRST116') {
+        if (fetchError) {
+            if (fetchError.code === 'PGRST116') {
                 return res.status(404).json({ error: 'Roster entry not found' });
             }
-            return res.status(500).json({ error: 'Failed to remove from roster' });
+            return res.status(500).json({ error: 'Failed to fetch roster entry' });
         }
 
-        res.json({
-            message: 'Player removed from roster successfully'
-        });
+        const today = new Date().toISOString().split('T')[0];
+        const startDate = new Date(rosterEntry.start_date);
+        const todayDate = new Date(today);
+
+        // If entry was never active (start date is in the future), physically delete
+        if (startDate > todayDate) {
+            const { error } = await supabase
+                .from('roster_entries')
+                .delete()
+                .eq('id', roster_entry_id);
+
+            if (error) {
+                console.error('Supabase error:', error);
+                return res.status(500).json({ error: 'Failed to delete roster entry' });
+            }
+
+            res.json({
+                message: 'Roster entry deleted successfully'
+            });
+        } else {
+            // Logical deletion: set end_date to today if not already set
+            if (!rosterEntry.end_date) {
+                const { error } = await supabase
+                    .from('roster_entries')
+                    .update({ end_date: today })
+                    .eq('id', roster_entry_id);
+
+                if (error) {
+                    console.error('Supabase error:', error);
+                    return res.status(500).json({ error: 'Failed to end roster entry' });
+                }
+
+                res.json({
+                    message: 'Player removed from roster successfully'
+                });
+            } else {
+                res.json({
+                    message: 'Player already removed from roster'
+                });
+            }
+        }
     } catch (error) {
-        console.error('Remove from roster error:', error);
+        console.error('Delete roster entry error:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });

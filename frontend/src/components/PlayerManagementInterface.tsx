@@ -172,11 +172,6 @@ export default function PlayerManagementInterface() {
     }
   }, [debouncedSearchTerm])
 
-  useEffect(() => {
-    fetchPlayers()
-    fetchTeams()
-  }, [fetchPlayers])
-
   // Cleanup: abort any pending requests when component unmounts
   useEffect(() => {
     return () => {
@@ -242,6 +237,12 @@ export default function PlayerManagementInterface() {
       console.error('Fetch teams error:', err)
     }
   }
+
+  // Effect to fetch initial data after functions are defined
+  useEffect(() => {
+    fetchPlayers()
+    fetchTeams()
+  }, [fetchPlayers])
 
   const validateForm = (data: PlayerFormData): boolean => {
     const errors: Partial<PlayerFormData> = {}
