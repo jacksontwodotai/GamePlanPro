@@ -7,14 +7,11 @@ import { X, Calendar, Clock, MapPin, Users, Edit, Trash2 } from 'lucide-react'
 interface Event {
   id: string
   title: string
-  description?: string
-  event_type: 'game' | 'practice' | 'tournament'
-  start_time: string
-  end_time: string
-  venue_id: string
-  team_ids: string[]
-  is_recurring: boolean
-  recurrence_rule?: string
+  date: string
+  time: string
+  venue: string
+  teams: string[]
+  type: 'game' | 'practice' | 'tournament'
   status: 'scheduled' | 'completed' | 'cancelled'
 }
 
@@ -25,38 +22,21 @@ const EventDetailsModal = () => {
     modalMode,
     selectedEventId,
     closeEventModal,
-    openEventModal
+    openEventModal,
+    getEventById
   } = context || {}
 
   const [event, setEvent] = useState<Event | null>(null)
-  const [loading, setLoading] = useState(false)
 
-  // Fetch event data when viewing
+  // Get event data when viewing
   useEffect(() => {
-    if (modalMode === 'view' && selectedEventId) {
-      fetchEvent(selectedEventId)
+    if (modalMode === 'view' && selectedEventId && getEventById) {
+      const eventData = getEventById(selectedEventId)
+      setEvent(eventData)
     } else {
       setEvent(null)
     }
-  }, [modalMode, selectedEventId])
-
-  const fetchEvent = async (eventId: string) => {
-    try {
-      setLoading(true)
-      const response = await fetch(`/api/events/${eventId}`)
-      if (!response.ok) {
-        throw new Error('Failed to fetch event')
-      }
-      const eventData = await response.json()
-      setEvent(eventData)
-    } catch (err) {
-      console.error('Fetch event error:', err)
-      // Handle error - close modal if event not found
-      closeEventModal && closeEventModal()
-    } finally {
-      setLoading(false)
-    }
-  }
+  }, [modalMode, selectedEventId, getEventById])
 
   const handleEdit = () => {
     if (selectedEventId && openEventModal) {
@@ -112,21 +92,26 @@ const EventDetailsModal = () => {
     }
   }
 
-  const formatDateTime = (dateTimeString: string) => {
-    const date = new Date(dateTimeString)
-    return {
-      date: date.toLocaleDateString('en-US', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      }),
-      time: date.toLocaleTimeString('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: true
-      })
-    }
+  const formatEventDate = (dateString: string) => {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })
+  }
+
+  const formatEventTime = (timeString: string) => {
+    // Parse time in HH:MM format and convert to 12-hour format
+    const [hours, minutes] = timeString.split(':').map(Number)
+    const date = new Date()
+    date.setHours(hours, minutes, 0, 0)
+    return date.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    })
   }
 
   // Don't render if modal is not open, not in view mode, or context is not available
@@ -137,12 +122,7 @@ const EventDetailsModal = () => {
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <Card className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        {loading ? (
-          <div className="p-8 flex items-center justify-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500"></div>
-            <span className="ml-3 text-gray-700">Loading event details...</span>
-          </div>
-        ) : event ? (
+        {event ? (
           <>
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-zinc-200">
@@ -171,16 +151,13 @@ const EventDetailsModal = () => {
               <div>
                 <div className="flex items-center space-x-3 mb-2">
                   <h1 className="text-2xl font-bold text-black">{event.title}</h1>
-                  <span className={`text-xs px-2 py-1 rounded-full border ${getEventTypeColor(event.event_type)}`}>
-                    {event.event_type}
+                  <span className={`text-xs px-2 py-1 rounded-full border ${getEventTypeColor(event.type)}`}>
+                    {event.type}
                   </span>
                   <span className={`text-xs px-2 py-1 rounded-full border ${getStatusColor(event.status)}`}>
                     {event.status}
                   </span>
                 </div>
-                {event.description && (
-                  <p className="text-zinc-600">{event.description}</p>
-                )}
               </div>
 
               {/* Date and Time */}
@@ -188,17 +165,15 @@ const EventDetailsModal = () => {
                 <div className="flex items-center space-x-3 p-4 bg-zinc-50 rounded-lg">
                   <Calendar className="h-5 w-5 text-zinc-400" />
                   <div>
-                    <p className="text-sm font-medium text-zinc-900">Start Date</p>
-                    <p className="text-sm text-zinc-600">{formatDateTime(event.start_time).date}</p>
-                    <p className="text-sm text-zinc-600">{formatDateTime(event.start_time).time}</p>
+                    <p className="text-sm font-medium text-zinc-900">Date</p>
+                    <p className="text-sm text-zinc-600">{formatEventDate(event.date)}</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-3 p-4 bg-zinc-50 rounded-lg">
                   <Clock className="h-5 w-5 text-zinc-400" />
                   <div>
-                    <p className="text-sm font-medium text-zinc-900">End Time</p>
-                    <p className="text-sm text-zinc-600">{formatDateTime(event.end_time).date}</p>
-                    <p className="text-sm text-zinc-600">{formatDateTime(event.end_time).time}</p>
+                    <p className="text-sm font-medium text-zinc-900">Time</p>
+                    <p className="text-sm text-zinc-600">{formatEventTime(event.time)}</p>
                   </div>
                 </div>
               </div>
@@ -208,7 +183,7 @@ const EventDetailsModal = () => {
                 <MapPin className="h-5 w-5 text-zinc-400" />
                 <div>
                   <p className="text-sm font-medium text-zinc-900">Venue</p>
-                  <p className="text-sm text-zinc-600">{event.venue_id}</p>
+                  <p className="text-sm text-zinc-600">{event.venue}</p>
                 </div>
               </div>
 
@@ -218,27 +193,17 @@ const EventDetailsModal = () => {
                 <div>
                   <p className="text-sm font-medium text-zinc-900">Teams</p>
                   <div className="flex flex-wrap gap-2 mt-1">
-                    {event.team_ids.map((teamId, index) => (
+                    {event.teams.map((team, index) => (
                       <span
-                        key={teamId}
+                        key={team}
                         className="text-sm px-2 py-1 bg-white border border-zinc-200 rounded"
                       >
-                        {teamId}
+                        {team}
                       </span>
                     ))}
                   </div>
                 </div>
               </div>
-
-              {/* Recurring Info */}
-              {event.is_recurring && (
-                <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                  <p className="text-sm font-medium text-blue-900">Recurring Event</p>
-                  {event.recurrence_rule && (
-                    <p className="text-sm text-blue-700 mt-1">{event.recurrence_rule}</p>
-                  )}
-                </div>
-              )}
             </div>
 
             {/* Footer Actions */}

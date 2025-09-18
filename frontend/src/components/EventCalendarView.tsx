@@ -1,19 +1,8 @@
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 import { ChevronLeft, ChevronRight, Plus, Calendar, Clock, MapPin, Users } from 'lucide-react'
 import { Button } from './ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { EventSchedulerContext } from '../contexts/EventSchedulerContext'
-
-interface Event {
-  id: string
-  title: string
-  date: string
-  time: string
-  venue: string
-  teams: string[]
-  type: 'game' | 'practice' | 'tournament'
-  status: 'scheduled' | 'completed' | 'cancelled'
-}
 
 const EventCalendarView = () => {
   const context = useContext(EventSchedulerContext)
@@ -25,51 +14,9 @@ const EventCalendarView = () => {
     viewMode,
     setViewMode,
     openEventModal,
-    openEventDetails
+    openEventDetails,
+    events
   } = context || {}
-
-  const [events] = useState<Event[]>([
-    {
-      id: '1',
-      title: 'Championship Game',
-      date: '2025-09-20',
-      time: '14:00',
-      venue: 'Main Stadium',
-      teams: ['Team A', 'Team B'],
-      type: 'game',
-      status: 'scheduled'
-    },
-    {
-      id: '2',
-      title: 'Team Practice',
-      date: '2025-09-19',
-      time: '16:00',
-      venue: 'Training Field',
-      teams: ['Team C'],
-      type: 'practice',
-      status: 'scheduled'
-    },
-    {
-      id: '3',
-      title: 'Weekly Training',
-      date: '2025-09-21',
-      time: '10:00',
-      venue: 'Practice Ground',
-      teams: ['Team A'],
-      type: 'practice',
-      status: 'scheduled'
-    },
-    {
-      id: '4',
-      title: 'Tournament Finals',
-      date: '2025-09-22',
-      time: '15:30',
-      venue: 'Championship Arena',
-      teams: ['Team A', 'Team B', 'Team C'],
-      type: 'tournament',
-      status: 'scheduled'
-    }
-  ])
 
   const getDaysInMonth = (date: Date) => {
     const year = date.getFullYear()
@@ -108,7 +55,7 @@ const EventCalendarView = () => {
   }
 
   const getEventsForDate = (day: number | null) => {
-    if (!day || !currentDate) return []
+    if (!day || !currentDate || !events) return []
     const dateStr = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
     return events.filter(event => event.date === dateStr)
   }
@@ -310,7 +257,7 @@ const EventCalendarView = () => {
               </div>
             </div>
             <div className="text-sm text-zinc-500">
-              {events.length} events this month
+              {events ? events.length : 0} events this month
             </div>
           </div>
         </CardContent>

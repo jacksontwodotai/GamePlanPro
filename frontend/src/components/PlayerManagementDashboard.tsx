@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Users, UserPlus, Edit, Trash2 } from 'lucide-react'
 import PlayerListComponent from './PlayerListComponent'
+import PlayerCreationForm from './PlayerCreationForm'
 import {
   Dialog,
   DialogContent,
@@ -321,27 +322,31 @@ export default function PlayerManagementDashboard() {
         </DialogContent>
       </Dialog>
 
-      {/* Placeholder for Create/Edit Forms */}
-      {(showCreateForm || showEditForm) && (
-        <Dialog open={showCreateForm || showEditForm} onOpenChange={() => {
-          setShowCreateForm(false)
-          setShowEditForm(false)
-        }}>
+      {/* Player Creation Form */}
+      <PlayerCreationForm
+        isOpen={showCreateForm}
+        onClose={() => setShowCreateForm(false)}
+        onSuccess={(newPlayer) => {
+          // Refresh the player list in the PlayerListComponent
+          console.log('Player created successfully:', newPlayer)
+        }}
+      />
+
+      {/* Edit Form Placeholder - TODO: Create PlayerEditForm component */}
+      {showEditForm && (
+        <Dialog open={showEditForm} onOpenChange={() => setShowEditForm(false)}>
           <DialogContent className="glass-card">
             <DialogHeader>
               <DialogTitle>
-                {showCreateForm ? 'Create New Player' : 'Edit Player'}
+                Edit Player
               </DialogTitle>
               <DialogDescription>
-                {showCreateForm
-                  ? 'Form to create a new player would go here'
-                  : `Form to edit ${selectedPlayer?.first_name} ${selectedPlayer?.last_name} would go here`
-                }
+                Form to edit {selectedPlayer?.first_name} {selectedPlayer?.last_name} would go here
               </DialogDescription>
             </DialogHeader>
             <div className="py-6">
               <p className="text-center text-gray-500">
-                Player form component integration goes here
+                Player edit form component integration goes here
               </p>
             </div>
           </DialogContent>

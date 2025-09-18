@@ -14,6 +14,17 @@ interface EventFilters {
   }
 }
 
+interface Event {
+  id: string
+  title: string
+  date: string
+  time: string
+  venue: string
+  teams: string[]
+  type: 'game' | 'practice' | 'tournament'
+  status: 'scheduled' | 'completed' | 'cancelled'
+}
+
 interface EventSchedulerContextType {
   currentDate: Date
   setCurrentDate: (date: Date) => void
@@ -26,6 +37,9 @@ interface EventSchedulerContextType {
   modalOpen: boolean
   modalMode: ModalMode | null
   selectedEventId: string | null
+  events: Event[]
+  setEvents: (events: Event[]) => void
+  getEventById: (id: string) => Event | null
   openEventModal: (mode: ModalMode, eventId?: string) => void
   closeEventModal: () => void
   openEventDetails: (eventId: string) => void
@@ -46,6 +60,48 @@ export const EventSchedulerProvider = ({ children }: EventSchedulerProviderProps
   const [modalOpen, setModalOpen] = useState(false)
   const [modalMode, setModalMode] = useState<ModalMode | null>(null)
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null)
+  const [events, setEvents] = useState<Event[]>([
+    {
+      id: '1',
+      title: 'Championship Game',
+      date: '2025-09-20',
+      time: '14:00',
+      venue: 'Main Stadium',
+      teams: ['Team A', 'Team B'],
+      type: 'game',
+      status: 'scheduled'
+    },
+    {
+      id: '2',
+      title: 'Team Practice',
+      date: '2025-09-19',
+      time: '16:00',
+      venue: 'Training Field',
+      teams: ['Team C'],
+      type: 'practice',
+      status: 'scheduled'
+    },
+    {
+      id: '3',
+      title: 'Weekly Training',
+      date: '2025-09-21',
+      time: '10:00',
+      venue: 'Practice Ground',
+      teams: ['Team A'],
+      type: 'practice',
+      status: 'scheduled'
+    },
+    {
+      id: '4',
+      title: 'Tournament Finals',
+      date: '2025-09-22',
+      time: '15:30',
+      venue: 'Championship Arena',
+      teams: ['Team A', 'Team B', 'Team C'],
+      type: 'tournament',
+      status: 'scheduled'
+    }
+  ])
 
   const openEventModal = useCallback((mode: ModalMode, eventId?: string) => {
     setModalMode(mode)
@@ -58,6 +114,10 @@ export const EventSchedulerProvider = ({ children }: EventSchedulerProviderProps
     setModalMode(null)
     setSelectedEventId(null)
   }, [])
+
+  const getEventById = useCallback((id: string): Event | null => {
+    return events.find(event => event.id === id) || null
+  }, [events])
 
   const openEventDetails = useCallback((eventId: string) => {
     openEventModal('view', eventId)
@@ -81,6 +141,9 @@ export const EventSchedulerProvider = ({ children }: EventSchedulerProviderProps
     modalOpen,
     modalMode,
     selectedEventId,
+    events,
+    setEvents,
+    getEventById,
     openEventModal,
     closeEventModal,
     openEventDetails,
