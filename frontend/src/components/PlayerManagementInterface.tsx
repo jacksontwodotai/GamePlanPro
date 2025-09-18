@@ -119,6 +119,9 @@ export default function PlayerManagementInterface() {
 
   // Form state
   const [showCreateForm, setShowCreateForm] = useState(false)
+  const [showEditForm, setShowEditForm] = useState(false)
+  const [showViewModal, setShowViewModal] = useState(false)
+  const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null)
   const [formData, setFormData] = useState<PlayerFormData>({
     first_name: '',
     last_name: '',
@@ -186,6 +189,7 @@ export default function PlayerManagementInterface() {
   const validateForm = (data: PlayerFormData): boolean => {
     const errors: Partial<PlayerFormData> = {}
 
+    // Required field validation
     if (!data.first_name.trim()) {
       errors.first_name = 'First name is required'
     }
@@ -194,6 +198,45 @@ export default function PlayerManagementInterface() {
     }
     if (!data.organization.trim()) {
       errors.organization = 'Organization is required'
+    }
+
+    // Email format validation
+    if (data.email && data.email.trim()) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(data.email.trim())) {
+        errors.email = 'Please enter a valid email address'
+      }
+    }
+
+    // Phone format validation (supports various formats)
+    if (data.phone && data.phone.trim()) {
+      const phoneRegex = /^[+]?[\d\s()-.]{10,}$/
+      const digitCount = data.phone.replace(/\D/g, '').length
+      if (!phoneRegex.test(data.phone) || digitCount < 10) {
+        errors.phone = 'Please enter a valid phone number (minimum 10 digits)'
+      }
+    }
+
+    // Emergency contact phone validation
+    if (data.emergency_contact_phone && data.emergency_contact_phone.trim()) {
+      const phoneRegex = /^[+]?[\d\s()-.]{10,}$/
+      const digitCount = data.emergency_contact_phone.replace(/\D/g, '').length
+      if (!phoneRegex.test(data.emergency_contact_phone) || digitCount < 10) {
+        errors.emergency_contact_phone = 'Please enter a valid emergency contact phone number'
+      }
+    }
+
+    // Date of birth validation (optional but if provided, should be valid and reasonable)
+    if (data.date_of_birth) {
+      const birthDate = new Date(data.date_of_birth)
+      const today = new Date()
+      const age = today.getFullYear() - birthDate.getFullYear()
+
+      if (birthDate > today) {
+        errors.date_of_birth = 'Date of birth cannot be in the future'
+      } else if (age > 120) {
+        errors.date_of_birth = 'Please enter a valid date of birth'
+      }
     }
 
     setFormErrors(errors)
@@ -243,7 +286,6 @@ export default function PlayerManagementInterface() {
     }
   }
 
-  /*
   const handleEditPlayer = async () => {
     if (!selectedPlayer || !validateForm(formData)) return
 
@@ -273,32 +315,6 @@ export default function PlayerManagementInterface() {
       setFormLoading(false)
     }
   }
-
-  const handleDeletePlayer = async () => {
-    if (!selectedPlayer) return
-
-    try {
-      setFormLoading(true)
-      const response = await fetch(`/api/players/${selectedPlayer.id}`, {
-        method: 'DELETE'
-      })
-
-      if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.error || 'Failed to delete player')
-      }
-
-      await fetchPlayers()
-      setShowDeleteDialog(false)
-      setSelectedPlayer(null)
-    } catch (err) {
-      console.error('Delete player error:', err)
-      setError(err instanceof Error ? err.message : 'Failed to delete player')
-    } finally {
-      setFormLoading(false)
-    }
-  }
-  */
 
   const handleAssignToTeam = async () => {
     if (!selectedPlayerForRoster || !validateRosterForm(rosterFormData)) return
@@ -367,7 +383,7 @@ export default function PlayerManagementInterface() {
   }
 
   const openEditForm = (player: Player) => {
-    // setSelectedPlayer(player)
+    setSelectedPlayer(player)
     setFormData({
       first_name: player.first_name,
       last_name: player.last_name,
@@ -382,7 +398,7 @@ export default function PlayerManagementInterface() {
       address: player.address || ''
     })
     setFormErrors({})
-    setShowCreateForm(true)
+    setShowEditForm(true)
   }
 
   /*
@@ -396,6 +412,11 @@ export default function PlayerManagementInterface() {
     setSelectedPlayerForRoster(player)
     resetRosterForm()
     setShowRosterModal(true)
+  }
+
+  const openViewModal = (player: Player) => {
+    setSelectedPlayer(player)
+    setShowViewModal(true)
   }
 
   if (loading && players.length === 0) {
@@ -628,22 +649,30 @@ export default function PlayerManagementInterface() {
                       )}
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-3 gap-2">
                       <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        onClick={() => openRosterModal(player)}
-                        className="px-3 py-2 bg-gradient-to-r from-gray-600 to-gray-800 text-white rounded-lg text-sm font-medium hover:shadow-lg transition-shadow"
+                        onClick={() => openViewModal(player)}
+                        className="px-2 py-2 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-lg text-sm font-medium hover:shadow-lg transition-shadow"
                       >
-                        Assign Team
+                        View
                       </motion.button>
                       <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => openEditForm(player)}
-                        className="px-3 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                        className="px-2 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
                       >
                         <Edit className="w-4 h-4" />
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => openRosterModal(player)}
+                        className="px-2 py-2 bg-gradient-to-r from-gray-600 to-gray-800 text-white rounded-lg text-sm font-medium hover:shadow-lg transition-shadow"
+                      >
+                        Assign
                       </motion.button>
                     </div>
                   </div>
@@ -751,142 +780,638 @@ export default function PlayerManagementInterface() {
         {/* All Dialogs remain similar but with updated glassmorphism styling */}
         {/* Create Player Dialog */}
         <Dialog open={showCreateForm} onOpenChange={setShowCreateForm}>
-          <DialogContent className="glass-card border-gray-200/50 dark:border-gray-700/50 max-w-2xl max-h-[90vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle className="gradient-text text-2xl">Add New Player</DialogTitle>
-              <DialogDescription className="text-gray-600 dark:text-gray-400">
-                Enter player information
+          <DialogContent className="glass-card glass-card-hover max-w-3xl max-h-[90vh] overflow-y-auto animate-scale">
+            <DialogHeader className="text-center pb-6">
+              <div className="flex justify-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-green-600 to-green-700 rounded-xl flex items-center justify-center shadow-lg glow-border floating-element">
+                  <UserPlus className="w-6 h-6 text-white" />
+                </div>
+              </div>
+              <DialogTitle className="gradient-text text-3xl font-bold">Add New Player</DialogTitle>
+              <DialogDescription className="text-muted-foreground mt-2">
+                Enter player information to add them to your team
               </DialogDescription>
             </DialogHeader>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">First Name *</label>
-                <Input
-                  value={formData.first_name}
-                  onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
-                  className={`bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm ${formErrors.first_name ? 'border-red-500' : 'border-gray-200/50 dark:border-gray-700/50'}`}
-                />
-                {formErrors.first_name && (
-                  <p className="text-sm text-red-500 mt-1">{formErrors.first_name}</p>
-                )}
+            <div className="space-y-6">
+              {/* Personal Information Section */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                  <Users className="w-5 h-5 text-green-600" />
+                  Personal Information
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-foreground">First Name *</label>
+                    <Input
+                      value={formData.first_name}
+                      onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
+                      placeholder="Enter first name"
+                      className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
+                        formErrors.first_name
+                          ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
+                          : 'border-border focus:border-green-500 focus:ring-2 focus:ring-green-500/20'
+                      }`}
+                    />
+                    {formErrors.first_name && (
+                      <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                        <AlertTriangle className="w-4 h-4" />
+                        {formErrors.first_name}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-foreground">Last Name *</label>
+                    <Input
+                      value={formData.last_name}
+                      onChange={(e) => setFormData({ ...formData, last_name: e.target.value })}
+                      placeholder="Enter last name"
+                      className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
+                        formErrors.last_name
+                          ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
+                          : 'border-border focus:border-green-500 focus:ring-2 focus:ring-green-500/20'
+                      }`}
+                    />
+                    {formErrors.last_name && (
+                      <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                        <AlertTriangle className="w-4 h-4" />
+                        {formErrors.last_name}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-foreground">Email</label>
+                    <Input
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="player@example.com"
+                      className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
+                        formErrors.email
+                          ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
+                          : 'border-border focus:border-green-500 focus:ring-2 focus:ring-green-500/20'
+                      }`}
+                    />
+                    {formErrors.email && (
+                      <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                        <AlertTriangle className="w-4 h-4" />
+                        {formErrors.email}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-foreground">Phone</label>
+                    <Input
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      placeholder="(555) 123-4567"
+                      className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
+                        formErrors.phone
+                          ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
+                          : 'border-border focus:border-green-500 focus:ring-2 focus:ring-green-500/20'
+                      }`}
+                    />
+                    {formErrors.phone && (
+                      <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                        <AlertTriangle className="w-4 h-4" />
+                        {formErrors.phone}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-foreground">Date of Birth</label>
+                    <Input
+                      type="date"
+                      value={formData.date_of_birth}
+                      onChange={(e) => setFormData({ ...formData, date_of_birth: e.target.value })}
+                      className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground transition-all duration-200 ${
+                        formErrors.date_of_birth
+                          ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
+                          : 'border-border focus:border-green-500 focus:ring-2 focus:ring-green-500/20'
+                      }`}
+                    />
+                    {formErrors.date_of_birth && (
+                      <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                        <AlertTriangle className="w-4 h-4" />
+                        {formErrors.date_of_birth}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-foreground">Organization *</label>
+                    <Input
+                      value={formData.organization}
+                      onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
+                      placeholder="Enter organization"
+                      className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
+                        formErrors.organization
+                          ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
+                          : 'border-border focus:border-green-500 focus:ring-2 focus:ring-green-500/20'
+                      }`}
+                    />
+                    {formErrors.organization && (
+                      <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                        <AlertTriangle className="w-4 h-4" />
+                        {formErrors.organization}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-foreground">Address</label>
+                  <Input
+                    value={formData.address}
+                    onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                    placeholder="123 Main St, City, State, ZIP"
+                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
+                  />
+                </div>
               </div>
 
-              <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Last Name *</label>
-                <Input
-                  value={formData.last_name}
-                  onChange={(e) => setFormData({ ...formData, last_name: e.target.value })}
-                  className={`bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm ${formErrors.last_name ? 'border-red-500' : 'border-gray-200/50 dark:border-gray-700/50'}`}
-                />
-                {formErrors.last_name && (
-                  <p className="text-sm text-red-500 mt-1">{formErrors.last_name}</p>
-                )}
-              </div>
-
-              <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
-                <Input
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50"
-                />
-              </div>
-
-              <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Phone</label>
-                <Input
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50"
-                />
-              </div>
-
-              <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Date of Birth</label>
-                <Input
-                  type="date"
-                  value={formData.date_of_birth}
-                  onChange={(e) => setFormData({ ...formData, date_of_birth: e.target.value })}
-                  className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50"
-                />
-              </div>
-
-              <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Organization *</label>
-                <Input
-                  value={formData.organization}
-                  onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
-                  className={`bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm ${formErrors.organization ? 'border-red-500' : 'border-gray-200/50 dark:border-gray-700/50'}`}
-                />
-                {formErrors.organization && (
-                  <p className="text-sm text-red-500 mt-1">{formErrors.organization}</p>
-                )}
-              </div>
-
-              <div className="col-span-2">
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Address</label>
-                <Input
-                  value={formData.address}
-                  onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                  className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50"
-                />
-              </div>
-
-              <div className="col-span-2 border-t pt-4">
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-3">Emergency Contact</h3>
-                <div className="grid grid-cols-3 gap-4">
-                  <div>
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
+              {/* Emergency Contact Section */}
+              <div className="space-y-4 pt-6 border-t border-border">
+                <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                  <Phone className="w-5 h-5 text-green-600" />
+                  Emergency Contact
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-foreground">Contact Name</label>
                     <Input
                       value={formData.emergency_contact_name}
                       onChange={(e) => setFormData({ ...formData, emergency_contact_name: e.target.value })}
-                      className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50"
+                      placeholder="Emergency contact name"
+                      className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
                     />
                   </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Phone</label>
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-foreground">Contact Phone</label>
                     <Input
                       value={formData.emergency_contact_phone}
                       onChange={(e) => setFormData({ ...formData, emergency_contact_phone: e.target.value })}
-                      className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50"
+                      placeholder="Emergency contact phone"
+                      className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
+                        formErrors.emergency_contact_phone
+                          ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
+                          : 'border-border focus:border-green-500 focus:ring-2 focus:ring-green-500/20'
+                      }`}
                     />
+                    {formErrors.emergency_contact_phone && (
+                      <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                        <AlertTriangle className="w-4 h-4" />
+                        {formErrors.emergency_contact_phone}
+                      </p>
+                    )}
                   </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Relation</label>
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-foreground">Relationship</label>
                     <Input
                       value={formData.emergency_contact_relation}
                       onChange={(e) => setFormData({ ...formData, emergency_contact_relation: e.target.value })}
-                      className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50"
+                      placeholder="Parent, Guardian, etc."
+                      className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
                     />
                   </div>
                 </div>
               </div>
 
-              <div className="col-span-2">
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Medical Alerts</label>
-                <textarea
-                  value={formData.medical_alerts}
-                  onChange={(e) => setFormData({ ...formData, medical_alerts: e.target.value })}
-                  rows={3}
-                  className="w-full px-3 py-2 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-lg resize-none"
-                />
+              {/* Medical Information Section */}
+              <div className="space-y-4 pt-6 border-t border-border">
+                <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                  <AlertTriangle className="w-5 h-5 text-green-600" />
+                  Medical Information
+                </h3>
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-foreground">Medical Alerts & Notes</label>
+                  <textarea
+                    value={formData.medical_alerts}
+                    onChange={(e) => setFormData({ ...formData, medical_alerts: e.target.value })}
+                    rows={3}
+                    placeholder="Enter any medical conditions, allergies, or important notes..."
+                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200 resize-none"
+                  />
+                </div>
               </div>
             </div>
 
-            <DialogFooter>
-              <Button variant="outline" onClick={() => setShowCreateForm(false)}>
+            <DialogFooter className="mt-8 pt-6 border-t border-border gap-3">
+              <Button
+                variant="outline"
+                onClick={() => setShowCreateForm(false)}
+                className="px-6 py-3 border-2 border-border hover:bg-secondary transition-all duration-200"
+              >
                 Cancel
               </Button>
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={handleCreatePlayer}
                 disabled={formLoading}
-                className="button-primary"
+                className="button-primary px-8 py-3 text-base font-semibold"
               >
-                <span>{formLoading ? 'Creating...' : 'Create Player'}</span>
+                <span>{formLoading ? 'Creating Player...' : 'Create Player'}</span>
+              </motion.button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* View Player Details Modal */}
+        <Dialog open={showViewModal} onOpenChange={setShowViewModal}>
+          <DialogContent className="glass-card glass-card-hover max-w-2xl">
+            <DialogHeader className="text-center pb-6">
+              <div className="flex justify-center mb-4">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center shadow-lg glow-border">
+                  <span className="text-white font-bold text-xl">
+                    {selectedPlayer?.first_name.charAt(0)}{selectedPlayer?.last_name.charAt(0)}
+                  </span>
+                </div>
+              </div>
+              <DialogTitle className="gradient-text text-3xl font-bold">
+                {selectedPlayer?.first_name} {selectedPlayer?.last_name}
+              </DialogTitle>
+              <DialogDescription className="text-muted-foreground mt-2">
+                Player Profile Details
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="space-y-6">
+              {/* Personal Information */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                  <Users className="w-5 h-5 text-blue-600" />
+                  Personal Information
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <label className="text-sm font-medium text-muted-foreground">Organization</label>
+                    <p className="text-foreground">{selectedPlayer?.organization || 'Not specified'}</p>
+                  </div>
+                  {selectedPlayer?.email && (
+                    <div className="space-y-1">
+                      <label className="text-sm font-medium text-muted-foreground">Email</label>
+                      <p className="text-foreground flex items-center gap-2">
+                        <Mail className="w-4 h-4 text-blue-600" />
+                        {selectedPlayer.email}
+                      </p>
+                    </div>
+                  )}
+                  {selectedPlayer?.phone && (
+                    <div className="space-y-1">
+                      <label className="text-sm font-medium text-muted-foreground">Phone</label>
+                      <p className="text-foreground flex items-center gap-2">
+                        <Phone className="w-4 h-4 text-blue-600" />
+                        {selectedPlayer.phone}
+                      </p>
+                    </div>
+                  )}
+                  {selectedPlayer?.date_of_birth && (
+                    <div className="space-y-1">
+                      <label className="text-sm font-medium text-muted-foreground">Date of Birth</label>
+                      <p className="text-foreground flex items-center gap-2">
+                        <Calendar className="w-4 h-4 text-blue-600" />
+                        {new Date(selectedPlayer.date_of_birth).toLocaleDateString()}
+                        <span className="text-sm text-muted-foreground">
+                          (Age: {Math.floor((Date.now() - new Date(selectedPlayer.date_of_birth).getTime()) / (365.25 * 24 * 60 * 60 * 1000))})
+                        </span>
+                      </p>
+                    </div>
+                  )}
+                  {selectedPlayer?.address && (
+                    <div className="space-y-1 md:col-span-2">
+                      <label className="text-sm font-medium text-muted-foreground">Address</label>
+                      <p className="text-foreground">{selectedPlayer.address}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Emergency Contact */}
+              {(selectedPlayer?.emergency_contact_name || selectedPlayer?.emergency_contact_phone) && (
+                <div className="space-y-4 pt-6 border-t border-border">
+                  <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                    <Phone className="w-5 h-5 text-blue-600" />
+                    Emergency Contact
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {selectedPlayer?.emergency_contact_name && (
+                      <div className="space-y-1">
+                        <label className="text-sm font-medium text-muted-foreground">Contact Name</label>
+                        <p className="text-foreground">{selectedPlayer.emergency_contact_name}</p>
+                      </div>
+                    )}
+                    {selectedPlayer?.emergency_contact_phone && (
+                      <div className="space-y-1">
+                        <label className="text-sm font-medium text-muted-foreground">Contact Phone</label>
+                        <p className="text-foreground">{selectedPlayer.emergency_contact_phone}</p>
+                      </div>
+                    )}
+                    {selectedPlayer?.emergency_contact_relation && (
+                      <div className="space-y-1">
+                        <label className="text-sm font-medium text-muted-foreground">Relationship</label>
+                        <p className="text-foreground">{selectedPlayer.emergency_contact_relation}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Medical Information */}
+              {selectedPlayer?.medical_alerts && (
+                <div className="space-y-4 pt-6 border-t border-border">
+                  <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                    <AlertTriangle className="w-5 h-5 text-red-600" />
+                    Medical Information
+                  </h3>
+                  <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/50 rounded-lg p-4">
+                    <p className="text-foreground">{selectedPlayer.medical_alerts}</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Account Information */}
+              <div className="space-y-4 pt-6 border-t border-border">
+                <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                  <Calendar className="w-5 h-5 text-blue-600" />
+                  Account Information
+                </h3>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium text-muted-foreground">Member Since</label>
+                  <p className="text-foreground">
+                    {new Date(selectedPlayer?.created_at || '').toLocaleDateString()}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <DialogFooter className="mt-8 pt-6 border-t border-border gap-3">
+              <Button
+                variant="outline"
+                onClick={() => setShowViewModal(false)}
+                className="px-6 py-3"
+              >
+                Close
+              </Button>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => {
+                  setShowViewModal(false)
+                  if (selectedPlayer) {
+                    openEditForm(selectedPlayer)
+                  }
+                }}
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl"
+              >
+                Edit Player
+              </motion.button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Edit Player Dialog */}
+        <Dialog open={showEditForm} onOpenChange={setShowEditForm}>
+          <DialogContent className="glass-card glass-card-hover max-w-3xl max-h-[90vh] overflow-y-auto animate-scale">
+            <DialogHeader className="text-center pb-6">
+              <div className="flex justify-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg glow-border floating-element">
+                  <Edit className="w-6 h-6 text-white" />
+                </div>
+              </div>
+              <DialogTitle className="gradient-text text-3xl font-bold">Edit Player</DialogTitle>
+              <DialogDescription className="text-muted-foreground mt-2">
+                Update {selectedPlayer?.first_name} {selectedPlayer?.last_name}'s information
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="space-y-6">
+              {/* Personal Information Section */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                  <Users className="w-5 h-5 text-blue-600" />
+                  Personal Information
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-foreground">First Name *</label>
+                    <Input
+                      value={formData.first_name}
+                      onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
+                      placeholder="Enter first name"
+                      className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
+                        formErrors.first_name
+                          ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
+                          : 'border-border focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                      }`}
+                    />
+                    {formErrors.first_name && (
+                      <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                        <AlertTriangle className="w-4 h-4" />
+                        {formErrors.first_name}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-foreground">Last Name *</label>
+                    <Input
+                      value={formData.last_name}
+                      onChange={(e) => setFormData({ ...formData, last_name: e.target.value })}
+                      placeholder="Enter last name"
+                      className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
+                        formErrors.last_name
+                          ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
+                          : 'border-border focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                      }`}
+                    />
+                    {formErrors.last_name && (
+                      <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                        <AlertTriangle className="w-4 h-4" />
+                        {formErrors.last_name}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-foreground">Email</label>
+                    <Input
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="player@example.com"
+                      className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
+                        formErrors.email
+                          ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
+                          : 'border-border focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                      }`}
+                    />
+                    {formErrors.email && (
+                      <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                        <AlertTriangle className="w-4 h-4" />
+                        {formErrors.email}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-foreground">Phone</label>
+                    <Input
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      placeholder="(555) 123-4567"
+                      className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
+                        formErrors.phone
+                          ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
+                          : 'border-border focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                      }`}
+                    />
+                    {formErrors.phone && (
+                      <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                        <AlertTriangle className="w-4 h-4" />
+                        {formErrors.phone}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-foreground">Date of Birth</label>
+                    <Input
+                      type="date"
+                      value={formData.date_of_birth}
+                      onChange={(e) => setFormData({ ...formData, date_of_birth: e.target.value })}
+                      className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground transition-all duration-200 ${
+                        formErrors.date_of_birth
+                          ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
+                          : 'border-border focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                      }`}
+                    />
+                    {formErrors.date_of_birth && (
+                      <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                        <AlertTriangle className="w-4 h-4" />
+                        {formErrors.date_of_birth}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-foreground">Organization *</label>
+                    <Input
+                      value={formData.organization}
+                      onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
+                      placeholder="Enter organization"
+                      className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
+                        formErrors.organization
+                          ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
+                          : 'border-border focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                      }`}
+                    />
+                    {formErrors.organization && (
+                      <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                        <AlertTriangle className="w-4 h-4" />
+                        {formErrors.organization}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-foreground">Address</label>
+                  <Input
+                    value={formData.address}
+                    onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                    placeholder="123 Main St, City, State, ZIP"
+                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
+                  />
+                </div>
+              </div>
+
+              {/* Emergency Contact Section */}
+              <div className="space-y-4 pt-6 border-t border-border">
+                <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                  <Phone className="w-5 h-5 text-blue-600" />
+                  Emergency Contact
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-foreground">Contact Name</label>
+                    <Input
+                      value={formData.emergency_contact_name}
+                      onChange={(e) => setFormData({ ...formData, emergency_contact_name: e.target.value })}
+                      placeholder="Emergency contact name"
+                      className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-foreground">Contact Phone</label>
+                    <Input
+                      value={formData.emergency_contact_phone}
+                      onChange={(e) => setFormData({ ...formData, emergency_contact_phone: e.target.value })}
+                      placeholder="Emergency contact phone"
+                      className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
+                        formErrors.emergency_contact_phone
+                          ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
+                          : 'border-border focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                      }`}
+                    />
+                    {formErrors.emergency_contact_phone && (
+                      <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                        <AlertTriangle className="w-4 h-4" />
+                        {formErrors.emergency_contact_phone}
+                      </p>
+                    )}
+                  </div>
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-foreground">Relationship</label>
+                    <Input
+                      value={formData.emergency_contact_relation}
+                      onChange={(e) => setFormData({ ...formData, emergency_contact_relation: e.target.value })}
+                      placeholder="Parent, Guardian, etc."
+                      className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Medical Information Section */}
+              <div className="space-y-4 pt-6 border-t border-border">
+                <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                  <AlertTriangle className="w-5 h-5 text-blue-600" />
+                  Medical Information
+                </h3>
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-foreground">Medical Alerts & Notes</label>
+                  <textarea
+                    value={formData.medical_alerts}
+                    onChange={(e) => setFormData({ ...formData, medical_alerts: e.target.value })}
+                    rows={3}
+                    placeholder="Enter any medical conditions, allergies, or important notes..."
+                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200 resize-none"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <DialogFooter className="mt-8 pt-6 border-t border-border gap-3">
+              <Button
+                variant="outline"
+                onClick={() => setShowEditForm(false)}
+                className="px-6 py-3 border-2 border-border hover:bg-secondary transition-all duration-200"
+              >
+                Cancel
+              </Button>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={handleEditPlayer}
+                disabled={formLoading}
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+              >
+                <span>{formLoading ? 'Updating Player...' : 'Update Player'}</span>
               </motion.button>
             </DialogFooter>
           </DialogContent>
