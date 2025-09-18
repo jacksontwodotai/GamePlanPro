@@ -124,7 +124,9 @@ export default function PlayerManagementInterface() {
         throw new Error('Failed to fetch teams')
       }
       const data = await response.json()
-      setTeams(data)
+      // Extract teams array from paginated response
+      const teamsArray = data.teams || data
+      setTeams(teamsArray)
     } catch (err) {
       console.error('Fetch teams error:', err)
     }

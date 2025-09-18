@@ -75,7 +75,9 @@ export default function TeamListView() {
         throw new Error('Failed to fetch teams')
       }
       const data = await response.json()
-      setTeams(data)
+      // Extract teams array from paginated response
+      const teamsArray = data.teams || data
+      setTeams(teamsArray)
       setError(null)
     } catch (err) {
       setError('Failed to load teams')
