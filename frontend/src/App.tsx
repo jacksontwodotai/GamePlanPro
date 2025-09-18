@@ -4,6 +4,7 @@ import Login from './components/Login'
 import TeamManagementDashboard from './components/TeamManagementDashboard'
 import TeamListView from './components/TeamListView'
 import PlayerManagementInterface from './components/PlayerManagementInterface'
+import EventSchedulerDashboard from './components/EventSchedulerDashboard'
 
 function App() {
   return (
@@ -27,6 +28,9 @@ function App() {
           <Route index element={<PlayerManagementInterface />} />
           <Route path="create" element={<PlayerManagementInterface />} />
           <Route path=":id" element={<PlayerManagementInterface />} />
+        </Route>
+        <Route path="/events/*" element={<Layout />}>
+          <Route path="*" element={<EventSchedulerDashboard />} />
         </Route>
       </Routes>
     </Router>

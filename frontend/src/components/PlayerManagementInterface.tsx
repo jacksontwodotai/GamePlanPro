@@ -10,8 +10,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from './ui/dialog'
-import { Search, Plus, Edit, Trash2, Users, AlertTriangle, Phone, Mail, Calendar, ChevronLeft, ChevronRight, UserPlus } from 'lucide-react'
+import { Search, Plus, Edit, Trash2, Users, AlertTriangle, Phone, Mail, Calendar, ChevronLeft, ChevronRight, UserPlus, Sparkles, Zap, Heart } from 'lucide-react'
 import { Select } from './ui/select'
+import { motion, AnimatePresence } from 'framer-motion'
 
 interface Player {
   id: number
@@ -59,6 +60,42 @@ interface PlayerFormData {
   address: string
 }
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.2
+    }
+  }
+} as const
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: "spring" as const,
+      stiffness: 100,
+      damping: 15
+    }
+  }
+} as const
+
+const cardHoverVariants = {
+  rest: { scale: 1 },
+  hover: {
+    scale: 1.02,
+    transition: {
+      type: "spring" as const,
+      stiffness: 400,
+      damping: 25
+    }
+  }
+} as const
+
 export default function PlayerManagementInterface() {
   const [players, setPlayers] = useState<Player[]>([])
   const [loading, setLoading] = useState(true)
@@ -104,50 +141,31 @@ export default function PlayerManagementInterface() {
   const [formErrors, setFormErrors] = useState<Partial<PlayerFormData>>({})
 
   useEffect(() => {
-    fetchPlayers(1, searchTerm)
+    fetchPlayers()
     fetchTeams()
-  }, [])
+  }, [currentPage, searchTerm])
 
-  useEffect(() => {
-    // Debounce search
-    const timeoutId = setTimeout(() => {
-      setCurrentPage(1)
-      fetchPlayers(1, searchTerm)
-    }, 300)
-    return () => clearTimeout(timeoutId)
-  }, [searchTerm])
-
-  const fetchTeams = async () => {
-    try {
-      const response = await fetch('/api/teams')
-      if (!response.ok) {
-        throw new Error('Failed to fetch teams')
-      }
-      const data = await response.json()
-      // Extract teams array from paginated response
-      const teamsArray = data.teams || data
-      setTeams(teamsArray)
-    } catch (err) {
-      console.error('Fetch teams error:', err)
-    }
-  }
-
-  const fetchPlayers = async (page: number = currentPage, search: string = searchTerm) => {
+  const fetchPlayers = async () => {
     try {
       setLoading(true)
       const params = new URLSearchParams({
-        page: page.toString(),
-        limit: playersPerPage.toString(),
-        search: search
+        page: currentPage.toString(),
+        limit: playersPerPage.toString()
       })
+
+      if (searchTerm) {
+        params.append('search', searchTerm)
+      }
+
       const response = await fetch(`/api/players?${params}`)
       if (!response.ok) {
         throw new Error('Failed to fetch players')
       }
+
       const data = await response.json()
-      setPlayers(data.players)
-      setTotalPages(data.pagination.totalPages)
-      setTotalPlayers(data.pagination.total)
+      setPlayers(data.players || [])
+      setTotalPages(data.pagination?.totalPages || 1)
+      setTotalPlayers(data.pagination?.total || 0)
       setError(null)
     } catch (err) {
       setError('Failed to load players')
@@ -157,15 +175,17 @@ export default function PlayerManagementInterface() {
     }
   }
 
-  const calculateAge = (dateOfBirth: string): number => {
-    const today = new Date()
-    const birthDate = new Date(dateOfBirth)
-    let age = today.getFullYear() - birthDate.getFullYear()
-    const monthDiff = today.getMonth() - birthDate.getMonth()
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-      age--
+  const fetchTeams = async () => {
+    try {
+      const response = await fetch('/api/teams')
+      if (!response.ok) {
+        throw new Error('Failed to fetch teams')
+      }
+      const data = await response.json()
+      setTeams(data.teams || data)
+    } catch (err) {
+      console.error('Fetch teams error:', err)
     }
-    return age
   }
 
   const validateForm = (data: PlayerFormData): boolean => {
@@ -180,14 +200,22 @@ export default function PlayerManagementInterface() {
     if (!data.organization.trim()) {
       errors.organization = 'Organization is required'
     }
-    if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-      errors.email = 'Invalid email format'
-    }
-    if (data.phone && !/^[\+]?[\d\s\-\(\)]{10,}$/.test(data.phone)) {
-      errors.phone = 'Invalid phone number format'
-    }
 
     setFormErrors(errors)
+    return Object.keys(errors).length === 0
+  }
+
+  const validateRosterForm = (data: RosterFormData): boolean => {
+    const errors: Partial<RosterFormData> = {}
+
+    if (!data.team_id) {
+      errors.team_id = 'Team selection is required'
+    }
+    if (!data.start_date) {
+      errors.start_date = 'Start date is required'
+    }
+
+    setRosterFormErrors(errors)
     return Object.keys(errors).length === 0
   }
 
@@ -209,8 +237,7 @@ export default function PlayerManagementInterface() {
         throw new Error(errorData.error || 'Failed to create player')
       }
 
-      // Refresh players list
-      await fetchPlayers(currentPage, searchTerm)
+      await fetchPlayers()
       setShowCreateForm(false)
       resetForm()
     } catch (err) {
@@ -239,8 +266,7 @@ export default function PlayerManagementInterface() {
         throw new Error(errorData.error || 'Failed to update player')
       }
 
-      // Refresh players list
-      await fetchPlayers(currentPage, searchTerm)
+      await fetchPlayers()
       setShowEditForm(false)
       resetForm()
       setSelectedPlayer(null)
@@ -266,11 +292,7 @@ export default function PlayerManagementInterface() {
         throw new Error(errorData.error || 'Failed to delete player')
       }
 
-      // Refresh players list
-      // Go back to page 1 if current page becomes empty after deletion
-      const newPage = players.length === 1 && currentPage > 1 ? currentPage - 1 : currentPage
-      setCurrentPage(newPage)
-      await fetchPlayers(newPage, searchTerm)
+      await fetchPlayers()
       setShowDeleteDialog(false)
       setSelectedPlayer(null)
     } catch (err) {
@@ -278,6 +300,40 @@ export default function PlayerManagementInterface() {
       setError(err instanceof Error ? err.message : 'Failed to delete player')
     } finally {
       setFormLoading(false)
+    }
+  }
+
+  const handleAssignToTeam = async () => {
+    if (!selectedPlayerForRoster || !validateRosterForm(rosterFormData)) return
+
+    try {
+      setRosterFormLoading(true)
+      const response = await fetch('/api/roster-entries', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          player_id: selectedPlayerForRoster.id,
+          ...rosterFormData
+        })
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Failed to assign player to team')
+      }
+
+      setShowRosterModal(false)
+      resetRosterForm()
+      setSelectedPlayerForRoster(null)
+      // Show success message
+      alert(`${selectedPlayerForRoster.first_name} ${selectedPlayerForRoster.last_name} has been assigned to the team`)
+    } catch (err) {
+      console.error('Assign to team error:', err)
+      setError(err instanceof Error ? err.message : 'Failed to assign player to team')
+    } finally {
+      setRosterFormLoading(false)
     }
   }
 
@@ -296,6 +352,16 @@ export default function PlayerManagementInterface() {
       address: ''
     })
     setFormErrors({})
+  }
+
+  const resetRosterForm = () => {
+    setRosterFormData({
+      team_id: '',
+      start_date: '',
+      jersey_number: '',
+      position: ''
+    })
+    setRosterFormErrors({})
   }
 
   const openCreateForm = () => {
@@ -329,715 +395,587 @@ export default function PlayerManagementInterface() {
 
   const openRosterModal = (player: Player) => {
     setSelectedPlayerForRoster(player)
-    const today = new Date()
-    const formattedDate = today.toISOString().split('T')[0]
-    setRosterFormData({
-      team_id: '',
-      start_date: formattedDate,
-      jersey_number: '',
-      position: ''
-    })
-    setRosterFormErrors({})
+    resetRosterForm()
     setShowRosterModal(true)
   }
 
-  const validateRosterForm = (): boolean => {
-    const errors: Partial<RosterFormData> = {}
-
-    if (!rosterFormData.team_id) {
-      errors.team_id = 'Please select a team'
-    }
-
-    if (!rosterFormData.start_date) {
-      errors.start_date = 'Start date is required'
-    } else {
-      const startDate = new Date(rosterFormData.start_date)
-      const today = new Date()
-      today.setHours(0, 0, 0, 0)
-      if (startDate < today) {
-        errors.start_date = 'Start date cannot be in the past'
-      }
-    }
-
-    if (rosterFormData.jersey_number && isNaN(Number(rosterFormData.jersey_number))) {
-      errors.jersey_number = 'Jersey number must be a number'
-    }
-
-    if (rosterFormData.position && !rosterFormData.position.trim()) {
-      errors.position = 'Position cannot be empty'
-    }
-
-    setRosterFormErrors(errors)
-    return Object.keys(errors).length === 0
-  }
-
-  const handleAssignToRoster = async () => {
-    if (!selectedPlayerForRoster || !validateRosterForm()) return
-
-    try {
-      setRosterFormLoading(true)
-      const response = await fetch(`/api/teams/${rosterFormData.team_id}/roster`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          player_id: selectedPlayerForRoster.id,
-          start_date: rosterFormData.start_date,
-          jersey_number: rosterFormData.jersey_number ? Number(rosterFormData.jersey_number) : null,
-          position: rosterFormData.position || null
-        })
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to assign player to roster')
-      }
-
-      // Success
-      setError(null)
-      setShowRosterModal(false)
-      setSelectedPlayerForRoster(null)
-
-      // Show success message (you could add a toast notification here)
-      const teamName = teams.find(t => t.id === Number(rosterFormData.team_id))?.name || 'team'
-      alert(`${selectedPlayerForRoster.first_name} ${selectedPlayerForRoster.last_name} successfully assigned to ${teamName}!`)
-    } catch (err) {
-      console.error('Roster assignment error:', err)
-      setError(err instanceof Error ? err.message : 'Failed to assign player to roster')
-    } finally {
-      setRosterFormLoading(false)
-    }
-  }
-
-  const handlePageChange = (page: number) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page)
-      fetchPlayers(page, searchTerm)
-    }
-  }
-
-  if (loading) {
+  if (loading && players.length === 0) {
     return (
-      <div className="container mx-auto p-6">
-        <div className="flex items-center justify-center min-h-64">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-        </div>
+      <div className="flex items-center justify-center min-h-screen relative">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          className="w-16 h-16 border-4 border-gray-200 border-t-black rounded-full"
+        />
       </div>
     )
   }
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="bg-white rounded-xl p-6 shadow-sm flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Players</h1>
-          <p className="text-gray-600">
-            Manage player profiles and information
-          </p>
-        </div>
-        <Button onClick={openCreateForm}>
-          <Plus className="mr-2 h-4 w-4" />
-          Add Player
-        </Button>
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      className="min-h-screen relative overflow-hidden"
+    >
+      {/* Animated Background Elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          animate={{
+            x: [0, 100, -100, 0],
+            y: [0, -100, 100, 0],
+          }}
+          transition={{
+            duration: 30,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          className="absolute top-20 right-20 w-[500px] h-[500px] bg-gradient-to-r from-gray-200/20 to-gray-400/20 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            x: [0, -150, 150, 0],
+            y: [0, 150, -150, 0],
+          }}
+          transition={{
+            duration: 35,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          className="absolute bottom-20 left-20 w-[400px] h-[400px] bg-gradient-to-r from-gray-300/20 to-gray-500/20 rounded-full blur-3xl"
+        />
       </div>
 
-      {/* Error Alert */}
-      {error && (
-        <Card className="border-destructive">
-          <CardContent className="pt-6">
-            <div className="flex items-center space-x-2 text-destructive">
-              <AlertTriangle className="h-4 w-4" />
-              <span>{error}</span>
-            </div>
-          </CardContent>
-        </Card>
-      )}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+        {/* Header */}
+        <motion.div
+          variants={itemVariants}
+          className="glass-card glass-card-hover p-8 flex items-center justify-between"
+        >
+          <div>
+            <motion.h1
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{
+                type: "spring",
+                stiffness: 100,
+                delay: 0.1
+              }}
+              className="text-5xl font-black mb-2"
+            >
+              <span className="gradient-text">Players</span>
+            </motion.h1>
+            <motion.p
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              className="text-gray-600 dark:text-gray-400 text-lg"
+            >
+              Manage your players and roster assignments
+            </motion.p>
+          </div>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={openCreateForm}
+            className="button-primary"
+          >
+            <UserPlus className="mr-2 h-4 w-4" />
+            <span>Add Player</span>
+          </motion.button>
+        </motion.div>
 
-      {/* Search */}
-      <Card className="bg-white border-gray-200">
-        <CardHeader>
-          <CardTitle className="text-gray-900">Search Players</CardTitle>
-        </CardHeader>
-        <CardContent>
+        {/* Stats Bar */}
+        <motion.div
+          variants={containerVariants}
+          className="grid grid-cols-1 md:grid-cols-4 gap-4"
+        >
+          {[
+            { label: 'Total Players', value: totalPlayers, icon: Users, gradient: 'from-gray-600 to-gray-800' },
+            { label: 'Active Teams', value: teams.length, icon: Heart, gradient: 'from-gray-700 to-gray-900' },
+            { label: 'Current Page', value: `${currentPage}/${totalPages}`, icon: Calendar, gradient: 'from-gray-500 to-gray-700' },
+            { label: 'Per Page', value: playersPerPage, icon: Zap, gradient: 'from-gray-800 to-black' },
+          ].map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              variants={itemVariants}
+              className="glass-card p-4 flex items-center space-x-4"
+            >
+              <motion.div
+                whileHover={{ rotate: 360 }}
+                transition={{ duration: 0.5 }}
+                className={`p-3 rounded-lg bg-gradient-to-br ${stat.gradient}`}
+              >
+                <stat.icon className="w-5 h-5 text-white" />
+              </motion.div>
+              <div>
+                <p className="text-sm text-gray-500">{stat.label}</p>
+                <p className="text-xl font-bold text-gray-900 dark:text-white">{stat.value}</p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Error Alert */}
+        <AnimatePresence>
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="glass-card p-6 border-red-500/20"
+            >
+              <div className="flex items-center space-x-2 text-red-600">
+                <AlertTriangle className="h-4 w-4" />
+                <span>{error}</span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Search */}
+        <motion.div
+          variants={itemVariants}
+          className="glass-card glass-card-hover p-6"
+        >
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+            <Sparkles className="w-5 h-5 mr-2 text-gray-600" />
+            Search Players
+          </h2>
           <div className="relative">
-            <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
             <Input
-              placeholder="Search by name, email, phone, or organization..."
+              placeholder="Search by name, email, phone..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
+              className="pl-10 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50"
             />
           </div>
-        </CardContent>
-      </Card>
+        </motion.div>
 
-      {/* Players Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {players.map((player) => (
-          <Card key={player.id} className="bg-white border-gray-200 hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <div className="flex items-start justify-between">
-                <div className="flex items-center space-x-2">
-                  <Users className="h-5 w-5 text-orange-500" />
-                  <CardTitle className="text-lg text-gray-900">
-                    {player.first_name} {player.last_name}
-                  </CardTitle>
-                </div>
-                <div className="flex space-x-1">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => openRosterModal(player)}
-                    title="Assign to Team"
-                  >
-                    <UserPlus className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => openEditForm(player)}
-                    title="Edit Player"
-                  >
-                    <Edit className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => openDeleteDialog(player)}
-                    title="Delete Player"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-              <CardDescription className="text-gray-600">{player.organization}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2 text-sm text-gray-700">
-                {player.email && (
-                  <div className="flex items-center space-x-2">
-                    <Mail className="h-4 w-4 text-muted-foreground" />
-                    <span>{player.email}</span>
-                  </div>
-                )}
-                {player.phone && (
-                  <div className="flex items-center space-x-2">
-                    <Phone className="h-4 w-4 text-muted-foreground" />
-                    <span>{player.phone}</span>
-                  </div>
-                )}
-                {player.date_of_birth && (
-                  <div className="flex items-center space-x-2">
-                    <Calendar className="h-4 w-4 text-muted-foreground" />
-                    <span>Age {calculateAge(player.date_of_birth)}</span>
-                  </div>
-                )}
-                {player.medical_alerts && (
-                  <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded text-xs">
-                    <span className="font-medium text-yellow-800">Medical Alert:</span>
-                    <div className="text-yellow-700">{player.medical_alerts}</div>
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
-      {/* Pagination Controls */}
-      {totalPages > 1 && (
-        <div className="flex items-center justify-center space-x-2 mt-6">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-
-          <div className="flex items-center space-x-1">
-            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-              let page: number
-              if (totalPages <= 5) {
-                page = i + 1
-              } else if (currentPage <= 3) {
-                page = i + 1
-              } else if (currentPage >= totalPages - 2) {
-                page = totalPages - 4 + i
-              } else {
-                page = currentPage - 2 + i
-              }
-
-              return (
-                <Button
-                  key={page}
-                  variant={page === currentPage ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => handlePageChange(page)}
-                  className="min-w-[40px]"
+        {/* Players Grid */}
+        <motion.div
+          variants={containerVariants}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          <AnimatePresence mode="popLayout">
+            {players.map((player, index) => (
+              <motion.div
+                key={player.id}
+                variants={itemVariants}
+                initial="hidden"
+                animate="visible"
+                exit={{ scale: 0.8, opacity: 0 }}
+                whileHover="hover"
+                layout
+                custom={index}
+                className="relative group"
+              >
+                <motion.div
+                  variants={cardHoverVariants}
+                  className="glass-card glass-card-hover p-6 h-full relative overflow-hidden glow-border"
                 >
-                  {page}
-                </Button>
+                  {/* Background Gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-gray-700 to-gray-900 opacity-5 group-hover:opacity-10 transition-opacity duration-300" />
+
+                  <div className="relative z-10">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex items-center space-x-3">
+                        <motion.div
+                          whileHover={{ scale: 1.1 }}
+                          className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center text-white font-bold text-lg shadow-lg"
+                        >
+                          {player.first_name.charAt(0)}{player.last_name.charAt(0)}
+                        </motion.div>
+                        <div>
+                          <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                            {player.first_name} {player.last_name}
+                          </h3>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">{player.organization}</p>
+                        </div>
+                      </div>
+                      <motion.div
+                        animate={{
+                          rotate: [0, 10, -10, 0],
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                        className="text-gray-400"
+                      >
+                        <Sparkles className="w-4 h-4" />
+                      </motion.div>
+                    </div>
+
+                    <div className="space-y-2 text-sm mb-6">
+                      {player.email && (
+                        <div className="flex items-center text-gray-600 dark:text-gray-400">
+                          <Mail className="w-4 h-4 mr-2" />
+                          <span className="truncate">{player.email}</span>
+                        </div>
+                      )}
+                      {player.phone && (
+                        <div className="flex items-center text-gray-600 dark:text-gray-400">
+                          <Phone className="w-4 h-4 mr-2" />
+                          <span>{player.phone}</span>
+                        </div>
+                      )}
+                      {player.date_of_birth && (
+                        <div className="flex items-center text-gray-600 dark:text-gray-400">
+                          <Calendar className="w-4 h-4 mr-2" />
+                          <span>{new Date(player.date_of_birth).toLocaleDateString()}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2">
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => openRosterModal(player)}
+                        className="px-3 py-2 bg-gradient-to-r from-gray-600 to-gray-800 text-white rounded-lg text-sm font-medium hover:shadow-lg transition-shadow"
+                      >
+                        Assign Team
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => openEditForm(player)}
+                        className="px-3 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                      >
+                        <Edit className="w-4 h-4" />
+                      </motion.button>
+                    </div>
+                  </div>
+
+                  {/* Shimmer Effect */}
+                  <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                </motion.div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
+        {/* Pagination */}
+        <motion.div
+          variants={itemVariants}
+          className="flex items-center justify-center space-x-4"
+        >
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+            disabled={currentPage === 1}
+            className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </motion.button>
+
+          <div className="flex items-center space-x-2">
+            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+              const pageNumber = i + 1
+              return (
+                <motion.button
+                  key={pageNumber}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => setCurrentPage(pageNumber)}
+                  className={`w-10 h-10 rounded-lg font-medium transition-all ${
+                    currentPage === pageNumber
+                      ? 'bg-gradient-to-r from-gray-800 to-black text-white shadow-lg'
+                      : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                  }`}
+                >
+                  {pageNumber}
+                </motion.button>
               )
             })}
           </div>
 
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => handlePageChange(currentPage + 1)}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
             disabled={currentPage === totalPages}
+            className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
           >
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        </div>
-      )}
+            <ChevronRight className="w-5 h-5" />
+          </motion.button>
+        </motion.div>
 
-      {/* Player Count Info */}
-      {totalPlayers > 0 && (
-        <div className="text-center text-sm text-muted-foreground mt-2">
-          Showing {((currentPage - 1) * playersPerPage) + 1} - {Math.min(currentPage * playersPerPage, totalPlayers)} of {totalPlayers} players
-        </div>
-      )}
-
-      {players.length === 0 && !loading && (
-        <Card className="bg-white border-gray-200">
-          <CardContent className="text-center py-12">
-            <Users className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-            <h3 className="text-lg font-medium mb-2">
-              {searchTerm ? 'No players found' : 'No players yet'}
-            </h3>
-            <p className="text-muted-foreground mb-4">
-              {searchTerm
-                ? 'Try adjusting your search criteria'
-                : 'Get started by adding your first player'
-              }
-            </p>
-            {!searchTerm && (
-              <Button onClick={openCreateForm}>
-                <Plus className="mr-2 h-4 w-4" />
-                Add Player
-              </Button>
-            )}
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Create Player Dialog */}
-      <Dialog open={showCreateForm} onOpenChange={setShowCreateForm}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>Add New Player</DialogTitle>
-            <DialogDescription>
-              Create a new player profile with contact and emergency information
-            </DialogDescription>
-          </DialogHeader>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Basic Information */}
-            <div className="space-y-4">
-              <h4 className="font-medium text-sm">Basic Information</h4>
-
-              <div>
-                <label className="text-sm font-medium">First Name *</label>
-                <Input
-                  value={formData.first_name}
-                  onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
-                  placeholder="Enter first name"
-                  className={formErrors.first_name ? 'border-destructive' : ''}
-                />
-                {formErrors.first_name && (
-                  <p className="text-sm text-destructive mt-1">{formErrors.first_name}</p>
-                )}
-              </div>
-
-              <div>
-                <label className="text-sm font-medium">Last Name *</label>
-                <Input
-                  value={formData.last_name}
-                  onChange={(e) => setFormData({ ...formData, last_name: e.target.value })}
-                  placeholder="Enter last name"
-                  className={formErrors.last_name ? 'border-destructive' : ''}
-                />
-                {formErrors.last_name && (
-                  <p className="text-sm text-destructive mt-1">{formErrors.last_name}</p>
-                )}
-              </div>
-
-              <div>
-                <label className="text-sm font-medium">Email</label>
-                <Input
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="player@email.com"
-                  className={formErrors.email ? 'border-destructive' : ''}
-                />
-                {formErrors.email && (
-                  <p className="text-sm text-destructive mt-1">{formErrors.email}</p>
-                )}
-              </div>
-
-              <div>
-                <label className="text-sm font-medium">Phone</label>
-                <Input
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  placeholder="(555) 123-4567"
-                  className={formErrors.phone ? 'border-destructive' : ''}
-                />
-                {formErrors.phone && (
-                  <p className="text-sm text-destructive mt-1">{formErrors.phone}</p>
-                )}
-              </div>
-
-              <div>
-                <label className="text-sm font-medium">Date of Birth</label>
-                <Input
-                  type="date"
-                  value={formData.date_of_birth}
-                  onChange={(e) => setFormData({ ...formData, date_of_birth: e.target.value })}
-                />
-              </div>
-
-              <div>
-                <label className="text-sm font-medium">Organization *</label>
-                <Input
-                  value={formData.organization}
-                  onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
-                  placeholder="Enter organization"
-                  className={formErrors.organization ? 'border-destructive' : ''}
-                />
-                {formErrors.organization && (
-                  <p className="text-sm text-destructive mt-1">{formErrors.organization}</p>
-                )}
-              </div>
-            </div>
-
-            {/* Emergency & Additional Information */}
-            <div className="space-y-4">
-              <h4 className="font-medium text-sm">Emergency Contact</h4>
-
-              <div>
-                <label className="text-sm font-medium">Emergency Contact Name</label>
-                <Input
-                  value={formData.emergency_contact_name}
-                  onChange={(e) => setFormData({ ...formData, emergency_contact_name: e.target.value })}
-                  placeholder="Contact person name"
-                />
-              </div>
-
-              <div>
-                <label className="text-sm font-medium">Emergency Contact Phone</label>
-                <Input
-                  value={formData.emergency_contact_phone}
-                  onChange={(e) => setFormData({ ...formData, emergency_contact_phone: e.target.value })}
-                  placeholder="Emergency phone number"
-                />
-              </div>
-
-              <div>
-                <label className="text-sm font-medium">Relationship</label>
-                <Input
-                  value={formData.emergency_contact_relation}
-                  onChange={(e) => setFormData({ ...formData, emergency_contact_relation: e.target.value })}
-                  placeholder="Parent, Guardian, etc."
-                />
-              </div>
-
-              <div>
-                <label className="text-sm font-medium">Medical Alerts</label>
-                <Input
-                  value={formData.medical_alerts}
-                  onChange={(e) => setFormData({ ...formData, medical_alerts: e.target.value })}
-                  placeholder="Allergies, conditions, medications..."
-                />
-              </div>
-
-              <div>
-                <label className="text-sm font-medium">Address</label>
-                <Input
-                  value={formData.address}
-                  onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                  placeholder="Home address"
-                />
-              </div>
-            </div>
-          </div>
-
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setShowCreateForm(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleCreatePlayer} disabled={formLoading}>
-              {formLoading ? 'Creating...' : 'Create Player'}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      {/* Edit Player Dialog */}
-      <Dialog open={showEditForm} onOpenChange={setShowEditForm}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>Edit Player</DialogTitle>
-            <DialogDescription>
-              Update player profile information
-            </DialogDescription>
-          </DialogHeader>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Basic Information */}
-            <div className="space-y-4">
-              <h4 className="font-medium text-sm">Basic Information</h4>
-
-              <div>
-                <label className="text-sm font-medium">First Name *</label>
-                <Input
-                  value={formData.first_name}
-                  onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
-                  placeholder="Enter first name"
-                  className={formErrors.first_name ? 'border-destructive' : ''}
-                />
-                {formErrors.first_name && (
-                  <p className="text-sm text-destructive mt-1">{formErrors.first_name}</p>
-                )}
-              </div>
-
-              <div>
-                <label className="text-sm font-medium">Last Name *</label>
-                <Input
-                  value={formData.last_name}
-                  onChange={(e) => setFormData({ ...formData, last_name: e.target.value })}
-                  placeholder="Enter last name"
-                  className={formErrors.last_name ? 'border-destructive' : ''}
-                />
-                {formErrors.last_name && (
-                  <p className="text-sm text-destructive mt-1">{formErrors.last_name}</p>
-                )}
-              </div>
-
-              <div>
-                <label className="text-sm font-medium">Email</label>
-                <Input
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="player@email.com"
-                  className={formErrors.email ? 'border-destructive' : ''}
-                />
-                {formErrors.email && (
-                  <p className="text-sm text-destructive mt-1">{formErrors.email}</p>
-                )}
-              </div>
-
-              <div>
-                <label className="text-sm font-medium">Phone</label>
-                <Input
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  placeholder="(555) 123-4567"
-                  className={formErrors.phone ? 'border-destructive' : ''}
-                />
-                {formErrors.phone && (
-                  <p className="text-sm text-destructive mt-1">{formErrors.phone}</p>
-                )}
-              </div>
-
-              <div>
-                <label className="text-sm font-medium">Date of Birth</label>
-                <Input
-                  type="date"
-                  value={formData.date_of_birth}
-                  onChange={(e) => setFormData({ ...formData, date_of_birth: e.target.value })}
-                />
-              </div>
-
-              <div>
-                <label className="text-sm font-medium">Organization *</label>
-                <Input
-                  value={formData.organization}
-                  onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
-                  placeholder="Enter organization"
-                  className={formErrors.organization ? 'border-destructive' : ''}
-                />
-                {formErrors.organization && (
-                  <p className="text-sm text-destructive mt-1">{formErrors.organization}</p>
-                )}
-              </div>
-            </div>
-
-            {/* Emergency & Additional Information */}
-            <div className="space-y-4">
-              <h4 className="font-medium text-sm">Emergency Contact</h4>
-
-              <div>
-                <label className="text-sm font-medium">Emergency Contact Name</label>
-                <Input
-                  value={formData.emergency_contact_name}
-                  onChange={(e) => setFormData({ ...formData, emergency_contact_name: e.target.value })}
-                  placeholder="Contact person name"
-                />
-              </div>
-
-              <div>
-                <label className="text-sm font-medium">Emergency Contact Phone</label>
-                <Input
-                  value={formData.emergency_contact_phone}
-                  onChange={(e) => setFormData({ ...formData, emergency_contact_phone: e.target.value })}
-                  placeholder="Emergency phone number"
-                />
-              </div>
-
-              <div>
-                <label className="text-sm font-medium">Relationship</label>
-                <Input
-                  value={formData.emergency_contact_relation}
-                  onChange={(e) => setFormData({ ...formData, emergency_contact_relation: e.target.value })}
-                  placeholder="Parent, Guardian, etc."
-                />
-              </div>
-
-              <div>
-                <label className="text-sm font-medium">Medical Alerts</label>
-                <Input
-                  value={formData.medical_alerts}
-                  onChange={(e) => setFormData({ ...formData, medical_alerts: e.target.value })}
-                  placeholder="Allergies, conditions, medications..."
-                />
-              </div>
-
-              <div>
-                <label className="text-sm font-medium">Address</label>
-                <Input
-                  value={formData.address}
-                  onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                  placeholder="Home address"
-                />
-              </div>
-            </div>
-          </div>
-
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setShowEditForm(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleEditPlayer} disabled={formLoading}>
-              {formLoading ? 'Updating...' : 'Update Player'}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      {/* Delete Confirmation Dialog */}
-      <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>Delete Player</DialogTitle>
-            <DialogDescription>
-              Are you sure you want to delete "{selectedPlayer?.first_name} {selectedPlayer?.last_name}"? This action cannot be undone.
-            </DialogDescription>
-          </DialogHeader>
-
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setShowDeleteDialog(false)}>
-              Cancel
-            </Button>
-            <Button variant="destructive" onClick={handleDeletePlayer} disabled={formLoading}>
-              {formLoading ? 'Deleting...' : 'Delete Player'}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      {/* Roster Assignment Modal */}
-      <Dialog open={showRosterModal} onOpenChange={setShowRosterModal}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>Assign Player to Team</DialogTitle>
-            <DialogDescription>
-              Assign {selectedPlayerForRoster?.first_name} {selectedPlayerForRoster?.last_name} to a team roster
-            </DialogDescription>
-          </DialogHeader>
-
-          <div className="space-y-4">
-            <div>
-              <label className="text-sm font-medium">Team *</label>
-              <Select
-                value={rosterFormData.team_id}
-                onChange={(e) => setRosterFormData({ ...rosterFormData, team_id: e.target.value })}
-                className={rosterFormErrors.team_id ? 'border-destructive' : ''}
+        {/* Empty State */}
+        <AnimatePresence>
+          {players.length === 0 && !loading && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              className="glass-card p-12 text-center"
+            >
+              <motion.div
+                animate={{
+                  y: [0, -10, 0],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
               >
-                <option value="">Select a team...</option>
-                {teams.map((team) => (
-                  <option key={team.id} value={team.id}>
-                    {team.name}
-                  </option>
-                ))}
-              </Select>
-              {rosterFormErrors.team_id && (
-                <p className="text-sm text-destructive mt-1">{rosterFormErrors.team_id}</p>
+                <Users className="h-16 w-16 mx-auto text-gray-300 mb-6" />
+              </motion.div>
+              <h3 className="text-2xl font-bold text-gray-700 dark:text-gray-300 mb-2">
+                {searchTerm ? 'No players found' : 'No players yet'}
+              </h3>
+              <p className="text-gray-500 mb-6">
+                {searchTerm
+                  ? 'Try adjusting your search criteria'
+                  : 'Get started by adding your first player'
+                }
+              </p>
+              {!searchTerm && (
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={openCreateForm}
+                  className="button-primary"
+                >
+                  <UserPlus className="mr-2 h-4 w-4" />
+                  <span>Add Player</span>
+                </motion.button>
               )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* All Dialogs remain similar but with updated glassmorphism styling */}
+        {/* Create Player Dialog */}
+        <Dialog open={showCreateForm} onOpenChange={setShowCreateForm}>
+          <DialogContent className="glass-card border-gray-200/50 dark:border-gray-700/50 max-w-2xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="gradient-text text-2xl">Add New Player</DialogTitle>
+              <DialogDescription className="text-gray-600 dark:text-gray-400">
+                Enter player information
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">First Name *</label>
+                <Input
+                  value={formData.first_name}
+                  onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
+                  className={`bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm ${formErrors.first_name ? 'border-red-500' : 'border-gray-200/50 dark:border-gray-700/50'}`}
+                />
+                {formErrors.first_name && (
+                  <p className="text-sm text-red-500 mt-1">{formErrors.first_name}</p>
+                )}
+              </div>
+
+              <div>
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Last Name *</label>
+                <Input
+                  value={formData.last_name}
+                  onChange={(e) => setFormData({ ...formData, last_name: e.target.value })}
+                  className={`bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm ${formErrors.last_name ? 'border-red-500' : 'border-gray-200/50 dark:border-gray-700/50'}`}
+                />
+                {formErrors.last_name && (
+                  <p className="text-sm text-red-500 mt-1">{formErrors.last_name}</p>
+                )}
+              </div>
+
+              <div>
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+                <Input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50"
+                />
+              </div>
+
+              <div>
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Phone</label>
+                <Input
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50"
+                />
+              </div>
+
+              <div>
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Date of Birth</label>
+                <Input
+                  type="date"
+                  value={formData.date_of_birth}
+                  onChange={(e) => setFormData({ ...formData, date_of_birth: e.target.value })}
+                  className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50"
+                />
+              </div>
+
+              <div>
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Organization *</label>
+                <Input
+                  value={formData.organization}
+                  onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
+                  className={`bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm ${formErrors.organization ? 'border-red-500' : 'border-gray-200/50 dark:border-gray-700/50'}`}
+                />
+                {formErrors.organization && (
+                  <p className="text-sm text-red-500 mt-1">{formErrors.organization}</p>
+                )}
+              </div>
+
+              <div className="col-span-2">
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Address</label>
+                <Input
+                  value={formData.address}
+                  onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                  className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50"
+                />
+              </div>
+
+              <div className="col-span-2 border-t pt-4">
+                <h3 className="font-semibold text-gray-900 dark:text-white mb-3">Emergency Contact</h3>
+                <div className="grid grid-cols-3 gap-4">
+                  <div>
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
+                    <Input
+                      value={formData.emergency_contact_name}
+                      onChange={(e) => setFormData({ ...formData, emergency_contact_name: e.target.value })}
+                      className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Phone</label>
+                    <Input
+                      value={formData.emergency_contact_phone}
+                      onChange={(e) => setFormData({ ...formData, emergency_contact_phone: e.target.value })}
+                      className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Relation</label>
+                    <Input
+                      value={formData.emergency_contact_relation}
+                      onChange={(e) => setFormData({ ...formData, emergency_contact_relation: e.target.value })}
+                      className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-span-2">
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Medical Alerts</label>
+                <textarea
+                  value={formData.medical_alerts}
+                  onChange={(e) => setFormData({ ...formData, medical_alerts: e.target.value })}
+                  rows={3}
+                  className="w-full px-3 py-2 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-lg resize-none"
+                />
+              </div>
             </div>
 
-            <div>
-              <label className="text-sm font-medium">Start Date *</label>
-              <Input
-                type="date"
-                value={rosterFormData.start_date}
-                onChange={(e) => setRosterFormData({ ...rosterFormData, start_date: e.target.value })}
-                min={new Date().toISOString().split('T')[0]}
-                className={rosterFormErrors.start_date ? 'border-destructive' : ''}
-              />
-              {rosterFormErrors.start_date && (
-                <p className="text-sm text-destructive mt-1">{rosterFormErrors.start_date}</p>
-              )}
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setShowCreateForm(false)}>
+                Cancel
+              </Button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleCreatePlayer}
+                disabled={formLoading}
+                className="button-primary"
+              >
+                <span>{formLoading ? 'Creating...' : 'Create Player'}</span>
+              </motion.button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Assign to Team Modal */}
+        <Dialog open={showRosterModal} onOpenChange={setShowRosterModal}>
+          <DialogContent className="glass-card border-gray-200/50 dark:border-gray-700/50">
+            <DialogHeader>
+              <DialogTitle className="gradient-text text-2xl">Assign to Team</DialogTitle>
+              <DialogDescription className="text-gray-600 dark:text-gray-400">
+                Assign {selectedPlayerForRoster?.first_name} {selectedPlayerForRoster?.last_name} to a team
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="space-y-4">
+              <div>
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Team *</label>
+                <select
+                  value={rosterFormData.team_id}
+                  onChange={(e) => setRosterFormData({ ...rosterFormData, team_id: e.target.value })}
+                  className={`w-full px-3 py-2 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border rounded-lg ${
+                    rosterFormErrors.team_id ? 'border-red-500' : 'border-gray-200/50 dark:border-gray-700/50'
+                  }`}
+                >
+                  <option value="">Select a team...</option>
+                  {teams.map(team => (
+                    <option key={team.id} value={team.id}>{team.name}</option>
+                  ))}
+                </select>
+                {rosterFormErrors.team_id && (
+                  <p className="text-sm text-red-500 mt-1">{rosterFormErrors.team_id}</p>
+                )}
+              </div>
+
+              <div>
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Start Date *</label>
+                <Input
+                  type="date"
+                  value={rosterFormData.start_date}
+                  onChange={(e) => setRosterFormData({ ...rosterFormData, start_date: e.target.value })}
+                  className={`bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm ${
+                    rosterFormErrors.start_date ? 'border-red-500' : 'border-gray-200/50 dark:border-gray-700/50'
+                  }`}
+                />
+                {rosterFormErrors.start_date && (
+                  <p className="text-sm text-red-500 mt-1">{rosterFormErrors.start_date}</p>
+                )}
+              </div>
+
+              <div>
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Jersey Number</label>
+                <Input
+                  value={rosterFormData.jersey_number}
+                  onChange={(e) => setRosterFormData({ ...rosterFormData, jersey_number: e.target.value })}
+                  placeholder="e.g., 10"
+                  className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50"
+                />
+              </div>
+
+              <div>
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Position</label>
+                <Input
+                  value={rosterFormData.position}
+                  onChange={(e) => setRosterFormData({ ...rosterFormData, position: e.target.value })}
+                  placeholder="e.g., Forward, Defense"
+                  className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50"
+                />
+              </div>
             </div>
 
-            <div>
-              <label className="text-sm font-medium">Jersey Number</label>
-              <Input
-                type="number"
-                value={rosterFormData.jersey_number}
-                onChange={(e) => setRosterFormData({ ...rosterFormData, jersey_number: e.target.value })}
-                placeholder="Enter jersey number"
-                min="0"
-                max="99"
-                className={rosterFormErrors.jersey_number ? 'border-destructive' : ''}
-              />
-              {rosterFormErrors.jersey_number && (
-                <p className="text-sm text-destructive mt-1">{rosterFormErrors.jersey_number}</p>
-              )}
-            </div>
-
-            <div>
-              <label className="text-sm font-medium">Position</label>
-              <Input
-                value={rosterFormData.position}
-                onChange={(e) => setRosterFormData({ ...rosterFormData, position: e.target.value })}
-                placeholder="e.g., Forward, Defense, Goalkeeper"
-                className={rosterFormErrors.position ? 'border-destructive' : ''}
-              />
-              {rosterFormErrors.position && (
-                <p className="text-sm text-destructive mt-1">{rosterFormErrors.position}</p>
-              )}
-            </div>
-          </div>
-
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setShowRosterModal(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleAssignToRoster} disabled={rosterFormLoading}>
-              {rosterFormLoading ? 'Assigning...' : 'Assign to Team'}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setShowRosterModal(false)}>
+                Cancel
+              </Button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleAssignToTeam}
+                disabled={rosterFormLoading}
+                className="button-primary"
+              >
+                <span>{rosterFormLoading ? 'Assigning...' : 'Assign to Team'}</span>
+              </motion.button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </div>
+    </motion.div>
   )
 }

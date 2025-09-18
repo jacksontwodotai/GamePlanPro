@@ -662,5 +662,13 @@
     "permission_mode": "bypassPermissions",
     "hook_event_name": "Stop",
     "stop_hook_active": false
+  },
+  {
+    "session_id": "649c1de9-c816-427a-9605-6cdd85f58f3e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/649c1de9-c816-427a-9605-6cdd85f58f3e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "Stop",
+    "stop_hook_active": false
   }
 ]

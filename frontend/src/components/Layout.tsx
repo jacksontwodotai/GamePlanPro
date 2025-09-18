@@ -6,7 +6,8 @@ import {
   Shield,
   Users,
   Menu,
-  LogOut
+  LogOut,
+  Calendar
 } from 'lucide-react'
 import { cn } from '../lib/utils'
 
@@ -25,6 +26,11 @@ const navigation = [
     name: 'Players',
     href: '/players',
     icon: Users,
+  },
+  {
+    name: 'Events',
+    href: '/events',
+    icon: Calendar,
   },
 ]
 
