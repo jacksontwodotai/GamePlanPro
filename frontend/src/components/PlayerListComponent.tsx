@@ -510,7 +510,7 @@ export default function PlayerListComponent({
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => onPlayerSelect?.(player)}
-                      className="px-2 py-2 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-lg text-sm font-medium hover:shadow-lg transition-shadow"
+                      className="px-3 py-2 bg-white border-2 border-blue-300 text-blue-700 rounded-lg text-sm font-semibold hover:bg-blue-50 hover:border-blue-400 transition-all shadow-sm"
                     >
                       View
                     </motion.button>
@@ -520,7 +520,7 @@ export default function PlayerListComponent({
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => onPlayerEdit?.(player)}
-                        className="px-2 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                        className="px-3 py-2 bg-white border-2 border-gray-300 text-gray-700 rounded-lg text-sm font-semibold hover:bg-gray-50 hover:border-gray-400 transition-all shadow-sm flex items-center justify-center"
                       >
                         <Edit className="w-4 h-4" />
                       </motion.button>
@@ -531,7 +531,7 @@ export default function PlayerListComponent({
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => handleDeleteClick(player)}
-                        className="px-2 py-2 bg-gradient-to-r from-red-600 to-red-800 text-white rounded-lg text-sm font-medium hover:shadow-lg transition-shadow"
+                        className="px-3 py-2 bg-white border-2 border-red-300 text-red-700 rounded-lg text-sm font-semibold hover:bg-red-50 hover:border-red-400 transition-all shadow-sm flex items-center justify-center"
                       >
                         <Trash2 className="w-4 h-4" />
                       </motion.button>
@@ -641,29 +641,31 @@ export default function PlayerListComponent({
 
       {/* Delete Confirmation Dialog */}
       <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
-        <DialogContent className="glass-card border-red-500/20">
+        <DialogContent className="bg-white border-2 border-red-200 shadow-xl max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-red-600 flex items-center">
+            <DialogTitle className="text-red-700 flex items-center text-lg font-bold">
               <AlertTriangle className="w-5 h-5 mr-2" />
               Delete Player
             </DialogTitle>
-            <DialogDescription>
-              Are you sure you want to delete {playerToDelete?.first_name} {playerToDelete?.last_name}?
+            <DialogDescription className="text-gray-700 text-base mt-2">
+              Are you sure you want to delete <span className="font-semibold text-gray-900">{playerToDelete?.first_name} {playerToDelete?.last_name}</span>?
+              <br /><br />
               This action cannot be undone and will remove all associated data.
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter>
+          <DialogFooter className="mt-6 gap-3">
             <Button
               variant="outline"
               onClick={() => setShowDeleteDialog(false)}
               disabled={deleteLoading}
+              className="bg-white border-2 border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 font-semibold"
             >
               Cancel
             </Button>
             <Button
-              variant="destructive"
               onClick={confirmDelete}
               disabled={deleteLoading}
+              className="bg-red-600 hover:bg-red-700 text-white border-2 border-red-600 hover:border-red-700 font-semibold"
             >
               {deleteLoading ? 'Deleting...' : 'Delete Player'}
             </Button>

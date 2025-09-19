@@ -11,7 +11,8 @@ import {
   Settings,
   FileText,
   GraduationCap,
-  FormInput
+  FormInput,
+  UserCheck
 } from 'lucide-react'
 import { cn } from '../lib/utils'
 
@@ -35,6 +36,11 @@ const navigation = [
     name: 'Programs',
     href: '/programs',
     icon: GraduationCap,
+  },
+  {
+    name: 'Registrations',
+    href: '/dashboard/registrations',
+    icon: UserCheck,
   },
   {
     name: 'Forms',

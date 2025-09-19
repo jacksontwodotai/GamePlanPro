@@ -1606,34 +1606,40 @@ export default function PlayerManagementInterface() {
 
         {/* Assign to Team Modal */}
         <Dialog open={showRosterModal} onOpenChange={setShowRosterModal}>
-          <DialogContent>
+          <DialogContent className="bg-white border-2 border-blue-200 shadow-xl max-w-md">
             <DialogHeader>
-              <DialogTitle>Assign to Team</DialogTitle>
-              <DialogDescription>
-                Assign {selectedPlayerForRoster?.first_name} {selectedPlayerForRoster?.last_name} to a team
+              <DialogTitle className="text-blue-700 text-xl font-bold flex items-center">
+                <Users className="w-5 h-5 mr-2" />
+                Assign to Team
+              </DialogTitle>
+              <DialogDescription className="text-gray-700 text-base mt-2">
+                Assign <span className="font-semibold text-gray-900">{selectedPlayerForRoster?.first_name} {selectedPlayerForRoster?.last_name}</span> to a team roster
               </DialogDescription>
             </DialogHeader>
 
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <div className="space-y-5 mt-4">
+              <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                <label className="block text-sm font-bold text-blue-700 mb-1">
                   Player
                 </label>
-                <p className="text-gray-900 dark:text-white">
-                  {selectedPlayerForRoster?.first_name} {selectedPlayerForRoster?.last_name} - {selectedPlayerForRoster?.organization}
+                <p className="text-gray-900 font-semibold">
+                  {selectedPlayerForRoster?.first_name} {selectedPlayerForRoster?.last_name}
+                </p>
+                <p className="text-gray-600 text-sm">
+                  {selectedPlayerForRoster?.organization}
                 </p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-bold text-gray-700 mb-2">
                   Team *
                 </label>
                 <select
                   value={rosterFormData.team_id}
                   onChange={(e) => setRosterFormData({ ...rosterFormData, team_id: e.target.value })}
-                  className={`w-full px-3 py-2 border rounded-lg ${
-                    rosterFormErrors.team_id ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
-                  } bg-white dark:bg-gray-700 text-gray-900 dark:text-white`}
+                  className={`w-full px-4 py-3 border-2 rounded-lg text-gray-900 bg-white font-medium ${
+                    rosterFormErrors.team_id ? 'border-red-400 bg-red-50' : 'border-gray-300 hover:border-blue-400 focus:border-blue-500'
+                  } transition-colors`}
                 >
                   <option value="">Select a team...</option>
                   {teams.map(team => (
@@ -1641,55 +1647,62 @@ export default function PlayerManagementInterface() {
                   ))}
                 </select>
                 {rosterFormErrors.team_id && (
-                  <p className="text-sm text-red-500 mt-1">{rosterFormErrors.team_id}</p>
+                  <p className="text-sm text-red-600 mt-1 font-medium">{rosterFormErrors.team_id}</p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-bold text-gray-700 mb-2">
                   Start Date *
                 </label>
                 <Input
                   type="date"
                   value={rosterFormData.start_date}
                   onChange={(e) => setRosterFormData({ ...rosterFormData, start_date: e.target.value })}
-                  className={rosterFormErrors.start_date ? 'border-red-500' : ''}
+                  className={`border-2 py-3 text-gray-900 font-medium ${rosterFormErrors.start_date ? 'border-red-400 bg-red-50' : 'border-gray-300 hover:border-blue-400 focus:border-blue-500'} transition-colors`}
                 />
                 {rosterFormErrors.start_date && (
-                  <p className="text-sm text-red-500 mt-1">{rosterFormErrors.start_date}</p>
+                  <p className="text-sm text-red-600 mt-1 font-medium">{rosterFormErrors.start_date}</p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-bold text-gray-700 mb-2">
                   Jersey Number
                 </label>
                 <Input
                   value={rosterFormData.jersey_number}
                   onChange={(e) => setRosterFormData({ ...rosterFormData, jersey_number: e.target.value })}
                   placeholder="e.g., 10"
+                  className="border-2 border-gray-300 hover:border-blue-400 focus:border-blue-500 py-3 text-gray-900 font-medium transition-colors"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-bold text-gray-700 mb-2">
                   Position
                 </label>
                 <Input
                   value={rosterFormData.position}
                   onChange={(e) => setRosterFormData({ ...rosterFormData, position: e.target.value })}
                   placeholder="e.g., Forward, Defense"
+                  className="border-2 border-gray-300 hover:border-blue-400 focus:border-blue-500 py-3 text-gray-900 font-medium transition-colors"
                 />
               </div>
             </div>
 
-            <DialogFooter>
-              <Button variant="outline" onClick={() => setShowRosterModal(false)}>
+            <DialogFooter className="mt-6 gap-3">
+              <Button
+                variant="outline"
+                onClick={() => setShowRosterModal(false)}
+                className="bg-white border-2 border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 font-semibold"
+              >
                 Cancel
               </Button>
               <Button
                 onClick={handleAssignToTeam}
                 disabled={rosterFormLoading}
+                className="bg-blue-600 hover:bg-blue-700 text-white border-2 border-blue-600 hover:border-blue-700 font-semibold"
               >
                 {rosterFormLoading ? 'Assigning...' : 'Assign to Team'}
               </Button>

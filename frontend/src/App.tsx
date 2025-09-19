@@ -20,6 +20,7 @@ import ReportsDashboard from './components/ReportsDashboard'
 import ProgramManagement from './components/ProgramManagement'
 import RegistrationFlow from './components/RegistrationFlow'
 import PublicRegistration from './components/PublicRegistration'
+import RegistrationManagementDashboard from './components/RegistrationManagementDashboard'
 import FormManagement from './components/FormManagement'
 import FormEditor from './components/FormEditor'
 
@@ -42,6 +43,7 @@ function App() {
           <Route path="reports/generate" element={<ReportGenerationForm />} />
           <Route path="roster/dashboard" element={<RosterManagementDashboard />} />
           <Route path="programs" element={<ProgramManagement />} />
+          <Route path="registrations" element={<RegistrationManagementDashboard />} />
           <Route path="forms" element={<FormManagement />} />
           <Route path="forms/new" element={<FormEditor />} />
           <Route path="forms/:formId" element={<FormEditor />} />
