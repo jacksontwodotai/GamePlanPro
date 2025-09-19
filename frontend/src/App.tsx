@@ -21,6 +21,7 @@ import ProgramManagement from './components/ProgramManagement'
 import RegistrationFlow from './components/RegistrationFlow'
 import PublicRegistration from './components/PublicRegistration'
 import RegistrationManagementDashboard from './components/RegistrationManagementDashboard'
+import PaymentHistoryDashboard from './components/PaymentHistoryDashboard'
 import FormManagement from './components/FormManagement'
 import FormEditor from './components/FormEditor'
 
@@ -44,6 +45,7 @@ function App() {
           <Route path="roster/dashboard" element={<RosterManagementDashboard />} />
           <Route path="programs" element={<ProgramManagement />} />
           <Route path="registrations" element={<RegistrationManagementDashboard />} />
+          <Route path="payments" element={<PaymentHistoryDashboard />} />
           <Route path="forms" element={<FormManagement />} />
           <Route path="forms/new" element={<FormEditor />} />
           <Route path="forms/:formId" element={<FormEditor />} />

@@ -12,7 +12,8 @@ import {
   FileText,
   GraduationCap,
   FormInput,
-  UserCheck
+  UserCheck,
+  CreditCard
 } from 'lucide-react'
 import { cn } from '../lib/utils'
 
@@ -41,6 +42,11 @@ const navigation = [
     name: 'Registrations',
     href: '/dashboard/registrations',
     icon: UserCheck,
+  },
+  {
+    name: 'Payments',
+    href: '/dashboard/payments',
+    icon: CreditCard,
   },
   {
     name: 'Forms',
