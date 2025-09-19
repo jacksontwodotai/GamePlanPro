@@ -2364,47 +2364,125 @@ app.delete('/api/events/:id', async (req, res) => {
 
 // POST /api/registrations - Create new registration
 app.post('/api/registrations', authenticateUser, async (req, res) => {
-    const { user_id, team_id, player_id, registration_fee, notes } = req.body;
+    const { player_id, program_id, notes } = req.body;
 
     // Validate required fields
-    if (!user_id || !team_id || !player_id || !registration_fee) {
+    if (!player_id || !program_id) {
         return res.status(400).json({
-            error: 'user_id, team_id, player_id, and registration_fee are required'
+            error: 'player_id and program_id are required'
         });
     }
 
-    // Validate registration fee is positive
-    if (registration_fee <= 0) {
-        return res.status(400).json({ error: 'Registration fee must be greater than 0' });
-    }
-
     try {
+        // Get program details to validate availability and calculate fees
+        const { data: program, error: programError } = await supabase
+            .from('programs')
+            .select('*')
+            .eq('id', program_id)
+            .single();
+
+        if (programError) {
+            console.error('Program fetch error:', programError);
+            if (programError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Program not found' });
+            }
+            return res.status(500).json({ error: 'Failed to fetch program details' });
+        }
+
+        // Validate program is active
+        if (!program.is_active) {
+            return res.status(400).json({ error: 'Program is not currently active' });
+        }
+
+        // Validate registration dates
+        const currentDate = new Date();
+        const registrationOpenDate = new Date(program.registration_open_date);
+        const registrationCloseDate = new Date(program.registration_close_date);
+
+        if (currentDate < registrationOpenDate) {
+            return res.status(400).json({
+                error: 'Registration has not opened yet',
+                registration_open_date: program.registration_open_date
+            });
+        }
+
+        if (currentDate > registrationCloseDate) {
+            return res.status(400).json({
+                error: 'Registration deadline has passed',
+                registration_close_date: program.registration_close_date
+            });
+        }
+
+        // Check capacity if max_capacity is set
+        if (program.max_capacity) {
+            const { count: registrationCount, error: countError } = await supabase
+                .from('program_registrations')
+                .select('*', { count: 'exact', head: true })
+                .eq('program_id', program_id)
+                .in('status', ['pending', 'confirmed']);
+
+            if (countError) {
+                console.error('Registration count error:', countError);
+                return res.status(500).json({ error: 'Failed to check program capacity' });
+            }
+
+            if (registrationCount >= program.max_capacity) {
+                return res.status(400).json({
+                    error: 'Program has reached maximum capacity',
+                    max_capacity: program.max_capacity,
+                    current_registrations: registrationCount
+                });
+            }
+        }
+
         // Check if registration already exists for this combination
         const { data: existingRegistration, error: checkError } = await supabase
-            .from('registrations')
+            .from('program_registrations')
             .select('id')
-            .eq('user_id', user_id)
-            .eq('team_id', team_id)
             .eq('player_id', player_id)
+            .eq('program_id', program_id)
             .single();
 
         if (existingRegistration) {
             return res.status(409).json({
-                error: 'Registration already exists for this user/team/player combination'
+                error: 'Registration already exists for this player/program combination'
             });
         }
 
+        // Calculate total_amount_due from program base_fee
+        const total_amount_due = program.base_fee;
+
         // Create the registration
         const { data: registration, error } = await supabase
-            .from('registrations')
+            .from('program_registrations')
             .insert([{
-                user_id,
-                team_id,
                 player_id,
-                registration_fee,
+                program_id,
+                user_id: req.user.id, // Get from authenticated user
+                status: 'pending',
+                amount_paid: 0,
                 notes: notes || null
             }])
-            .select()
+            .select(`
+                *,
+                programs (
+                    id,
+                    name,
+                    description,
+                    season,
+                    start_date,
+                    end_date,
+                    base_fee
+                ),
+                players (
+                    id,
+                    first_name,
+                    last_name,
+                    email,
+                    phone,
+                    date_of_birth
+                )
+            `)
             .single();
 
         if (error) {
@@ -2412,9 +2490,15 @@ app.post('/api/registrations', authenticateUser, async (req, res) => {
             return res.status(500).json({ error: 'Failed to create registration' });
         }
 
+        // Add calculated total_amount_due to response
+        const registrationWithTotal = {
+            ...registration,
+            total_amount_due: total_amount_due
+        };
+
         res.status(201).json({
             message: 'Registration created successfully',
-            registration
+            registration: registrationWithTotal
         });
     } catch (error) {
         console.error('Create registration error:', error);
@@ -2426,8 +2510,8 @@ app.post('/api/registrations', authenticateUser, async (req, res) => {
 app.get('/api/registrations', authenticateUser, async (req, res) => {
     const {
         user_id,
-        team_id,
         player_id,
+        program_id,
         status,
         page = 1,
         limit = 10
@@ -2437,7 +2521,7 @@ app.get('/api/registrations', authenticateUser, async (req, res) => {
 
     try {
         let query = supabase
-            .from('registrations')
+            .from('program_registrations')
             .select(`
                 *,
                 users (
@@ -2447,13 +2531,15 @@ app.get('/api/registrations', authenticateUser, async (req, res) => {
                     email,
                     organization
                 ),
-                teams (
+                programs (
                     id,
                     name,
-                    organization,
-                    division,
-                    age_group,
-                    skill_level
+                    description,
+                    season,
+                    start_date,
+                    end_date,
+                    base_fee,
+                    max_capacity
                 ),
                 players (
                     id,
@@ -2469,11 +2555,11 @@ app.get('/api/registrations', authenticateUser, async (req, res) => {
         if (user_id) {
             query = query.eq('user_id', user_id);
         }
-        if (team_id) {
-            query = query.eq('team_id', team_id);
-        }
         if (player_id) {
             query = query.eq('player_id', player_id);
+        }
+        if (program_id) {
+            query = query.eq('program_id', program_id);
         }
         if (status) {
             query = query.eq('status', status);
@@ -2491,8 +2577,14 @@ app.get('/api/registrations', authenticateUser, async (req, res) => {
             return res.status(500).json({ error: 'Failed to fetch registrations' });
         }
 
+        // Add calculated total_amount_due to each registration
+        const registrationsWithTotal = (data || []).map(registration => ({
+            ...registration,
+            total_amount_due: registration.programs?.base_fee || 0
+        }));
+
         res.json({
-            registrations: data || [],
+            registrations: registrationsWithTotal,
             pagination: {
                 page: parseInt(page),
                 limit: parseInt(limit),
@@ -2512,7 +2604,7 @@ app.get('/api/registrations/:registration_id', authenticateUser, async (req, res
 
     try {
         const { data: registration, error } = await supabase
-            .from('registrations')
+            .from('program_registrations')
             .select(`
                 *,
                 users (
@@ -2522,13 +2614,18 @@ app.get('/api/registrations/:registration_id', authenticateUser, async (req, res
                     email,
                     organization
                 ),
-                teams (
+                programs (
                     id,
                     name,
-                    organization,
-                    division,
-                    age_group,
-                    skill_level
+                    description,
+                    season,
+                    start_date,
+                    end_date,
+                    registration_open_date,
+                    registration_close_date,
+                    max_capacity,
+                    base_fee,
+                    is_active
                 ),
                 players (
                     id,
@@ -2552,9 +2649,126 @@ app.get('/api/registrations/:registration_id', authenticateUser, async (req, res
             return res.status(500).json({ error: 'Failed to fetch registration' });
         }
 
-        res.json(registration);
+        // Add calculated total_amount_due to response
+        const registrationWithTotal = {
+            ...registration,
+            total_amount_due: registration.programs?.base_fee || 0
+        };
+
+        res.json(registrationWithTotal);
     } catch (error) {
         console.error('Get registration error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// PUT /api/registrations/{registration_id} - Update registration
+app.put('/api/registrations/:registration_id', authenticateUser, async (req, res) => {
+    const { registration_id } = req.params;
+    const { status, notes, amount_paid } = req.body;
+
+    // Validate that at least one updateable field is provided
+    if (!status && !notes && amount_paid === undefined) {
+        return res.status(400).json({
+            error: 'At least one field to update is required (status, notes, amount_paid)'
+        });
+    }
+
+    try {
+        // First check if registration exists
+        const { data: existingRegistration, error: checkError } = await supabase
+            .from('program_registrations')
+            .select('id, status, amount_paid')
+            .eq('id', registration_id)
+            .single();
+
+        if (checkError) {
+            console.error('Registration check error:', checkError);
+            if (checkError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Registration not found' });
+            }
+            return res.status(500).json({ error: 'Failed to check registration' });
+        }
+
+        // Validate status if provided
+        if (status) {
+            const validStatuses = ['pending', 'confirmed', 'waitlisted', 'cancelled'];
+            if (!validStatuses.includes(status)) {
+                return res.status(400).json({
+                    error: 'Invalid status. Must be one of: pending, confirmed, waitlisted, cancelled'
+                });
+            }
+        }
+
+        // Validate amount_paid if provided
+        if (amount_paid !== undefined) {
+            if (typeof amount_paid !== 'number' || amount_paid < 0) {
+                return res.status(400).json({
+                    error: 'amount_paid must be a non-negative number'
+                });
+            }
+        }
+
+        // Build update object with only provided fields
+        const updateData = {};
+        if (status) updateData.status = status;
+        if (notes !== undefined) updateData.notes = notes;
+        if (amount_paid !== undefined) updateData.amount_paid = amount_paid;
+
+        // Add updated_at timestamp
+        updateData.updated_at = new Date().toISOString();
+
+        // Update the registration
+        const { data: updatedRegistration, error } = await supabase
+            .from('program_registrations')
+            .update(updateData)
+            .eq('id', registration_id)
+            .select(`
+                *,
+                users (
+                    id,
+                    first_name,
+                    last_name,
+                    email,
+                    organization
+                ),
+                programs (
+                    id,
+                    name,
+                    description,
+                    season,
+                    start_date,
+                    end_date,
+                    base_fee
+                ),
+                players (
+                    id,
+                    first_name,
+                    last_name,
+                    email,
+                    phone,
+                    date_of_birth
+                )
+            `)
+            .single();
+
+        if (error) {
+            console.error('Registration update error:', error);
+            return res.status(500).json({ error: 'Failed to update registration' });
+        }
+
+        // Add calculated total_amount_due to response
+        const registrationWithTotal = {
+            ...updatedRegistration,
+            total_amount_due: updatedRegistration.programs?.base_fee || 0
+        };
+
+        res.json({
+            message: 'Registration updated successfully',
+            registration: registrationWithTotal
+        });
+    } catch (error) {
+        console.error('Update registration error:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });

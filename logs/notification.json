@@ -432,5 +432,33 @@
     "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
     "hook_event_name": "Notification",
     "message": "Claude is waiting for your input"
+  },
+  {
+    "session_id": "f18925b8-9555-456c-a7a3-45a6ba1adfb9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/f18925b8-9555-456c-a7a3-45a6ba1adfb9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "hook_event_name": "Notification",
+    "message": "Claude Code login successful"
+  },
+  {
+    "session_id": "94e5b1ef-9be2-426f-aa53-a363970dc43f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/94e5b1ef-9be2-426f-aa53-a363970dc43f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "hook_event_name": "Notification",
+    "message": "Claude Code login successful"
+  },
+  {
+    "session_id": "736bf268-57ca-4080-9064-c0a718d63890",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/736bf268-57ca-4080-9064-c0a718d63890.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "hook_event_name": "Notification",
+    "message": "Claude Code login successful"
+  },
+  {
+    "session_id": "736bf268-57ca-4080-9064-c0a718d63890",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/736bf268-57ca-4080-9064-c0a718d63890.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "hook_event_name": "Notification",
+    "message": "Claude is waiting for your input"
   }
 ]
