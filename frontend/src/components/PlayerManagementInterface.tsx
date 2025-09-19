@@ -767,29 +767,35 @@ export default function PlayerManagementInterface() {
                       )}
                     </div>
 
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-3 gap-3">
                       <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => openViewModal(player)}
-                        className="px-2 py-2 bg-gradient-to-r from-gray-600 to-gray-800 text-white rounded-lg text-sm font-medium hover:shadow-lg transition-shadow"
+                        className="flex items-center justify-center px-3 py-2.5 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm font-semibold shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                        title="View player details"
                       >
+                        <User className="w-4 h-4 mr-1" />
                         View
                       </motion.button>
                       <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => openEditForm(player)}
-                        className="px-2 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                        className="flex items-center justify-center px-3 py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-sm font-semibold shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-amber-300"
+                        title="Edit player information"
                       >
-                        <Edit className="w-4 h-4" />
+                        <Edit className="w-4 h-4 mr-1" />
+                        Edit
                       </motion.button>
                       <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => openRosterModal(player)}
-                        className="px-2 py-2 bg-gradient-to-r from-gray-600 to-gray-800 text-white rounded-lg text-sm font-medium hover:shadow-lg transition-shadow"
+                        className="flex items-center justify-center px-3 py-2.5 bg-green-500 hover:bg-green-600 text-white rounded-lg text-sm font-semibold shadow-md hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-300"
+                        title="Assign player to team"
                       >
+                        <Users className="w-4 h-4 mr-1" />
                         Assign
                       </motion.button>
                     </div>

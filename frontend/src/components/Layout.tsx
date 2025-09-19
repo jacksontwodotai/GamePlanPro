@@ -1,4 +1,4 @@
-import { Link, Outlet, useLocation } from 'react-router-dom'
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { Button } from './ui/button'
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet'
 import {
@@ -16,90 +16,114 @@ import {
   CreditCard
 } from 'lucide-react'
 import { cn } from '../lib/utils'
+import { useAuth } from '../contexts/AuthContext'
 
 const navigation = [
   {
     name: 'Dashboard',
     href: '/dashboard',
     icon: Home,
-  },
-  {
-    name: 'Teams',
-    href: '/teams',
-    icon: Shield,
-  },
-  {
-    name: 'Players',
-    href: '/players',
-    icon: Users,
+    roles: ['admin', 'user']
   },
   {
     name: 'Programs',
     href: '/programs',
     icon: GraduationCap,
+    roles: ['admin', 'user']
+  },
+  {
+    name: 'Teams',
+    href: '/teams',
+    icon: Shield,
+    roles: ['admin']
+  },
+  {
+    name: 'Players',
+    href: '/players',
+    icon: Users,
+    roles: ['admin']
   },
   {
     name: 'Registrations',
     href: '/dashboard/registrations',
     icon: UserCheck,
+    roles: ['admin']
   },
   {
     name: 'Payments',
     href: '/dashboard/payments',
     icon: CreditCard,
+    roles: ['admin']
   },
   {
     name: 'Forms',
     href: '/dashboard/forms',
     icon: FormInput,
+    roles: ['admin']
   },
   {
     name: 'Reports',
     href: '/reports',
     icon: FileText,
+    roles: ['admin']
   },
   {
     name: 'Team Structure',
     href: '/structure',
     icon: Settings,
+    roles: ['admin']
   },
   {
     name: 'Events',
     href: '/events',
     icon: Calendar,
+    roles: ['admin']
   },
 ]
 
 export default function Layout() {
   const location = useLocation()
+  const navigate = useNavigate()
+  const { user, logout, isLoading } = useAuth()
 
-  const NavItems = ({ className }: { className?: string }) => (
-    <nav className={cn("flex flex-col space-y-1", className)}>
-      {navigation.map((item) => {
-        const isActive = location.pathname === item.href ||
-          location.pathname.startsWith(item.href + '/')
+  const handleLogout = () => {
+    logout()
+    navigate('/login')
+  }
 
-        return (
-          <Button
-            key={item.name}
-            asChild
-            variant="ghost"
-            className={cn(
-              "justify-start h-12 text-base font-medium transition-all duration-200",
-              isActive
-                ? "bg-orange-50 text-orange-600 border-r-4 border-orange-500 shadow-sm"
-                : "text-zinc-700 hover:bg-zinc-50 hover:text-black"
-            )}
-          >
-            <Link to={item.href}>
-              <item.icon className="mr-3 h-5 w-5" />
-              {item.name}
-            </Link>
-          </Button>
-        )
-      })}
-    </nav>
-  )
+  const NavItems = ({ className }: { className?: string }) => {
+    const filteredNavigation = navigation.filter(item =>
+      user && item.roles.includes(user.role)
+    )
+
+    return (
+      <nav className={cn("flex flex-col space-y-1", className)}>
+        {filteredNavigation.map((item) => {
+          const isActive = location.pathname === item.href ||
+            location.pathname.startsWith(item.href + '/')
+
+          return (
+            <Button
+              key={item.name}
+              asChild
+              variant="ghost"
+              className={cn(
+                "justify-start h-12 text-base font-medium transition-all duration-200",
+                isActive
+                  ? "bg-orange-50 text-orange-600 border-r-4 border-orange-500 shadow-sm"
+                  : "text-zinc-700 hover:bg-zinc-50 hover:text-black"
+              )}
+            >
+              <Link to={item.href}>
+                <item.icon className="mr-3 h-5 w-5" />
+                {item.name}
+              </Link>
+            </Button>
+          )
+        })}
+      </nav>
+    )
+  }
 
   return (
     <div className="h-screen flex bg-zinc-900">
@@ -123,10 +147,26 @@ export default function Layout() {
             </div>
           </div>
 
-          {/* Sign Out */}
+          {/* User Info & Sign Out */}
           <div className="flex-shrink-0 border-t border-zinc-100 p-6">
+            {user && (
+              <div className="mb-4 p-3 bg-gray-50 rounded-lg">
+                <p className="text-sm font-medium text-gray-900">
+                  {user.firstName} {user.lastName}
+                </p>
+                <p className="text-xs text-gray-600">{user.email}</p>
+                <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium mt-1 ${
+                  user.role === 'admin'
+                    ? 'bg-orange-100 text-orange-800'
+                    : 'bg-blue-100 text-blue-800'
+                }`}>
+                  {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+                </span>
+              </div>
+            )}
             <Button
               variant="ghost"
+              onClick={handleLogout}
               className="w-full justify-start text-zinc-600 hover:text-black hover:bg-zinc-50 h-12 text-base"
             >
               <LogOut className="mr-3 h-5 w-5" />
@@ -168,7 +208,26 @@ export default function Layout() {
                 </div>
 
                 <div className="border-t border-zinc-100 p-6">
-                  <Button variant="ghost" className="w-full justify-start text-zinc-600 hover:text-black hover:bg-zinc-50 h-12 text-base">
+                  {user && (
+                    <div className="mb-4 p-3 bg-gray-50 rounded-lg">
+                      <p className="text-sm font-medium text-gray-900">
+                        {user.firstName} {user.lastName}
+                      </p>
+                      <p className="text-xs text-gray-600">{user.email}</p>
+                      <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium mt-1 ${
+                        user.role === 'admin'
+                          ? 'bg-orange-100 text-orange-800'
+                          : 'bg-blue-100 text-blue-800'
+                      }`}>
+                        {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+                      </span>
+                    </div>
+                  )}
+                  <Button
+                    variant="ghost"
+                    onClick={handleLogout}
+                    className="w-full justify-start text-zinc-600 hover:text-black hover:bg-zinc-50 h-12 text-base"
+                  >
                     <LogOut className="mr-3 h-5 w-5" />
                     Sign Out
                   </Button>

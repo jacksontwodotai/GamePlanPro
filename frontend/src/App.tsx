@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import Login from './components/Login'
+import RegistrationMainDashboard from './components/RegistrationMainDashboard'
 import TeamManagementDashboard from './components/TeamManagementDashboard'
 import TeamListView from './components/TeamListView'
 import PlayerManagementInterface from './components/PlayerManagementInterface'
@@ -24,15 +25,17 @@ import RegistrationManagementDashboard from './components/RegistrationManagement
 import PaymentHistoryDashboard from './components/PaymentHistoryDashboard'
 import FormManagement from './components/FormManagement'
 import FormEditor from './components/FormEditor'
+import { AuthProvider } from './contexts/AuthContext'
 
 function App() {
   return (
-    <Router>
+    <AuthProvider>
+      <Router>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Layout />}>
-          <Route index element={<TeamManagementDashboard />} />
+          <Route index element={<RegistrationMainDashboard />} />
           <Route path="teams" element={<TeamListView />} />
           <Route path="players" element={<PlayerProfileDashboard />} />
           <Route path="roster" element={<TeamRosterManagement />} />
@@ -89,7 +92,8 @@ function App() {
         <Route path="/register" element={<RegistrationFlow />} />
         <Route path="/signup" element={<PublicRegistration />} />
       </Routes>
-    </Router>
+      </Router>
+    </AuthProvider>
   )
 }
 

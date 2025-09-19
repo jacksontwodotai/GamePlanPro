@@ -4467,8 +4467,10 @@ app.get('/api/reports/team-summary', authenticateUser, async (req, res) => {
 
 // GET /api/form-builder/forms - List all registration forms
 app.get('/api/form-builder/forms', authenticateUser, async (req, res) => {
+    const { program_id, is_active, page = 1, limit = 20 } = req.query;
+
     try {
-        const { data: forms, error } = await supabase
+        let query = supabase
             .from('registration_forms')
             .select(`
                 *,
@@ -4477,15 +4479,38 @@ app.get('/api/form-builder/forms', authenticateUser, async (req, res) => {
                     name,
                     season
                 )
-            `)
-            .order('created_at', { ascending: false });
+            `, { count: 'exact' });
+
+        // Apply filters
+        if (program_id) {
+            query = query.eq('program_id', program_id);
+        }
+        if (is_active !== undefined) {
+            query = query.eq('is_active', is_active === 'true');
+        }
+
+        // Apply pagination
+        const offset = (parseInt(page) - 1) * parseInt(limit);
+        query = query.range(offset, offset + parseInt(limit) - 1);
+
+        query = query.order('created_at', { ascending: false });
+
+        const { data: forms, error, count } = await query;
 
         if (error) {
             console.error('Forms fetch error:', error);
             return res.status(500).json({ error: 'Failed to fetch forms' });
         }
 
-        res.json({ forms: forms || [] });
+        res.status(200).json({
+            forms: forms || [],
+            pagination: {
+                page: parseInt(page),
+                limit: parseInt(limit),
+                total: count,
+                totalPages: Math.ceil(count / parseInt(limit))
+            }
+        });
     } catch (error) {
         console.error('Get forms error:', error);
         res.status(500).json({ error: 'Internal server error' });
@@ -4519,10 +4544,18 @@ app.get('/api/form-builder/forms/:form_id', authenticateUser, async (req, res) =
             return res.status(500).json({ error: 'Failed to fetch form' });
         }
 
-        // Get form fields
+        // Get form fields with options
         const { data: fields, error: fieldsError } = await supabase
             .from('form_fields')
-            .select('*')
+            .select(`
+                *,
+                form_field_options (
+                    id,
+                    option_label,
+                    option_value,
+                    sort_order
+                )
+            `)
             .eq('form_id', form_id)
             .order('sort_order', { ascending: true });
 
@@ -4531,7 +4564,7 @@ app.get('/api/form-builder/forms/:form_id', authenticateUser, async (req, res) =
             return res.status(500).json({ error: 'Failed to fetch form fields' });
         }
 
-        res.json({
+        res.status(200).json({
             ...form,
             fields: fields || []
         });
@@ -4564,6 +4597,21 @@ app.post('/api/form-builder/forms', authenticateUser, async (req, res) => {
             return res.status(409).json({
                 error: 'A form with this name already exists'
             });
+        }
+
+        // Validate program_id uniqueness if provided
+        if (program_id) {
+            const { data: existingProgramForm, error: programCheckError } = await supabase
+                .from('registration_forms')
+                .select('id')
+                .eq('program_id', program_id)
+                .single();
+
+            if (existingProgramForm) {
+                return res.status(409).json({
+                    error: 'A form already exists for this program'
+                });
+            }
         }
 
         // Create the form
@@ -4724,6 +4772,13 @@ app.put('/api/form-builder/forms/:form_id', authenticateUser, async (req, res) =
 app.delete('/api/form-builder/forms/:form_id', authenticateUser, async (req, res) => {
     const { form_id } = req.params;
 
+    // Check for high-level administrative authorization
+    if (req.user.role !== 'admin') {
+        return res.status(403).json({
+            error: 'Insufficient permissions. Admin access required.'
+        });
+    }
+
     try {
         // Check if form exists
         const { data: existingForm, error: checkError } = await supabase
@@ -4747,9 +4802,7 @@ app.delete('/api/form-builder/forms/:form_id', authenticateUser, async (req, res
             return res.status(500).json({ error: 'Failed to delete form' });
         }
 
-        res.json({
-            message: 'Form deleted successfully'
-        });
+        res.status(204).send();
     } catch (error) {
         console.error('Delete form error:', error);
         res.status(500).json({ error: 'Internal server error' });
