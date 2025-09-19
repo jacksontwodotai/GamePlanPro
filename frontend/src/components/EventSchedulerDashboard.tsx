@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Routes, Route, Navigate, useNavigate, useLocation, useParams } from 'react-router-dom'
 import { EventSchedulerProvider } from '../contexts/EventSchedulerContext'
 import EventCalendarView from './EventCalendarView'
+import EventListView from './EventListView'
 import EventErrorBoundary from './EventErrorBoundary'
 import EventModal from './EventModal'
 import EventDetailsModal from './EventDetailsModal'
@@ -14,7 +15,10 @@ import {
   ChevronLeft,
   Settings,
   List,
-  Sparkles
+  Sparkles,
+  Users,
+  MapPin,
+  Clock
 } from 'lucide-react'
 import { Button } from './ui/button'
 import { Card } from './ui/card'
@@ -262,26 +266,40 @@ const EventSchedulerDashboard = () => {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="flex items-center bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-lg p-1 border border-gray-200/50 dark:border-gray-700/50"
+                    className="flex items-center glass-card glass-card-hover rounded-xl p-1 border border-gray-200/50 dark:border-gray-700/50 shadow-lg"
                   >
-                    <Button
-                      variant={isCalendarView ? 'default' : 'ghost'}
-                      size="sm"
+                    <motion.button
                       onClick={() => navigate('/events/calendar')}
-                      className={isCalendarView ? 'bg-gradient-to-r from-gray-700 to-gray-900 text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className={`relative flex items-center px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                        isCalendarView
+                          ? 'bg-gradient-to-r from-gray-700 to-gray-900 text-white shadow-lg'
+                          : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100/50'
+                      }`}
                     >
+                      {isCalendarView && (
+                        <div className="absolute inset-0 shimmer-effect opacity-30 rounded-lg" />
+                      )}
                       <Calendar className="h-4 w-4 mr-2" />
                       Calendar
-                    </Button>
-                    <Button
-                      variant={isListView ? 'default' : 'ghost'}
-                      size="sm"
+                    </motion.button>
+                    <motion.button
                       onClick={() => navigate('/events/list')}
-                      className={isListView ? 'bg-gradient-to-r from-gray-700 to-gray-900 text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className={`relative flex items-center px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                        isListView
+                          ? 'bg-gradient-to-r from-gray-700 to-gray-900 text-white shadow-lg'
+                          : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100/50'
+                      }`}
                     >
+                      {isListView && (
+                        <div className="absolute inset-0 shimmer-effect opacity-30 rounded-lg" />
+                      )}
                       <List className="h-4 w-4 mr-2" />
                       List
-                    </Button>
+                    </motion.button>
                   </motion.div>
 
                   {/* Filter Button */}
@@ -289,24 +307,40 @@ const EventSchedulerDashboard = () => {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.6 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <Button
-                      variant="outline"
+                    <motion.button
                       onClick={() => setShowFilters(!showFilters)}
-                      className={`glass-card glass-card-hover border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white shadow-lg ${showFilters ? 'bg-gradient-to-r from-gray-600 to-gray-800 text-white border-gray-500' : ''}`}
+                      className={`relative group flex items-center px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg glow-border overflow-hidden ${
+                        showFilters
+                          ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-blue-500/25'
+                          : 'bg-gradient-to-r from-gray-700 to-gray-900 text-white hover:from-gray-600 hover:to-gray-800 shadow-gray-500/25'
+                      }`}
+                      whileHover={{
+                        boxShadow: showFilters
+                          ? "0 20px 40px rgba(59, 130, 246, 0.4)"
+                          : "0 20px 40px rgba(107, 114, 128, 0.4)"
+                      }}
                     >
-                      <Filter className="h-4 w-4 mr-2" />
-                      Filters
-                      {showFilters && (
-                        <motion.span
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          className="ml-2 text-xs bg-white/20 text-white px-1.5 py-0.5 rounded-full"
-                        >
-                          2
-                        </motion.span>
-                      )}
-                    </Button>
+                      {/* Background Shimmer Effect */}
+                      <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                      {/* Content */}
+                      <div className="relative z-10 flex items-center">
+                        <Filter className="h-4 w-4 mr-2" />
+                        Filters
+                        {showFilters && (
+                          <motion.span
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            className="ml-2 text-xs bg-white/20 text-white px-2 py-1 rounded-full font-bold"
+                          >
+                            2
+                          </motion.span>
+                        )}
+                      </div>
+                    </motion.button>
                   </motion.div>
 
                   {/* Export Menu */}
@@ -314,25 +348,38 @@ const EventSchedulerDashboard = () => {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.7 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="glass-card glass-card-hover border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white shadow-lg">
-                          <Download className="h-4 w-4 mr-2" />
-                          Export
-                        </Button>
+                        <motion.button
+                          className="relative group flex items-center px-6 py-3 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-green-600 to-green-700 text-white shadow-lg glow-border overflow-hidden hover:from-green-500 hover:to-green-600 shadow-green-500/25"
+                          whileHover={{
+                            boxShadow: "0 20px 40px rgba(34, 197, 94, 0.4)"
+                          }}
+                        >
+                          {/* Background Shimmer Effect */}
+                          <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                          {/* Content */}
+                          <div className="relative z-10 flex items-center">
+                            <Download className="h-4 w-4 mr-2" />
+                            Export
+                          </div>
+                        </motion.button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="glass-card border-gray-300 dark:border-gray-600">
-                        <DropdownMenuLabel>Export Format</DropdownMenuLabel>
+                      <DropdownMenuContent align="end" className="glass-card glass-card-hover border-gray-300 dark:border-gray-600 shadow-xl">
+                        <DropdownMenuLabel className="text-gray-700 dark:text-gray-300 font-semibold">Export Format</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={() => handleExport('pdf')}>
-                          Export as PDF
+                        <DropdownMenuItem onClick={() => handleExport('pdf')} className="hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                          <span className="font-medium">Export as PDF</span>
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleExport('csv')}>
-                          Export as CSV
+                        <DropdownMenuItem onClick={() => handleExport('csv')} className="hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                          <span className="font-medium">Export as CSV</span>
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleExport('ics')}>
-                          Export as Calendar (ICS)
+                        <DropdownMenuItem onClick={() => handleExport('ics')} className="hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                          <span className="font-medium">Export as Calendar (ICS)</span>
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
@@ -343,10 +390,23 @@ const EventSchedulerDashboard = () => {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.8 }}
+                    whileHover={{ scale: 1.05, rotate: 90 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <Button variant="outline" size="icon" className="glass-card glass-card-hover border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white shadow-lg">
-                      <Settings className="h-4 w-4" />
-                    </Button>
+                    <motion.button
+                      className="relative group flex items-center justify-center w-12 h-12 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-purple-600 to-purple-700 text-white shadow-lg glow-border overflow-hidden hover:from-purple-500 hover:to-purple-600 shadow-purple-500/25"
+                      whileHover={{
+                        boxShadow: "0 20px 40px rgba(147, 51, 234, 0.4)"
+                      }}
+                    >
+                      {/* Background Shimmer Effect */}
+                      <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                      {/* Content */}
+                      <div className="relative z-10">
+                        <Settings className="h-5 w-5" />
+                      </div>
+                    </motion.button>
                   </motion.div>
 
                   {/* Create Event */}
@@ -357,10 +417,22 @@ const EventSchedulerDashboard = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <button className="button-primary">
-                      <Plus className="h-4 w-4 mr-2" />
-                      <span>Create Event</span>
-                    </button>
+                    <motion.button
+                      onClick={() => navigate('/events/create')}
+                      className="relative group flex items-center px-6 py-3 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-orange-600 to-orange-700 text-white shadow-lg glow-border overflow-hidden hover:from-orange-500 hover:to-orange-600 shadow-orange-500/25"
+                      whileHover={{
+                        boxShadow: "0 20px 40px rgba(249, 115, 22, 0.4)"
+                      }}
+                    >
+                      {/* Background Shimmer Effect */}
+                      <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                      {/* Content */}
+                      <div className="relative z-10 flex items-center">
+                        <Plus className="h-4 w-4 mr-2" />
+                        <span>Create Event</span>
+                      </div>
+                    </motion.button>
                   </motion.div>
                 </div>
             </div>
@@ -379,52 +451,68 @@ const EventSchedulerDashboard = () => {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.1 }}
-                    className="grid grid-cols-4 gap-4"
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
                   >
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      className="group"
+                    >
+                      <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-3 flex items-center">
+                        <Users className="w-4 h-4 mr-2 text-gray-500" />
                         Teams
                       </label>
-                      <select className="w-full px-3 py-2 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 transition-all duration-200">
+                      <select className="w-full px-4 py-3 glass-card glass-card-hover border border-gray-200/50 dark:border-gray-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-300 shadow-lg font-medium group-hover:shadow-xl">
                         <option>All Teams</option>
                         <option>Team A</option>
                         <option>Team B</option>
                         <option>Team C</option>
                       </select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    </motion.div>
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      className="group"
+                    >
+                      <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-3 flex items-center">
+                        <MapPin className="w-4 h-4 mr-2 text-gray-500" />
                         Venue
                       </label>
-                      <select className="w-full px-3 py-2 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 transition-all duration-200">
+                      <select className="w-full px-4 py-3 glass-card glass-card-hover border border-gray-200/50 dark:border-gray-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 transition-all duration-300 shadow-lg font-medium group-hover:shadow-xl">
                         <option>All Venues</option>
                         <option>Main Stadium</option>
                         <option>Training Field</option>
                         <option>Indoor Arena</option>
                       </select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    </motion.div>
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      className="group"
+                    >
+                      <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-3 flex items-center">
+                        <Calendar className="w-4 h-4 mr-2 text-gray-500" />
                         Event Type
                       </label>
-                      <select className="w-full px-3 py-2 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 transition-all duration-200">
+                      <select className="w-full px-4 py-3 glass-card glass-card-hover border border-gray-200/50 dark:border-gray-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition-all duration-300 shadow-lg font-medium group-hover:shadow-xl">
                         <option>All Types</option>
                         <option>Game</option>
                         <option>Practice</option>
                         <option>Tournament</option>
                       </select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    </motion.div>
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      className="group"
+                    >
+                      <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-3 flex items-center">
+                        <Clock className="w-4 h-4 mr-2 text-gray-500" />
                         Date Range
                       </label>
-                      <select className="w-full px-3 py-2 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 transition-all duration-200">
+                      <select className="w-full px-4 py-3 glass-card glass-card-hover border border-gray-200/50 dark:border-gray-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all duration-300 shadow-lg font-medium group-hover:shadow-xl">
                         <option>This Month</option>
                         <option>Next 7 Days</option>
                         <option>Next 30 Days</option>
                         <option>Custom Range</option>
                       </select>
-                    </div>
+                    </motion.div>
                   </motion.div>
                   <motion.div
                     initial={{ y: 20, opacity: 0 }}
@@ -491,26 +579,7 @@ const EventSchedulerDashboard = () => {
             <Routes>
               <Route index element={<Navigate to="calendar" replace />} />
               <Route path="calendar" element={<EventCalendarView />} />
-              <Route path="list" element={
-                <div className="glass-card glass-card-hover p-6">
-                  <div className="text-center py-12 text-gray-500">
-                    <motion.div
-                      animate={{
-                        rotate: [0, 10, -10, 0],
-                      }}
-                      transition={{
-                        duration: 4,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                    >
-                      <List className="h-12 w-12 mx-auto mb-3 text-gray-300" />
-                    </motion.div>
-                    <h3 className="text-2xl font-bold text-gray-700 dark:text-gray-300 mb-2">Event List View</h3>
-                    <p className="text-sm mt-2">This view will show events in a list format</p>
-                  </div>
-                </div>
-              } />
+              <Route path="list" element={<EventListView />} />
               <Route path="details/:id" element={
                 <div className="glass-card glass-card-hover p-6">
                   <div className="text-center py-12 text-gray-500">

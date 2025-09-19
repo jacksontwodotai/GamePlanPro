@@ -246,8 +246,30 @@ app.get('/api/teams/:id', async (req, res) => {
     }
 });
 
-// Authentication middleware placeholder - will be moved before players endpoints
-let authenticateUser;
+// Authentication middleware
+const authenticateUser = async (req, res, next) => {
+    try {
+        const authHeader = req.headers.authorization;
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return res.status(401).json({ error: 'Missing or invalid authorization header' });
+        }
+
+        const token = authHeader.substring(7);
+
+        // Verify the JWT token with Supabase
+        const { data: user, error } = await supabase.auth.getUser(token);
+
+        if (error || !user) {
+            return res.status(401).json({ error: 'Invalid or expired token' });
+        }
+
+        req.user = user.user;
+        next();
+    } catch (error) {
+        console.error('Authentication error:', error);
+        return res.status(401).json({ error: 'Authentication failed' });
+    }
+};
 
 // Players endpoints
 app.post('/api/players', async (req, res) => {
@@ -2337,30 +2359,6 @@ app.delete('/api/events/:id', async (req, res) => {
     }
 });
 
-// Authentication middleware
-authenticateUser = async (req, res, next) => {
-    try {
-        const authHeader = req.headers.authorization;
-        if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return res.status(401).json({ error: 'Missing or invalid authorization header' });
-        }
-
-        const token = authHeader.substring(7);
-
-        // Verify the JWT token with Supabase
-        const { data: user, error } = await supabase.auth.getUser(token);
-
-        if (error || !user) {
-            return res.status(401).json({ error: 'Invalid or expired token' });
-        }
-
-        req.user = user.user;
-        next();
-    } catch (error) {
-        console.error('Authentication error:', error);
-        return res.status(401).json({ error: 'Authentication failed' });
-    }
-};
 
 // Registration Management Endpoints
 

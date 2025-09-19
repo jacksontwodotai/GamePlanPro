@@ -15,6 +15,7 @@ import TeamRosterManagement from './components/TeamRosterManagement'
 import AttendanceTracker from './components/AttendanceTracker'
 import AttendanceReportingDashboard from './components/AttendanceReportingDashboard'
 import RosterManagementDashboard from './components/RosterManagementDashboard'
+import ReportGenerationForm from './components/ReportGenerationForm'
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="players/create" element={<PlayerManagementInterface />} />
           <Route path="attendance" element={<AttendanceTracker />} />
           <Route path="reports/attendance" element={<AttendanceReportingDashboard />} />
+          <Route path="reports/generate" element={<ReportGenerationForm />} />
           <Route path="roster/dashboard" element={<RosterManagementDashboard />} />
         </Route>
         <Route path="/teams" element={<Layout />}>
@@ -41,6 +43,7 @@ function App() {
           <Route path="roster/dashboard" element={<RosterManagementDashboard />} />
           <Route path="attendance" element={<AttendanceTracker />} />
           <Route path="reports/attendance" element={<AttendanceReportingDashboard />} />
+          <Route path="reports/generate" element={<ReportGenerationForm />} />
           <Route path=":id" element={<TeamListView />} />
         </Route>
         <Route path="/players" element={<Layout />}>

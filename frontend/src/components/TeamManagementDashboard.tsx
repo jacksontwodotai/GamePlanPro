@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Users, Shield, UserPlus, Activity, Sparkles, Zap, TrendingUp } from 'lucide-react'
+import { Users, Shield, UserPlus, Activity, Sparkles, Zap, TrendingUp, FileText } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 interface TeamStats {
@@ -307,7 +307,7 @@ export default function TeamManagementDashboard() {
         {/* Quick Actions */}
         <motion.div
           variants={containerVariants}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"
         >
           {[
             {
@@ -344,6 +344,13 @@ export default function TeamManagementDashboard() {
               icon: TrendingUp,
               link: '/teams/reports/attendance',
               gradient: 'from-green-500 to-green-700'
+            },
+            {
+              title: 'Generate Reports',
+              description: 'Create custom reports with flexible filtering',
+              icon: FileText,
+              link: '/teams/reports/generate',
+              gradient: 'from-purple-500 to-purple-700'
             },
             {
               title: 'Add New Player',

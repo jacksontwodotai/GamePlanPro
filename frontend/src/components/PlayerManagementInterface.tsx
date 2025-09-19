@@ -11,6 +11,7 @@ import {
 } from './ui/dialog'
 import { Search, Edit, Users, AlertTriangle, Phone, Mail, Calendar, ChevronLeft, ChevronRight, UserPlus, Sparkles, Zap, Heart, Hash, User } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+// import PhoneInput, { PhoneInputValue } from './ui/phone-input'
 
 interface Player {
   id: number
@@ -72,6 +73,7 @@ interface PlayerFormData {
   parent_guardian_email: string
   parent_guardian_phone: string
   equipment_notes: string
+  // Phone input values for the new international components
 }
 
 const containerVariants = {
@@ -282,39 +284,35 @@ export default function PlayerManagementInterface() {
       }
     }
 
-    // Phone format validation for legacy phone field
+    // International phone validation for legacy phone field
     if (data.phone && data.phone.trim()) {
-      const phoneRegex = /^[+]?[\d\s()-.]{10,}$/
-      const digitCount = data.phone.replace(/\D/g, '').length
-      if (!phoneRegex.test(data.phone) || digitCount < 10) {
-        errors.phone = 'Please enter a valid phone number (minimum 10 digits)'
+      const phoneRegex = /^\+[1-9]\d{1,14}$/
+      if (!phoneRegex.test(data.phone.replace(/\s/g, ''))) {
+        errors.phone = 'Please enter a valid international phone number'
       }
     }
 
-    // Phone format validation for new player_phone field
+    // International phone validation for new player_phone field
     if (data.player_phone && data.player_phone.trim()) {
-      const phoneRegex = /^[+]?[\d\s()-.]{10,}$/
-      const digitCount = data.player_phone.replace(/\D/g, '').length
-      if (!phoneRegex.test(data.player_phone) || digitCount < 10) {
-        errors.player_phone = 'Please enter a valid phone number (minimum 10 digits)'
+      const phoneRegex = /^\+[1-9]\d{1,14}$/
+      if (!phoneRegex.test(data.player_phone.replace(/\s/g, ''))) {
+        errors.player_phone = 'Please enter a valid international phone number'
       }
     }
 
     // Parent/Guardian phone validation
     if (data.parent_guardian_phone && data.parent_guardian_phone.trim()) {
-      const phoneRegex = /^[+]?[\d\s()-.]{10,}$/
-      const digitCount = data.parent_guardian_phone.replace(/\D/g, '').length
-      if (!phoneRegex.test(data.parent_guardian_phone) || digitCount < 10) {
-        errors.parent_guardian_phone = 'Please enter a valid phone number (minimum 10 digits)'
+      const phoneRegex = /^\+[1-9]\d{1,14}$/
+      if (!phoneRegex.test(data.parent_guardian_phone.replace(/\s/g, ''))) {
+        errors.parent_guardian_phone = 'Please enter a valid international phone number'
       }
     }
 
     // Emergency contact phone validation
     if (data.emergency_contact_phone && data.emergency_contact_phone.trim()) {
-      const phoneRegex = /^[+]?[\d\s()-.]{10,}$/
-      const digitCount = data.emergency_contact_phone.replace(/\D/g, '').length
-      if (!phoneRegex.test(data.emergency_contact_phone) || digitCount < 10) {
-        errors.emergency_contact_phone = 'Please enter a valid emergency contact phone number'
+      const phoneRegex = /^\+[1-9]\d{1,14}$/
+      if (!phoneRegex.test(data.emergency_contact_phone.replace(/\s/g, ''))) {
+        errors.emergency_contact_phone = 'Please enter a valid international phone number'
       }
     }
 
@@ -989,7 +987,7 @@ export default function PlayerManagementInterface() {
                     <Input
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      placeholder="(555) 123-4567"
+                      placeholder="Phone number"
                       className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
                         formErrors.phone
                           ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
@@ -1524,10 +1522,10 @@ export default function PlayerManagementInterface() {
                       value={formData.emergency_contact_phone}
                       onChange={(e) => setFormData({ ...formData, emergency_contact_phone: e.target.value })}
                       placeholder="Emergency contact phone"
-                      className={`w-full px-4 py-3 text-lg rounded-lg border-2 bg-white/90 dark:bg-gray-800/90 text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
+                      className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
                         formErrors.emergency_contact_phone
                           ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
-                          : 'border-gray-300 dark:border-gray-600 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20'
+                          : 'border-border focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20'
                       }`}
                     />
                     {formErrors.emergency_contact_phone && (
