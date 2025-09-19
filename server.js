@@ -2773,16 +2773,16 @@ app.put('/api/registrations/:registration_id', authenticateUser, async (req, res
     }
 });
 
-// Payment Processing Endpoints
+// Payment Management Endpoints
 
-// POST /api/payments/process - Process a new payment
-app.post('/api/payments/process', authenticateUser, async (req, res) => {
-    const { registration_id, amount, payment_method_details } = req.body;
+// POST /api/payments - Record a new payment
+app.post('/api/payments', authenticateUser, async (req, res) => {
+    const { registration_id, amount, method, transaction_id } = req.body;
 
     // Validate required fields
-    if (!registration_id || !amount || !payment_method_details) {
+    if (!registration_id || !amount || !method) {
         return res.status(400).json({
-            error: 'registration_id, amount, and payment_method_details are required'
+            error: 'registration_id, amount, and method are required'
         });
     }
 
@@ -2791,18 +2791,26 @@ app.post('/api/payments/process', authenticateUser, async (req, res) => {
         return res.status(400).json({ error: 'Amount must be greater than 0' });
     }
 
-    // Validate payment method details structure
-    if (!payment_method_details.method) {
+    // Validate payment method
+    const validMethods = ['credit_card', 'debit_card', 'bank_transfer', 'cash', 'check', 'online_payment'];
+    if (!validMethods.includes(method)) {
         return res.status(400).json({
-            error: 'payment_method_details must include a method field'
+            error: 'Invalid payment method. Must be one of: ' + validMethods.join(', ')
         });
     }
 
     try {
-        // Get registration details
+        // Get program registration details
         const { data: registration, error: regError } = await supabase
-            .from('registrations')
-            .select('*')
+            .from('program_registrations')
+            .select(`
+                *,
+                programs (
+                    id,
+                    name,
+                    base_fee
+                )
+            `)
             .eq('id', registration_id)
             .single();
 
@@ -2814,22 +2822,30 @@ app.post('/api/payments/process', authenticateUser, async (req, res) => {
             return res.status(500).json({ error: 'Failed to fetch registration' });
         }
 
+        // Calculate balance due
+        const totalAmountDue = registration.programs?.base_fee || 0;
+        const currentAmountPaid = parseFloat(registration.amount_paid) || 0;
+        const balanceDue = totalAmountDue - currentAmountPaid;
+
         // Check if payment amount doesn't exceed balance due
-        if (amount > registration.balance_due) {
+        if (amount > balanceDue) {
             return res.status(400).json({
-                error: 'Payment amount cannot exceed balance due'
+                error: 'Payment amount cannot exceed balance due',
+                balance_due: balanceDue,
+                amount_requested: amount
             });
         }
 
-        // Create payment record with 'Pending' status
+        // Create payment record
         const { data: payment, error: paymentError } = await supabase
             .from('payments')
             .insert([{
-                registration_id,
+                program_registration_id: registration_id,
                 amount,
-                payment_method: payment_method_details.method,
-                payment_method_details,
-                status: 'Pending'
+                payment_method: method,
+                transaction_id: transaction_id || null,
+                status: 'Completed',
+                processed_at: new Date().toISOString()
             }])
             .select()
             .single();
@@ -2839,15 +2855,38 @@ app.post('/api/payments/process', authenticateUser, async (req, res) => {
             return res.status(500).json({ error: 'Failed to create payment' });
         }
 
-        // Update registration amount_paid and recalculate balance_due
-        const newAmountPaid = parseFloat(registration.amount_paid) + parseFloat(amount);
+        // Update registration amount_paid
+        const newAmountPaid = currentAmountPaid + parseFloat(amount);
+        const newBalanceDue = totalAmountDue - newAmountPaid;
+
+        // Determine new status
+        let newStatus = registration.status;
+        if (newBalanceDue === 0) {
+            newStatus = 'confirmed'; // Fully paid registrations are confirmed
+        }
+
         const { data: updatedRegistration, error: updateError } = await supabase
-            .from('registrations')
+            .from('program_registrations')
             .update({
-                amount_paid: newAmountPaid
+                amount_paid: newAmountPaid,
+                status: newStatus,
+                updated_at: new Date().toISOString()
             })
             .eq('id', registration_id)
-            .select()
+            .select(`
+                *,
+                programs (
+                    id,
+                    name,
+                    base_fee
+                ),
+                players (
+                    id,
+                    first_name,
+                    last_name,
+                    email
+                )
+            `)
             .single();
 
         if (updateError) {
@@ -2857,37 +2896,22 @@ app.post('/api/payments/process', authenticateUser, async (req, res) => {
             return res.status(500).json({ error: 'Failed to update registration' });
         }
 
-        // Update registration status to 'Complete' when balance_due = 0
-        if (updatedRegistration.balance_due === 0) {
-            await supabase
-                .from('registrations')
-                .update({ status: 'Complete' })
-                .eq('id', registration_id);
-        }
-
-        // Update payment status to 'Completed' (simulating successful processing)
-        const { data: completedPayment, error: completeError } = await supabase
-            .from('payments')
-            .update({
-                status: 'Completed',
-                processed_at: new Date().toISOString(),
-                transaction_id: `txn_${Date.now()}_${payment.id}`
-            })
-            .eq('id', payment.id)
-            .select()
-            .single();
-
-        if (completeError) {
-            console.error('Payment completion error:', completeError);
-            return res.status(500).json({ error: 'Failed to complete payment' });
-        }
+        // Add calculated fields to response
+        const paymentWithDetails = {
+            ...payment,
+            registration: {
+                ...updatedRegistration,
+                total_amount_due: totalAmountDue,
+                balance_due: newBalanceDue
+            }
+        };
 
         res.status(201).json({
-            message: 'Payment processed successfully',
-            payment: completedPayment
+            message: 'Payment recorded successfully',
+            payment: paymentWithDetails
         });
     } catch (error) {
-        console.error('Process payment error:', error);
+        console.error('Record payment error:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
@@ -2909,36 +2933,39 @@ app.get('/api/payments', authenticateUser, async (req, res) => {
             .from('payments')
             .select(`
                 *,
-                registrations (
+                program_registrations (
                     id,
-                    amount_due,
                     amount_paid,
-                    balance_due,
                     status,
                     registration_date,
+                    notes,
                     users (
                         id,
                         first_name,
                         last_name,
-                        email
+                        email,
+                        organization
                     ),
-                    teams (
+                    programs (
                         id,
                         name,
-                        organization
+                        description,
+                        season,
+                        base_fee
                     ),
                     players (
                         id,
                         first_name,
                         last_name,
-                        email
+                        email,
+                        phone
                     )
                 )
             `, { count: 'exact' });
 
         // Apply filters
         if (registration_id) {
-            query = query.eq('registration_id', registration_id);
+            query = query.eq('program_registration_id', registration_id);
         }
         if (status) {
             query = query.eq('status', status);
@@ -2946,6 +2973,9 @@ app.get('/api/payments', authenticateUser, async (req, res) => {
         if (method) {
             query = query.eq('payment_method', method);
         }
+
+        // Only get payments for program registrations (not old registrations)
+        query = query.not('program_registration_id', 'is', null);
 
         // Add pagination and ordering
         query = query
@@ -2959,8 +2989,25 @@ app.get('/api/payments', authenticateUser, async (req, res) => {
             return res.status(500).json({ error: 'Failed to fetch payments' });
         }
 
+        // Add calculated fields to each payment
+        const paymentsWithCalculations = (data || []).map(payment => {
+            const registration = payment.program_registrations;
+            const totalAmountDue = registration?.programs?.base_fee || 0;
+            const amountPaid = parseFloat(registration?.amount_paid || 0);
+            const balanceDue = totalAmountDue - amountPaid;
+
+            return {
+                ...payment,
+                program_registrations: registration ? {
+                    ...registration,
+                    total_amount_due: totalAmountDue,
+                    balance_due: balanceDue
+                } : null
+            };
+        });
+
         res.json({
-            payments: data || [],
+            payments: paymentsWithCalculations,
             pagination: {
                 page: parseInt(page),
                 limit: parseInt(limit),
@@ -2983,11 +3030,9 @@ app.get('/api/payments/:payment_id', authenticateUser, async (req, res) => {
             .from('payments')
             .select(`
                 *,
-                registrations (
+                program_registrations (
                     id,
-                    amount_due,
                     amount_paid,
-                    balance_due,
                     status,
                     registration_date,
                     notes,
@@ -2998,13 +3043,15 @@ app.get('/api/payments/:payment_id', authenticateUser, async (req, res) => {
                         email,
                         organization
                     ),
-                    teams (
+                    programs (
                         id,
                         name,
-                        organization,
-                        division,
-                        age_group,
-                        skill_level
+                        description,
+                        season,
+                        start_date,
+                        end_date,
+                        base_fee,
+                        max_capacity
                     ),
                     players (
                         id,
@@ -3012,7 +3059,9 @@ app.get('/api/payments/:payment_id', authenticateUser, async (req, res) => {
                         last_name,
                         email,
                         phone,
-                        date_of_birth
+                        date_of_birth,
+                        emergency_contact_name,
+                        emergency_contact_phone
                     )
                 )
             `)
@@ -3027,7 +3076,27 @@ app.get('/api/payments/:payment_id', authenticateUser, async (req, res) => {
             return res.status(500).json({ error: 'Failed to fetch payment' });
         }
 
-        res.json(payment);
+        // Check if this is a program registration payment
+        if (!payment.program_registration_id) {
+            return res.status(404).json({ error: 'Payment not found or not associated with program registration' });
+        }
+
+        // Add calculated fields
+        const registration = payment.program_registrations;
+        const totalAmountDue = registration?.programs?.base_fee || 0;
+        const amountPaid = parseFloat(registration?.amount_paid || 0);
+        const balanceDue = totalAmountDue - amountPaid;
+
+        const paymentWithCalculations = {
+            ...payment,
+            program_registrations: registration ? {
+                ...registration,
+                total_amount_due: totalAmountDue,
+                balance_due: balanceDue
+            } : null
+        };
+
+        res.json(paymentWithCalculations);
     } catch (error) {
         console.error('Get payment error:', error);
         res.status(500).json({ error: 'Internal server error' });

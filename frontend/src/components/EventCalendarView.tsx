@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import React, { useContext } from 'react'
 import { ChevronLeft, ChevronRight, Plus, Calendar, Clock, MapPin, Users } from 'lucide-react'
 import { Button } from './ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
@@ -78,7 +78,29 @@ const EventCalendarView = () => {
     'July', 'August', 'September', 'October', 'November', 'December'
   ]
 
-  const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+  const weekDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+
+  const getWeekDays = (date: Date) => {
+    const startOfWeek = new Date(date)
+    const day = startOfWeek.getDay()
+    startOfWeek.setDate(startOfWeek.getDate() - day)
+
+    const week = []
+    for (let i = 0; i < 7; i++) {
+      const day = new Date(startOfWeek)
+      day.setDate(startOfWeek.getDate() + i)
+      week.push(day)
+    }
+    return week
+  }
+
+  const getDayHours = () => {
+    const hours = []
+    for (let i = 6; i < 24; i++) {
+      hours.push(`${i}:00`)
+    }
+    return hours
+  }
 
   if (!context) {
     return (
@@ -89,13 +111,24 @@ const EventCalendarView = () => {
   }
 
   const days = currentDate ? getDaysInMonth(currentDate) : []
+  const weekDays = viewMode === 'week' ? getWeekDays(currentDate || new Date()) : []
+  const dayHours = viewMode === 'day' ? getDayHours() : []
   const today = new Date()
+
   const isToday = (day: number | null) => {
     if (!day) return false
     return (
       currentDate?.getFullYear() === today.getFullYear() &&
       currentDate?.getMonth() === today.getMonth() &&
       day === today.getDate()
+    )
+  }
+
+  const isTodayDate = (date: Date) => {
+    return (
+      date.getFullYear() === today.getFullYear() &&
+      date.getMonth() === today.getMonth() &&
+      date.getDate() === today.getDate()
     )
   }
 
@@ -106,6 +139,21 @@ const EventCalendarView = () => {
       currentDate?.getMonth() === selectedDate.getMonth() &&
       day === selectedDate.getDate()
     )
+  }
+
+  const isSelectedDate = (date: Date) => {
+    if (!selectedDate) return false
+    return (
+      date.getFullYear() === selectedDate.getFullYear() &&
+      date.getMonth() === selectedDate.getMonth() &&
+      date.getDate() === selectedDate.getDate()
+    )
+  }
+
+  const getEventsForDay = (date: Date) => {
+    if (!events) return []
+    const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
+    return events.filter(event => event.date === dateStr)
   }
 
   return (
@@ -174,43 +222,121 @@ const EventCalendarView = () => {
           </div>
         </CardHeader>
         <CardContent>
-          {/* Calendar Grid */}
-          <div className="grid grid-cols-7 gap-px bg-zinc-200">
-            {/* Week Day Headers */}
-            {weekDays.map(day => (
-              <div
-                key={day}
-                className="bg-zinc-50 p-3 text-center text-sm font-semibold text-zinc-700"
-              >
-                {day}
-              </div>
-            ))}
+          {/* Month View */}
+          {viewMode === 'month' && (
+            <>
+              <div className="grid grid-cols-7 gap-px bg-zinc-200">
+                {/* Week Day Headers */}
+                {weekDayNames.map(day => (
+                  <div
+                    key={day}
+                    className="bg-zinc-50 p-3 text-center text-sm font-semibold text-zinc-700"
+                  >
+                    {day}
+                  </div>
+                ))}
 
-            {/* Calendar Days */}
-            {days.map((day, index) => {
-              const dayEvents = getEventsForDate(day)
-              return (
+                {/* Calendar Days */}
+                {days.map((day, index) => {
+                  const dayEvents = getEventsForDate(day)
+                  return (
+                    <div
+                      key={index}
+                      className={`
+                        bg-white min-h-[100px] p-2 cursor-pointer transition-colors
+                        ${!day ? 'bg-zinc-50' : ''}
+                        ${isToday(day) ? 'bg-orange-50 ring-2 ring-orange-400' : ''}
+                        ${isSelected(day) ? 'bg-blue-50 ring-2 ring-blue-400' : ''}
+                        ${day && !isToday(day) && !isSelected(day) ? 'hover:bg-zinc-50' : ''}
+                      `}
+                      onClick={() => day && handleDateClick(day)}
+                    >
+                      {day && (
+                        <>
+                          <div className={`
+                            text-sm font-medium mb-1
+                            ${isToday(day) ? 'text-orange-600' : 'text-zinc-700'}
+                          `}>
+                            {day}
+                          </div>
+                          <div className="space-y-1">
+                            {dayEvents.slice(0, 2).map(event => (
+                              <div
+                                key={event.id}
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  openEventDetails && openEventDetails(event.id)
+                                }}
+                                className={`
+                                  text-xs p-1 rounded border cursor-pointer
+                                  transition-all hover:shadow-md
+                                  ${getEventTypeColor(event.type)}
+                                `}
+                              >
+                                <div className="font-medium truncate">{event.title}</div>
+                                <div className="truncate opacity-75">{event.time}</div>
+                              </div>
+                            ))}
+                            {dayEvents.length > 2 && (
+                              <div className="text-xs text-zinc-500 text-center">
+                                +{dayEvents.length - 2} more
+                              </div>
+                            )}
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
+            </>
+          )}
+
+          {/* Week View */}
+          {viewMode === 'week' && (
+            <div className="grid grid-cols-8 gap-px bg-zinc-200">
+              {/* Time column header */}
+              <div className="bg-zinc-50 p-3 text-center text-sm font-semibold text-zinc-700">
+                Time
+              </div>
+              {/* Week day headers */}
+              {weekDays.map(date => (
                 <div
-                  key={index}
+                  key={date.toISOString()}
                   className={`
-                    bg-white min-h-[100px] p-2 cursor-pointer transition-colors
-                    ${!day ? 'bg-zinc-50' : ''}
-                    ${isToday(day) ? 'bg-orange-50 ring-2 ring-orange-400' : ''}
-                    ${isSelected(day) ? 'bg-blue-50 ring-2 ring-blue-400' : ''}
-                    ${day && !isToday(day) && !isSelected(day) ? 'hover:bg-zinc-50' : ''}
+                    bg-zinc-50 p-3 text-center text-sm font-semibold cursor-pointer transition-colors
+                    ${isTodayDate(date) ? 'bg-orange-100 text-orange-600' : 'text-zinc-700'}
+                    ${isSelectedDate(date) ? 'bg-blue-100 text-blue-600' : ''}
                   `}
-                  onClick={() => day && handleDateClick(day)}
+                  onClick={() => setSelectedDate && setSelectedDate(date)}
                 >
-                  {day && (
-                    <>
-                      <div className={`
-                        text-sm font-medium mb-1
-                        ${isToday(day) ? 'text-orange-600' : 'text-zinc-700'}
-                      `}>
-                        {day}
-                      </div>
-                      <div className="space-y-1">
-                        {dayEvents.slice(0, 2).map(event => (
+                  <div>{weekDayNames[date.getDay()]}</div>
+                  <div className="text-lg font-bold">{date.getDate()}</div>
+                </div>
+              ))}
+
+              {/* Time slots */}
+              {Array.from({ length: 18 }, (_, i) => i + 6).map(hour => (
+                <React.Fragment key={hour}>
+                  <div className="bg-white p-2 text-xs text-zinc-500 border-r border-zinc-200">
+                    {hour}:00
+                  </div>
+                  {weekDays.map(date => {
+                    const dayEvents = getEventsForDay(date).filter(event => {
+                      const eventHour = parseInt(event.time.split(':')[0])
+                      return eventHour === hour
+                    })
+                    return (
+                      <div
+                        key={`${date.toISOString()}-${hour}`}
+                        className={`
+                          bg-white min-h-[40px] p-1 cursor-pointer transition-colors border-b border-zinc-100
+                          ${isTodayDate(date) ? 'bg-orange-50/30' : ''}
+                          hover:bg-zinc-50
+                        `}
+                        onClick={() => setSelectedDate && setSelectedDate(date)}
+                      >
+                        {dayEvents.map(event => (
                           <div
                             key={event.id}
                             onClick={(e) => {
@@ -218,27 +344,76 @@ const EventCalendarView = () => {
                               openEventDetails && openEventDetails(event.id)
                             }}
                             className={`
-                              text-xs p-1 rounded border cursor-pointer
+                              text-xs p-1 rounded border cursor-pointer mb-1
                               transition-all hover:shadow-md
                               ${getEventTypeColor(event.type)}
                             `}
                           >
                             <div className="font-medium truncate">{event.title}</div>
-                            <div className="truncate opacity-75">{event.time}</div>
                           </div>
                         ))}
-                        {dayEvents.length > 2 && (
-                          <div className="text-xs text-zinc-500 text-center">
-                            +{dayEvents.length - 2} more
+                      </div>
+                    )
+                  })}
+                </React.Fragment>
+              ))}
+            </div>
+          )}
+
+          {/* Day View */}
+          {viewMode === 'day' && (
+            <div className="space-y-2">
+              <div className="text-center mb-4">
+                <h3 className="text-lg font-semibold text-zinc-700">
+                  {currentDate?.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+                </h3>
+              </div>
+              <div className="grid grid-cols-2 gap-px bg-zinc-200">
+                <div className="bg-zinc-50 p-2 text-sm font-semibold text-zinc-700">Time</div>
+                <div className="bg-zinc-50 p-2 text-sm font-semibold text-zinc-700">Events</div>
+
+                {Array.from({ length: 18 }, (_, i) => i + 6).map(hour => {
+                  const hourEvents = currentDate ? getEventsForDay(currentDate).filter(event => {
+                    const eventHour = parseInt(event.time.split(':')[0])
+                    return eventHour === hour
+                  }) : []
+
+                  return (
+                    <React.Fragment key={hour}>
+                      <div className="bg-white p-3 text-sm text-zinc-600 border-r border-zinc-200">
+                        {hour}:00
+                      </div>
+                      <div className="bg-white min-h-[60px] p-2">
+                        {hourEvents.length > 0 ? (
+                          <div className="space-y-2">
+                            {hourEvents.map(event => (
+                              <div
+                                key={event.id}
+                                onClick={() => openEventDetails && openEventDetails(event.id)}
+                                className={`
+                                  p-2 rounded border cursor-pointer
+                                  transition-all hover:shadow-md
+                                  ${getEventTypeColor(event.type)}
+                                `}
+                              >
+                                <div className="font-medium">{event.title}</div>
+                                <div className="text-sm opacity-75">{event.time}</div>
+                                <div className="text-sm opacity-75">{event.venue}</div>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="text-center text-zinc-400 text-sm py-4">
+                            No events scheduled
                           </div>
                         )}
                       </div>
-                    </>
-                  )}
-                </div>
-              )
-            })}
-          </div>
+                    </React.Fragment>
+                  )
+                })}
+              </div>
+            </div>
+          )}
 
           {/* Legend */}
           <div className="mt-4 flex items-center justify-between">
@@ -257,7 +432,7 @@ const EventCalendarView = () => {
               </div>
             </div>
             <div className="text-sm text-zinc-500">
-              {events ? events.length : 0} events this month
+              {events ? events.length : 0} events {viewMode === 'month' ? 'this month' : viewMode === 'week' ? 'this week' : 'today'}
             </div>
           </div>
         </CardContent>

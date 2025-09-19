@@ -409,31 +409,6 @@ const EventSchedulerDashboard = () => {
                     </motion.button>
                   </motion.div>
 
-                  {/* Create Event */}
-                  <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.9 }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <motion.button
-                      onClick={() => navigate('/events/create')}
-                      className="relative group flex items-center px-6 py-3 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-orange-600 to-orange-700 text-white shadow-lg glow-border overflow-hidden hover:from-orange-500 hover:to-orange-600 shadow-orange-500/25"
-                      whileHover={{
-                        boxShadow: "0 20px 40px rgba(249, 115, 22, 0.4)"
-                      }}
-                    >
-                      {/* Background Shimmer Effect */}
-                      <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                      {/* Content */}
-                      <div className="relative z-10 flex items-center">
-                        <Plus className="h-4 w-4 mr-2" />
-                        <span>Create Event</span>
-                      </div>
-                    </motion.button>
-                  </motion.div>
                 </div>
             </div>
 
