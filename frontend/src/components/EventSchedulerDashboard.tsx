@@ -10,8 +10,6 @@ import EventForm from './EventForm'
 import {
   Calendar,
   Plus,
-  Filter,
-  Download,
   ChevronLeft,
   Settings,
   List,
@@ -22,15 +20,7 @@ import {
 } from 'lucide-react'
 import { Button } from './ui/button'
 import { Card } from './ui/card'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuSeparator,
-  DropdownMenuLabel
-} from './ui/dropdown-menu'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 // Standalone Create Event Page
 const CreateEventPage = () => {
@@ -172,11 +162,6 @@ const EditEventPage = () => {
 const EventSchedulerDashboard = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const [showFilters, setShowFilters] = useState(false)
-
-  const handleExport = (format: string) => {
-    console.log(`Exporting events as ${format}`)
-  }
 
   const isCalendarView = location.pathname.includes('/calendar')
   const isListView = location.pathname.includes('/list')
@@ -302,88 +287,6 @@ const EventSchedulerDashboard = () => {
                     </motion.button>
                   </motion.div>
 
-                  {/* Filter Button */}
-                  <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.6 }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <motion.button
-                      onClick={() => setShowFilters(!showFilters)}
-                      className={`relative group flex items-center px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg glow-border overflow-hidden ${
-                        showFilters
-                          ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-blue-500/25'
-                          : 'bg-gradient-to-r from-gray-700 to-gray-900 text-white hover:from-gray-600 hover:to-gray-800 shadow-gray-500/25'
-                      }`}
-                      whileHover={{
-                        boxShadow: showFilters
-                          ? "0 20px 40px rgba(59, 130, 246, 0.4)"
-                          : "0 20px 40px rgba(107, 114, 128, 0.4)"
-                      }}
-                    >
-                      {/* Background Shimmer Effect */}
-                      <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                      {/* Content */}
-                      <div className="relative z-10 flex items-center">
-                        <Filter className="h-4 w-4 mr-2" />
-                        Filters
-                        {showFilters && (
-                          <motion.span
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            className="ml-2 text-xs bg-white/20 text-white px-2 py-1 rounded-full font-bold"
-                          >
-                            2
-                          </motion.span>
-                        )}
-                      </div>
-                    </motion.button>
-                  </motion.div>
-
-                  {/* Export Menu */}
-                  <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.7 }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <motion.button
-                          className="relative group flex items-center px-6 py-3 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-green-600 to-green-700 text-white shadow-lg glow-border overflow-hidden hover:from-green-500 hover:to-green-600 shadow-green-500/25"
-                          whileHover={{
-                            boxShadow: "0 20px 40px rgba(34, 197, 94, 0.4)"
-                          }}
-                        >
-                          {/* Background Shimmer Effect */}
-                          <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                          {/* Content */}
-                          <div className="relative z-10 flex items-center">
-                            <Download className="h-4 w-4 mr-2" />
-                            Export
-                          </div>
-                        </motion.button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="glass-card glass-card-hover border-gray-300 dark:border-gray-600 shadow-xl">
-                        <DropdownMenuLabel className="text-gray-700 dark:text-gray-300 font-semibold">Export Format</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={() => handleExport('pdf')} className="hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                          <span className="font-medium">Export as PDF</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleExport('csv')} className="hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                          <span className="font-medium">Export as CSV</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleExport('ics')} className="hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                          <span className="font-medium">Export as Calendar (ICS)</span>
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </motion.div>
 
                   {/* Settings */}
                   <motion.div
@@ -394,9 +297,9 @@ const EventSchedulerDashboard = () => {
                     whileTap={{ scale: 0.95 }}
                   >
                     <motion.button
-                      className="relative group flex items-center justify-center w-12 h-12 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-purple-600 to-purple-700 text-white shadow-lg glow-border overflow-hidden hover:from-purple-500 hover:to-purple-600 shadow-purple-500/25"
+                      className="relative group flex items-center justify-center w-12 h-12 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-gray-700 to-gray-900 text-white shadow-lg glow-border overflow-hidden hover:from-gray-600 hover:to-gray-800 shadow-gray-500/25"
                       whileHover={{
-                        boxShadow: "0 20px 40px rgba(147, 51, 234, 0.4)"
+                        boxShadow: "0 20px 40px rgba(107, 114, 128, 0.4)"
                       }}
                     >
                       {/* Background Shimmer Effect */}
@@ -412,110 +315,6 @@ const EventSchedulerDashboard = () => {
                 </div>
             </div>
 
-            {/* Filters Panel */}
-            <AnimatePresence>
-              {showFilters && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="mt-6 pt-6 border-t border-gray-200/50 dark:border-gray-700/50"
-                >
-                  <motion.div
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.1 }}
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-                  >
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      className="group"
-                    >
-                      <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-3 flex items-center">
-                        <Users className="w-4 h-4 mr-2 text-gray-500" />
-                        Teams
-                      </label>
-                      <select className="w-full px-4 py-3 glass-card glass-card-hover border border-gray-200/50 dark:border-gray-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-300 shadow-lg font-medium group-hover:shadow-xl">
-                        <option>All Teams</option>
-                        <option>Team A</option>
-                        <option>Team B</option>
-                        <option>Team C</option>
-                      </select>
-                    </motion.div>
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      className="group"
-                    >
-                      <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-3 flex items-center">
-                        <MapPin className="w-4 h-4 mr-2 text-gray-500" />
-                        Venue
-                      </label>
-                      <select className="w-full px-4 py-3 glass-card glass-card-hover border border-gray-200/50 dark:border-gray-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 transition-all duration-300 shadow-lg font-medium group-hover:shadow-xl">
-                        <option>All Venues</option>
-                        <option>Main Stadium</option>
-                        <option>Training Field</option>
-                        <option>Indoor Arena</option>
-                      </select>
-                    </motion.div>
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      className="group"
-                    >
-                      <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-3 flex items-center">
-                        <Calendar className="w-4 h-4 mr-2 text-gray-500" />
-                        Event Type
-                      </label>
-                      <select className="w-full px-4 py-3 glass-card glass-card-hover border border-gray-200/50 dark:border-gray-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 transition-all duration-300 shadow-lg font-medium group-hover:shadow-xl">
-                        <option>All Types</option>
-                        <option>Game</option>
-                        <option>Practice</option>
-                        <option>Tournament</option>
-                      </select>
-                    </motion.div>
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      className="group"
-                    >
-                      <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-3 flex items-center">
-                        <Clock className="w-4 h-4 mr-2 text-gray-500" />
-                        Date Range
-                      </label>
-                      <select className="w-full px-4 py-3 glass-card glass-card-hover border border-gray-200/50 dark:border-gray-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all duration-300 shadow-lg font-medium group-hover:shadow-xl">
-                        <option>This Month</option>
-                        <option>Next 7 Days</option>
-                        <option>Next 30 Days</option>
-                        <option>Custom Range</option>
-                      </select>
-                    </motion.div>
-                  </motion.div>
-                  <motion.div
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                    className="flex items-center justify-between mt-4"
-                  >
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => {
-                        setShowFilters(false)
-                      }}
-                      className="text-gray-600 hover:text-gray-900 hover:bg-gray-100/50"
-                    >
-                      Clear Filters
-                    </Button>
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="button-primary !py-2 !px-4 !text-sm"
-                    >
-                      <span>Apply Filters</span>
-                    </motion.button>
-                  </motion.div>
-                </motion.div>
-              )}
-            </AnimatePresence>
           </motion.div>
 
           {/* Breadcrumb Navigation */}

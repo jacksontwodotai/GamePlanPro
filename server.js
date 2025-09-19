@@ -4332,6 +4332,299 @@ app.get('/api/reports/team-summary', authenticateUser, async (req, res) => {
     }
 });
 
+// Form Builder API Endpoints
+
+// GET /api/form-builder/forms - List all registration forms
+app.get('/api/form-builder/forms', authenticateUser, async (req, res) => {
+    try {
+        const { data: forms, error } = await supabase
+            .from('registration_forms')
+            .select(`
+                *,
+                programs (
+                    id,
+                    name,
+                    season
+                )
+            `)
+            .order('created_at', { ascending: false });
+
+        if (error) {
+            console.error('Forms fetch error:', error);
+            return res.status(500).json({ error: 'Failed to fetch forms' });
+        }
+
+        res.json({ forms: forms || [] });
+    } catch (error) {
+        console.error('Get forms error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/form-builder/forms/{form_id} - Get specific form with fields
+app.get('/api/form-builder/forms/:form_id', authenticateUser, async (req, res) => {
+    const { form_id } = req.params;
+
+    try {
+        // Get form details
+        const { data: form, error: formError } = await supabase
+            .from('registration_forms')
+            .select(`
+                *,
+                programs (
+                    id,
+                    name,
+                    season
+                )
+            `)
+            .eq('id', form_id)
+            .single();
+
+        if (formError) {
+            console.error('Form fetch error:', formError);
+            if (formError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Form not found' });
+            }
+            return res.status(500).json({ error: 'Failed to fetch form' });
+        }
+
+        // Get form fields
+        const { data: fields, error: fieldsError } = await supabase
+            .from('form_fields')
+            .select('*')
+            .eq('form_id', form_id)
+            .order('sort_order', { ascending: true });
+
+        if (fieldsError) {
+            console.error('Form fields fetch error:', fieldsError);
+            return res.status(500).json({ error: 'Failed to fetch form fields' });
+        }
+
+        res.json({
+            ...form,
+            fields: fields || []
+        });
+    } catch (error) {
+        console.error('Get form error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// POST /api/form-builder/forms - Create new registration form
+app.post('/api/form-builder/forms', authenticateUser, async (req, res) => {
+    const { name, description, program_id, is_active = true } = req.body;
+
+    // Validate required fields
+    if (!name || name.trim().length < 3 || name.trim().length > 100) {
+        return res.status(400).json({
+            error: 'Form name is required and must be between 3-100 characters'
+        });
+    }
+
+    try {
+        // Check if form name already exists
+        const { data: existingForm, error: checkError } = await supabase
+            .from('registration_forms')
+            .select('id')
+            .eq('name', name.trim())
+            .single();
+
+        if (existingForm) {
+            return res.status(409).json({
+                error: 'A form with this name already exists'
+            });
+        }
+
+        // Create the form
+        const { data: form, error } = await supabase
+            .from('registration_forms')
+            .insert([{
+                name: name.trim(),
+                description: description?.trim() || null,
+                program_id: program_id || null,
+                is_active
+            }])
+            .select(`
+                *,
+                programs (
+                    id,
+                    name,
+                    season
+                )
+            `)
+            .single();
+
+        if (error) {
+            console.error('Form creation error:', error);
+            return res.status(500).json({ error: 'Failed to create form' });
+        }
+
+        res.status(201).json({
+            message: 'Form created successfully',
+            form: {
+                ...form,
+                fields: []
+            }
+        });
+    } catch (error) {
+        console.error('Create form error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// PUT /api/form-builder/forms/{form_id} - Update registration form
+app.put('/api/form-builder/forms/:form_id', authenticateUser, async (req, res) => {
+    const { form_id } = req.params;
+    const { name, description, program_id, is_active, fields } = req.body;
+
+    // Validate form name
+    if (!name || name.trim().length < 3 || name.trim().length > 100) {
+        return res.status(400).json({
+            error: 'Form name is required and must be between 3-100 characters'
+        });
+    }
+
+    try {
+        // Check if form exists
+        const { data: existingForm, error: checkError } = await supabase
+            .from('registration_forms')
+            .select('id')
+            .eq('id', form_id)
+            .single();
+
+        if (checkError || !existingForm) {
+            return res.status(404).json({ error: 'Form not found' });
+        }
+
+        // Check if name is unique (excluding current form)
+        const { data: nameCheck, error: nameError } = await supabase
+            .from('registration_forms')
+            .select('id')
+            .eq('name', name.trim())
+            .neq('id', form_id)
+            .single();
+
+        if (nameCheck) {
+            return res.status(409).json({
+                error: 'A form with this name already exists'
+            });
+        }
+
+        // Update form details
+        const { data: updatedForm, error: updateError } = await supabase
+            .from('registration_forms')
+            .update({
+                name: name.trim(),
+                description: description?.trim() || null,
+                program_id: program_id || null,
+                is_active: is_active !== undefined ? is_active : true
+            })
+            .eq('id', form_id)
+            .select(`
+                *,
+                programs (
+                    id,
+                    name,
+                    season
+                )
+            `)
+            .single();
+
+        if (updateError) {
+            console.error('Form update error:', updateError);
+            return res.status(500).json({ error: 'Failed to update form' });
+        }
+
+        // If fields are provided, update them
+        if (fields && Array.isArray(fields)) {
+            // Delete existing fields
+            await supabase
+                .from('form_fields')
+                .delete()
+                .eq('form_id', form_id);
+
+            // Insert new fields
+            if (fields.length > 0) {
+                const fieldsToInsert = fields.map((field, index) => ({
+                    form_id,
+                    field_name: field.field_name,
+                    field_label: field.field_label,
+                    field_type: field.field_type,
+                    is_required: field.is_required || false,
+                    placeholder_text: field.placeholder_text || null,
+                    help_text: field.help_text || null,
+                    validation_rules: field.validation_rules || null,
+                    field_options: field.field_options || null,
+                    sort_order: index
+                }));
+
+                const { error: fieldsError } = await supabase
+                    .from('form_fields')
+                    .insert(fieldsToInsert);
+
+                if (fieldsError) {
+                    console.error('Form fields update error:', fieldsError);
+                    return res.status(500).json({ error: 'Failed to update form fields' });
+                }
+            }
+        }
+
+        // Get updated fields
+        const { data: updatedFields, error: fieldsError } = await supabase
+            .from('form_fields')
+            .select('*')
+            .eq('form_id', form_id)
+            .order('sort_order', { ascending: true });
+
+        res.json({
+            message: 'Form updated successfully',
+            form: {
+                ...updatedForm,
+                fields: updatedFields || []
+            }
+        });
+    } catch (error) {
+        console.error('Update form error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// DELETE /api/form-builder/forms/{form_id} - Delete registration form
+app.delete('/api/form-builder/forms/:form_id', authenticateUser, async (req, res) => {
+    const { form_id } = req.params;
+
+    try {
+        // Check if form exists
+        const { data: existingForm, error: checkError } = await supabase
+            .from('registration_forms')
+            .select('id, name')
+            .eq('id', form_id)
+            .single();
+
+        if (checkError || !existingForm) {
+            return res.status(404).json({ error: 'Form not found' });
+        }
+
+        // Delete the form (fields will be cascade deleted)
+        const { error } = await supabase
+            .from('registration_forms')
+            .delete()
+            .eq('id', form_id);
+
+        if (error) {
+            console.error('Form deletion error:', error);
+            return res.status(500).json({ error: 'Failed to delete form' });
+        }
+
+        res.json({
+            message: 'Form deleted successfully'
+        });
+    } catch (error) {
+        console.error('Delete form error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`GamePlanPro server running on http://localhost:${PORT}`);

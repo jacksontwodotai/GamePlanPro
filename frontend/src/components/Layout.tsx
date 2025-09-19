@@ -9,7 +9,9 @@ import {
   LogOut,
   Calendar,
   Settings,
-  FileText
+  FileText,
+  GraduationCap,
+  FormInput
 } from 'lucide-react'
 import { cn } from '../lib/utils'
 
@@ -28,6 +30,16 @@ const navigation = [
     name: 'Players',
     href: '/players',
     icon: Users,
+  },
+  {
+    name: 'Programs',
+    href: '/programs',
+    icon: GraduationCap,
+  },
+  {
+    name: 'Forms',
+    href: '/dashboard/forms',
+    icon: FormInput,
   },
   {
     name: 'Reports',

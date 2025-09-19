@@ -443,7 +443,7 @@ const EventForm = ({ mode, event, isModal = false, onSubmit, onCancel, loading =
   if (isModal) {
     return (
       <Dialog open={true} onOpenChange={onCancel}>
-        <DialogContent className="glass-card glass-card-hover max-w-4xl max-h-[90vh] overflow-y-auto animate-scale">
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto animate-scale bg-white border-gray-200">
           <DialogHeader className="text-center pb-6">
             <div className="flex justify-center mb-4">
               <div className={`w-12 h-12 bg-gradient-to-r ${getEventTypeColor(formData.event_type)} rounded-xl flex items-center justify-center shadow-lg glow-border floating-element`}>

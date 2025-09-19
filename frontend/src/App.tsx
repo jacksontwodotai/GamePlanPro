@@ -17,6 +17,11 @@ import AttendanceReportingDashboard from './components/AttendanceReportingDashbo
 import RosterManagementDashboard from './components/RosterManagementDashboard'
 import ReportGenerationForm from './components/ReportGenerationForm'
 import ReportsDashboard from './components/ReportsDashboard'
+import ProgramManagement from './components/ProgramManagement'
+import RegistrationFlow from './components/RegistrationFlow'
+import PublicRegistration from './components/PublicRegistration'
+import FormManagement from './components/FormManagement'
+import FormEditor from './components/FormEditor'
 
 function App() {
   return (
@@ -36,6 +41,10 @@ function App() {
           <Route path="reports/attendance" element={<AttendanceReportingDashboard />} />
           <Route path="reports/generate" element={<ReportGenerationForm />} />
           <Route path="roster/dashboard" element={<RosterManagementDashboard />} />
+          <Route path="programs" element={<ProgramManagement />} />
+          <Route path="forms" element={<FormManagement />} />
+          <Route path="forms/new" element={<FormEditor />} />
+          <Route path="forms/:formId" element={<FormEditor />} />
         </Route>
         <Route path="/teams" element={<Layout />}>
           <Route index element={<TeamListView />} />
@@ -70,6 +79,11 @@ function App() {
           <Route path="contacts" element={<ReportGenerationForm />} />
           <Route path="teams" element={<ReportGenerationForm />} />
         </Route>
+        <Route path="/programs" element={<Layout />}>
+          <Route index element={<ProgramManagement />} />
+        </Route>
+        <Route path="/register" element={<RegistrationFlow />} />
+        <Route path="/signup" element={<PublicRegistration />} />
       </Routes>
     </Router>
   )
