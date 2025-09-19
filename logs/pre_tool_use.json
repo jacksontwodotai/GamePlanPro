@@ -3221,5 +3221,1081 @@
     "tool_input": {
       "work_order_number": "019"
     }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__get_work_order",
+    "tool_input": {
+      "work_order_number": "023"
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze work order 023 requirements for attendance tracking API",
+          "status": "in_progress",
+          "activeForm": "Analyzing work order 023 requirements"
+        },
+        {
+          "content": "Check existing database schema for attendance tables",
+          "status": "pending",
+          "activeForm": "Checking database schema"
+        },
+        {
+          "content": "Review existing codebase for attendance patterns",
+          "status": "pending",
+          "activeForm": "Reviewing existing patterns"
+        },
+        {
+          "content": "Create detailed implementation plan",
+          "status": "pending",
+          "activeForm": "Creating implementation plan"
+        },
+        {
+          "content": "Implement attendance tracking API endpoints",
+          "status": "pending",
+          "activeForm": "Implementing attendance endpoints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze work order 023 requirements for attendance tracking API",
+          "status": "completed",
+          "activeForm": "Analyzing work order 023 requirements"
+        },
+        {
+          "content": "Check existing database schema for attendance tables",
+          "status": "in_progress",
+          "activeForm": "Checking database schema"
+        },
+        {
+          "content": "Review existing codebase for attendance patterns",
+          "status": "pending",
+          "activeForm": "Reviewing existing patterns"
+        },
+        {
+          "content": "Create detailed implementation plan",
+          "status": "pending",
+          "activeForm": "Creating implementation plan"
+        },
+        {
+          "content": "Implement attendance tracking API endpoints",
+          "status": "pending",
+          "activeForm": "Implementing attendance endpoints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "attendance",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro",
+      "output_mode": "files_with_matches",
+      "-i": true
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__supabase__list_tables",
+    "tool_input": {}
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze work order 023 requirements for attendance tracking API",
+          "status": "completed",
+          "activeForm": "Analyzing work order 023 requirements"
+        },
+        {
+          "content": "Check existing database schema for attendance tables",
+          "status": "completed",
+          "activeForm": "Checking database schema"
+        },
+        {
+          "content": "Review existing codebase for attendance patterns",
+          "status": "in_progress",
+          "activeForm": "Reviewing existing patterns"
+        },
+        {
+          "content": "Create detailed implementation plan",
+          "status": "pending",
+          "activeForm": "Creating implementation plan"
+        },
+        {
+          "content": "Implement attendance tracking API endpoints",
+          "status": "pending",
+          "activeForm": "Implementing attendance endpoints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "attendance",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "output_mode": "content",
+      "-i": true
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze work order 023 requirements for attendance tracking API",
+          "status": "completed",
+          "activeForm": "Analyzing work order 023 requirements"
+        },
+        {
+          "content": "Check existing database schema for attendance tables",
+          "status": "completed",
+          "activeForm": "Checking database schema"
+        },
+        {
+          "content": "Review existing codebase for attendance patterns",
+          "status": "completed",
+          "activeForm": "Reviewing existing patterns"
+        },
+        {
+          "content": "Create detailed implementation plan",
+          "status": "in_progress",
+          "activeForm": "Creating implementation plan"
+        },
+        {
+          "content": "Create attendance_records table",
+          "status": "pending",
+          "activeForm": "Creating attendance table"
+        },
+        {
+          "content": "Implement attendance tracking API endpoints",
+          "status": "pending",
+          "activeForm": "Implementing attendance endpoints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze work order 023 requirements for attendance tracking API",
+          "status": "completed",
+          "activeForm": "Analyzing work order 023 requirements"
+        },
+        {
+          "content": "Check existing database schema for attendance tables",
+          "status": "completed",
+          "activeForm": "Checking database schema"
+        },
+        {
+          "content": "Review existing codebase for attendance patterns",
+          "status": "completed",
+          "activeForm": "Reviewing existing patterns"
+        },
+        {
+          "content": "Create detailed implementation plan",
+          "status": "completed",
+          "activeForm": "Creating implementation plan"
+        },
+        {
+          "content": "Create attendance_records table",
+          "status": "in_progress",
+          "activeForm": "Creating attendance table"
+        },
+        {
+          "content": "Implement attendance tracking API endpoints",
+          "status": "pending",
+          "activeForm": "Implementing attendance endpoints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__supabase__apply_migration",
+    "tool_input": {
+      "name": "create_attendance_records_table",
+      "query": "CREATE TABLE attendance_records (\n    id SERIAL PRIMARY KEY,\n    player_id INTEGER NOT NULL REFERENCES players(id) ON DELETE CASCADE,\n    team_id INTEGER NOT NULL REFERENCES teams(id) ON DELETE CASCADE,\n    event_date DATE NOT NULL,\n    status VARCHAR(20) NOT NULL CHECK (status IN ('Present', 'Absent', 'Excused')),\n    notes TEXT,\n    created_at TIMESTAMPTZ DEFAULT NOW(),\n    updated_at TIMESTAMPTZ DEFAULT NOW(),\n    UNIQUE(player_id, team_id, event_date)\n);\n\n-- Add RLS policy for attendance_records\nALTER TABLE attendance_records ENABLE ROW LEVEL SECURITY;\n\n-- Add indexes for better query performance\nCREATE INDEX idx_attendance_records_player_id ON attendance_records(player_id);\nCREATE INDEX idx_attendance_records_team_id ON attendance_records(team_id);\nCREATE INDEX idx_attendance_records_event_date ON attendance_records(event_date);\nCREATE INDEX idx_attendance_records_team_date ON attendance_records(team_id, event_date);"
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze work order 023 requirements for attendance tracking API",
+          "status": "completed",
+          "activeForm": "Analyzing work order 023 requirements"
+        },
+        {
+          "content": "Check existing database schema for attendance tables",
+          "status": "completed",
+          "activeForm": "Checking database schema"
+        },
+        {
+          "content": "Review existing codebase for attendance patterns",
+          "status": "completed",
+          "activeForm": "Reviewing existing patterns"
+        },
+        {
+          "content": "Create detailed implementation plan",
+          "status": "completed",
+          "activeForm": "Creating implementation plan"
+        },
+        {
+          "content": "Create attendance_records table",
+          "status": "completed",
+          "activeForm": "Creating attendance table"
+        },
+        {
+          "content": "Implement attendance tracking API endpoints",
+          "status": "in_progress",
+          "activeForm": "Implementing attendance endpoints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "offset": 1060,
+      "limit": 10
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "old_string": "});\n\n// Division Management Endpoints",
+      "new_string": "});\n\n// Attendance Tracking Endpoints\n// POST /api/attendance - Create attendance record\napp.post('/api/attendance', authenticateUser, async (req, res) => {\n    const { player_id, team_id, event_date, status, notes } = req.body;\n\n    if (!player_id || !team_id || !event_date || !status) {\n        return res.status(400).json({ error: 'player_id, team_id, event_date, and status are required' });\n    }\n\n    // Validate status values\n    const validStatuses = ['Present', 'Absent', 'Excused'];\n    if (!validStatuses.includes(status)) {\n        return res.status(400).json({ error: 'status must be one of: Present, Absent, Excused' });\n    }\n\n    try {\n        // Validate player and team exist\n        const { data: player, error: playerError } = await supabase\n            .from('players')\n            .select('id')\n            .eq('id', player_id)\n            .single();\n\n        if (playerError) {\n            return res.status(400).json({ error: 'Invalid player_id' });\n        }\n\n        const { data: team, error: teamError } = await supabase\n            .from('teams')\n            .select('id')\n            .eq('id', team_id)\n            .single();\n\n        if (teamError) {\n            return res.status(400).json({ error: 'Invalid team_id' });\n        }\n\n        // Check if player is on team roster for the event date\n        const { data: rosterCheck, error: rosterError } = await supabase\n            .from('roster_entries')\n            .select('id, start_date, end_date')\n            .eq('player_id', player_id)\n            .eq('team_id', team_id)\n            .lte('start_date', event_date)\n            .or('end_date.is.null,end_date.gte.' + event_date);\n\n        if (rosterError || !rosterCheck || rosterCheck.length === 0) {\n            return res.status(400).json({ error: 'Player is not on team roster for the specified date' });\n        }\n\n        const { data, error } = await supabase\n            .from('attendance_records')\n            .insert([{\n                player_id: parseInt(player_id),\n                team_id: parseInt(team_id),\n                event_date,\n                status,\n                notes: notes || null\n            }])\n            .select(`\n                *,\n                players (id, first_name, last_name, email),\n                teams (id, name, organization)\n            `)\n            .single();\n\n        if (error) {\n            console.error('Supabase error:', error);\n            if (error.code === '23505') { // Unique constraint violation\n                return res.status(409).json({ error: 'Attendance record already exists for this player, team, and date' });\n            }\n            return res.status(500).json({ error: 'Failed to create attendance record' });\n        }\n\n        res.status(201).json({\n            message: 'Attendance record created successfully',\n            attendance_record: data\n        });\n    } catch (error) {\n        console.error('Create attendance record error:', error);\n        res.status(500).json({ error: 'Internal server error' });\n    }\n});\n\n// GET /api/attendance - Get attendance records with filtering and pagination\napp.get('/api/attendance', authenticateUser, async (req, res) => {\n    const { team_id, player_id, event_date_start, event_date_end, page = 1, limit = 50 } = req.query;\n\n    try {\n        let query = supabase\n            .from('attendance_records')\n            .select(`\n                *,\n                players (id, first_name, last_name, email, phone),\n                teams (id, name, organization)\n            `, { count: 'exact' });\n\n        // Apply filters\n        if (team_id) {\n            query = query.eq('team_id', team_id);\n        }\n        if (player_id) {\n            query = query.eq('player_id', player_id);\n        }\n        if (event_date_start) {\n            query = query.gte('event_date', event_date_start);\n        }\n        if (event_date_end) {\n            query = query.lte('event_date', event_date_end);\n        }\n\n        // Apply pagination\n        const offset = (parseInt(page) - 1) * parseInt(limit);\n        query = query.range(offset, offset + parseInt(limit) - 1);\n\n        // Order by event date (most recent first)\n        query = query.order('event_date', { ascending: false });\n\n        const { data, error, count } = await query;\n\n        if (error) {\n            console.error('Supabase error:', error);\n            return res.status(500).json({ error: 'Failed to fetch attendance records' });\n        }\n\n        res.json({\n            attendance_records: data,\n            pagination: {\n                page: parseInt(page),\n                limit: parseInt(limit),\n                total: count,\n                pages: Math.ceil(count / parseInt(limit))\n            }\n        });\n    } catch (error) {\n        console.error('Get attendance records error:', error);\n        res.status(500).json({ error: 'Internal server error' });\n    }\n});\n\n// GET /api/attendance/{attendance_record_id} - Get specific attendance record\napp.get('/api/attendance/:attendance_record_id', authenticateUser, async (req, res) => {\n    const { attendance_record_id } = req.params;\n\n    try {\n        const { data, error } = await supabase\n            .from('attendance_records')\n            .select(`\n                *,\n                players (\n                    id, first_name, last_name, email, phone, date_of_birth,\n                    emergency_contact_name, emergency_contact_phone, emergency_contact_relation,\n                    medical_alerts, address, gender\n                ),\n                teams (id, name, organization, division, age_group, skill_level)\n            `)\n            .eq('id', attendance_record_id)\n            .single();\n\n        if (error) {\n            console.error('Supabase error:', error);\n            if (error.code === 'PGRST116') {\n                return res.status(404).json({ error: 'Attendance record not found' });\n            }\n            return res.status(500).json({ error: 'Failed to fetch attendance record' });\n        }\n\n        res.json(data);\n    } catch (error) {\n        console.error('Get attendance record error:', error);\n        res.status(500).json({ error: 'Internal server error' });\n    }\n});\n\n// PUT /api/attendance/{attendance_record_id} - Update attendance record\napp.put('/api/attendance/:attendance_record_id', authenticateUser, async (req, res) => {\n    const { attendance_record_id } = req.params;\n    const { status, notes } = req.body;\n\n    try {\n        // Validate status if provided\n        if (status) {\n            const validStatuses = ['Present', 'Absent', 'Excused'];\n            if (!validStatuses.includes(status)) {\n                return res.status(400).json({ error: 'status must be one of: Present, Absent, Excused' });\n            }\n        }\n\n        const updates = {};\n        if (status !== undefined) updates.status = status;\n        if (notes !== undefined) updates.notes = notes;\n        updates.updated_at = new Date().toISOString();\n\n        const { data, error } = await supabase\n            .from('attendance_records')\n            .update(updates)\n            .eq('id', attendance_record_id)\n            .select(`\n                *,\n                players (id, first_name, last_name, email),\n                teams (id, name, organization)\n            `)\n            .single();\n\n        if (error) {\n            console.error('Supabase error:', error);\n            if (error.code === 'PGRST116') {\n                return res.status(404).json({ error: 'Attendance record not found' });\n            }\n            return res.status(500).json({ error: 'Failed to update attendance record' });\n        }\n\n        res.json({\n            message: 'Attendance record updated successfully',\n            attendance_record: data\n        });\n    } catch (error) {\n        console.error('Update attendance record error:', error);\n        res.status(500).json({ error: 'Internal server error' });\n    }\n});\n\n// Division Management Endpoints"
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze work order 023 requirements for attendance tracking API",
+          "status": "completed",
+          "activeForm": "Analyzing work order 023 requirements"
+        },
+        {
+          "content": "Check existing database schema for attendance tables",
+          "status": "completed",
+          "activeForm": "Checking database schema"
+        },
+        {
+          "content": "Review existing codebase for attendance patterns",
+          "status": "completed",
+          "activeForm": "Reviewing existing patterns"
+        },
+        {
+          "content": "Create detailed implementation plan",
+          "status": "completed",
+          "activeForm": "Creating implementation plan"
+        },
+        {
+          "content": "Create attendance_records table",
+          "status": "completed",
+          "activeForm": "Creating attendance table"
+        },
+        {
+          "content": "Implement attendance tracking API endpoints",
+          "status": "completed",
+          "activeForm": "Implementing attendance endpoints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__mark_work_order_complete",
+    "tool_input": {
+      "work_order_number": "023"
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Navigate to players page to examine UI design",
+          "status": "in_progress",
+          "activeForm": "Navigating to players page to examine UI design"
+        },
+        {
+          "content": "Compare UI consistency across different pages",
+          "status": "pending",
+          "activeForm": "Comparing UI consistency across different pages"
+        },
+        {
+          "content": "Identify specific design inconsistencies",
+          "status": "pending",
+          "activeForm": "Identifying specific design inconsistencies"
+        },
+        {
+          "content": "Fix UI inconsistencies to match design system",
+          "status": "pending",
+          "activeForm": "Fixing UI inconsistencies to match design system"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__playwright__browser_navigate",
+    "tool_input": {
+      "url": "http://localhost:3001/players"
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Navigate to players page to examine UI design",
+          "status": "completed",
+          "activeForm": "Navigating to players page to examine UI design"
+        },
+        {
+          "content": "Compare UI consistency across different pages",
+          "status": "completed",
+          "activeForm": "Comparing UI consistency across different pages"
+        },
+        {
+          "content": "Identify specific design inconsistencies",
+          "status": "in_progress",
+          "activeForm": "Identifying specific design inconsistencies"
+        },
+        {
+          "content": "Fix UI inconsistencies to match design system",
+          "status": "pending",
+          "activeForm": "Fixing UI inconsistencies to match design system"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "old_string": "          {[\n            { label: 'Total Players', value: totalPlayers, icon: Users, gradient: 'from-gray-600 to-gray-800' },\n            { label: 'Active Teams', value: teams.length, icon: Heart, gradient: 'from-gray-700 to-gray-900' },\n            { label: 'Current Page', value: `${currentPage}/${totalPages}`, icon: Calendar, gradient: 'from-gray-500 to-gray-700' },\n            { label: 'Per Page', value: playersPerPage, icon: Zap, gradient: 'from-gray-800 to-black' },\n          ].map((stat) => (",
+      "new_string": "          {[\n            { label: 'Total Players', value: totalPlayers, icon: Users, gradient: 'from-gray-700 to-gray-900' },\n            { label: 'Active Teams', value: teams.length, icon: Heart, gradient: 'from-gray-600 to-gray-800' },\n            { label: 'Current Page', value: `${currentPage}/${totalPages}`, icon: Calendar, gradient: 'from-gray-800 to-black' },\n            { label: 'Per Page', value: playersPerPage, icon: Zap, gradient: 'from-gray-700 to-gray-900' },\n          ].map((stat) => ("
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "old_string": "                      <motion.button\n                        whileHover={{ scale: 1.05 }}\n                        whileTap={{ scale: 0.95 }}\n                        onClick={() => openViewModal(player)}\n                        className=\"px-2 py-2 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-lg text-sm font-medium hover:shadow-lg transition-shadow\"\n                      >\n                        View\n                      </motion.button>",
+      "new_string": "                      <motion.button\n                        whileHover={{ scale: 1.05 }}\n                        whileTap={{ scale: 0.95 }}\n                        onClick={() => openViewModal(player)}\n                        className=\"px-2 py-2 bg-gradient-to-r from-gray-600 to-gray-800 text-white rounded-lg text-sm font-medium hover:shadow-lg transition-shadow\"\n                      >\n                        View\n                      </motion.button>"
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "old_string": "              <div className=\"flex justify-center mb-4\">\n                <div className=\"w-12 h-12 bg-gradient-to-r from-green-600 to-green-700 rounded-xl flex items-center justify-center shadow-lg glow-border floating-element\">\n                  <UserPlus className=\"w-6 h-6 text-white\" />\n                </div>\n              </div>",
+      "new_string": "              <div className=\"flex justify-center mb-4\">\n                <div className=\"w-12 h-12 bg-gradient-to-r from-gray-700 to-gray-900 rounded-xl flex items-center justify-center shadow-lg glow-border floating-element\">\n                  <UserPlus className=\"w-6 h-6 text-white\" />\n                </div>\n              </div>"
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "old_string": "                <h3 className=\"text-lg font-semibold text-foreground flex items-center gap-2\">\n                  <Users className=\"w-5 h-5 text-green-600\" />\n                  Personal Information\n                </h3>",
+      "new_string": "                <h3 className=\"text-lg font-semibold text-foreground flex items-center gap-2\">\n                  <Users className=\"w-5 h-5 text-gray-600\" />\n                  Personal Information\n                </h3>"
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "old_string": "                      className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${\n                        formErrors.first_name\n                          ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'\n                          : 'border-border focus:border-green-500 focus:ring-2 focus:ring-green-500/20'\n                      }`}",
+      "new_string": "                      className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${\n                        formErrors.first_name\n                          ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'\n                          : 'border-border focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20'\n                      }`}"
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "old_string": "focus:border-green-500 focus:ring-2 focus:ring-green-500/20",
+      "new_string": "focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20",
+      "replace_all": true
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "old_string": "text-green-600",
+      "new_string": "text-gray-600",
+      "replace_all": true
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "old_string": "              <div className=\"flex justify-center mb-4\">\n                <div className=\"w-16 h-16 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center shadow-lg glow-border\">\n                  <span className=\"text-white font-bold text-xl\">\n                    {selectedPlayer?.first_name.charAt(0)}{selectedPlayer?.last_name.charAt(0)}\n                  </span>\n                </div>\n              </div>",
+      "new_string": "              <div className=\"flex justify-center mb-4\">\n                <div className=\"w-16 h-16 bg-gradient-to-r from-gray-700 to-gray-900 rounded-full flex items-center justify-center shadow-lg glow-border\">\n                  <span className=\"text-white font-bold text-xl\">\n                    {selectedPlayer?.first_name.charAt(0)}{selectedPlayer?.last_name.charAt(0)}\n                  </span>\n                </div>\n              </div>"
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "old_string": "text-blue-600",
+      "new_string": "text-gray-600",
+      "replace_all": true
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "old_string": "from-blue-600 to-blue-700",
+      "new_string": "from-gray-700 to-gray-900",
+      "replace_all": true
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "old_string": "hover:from-blue-700 hover:to-blue-800",
+      "new_string": "hover:from-gray-800 hover:to-black",
+      "replace_all": true
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "old_string": "focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20",
+      "new_string": "focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20",
+      "replace_all": true
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "from-gray-800 to-black",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "output_mode": "content"
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "bg-gradient-to-r",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "output_mode": "content"
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Navigate to players page to examine UI design",
+          "status": "completed",
+          "activeForm": "Navigating to players page to examine UI design"
+        },
+        {
+          "content": "Compare UI consistency across different pages",
+          "status": "completed",
+          "activeForm": "Comparing UI consistency across different pages"
+        },
+        {
+          "content": "Identify specific design inconsistencies",
+          "status": "completed",
+          "activeForm": "Identifying specific design inconsistencies"
+        },
+        {
+          "content": "Fix UI inconsistencies to match design system",
+          "status": "completed",
+          "activeForm": "Fixing UI inconsistencies to match design system"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "27ba0ffa-6dd5-4162-9a26-65891b01dc8e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/27ba0ffa-6dd5-4162-9a26-65891b01dc8e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/EventSchedulerDashboard.tsx",
+      "limit": 100
+    }
+  },
+  {
+    "session_id": "27ba0ffa-6dd5-4162-9a26-65891b01dc8e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/27ba0ffa-6dd5-4162-9a26-65891b01dc8e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/EventSchedulerDashboard.tsx",
+      "offset": 200,
+      "limit": 200
+    }
+  },
+  {
+    "session_id": "27ba0ffa-6dd5-4162-9a26-65891b01dc8e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/27ba0ffa-6dd5-4162-9a26-65891b01dc8e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/Login.tsx"
+    }
+  },
+  {
+    "session_id": "27ba0ffa-6dd5-4162-9a26-65891b01dc8e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/27ba0ffa-6dd5-4162-9a26-65891b01dc8e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Fix events page calendar filter, export, and settings button visibility issues",
+          "status": "in_progress",
+          "activeForm": "Fixing events page calendar filter, export, and settings button visibility issues"
+        },
+        {
+          "content": "Update login page UI colors and aesthetic to match application design",
+          "status": "pending",
+          "activeForm": "Updating login page UI colors and aesthetic to match application design"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "27ba0ffa-6dd5-4162-9a26-65891b01dc8e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/27ba0ffa-6dd5-4162-9a26-65891b01dc8e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/index.css",
+      "limit": 100
+    }
+  },
+  {
+    "session_id": "27ba0ffa-6dd5-4162-9a26-65891b01dc8e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/27ba0ffa-6dd5-4162-9a26-65891b01dc8e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/EventSchedulerDashboard.tsx",
+      "old_string": "                  {/* Filter Button */}\n                  <motion.div\n                    initial={{ opacity: 0, x: 20 }}\n                    animate={{ opacity: 1, x: 0 }}\n                    transition={{ delay: 0.6 }}\n                  >\n                    <Button\n                      variant=\"outline\"\n                      onClick={() => setShowFilters(!showFilters)}\n                      className={`bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50 hover:bg-white/70 dark:hover:bg-gray-800/70 ${showFilters ? 'bg-gray-100/70' : ''}`}\n                    >\n                      <Filter className=\"h-4 w-4 mr-2\" />\n                      Filters\n                      {showFilters && (\n                        <motion.span\n                          initial={{ scale: 0 }}\n                          animate={{ scale: 1 }}\n                          className=\"ml-2 text-xs bg-gradient-to-r from-gray-700 to-gray-900 text-white px-1.5 py-0.5 rounded-full\"\n                        >\n                          2\n                        </motion.span>\n                      )}\n                    </Button>\n                  </motion.div>",
+      "new_string": "                  {/* Filter Button */}\n                  <motion.div\n                    initial={{ opacity: 0, x: 20 }}\n                    animate={{ opacity: 1, x: 0 }}\n                    transition={{ delay: 0.6 }}\n                  >\n                    <Button\n                      variant=\"outline\"\n                      onClick={() => setShowFilters(!showFilters)}\n                      className={`glass-card glass-card-hover border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white shadow-lg ${showFilters ? 'bg-gradient-to-r from-gray-600 to-gray-800 text-white border-gray-500' : ''}`}\n                    >\n                      <Filter className=\"h-4 w-4 mr-2\" />\n                      Filters\n                      {showFilters && (\n                        <motion.span\n                          initial={{ scale: 0 }}\n                          animate={{ scale: 1 }}\n                          className=\"ml-2 text-xs bg-white/20 text-white px-1.5 py-0.5 rounded-full\"\n                        >\n                          2\n                        </motion.span>\n                      )}\n                    </Button>\n                  </motion.div>"
+    }
+  },
+  {
+    "session_id": "27ba0ffa-6dd5-4162-9a26-65891b01dc8e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/27ba0ffa-6dd5-4162-9a26-65891b01dc8e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/EventSchedulerDashboard.tsx",
+      "old_string": "                  {/* Export Menu */}\n                  <motion.div\n                    initial={{ opacity: 0, x: 20 }}\n                    animate={{ opacity: 1, x: 0 }}\n                    transition={{ delay: 0.7 }}\n                  >\n                    <DropdownMenu>\n                      <DropdownMenuTrigger asChild>\n                        <Button variant=\"outline\" className=\"bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50 hover:bg-white/70 dark:hover:bg-gray-800/70\">\n                          <Download className=\"h-4 w-4 mr-2\" />\n                          Export\n                        </Button>\n                      </DropdownMenuTrigger>\n                      <DropdownMenuContent align=\"end\" className=\"glass-card border-gray-200/50 dark:border-gray-700/50\">\n                        <DropdownMenuLabel>Export Format</DropdownMenuLabel>\n                        <DropdownMenuSeparator />\n                        <DropdownMenuItem onClick={() => handleExport('pdf')}>\n                          Export as PDF\n                        </DropdownMenuItem>\n                        <DropdownMenuItem onClick={() => handleExport('csv')}>\n                          Export as CSV\n                        </DropdownMenuItem>\n                        <DropdownMenuItem onClick={() => handleExport('ics')}>\n                          Export as Calendar (ICS)\n                        </DropdownMenuItem>\n                      </DropdownMenuContent>\n                    </DropdownMenu>\n                  </motion.div>",
+      "new_string": "                  {/* Export Menu */}\n                  <motion.div\n                    initial={{ opacity: 0, x: 20 }}\n                    animate={{ opacity: 1, x: 0 }}\n                    transition={{ delay: 0.7 }}\n                  >\n                    <DropdownMenu>\n                      <DropdownMenuTrigger asChild>\n                        <Button variant=\"outline\" className=\"glass-card glass-card-hover border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white shadow-lg\">\n                          <Download className=\"h-4 w-4 mr-2\" />\n                          Export\n                        </Button>\n                      </DropdownMenuTrigger>\n                      <DropdownMenuContent align=\"end\" className=\"glass-card border-gray-300 dark:border-gray-600\">\n                        <DropdownMenuLabel>Export Format</DropdownMenuLabel>\n                        <DropdownMenuSeparator />\n                        <DropdownMenuItem onClick={() => handleExport('pdf')}>\n                          Export as PDF\n                        </DropdownMenuItem>\n                        <DropdownMenuItem onClick={() => handleExport('csv')}>\n                          Export as CSV\n                        </DropdownMenuItem>\n                        <DropdownMenuItem onClick={() => handleExport('ics')}>\n                          Export as Calendar (ICS)\n                        </DropdownMenuItem>\n                      </DropdownMenuContent>\n                    </DropdownMenu>\n                  </motion.div>"
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__get_work_order",
+    "tool_input": {
+      "work_order_number": "017"
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "find frontend/src -type f -name \"*.tsx\" -o -name \"*.ts\" | head -20",
+      "description": "List frontend TypeScript/React files"
+    }
+  },
+  {
+    "session_id": "27ba0ffa-6dd5-4162-9a26-65891b01dc8e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/27ba0ffa-6dd5-4162-9a26-65891b01dc8e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/EventSchedulerDashboard.tsx",
+      "old_string": "                  {/* Settings */}\n                  <motion.div\n                    initial={{ opacity: 0, x: 20 }}\n                    animate={{ opacity: 1, x: 0 }}\n                    transition={{ delay: 0.8 }}\n                  >\n                    <Button variant=\"outline\" size=\"icon\" className=\"bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50 hover:bg-white/70 dark:hover:bg-gray-800/70\">\n                      <Settings className=\"h-4 w-4\" />\n                    </Button>\n                  </motion.div>",
+      "new_string": "                  {/* Settings */}\n                  <motion.div\n                    initial={{ opacity: 0, x: 20 }}\n                    animate={{ opacity: 1, x: 0 }}\n                    transition={{ delay: 0.8 }}\n                  >\n                    <Button variant=\"outline\" size=\"icon\" className=\"glass-card glass-card-hover border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white shadow-lg\">\n                      <Settings className=\"h-4 w-4\" />\n                    </Button>\n                  </motion.div>"
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "find frontend/src -type f \\( -name \"*.tsx\" -o -name \"*.ts\" \\) -exec grep -l \"roster\\|Roster\" {} \\;",
+      "description": "Find files mentioning roster"
+    }
+  },
+  {
+    "session_id": "27ba0ffa-6dd5-4162-9a26-65891b01dc8e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/27ba0ffa-6dd5-4162-9a26-65891b01dc8e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Fix events page calendar filter, export, and settings button visibility issues",
+          "status": "completed",
+          "activeForm": "Fixing events page calendar filter, export, and settings button visibility issues"
+        },
+        {
+          "content": "Update login page UI colors and aesthetic to match application design",
+          "status": "in_progress",
+          "activeForm": "Updating login page UI colors and aesthetic to match application design"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/hooks/useApi.ts"
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx"
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/TeamManagementDashboard.tsx",
+      "limit": 100
+    }
+  },
+  {
+    "session_id": "27ba0ffa-6dd5-4162-9a26-65891b01dc8e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/27ba0ffa-6dd5-4162-9a26-65891b01dc8e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/Login.tsx",
+      "old_string": "  return (\n    <div className=\"min-h-screen bg-gradient-to-br from-gray-100/10 to-gray-400/20 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative\">\n      {/* Background Elements */}\n      <div className=\"absolute inset-0 bg-gradient-to-br from-gray-200/20 to-gray-500/20\"></div>\n      <div className=\"absolute top-32 left-20 w-32 h-32 bg-green-500/10 rounded-full blur-3xl\"></div>\n      <div className=\"absolute bottom-32 right-20 w-32 h-32 bg-gray-600/10 rounded-full blur-3xl\"></div>",
+      "new_string": "  return (\n    <div className=\"min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 dark:from-gray-900 dark:to-gray-700 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden\">\n      {/* Animated Background Elements */}\n      <div className=\"fixed inset-0 overflow-hidden pointer-events-none\">\n        <motion.div\n          animate={{\n            x: [0, 100, -100, 0],\n            y: [0, -100, 100, 0],\n          }}\n          transition={{\n            duration: 30,\n            repeat: Infinity,\n            ease: \"linear\"\n          }}\n          className=\"absolute top-20 right-20 w-[500px] h-[500px] bg-gradient-to-r from-gray-200/20 to-gray-400/20 rounded-full blur-3xl\"\n        />\n        <motion.div\n          animate={{\n            x: [0, -150, 150, 0],\n            y: [0, 150, -150, 0],\n          }}\n          transition={{\n            duration: 35,\n            repeat: Infinity,\n            ease: \"linear\"\n          }}\n          className=\"absolute bottom-20 left-20 w-[400px] h-[400px] bg-gradient-to-r from-gray-300/20 to-gray-500/20 rounded-full blur-3xl\"\n        />\n      </div>"
+    }
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/App.tsx"
+    }
+  },
+  {
+    "session_id": "27ba0ffa-6dd5-4162-9a26-65891b01dc8e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/27ba0ffa-6dd5-4162-9a26-65891b01dc8e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/Login.tsx",
+      "old_string": "import { useState, useEffect } from 'react'\nimport { Shield, Eye, EyeOff } from 'lucide-react'",
+      "new_string": "import { useState, useEffect } from 'react'\nimport { Shield, Eye, EyeOff } from 'lucide-react'\nimport { motion } from 'framer-motion'"
+    }
+  },
+  {
+    "session_id": "27ba0ffa-6dd5-4162-9a26-65891b01dc8e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/27ba0ffa-6dd5-4162-9a26-65891b01dc8e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/Login.tsx",
+      "old_string": "        {/* Logo and Header */}\n        <div className=\"text-center mb-8 animate-fade-in\">\n          <div className=\"flex justify-center mb-6\">\n            <div className=\"w-16 h-16 bg-gradient-to-r from-green-600 to-green-700 rounded-xl flex items-center justify-center shadow-lg glow-border floating-element\">\n              <Shield className=\"w-8 h-8 text-white\" />\n            </div>\n          </div>\n          <h1 className=\"text-4xl font-bold gradient-text mb-2\">GamePlan Pro</h1>\n          <p className=\"text-sm text-muted-foreground\">\n            {isSignUp ? 'Create a new account' : 'Sign in to your account'}\n          </p>\n        </div>",
+      "new_string": "        {/* Logo and Header */}\n        <motion.div\n          initial={{ y: 20, opacity: 0 }}\n          animate={{ y: 0, opacity: 1 }}\n          transition={{ delay: 0.1 }}\n          className=\"text-center mb-8\"\n        >\n          <div className=\"flex justify-center mb-6\">\n            <motion.div\n              whileHover={{ rotate: 360 }}\n              transition={{ duration: 0.5 }}\n              className=\"w-16 h-16 bg-gradient-to-r from-gray-700 to-gray-900 rounded-xl flex items-center justify-center shadow-lg glow-border\"\n            >\n              <Shield className=\"w-8 h-8 text-white\" />\n            </motion.div>\n          </div>\n          <motion.h1\n            initial={{ scale: 0.5, opacity: 0 }}\n            animate={{ scale: 1, opacity: 1 }}\n            transition={{\n              type: \"spring\",\n              stiffness: 100,\n              delay: 0.2\n            }}\n            className=\"text-4xl font-bold gradient-text mb-2\"\n          >\n            GamePlan Pro\n          </motion.h1>\n          <motion.p\n            initial={{ y: 20, opacity: 0 }}\n            animate={{ y: 0, opacity: 1 }}\n            transition={{ delay: 0.3 }}\n            className=\"text-sm text-muted-foreground\"\n          >\n            {isSignUp ? 'Create a new account' : 'Sign in to your account'}\n          </motion.p>\n        </motion.div>"
+    }
+  },
+  {
+    "session_id": "27ba0ffa-6dd5-4162-9a26-65891b01dc8e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/27ba0ffa-6dd5-4162-9a26-65891b01dc8e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/Login.tsx",
+      "old_string": "                {/* Role Selection */}\n                <div className=\"space-y-3\">\n                  <label className=\"block text-sm font-medium text-foreground\">I am signing in as:</label>\n                  <div className=\"grid grid-cols-2 gap-3\">\n                    <button\n                      type=\"button\"\n                      onClick={() => setFormData({ ...formData, role: 'user' })}\n                      className={`py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ${\n                        formData.role === 'user'\n                          ? 'bg-green-100 text-green-700 border-2 border-green-500 shadow-md'\n                          : 'bg-background border-2 border-border text-foreground hover:bg-secondary hover:shadow-md'\n                      }`}\n                    >\n                      User\n                    </button>\n                    <button\n                      type=\"button\"\n                      onClick={() => setFormData({ ...formData, role: 'admin' })}\n                      className={`py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ${\n                        formData.role === 'admin'\n                          ? 'bg-green-100 text-green-700 border-2 border-green-500 shadow-md'\n                          : 'bg-background border-2 border-border text-foreground hover:bg-secondary hover:shadow-md'\n                      }`}\n                    >\n                      Admin\n                    </button>\n                  </div>\n                </div>",
+      "new_string": "                {/* Role Selection */}\n                <div className=\"space-y-3\">\n                  <label className=\"block text-sm font-medium text-foreground\">I am signing in as:</label>\n                  <div className=\"grid grid-cols-2 gap-3\">\n                    <button\n                      type=\"button\"\n                      onClick={() => setFormData({ ...formData, role: 'user' })}\n                      className={`py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ${\n                        formData.role === 'user'\n                          ? 'bg-gradient-to-r from-gray-600 to-gray-800 text-white border-2 border-gray-500 shadow-md'\n                          : 'bg-background border-2 border-border text-foreground hover:bg-secondary hover:shadow-md'\n                      }`}\n                    >\n                      User\n                    </button>\n                    <button\n                      type=\"button\"\n                      onClick={() => setFormData({ ...formData, role: 'admin' })}\n                      className={`py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ${\n                        formData.role === 'admin'\n                          ? 'bg-gradient-to-r from-gray-600 to-gray-800 text-white border-2 border-gray-500 shadow-md'\n                          : 'bg-background border-2 border-border text-foreground hover:bg-secondary hover:shadow-md'\n                      }`}\n                    >\n                      Admin\n                    </button>\n                  </div>\n                </div>"
+    }
+  },
+  {
+    "session_id": "27ba0ffa-6dd5-4162-9a26-65891b01dc8e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/27ba0ffa-6dd5-4162-9a26-65891b01dc8e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/Login.tsx",
+      "old_string": "                {/* Role Selection for Sign Up */}\n                <div className=\"space-y-3\">\n                  <label className=\"block text-sm font-medium text-foreground\">I want to register as:</label>\n                  <div className=\"grid grid-cols-2 gap-3\">\n                    <button\n                      type=\"button\"\n                      onClick={() => setFormData({ ...formData, role: 'user' })}\n                      className={`py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ${\n                        formData.role === 'user'\n                          ? 'bg-green-100 text-green-700 border-2 border-green-500 shadow-md'\n                          : 'bg-background border-2 border-border text-foreground hover:bg-secondary hover:shadow-md'\n                      }`}\n                    >\n                      User\n                    </button>\n                    <button\n                      type=\"button\"\n                      onClick={() => setFormData({ ...formData, role: 'admin' })}\n                      className={`py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ${\n                        formData.role === 'admin'\n                          ? 'bg-green-100 text-green-700 border-2 border-green-500 shadow-md'\n                          : 'bg-background border-2 border-border text-foreground hover:bg-secondary hover:shadow-md'\n                      }`}\n                    >\n                      Admin\n                    </button>\n                  </div>\n                </div>",
+      "new_string": "                {/* Role Selection for Sign Up */}\n                <div className=\"space-y-3\">\n                  <label className=\"block text-sm font-medium text-foreground\">I want to register as:</label>\n                  <div className=\"grid grid-cols-2 gap-3\">\n                    <button\n                      type=\"button\"\n                      onClick={() => setFormData({ ...formData, role: 'user' })}\n                      className={`py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ${\n                        formData.role === 'user'\n                          ? 'bg-gradient-to-r from-gray-600 to-gray-800 text-white border-2 border-gray-500 shadow-md'\n                          : 'bg-background border-2 border-border text-foreground hover:bg-secondary hover:shadow-md'\n                      }`}\n                    >\n                      User\n                    </button>\n                    <button\n                      type=\"button\"\n                      onClick={() => setFormData({ ...formData, role: 'admin' })}\n                      className={`py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ${\n                        formData.role === 'admin'\n                          ? 'bg-gradient-to-r from-gray-600 to-gray-800 text-white border-2 border-gray-500 shadow-md'\n                          : 'bg-background border-2 border-border text-foreground hover:bg-secondary hover:shadow-md'\n                      }`}\n                    >\n                      Admin\n                    </button>\n                  </div>\n                </div>"
+    }
+  },
+  {
+    "session_id": "27ba0ffa-6dd5-4162-9a26-65891b01dc8e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/27ba0ffa-6dd5-4162-9a26-65891b01dc8e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/Login.tsx",
+      "old_string": "focus:border-green-500 focus:ring-2 focus:ring-green-500/20",
+      "new_string": "focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20",
+      "replace_all": true
+    }
+  },
+  {
+    "session_id": "27ba0ffa-6dd5-4162-9a26-65891b01dc8e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/27ba0ffa-6dd5-4162-9a26-65891b01dc8e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/Login.tsx",
+      "old_string": "text-green-600 hover:text-green-700",
+      "new_string": "text-gray-600 hover:text-gray-800",
+      "replace_all": true
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "offset": 780,
+      "limit": 20
+    }
+  },
+  {
+    "session_id": "27ba0ffa-6dd5-4162-9a26-65891b01dc8e",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/27ba0ffa-6dd5-4162-9a26-65891b01dc8e.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Fix events page calendar filter, export, and settings button visibility issues",
+          "status": "completed",
+          "activeForm": "Fixing events page calendar filter, export, and settings button visibility issues"
+        },
+        {
+          "content": "Update login page UI colors and aesthetic to match application design",
+          "status": "completed",
+          "activeForm": "Updating login page UI colors and aesthetic to match application design"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "text-gray-900 dark:text-white",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "offset": 720,
+      "limit": 30
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "old_string": "                  {/* Background Gradient */}\n                  <div className=\"absolute inset-0 bg-gradient-to-br from-gray-700 to-gray-900 opacity-5 group-hover:opacity-10 transition-opacity duration-300\" />",
+      "new_string": "                  {/* Background Gradient */}\n                  <div className=\"absolute inset-0 bg-gradient-to-br from-gray-600 to-gray-800 opacity-3 group-hover:opacity-5 transition-opacity duration-300\" />"
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "old_string": "                        <div>\n                          <h3 className=\"text-lg font-bold text-gray-900 dark:text-white\">\n                            {player.first_name} {player.last_name}\n                          </h3>\n                          <p className=\"text-sm text-gray-600 dark:text-gray-400\">{player.organization}</p>\n                        </div>",
+      "new_string": "                        <div>\n                          <h3 className=\"text-lg font-bold text-gray-900 dark:text-white\">\n                            {player.first_name} {player.last_name}\n                          </h3>\n                          <p className=\"text-sm text-gray-700 dark:text-gray-300\">{player.organization}</p>\n                        </div>"
+    }
+  },
+  {
+    "session_id": "be9e0e5b-f9d4-4db4-af79-9cc8d952ba22",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/be9e0e5b-f9d4-4db4-af79-9cc8d952ba22.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerManagementInterface.tsx",
+      "old_string": "                    <div className=\"space-y-2 text-sm mb-6\">\n                      {player.email && (\n                        <div className=\"flex items-center text-gray-600 dark:text-gray-400\">\n                          <Mail className=\"w-4 h-4 mr-2\" />\n                          <span className=\"truncate\">{player.email}</span>\n                        </div>\n                      )}\n                      {player.phone && (\n                        <div className=\"flex items-center text-gray-600 dark:text-gray-400\">\n                          <Phone className=\"w-4 h-4 mr-2\" />\n                          <span>{player.phone}</span>\n                        </div>\n                      )}\n                      {player.date_of_birth && (\n                        <div className=\"flex items-center text-gray-600 dark:text-gray-400\">\n                          <Calendar className=\"w-4 h-4 mr-2\" />\n                          <span>{new Date(player.date_of_birth).toLocaleDateString()}</span>\n                        </div>\n                      )}\n                    </div>",
+      "new_string": "                    <div className=\"space-y-2 text-sm mb-6\">\n                      {player.email && (\n                        <div className=\"flex items-center text-gray-700 dark:text-gray-300\">\n                          <Mail className=\"w-4 h-4 mr-2\" />\n                          <span className=\"truncate\">{player.email}</span>\n                        </div>\n                      )}\n                      {player.phone && (\n                        <div className=\"flex items-center text-gray-700 dark:text-gray-300\">\n                          <Phone className=\"w-4 h-4 mr-2\" />\n                          <span>{player.phone}</span>\n                        </div>\n                      )}\n                      {player.date_of_birth && (\n                        <div className=\"flex items-center text-gray-700 dark:text-gray-300\">\n                          <Calendar className=\"w-4 h-4 mr-2\" />\n                          <span>{new Date(player.date_of_birth).toLocaleDateString()}</span>\n                        </div>\n                      )}\n                    </div>"
+    }
   }
 ]

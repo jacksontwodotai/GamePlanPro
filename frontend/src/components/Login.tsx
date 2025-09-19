@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Shield, Eye, EyeOff } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 export default function Login() {
   const [isSignUp, setIsSignUp] = useState(false)
@@ -109,25 +110,73 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100/10 to-gray-400/20 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative">
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-200/20 to-gray-500/20"></div>
-      <div className="absolute top-32 left-20 w-32 h-32 bg-green-500/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-32 right-20 w-32 h-32 bg-gray-600/10 rounded-full blur-3xl"></div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 dark:from-gray-900 dark:to-gray-700 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          animate={{
+            x: [0, 100, -100, 0],
+            y: [0, -100, 100, 0],
+          }}
+          transition={{
+            duration: 30,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          className="absolute top-20 right-20 w-[500px] h-[500px] bg-gradient-to-r from-gray-200/20 to-gray-400/20 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            x: [0, -150, 150, 0],
+            y: [0, 150, -150, 0],
+          }}
+          transition={{
+            duration: 35,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          className="absolute bottom-20 left-20 w-[400px] h-[400px] bg-gradient-to-r from-gray-300/20 to-gray-500/20 rounded-full blur-3xl"
+        />
+      </div>
 
       <div className="max-w-md w-full relative z-10">
         {/* Logo and Header */}
-        <div className="text-center mb-8 animate-fade-in">
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.1 }}
+          className="text-center mb-8"
+        >
           <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 bg-gradient-to-r from-green-600 to-green-700 rounded-xl flex items-center justify-center shadow-lg glow-border floating-element">
+            <motion.div
+              whileHover={{ rotate: 360 }}
+              transition={{ duration: 0.5 }}
+              className="w-16 h-16 bg-gradient-to-r from-gray-700 to-gray-900 rounded-xl flex items-center justify-center shadow-lg glow-border"
+            >
               <Shield className="w-8 h-8 text-white" />
-            </div>
+            </motion.div>
           </div>
-          <h1 className="text-4xl font-bold gradient-text mb-2">GamePlan Pro</h1>
-          <p className="text-sm text-muted-foreground">
+          <motion.h1
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 100,
+              delay: 0.2
+            }}
+            className="text-4xl font-bold gradient-text mb-2"
+          >
+            GamePlan Pro
+          </motion.h1>
+          <motion.p
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="text-sm text-muted-foreground"
+          >
             {isSignUp ? 'Create a new account' : 'Sign in to your account'}
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* Form */}
         <div className="glass-card glass-card-hover p-8 animate-slide-up">
@@ -144,7 +193,7 @@ export default function Login() {
                       onClick={() => setFormData({ ...formData, role: 'user' })}
                       className={`py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ${
                         formData.role === 'user'
-                          ? 'bg-green-100 text-green-700 border-2 border-green-500 shadow-md'
+                          ? 'bg-gradient-to-r from-gray-600 to-gray-800 text-white border-2 border-gray-500 shadow-md'
                           : 'bg-background border-2 border-border text-foreground hover:bg-secondary hover:shadow-md'
                       }`}
                     >
@@ -155,7 +204,7 @@ export default function Login() {
                       onClick={() => setFormData({ ...formData, role: 'admin' })}
                       className={`py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ${
                         formData.role === 'admin'
-                          ? 'bg-green-100 text-green-700 border-2 border-green-500 shadow-md'
+                          ? 'bg-gradient-to-r from-gray-600 to-gray-800 text-white border-2 border-gray-500 shadow-md'
                           : 'bg-background border-2 border-border text-foreground hover:bg-secondary hover:shadow-md'
                       }`}
                     >
@@ -173,7 +222,7 @@ export default function Login() {
                     value={formData.organization}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
+                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20 transition-all duration-200"
                   >
                     <option value="">Choose an organization...</option>
                     <option value="northside-dragons">Northside Dragons</option>
@@ -194,7 +243,7 @@ export default function Login() {
                     placeholder="name@example.com"
                     required
                     autoFocus
-                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
+                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20 transition-all duration-200"
                   />
                 </div>
 
@@ -205,7 +254,7 @@ export default function Login() {
                     </label>
                     <button
                       type="button"
-                      className="text-sm text-green-600 hover:text-green-700 transition-colors duration-200"
+                      className="text-sm text-gray-600 hover:text-gray-800 transition-colors duration-200"
                     >
                       Forgot password?
                     </button>
@@ -218,7 +267,7 @@ export default function Login() {
                       onChange={handleInputChange}
                       placeholder="Enter your password"
                       required
-                      className="w-full px-4 py-3 pr-12 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
+                      className="w-full px-4 py-3 pr-12 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20 transition-all duration-200"
                     />
                     <button
                       type="button"
@@ -251,7 +300,7 @@ export default function Login() {
                       onClick={() => setFormData({ ...formData, role: 'user' })}
                       className={`py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ${
                         formData.role === 'user'
-                          ? 'bg-green-100 text-green-700 border-2 border-green-500 shadow-md'
+                          ? 'bg-gradient-to-r from-gray-600 to-gray-800 text-white border-2 border-gray-500 shadow-md'
                           : 'bg-background border-2 border-border text-foreground hover:bg-secondary hover:shadow-md'
                       }`}
                     >
@@ -262,7 +311,7 @@ export default function Login() {
                       onClick={() => setFormData({ ...formData, role: 'admin' })}
                       className={`py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200 ${
                         formData.role === 'admin'
-                          ? 'bg-green-100 text-green-700 border-2 border-green-500 shadow-md'
+                          ? 'bg-gradient-to-r from-gray-600 to-gray-800 text-white border-2 border-gray-500 shadow-md'
                           : 'bg-background border-2 border-border text-foreground hover:bg-secondary hover:shadow-md'
                       }`}
                     >
@@ -280,7 +329,7 @@ export default function Login() {
                     value={formData.organization}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
+                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20 transition-all duration-200"
                   >
                     <option value="">Choose an organization...</option>
                     <option value="northside-dragons">Northside Dragons</option>
@@ -301,7 +350,7 @@ export default function Login() {
                       onChange={handleInputChange}
                       placeholder="First name"
                       required
-                      className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
+                      className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20 transition-all duration-200"
                     />
                   </div>
 
@@ -316,7 +365,7 @@ export default function Login() {
                       onChange={handleInputChange}
                       placeholder="Last name"
                       required
-                      className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
+                      className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20 transition-all duration-200"
                     />
                   </div>
                 </div>
@@ -332,7 +381,7 @@ export default function Login() {
                     onChange={handleInputChange}
                     placeholder="name@example.com"
                     required
-                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
+                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20 transition-all duration-200"
                   />
                 </div>
 
@@ -348,7 +397,7 @@ export default function Login() {
                       onChange={handleInputChange}
                       placeholder="Create a password"
                       required
-                      className="w-full px-4 py-3 pr-12 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
+                      className="w-full px-4 py-3 pr-12 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20 transition-all duration-200"
                     />
                     <button
                       type="button"
@@ -372,7 +421,7 @@ export default function Login() {
                       onChange={handleInputChange}
                       placeholder="Confirm your password"
                       required
-                      className="w-full px-4 py-3 pr-12 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
+                      className="w-full px-4 py-3 pr-12 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20 transition-all duration-200"
                     />
                     <button
                       type="button"
@@ -400,7 +449,7 @@ export default function Login() {
           <div className="mt-8 text-center">
             <button
               onClick={() => setIsSignUp(!isSignUp)}
-              className="text-sm text-green-600 hover:text-green-700 font-medium transition-colors duration-200"
+              className="text-sm text-gray-600 hover:text-gray-800 font-medium transition-colors duration-200"
             >
               {isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Sign up"}
             </button>
@@ -409,9 +458,9 @@ export default function Login() {
           {/* Terms and Privacy */}
           <div className="mt-6 text-center text-xs text-muted-foreground">
             By {isSignUp ? 'creating an account' : 'signing in'}, you agree to our{' '}
-            <a href="#" className="text-green-600 hover:text-green-700 transition-colors duration-200">Terms of Service</a>
+            <a href="#" className="text-gray-600 hover:text-gray-800 transition-colors duration-200">Terms of Service</a>
             {' '}and{' '}
-            <a href="#" className="text-green-600 hover:text-green-700 transition-colors duration-200">Privacy Policy</a>
+            <a href="#" className="text-gray-600 hover:text-gray-800 transition-colors duration-200">Privacy Policy</a>
           </div>
         </div>
       </div>

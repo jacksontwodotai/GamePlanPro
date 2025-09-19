@@ -293,7 +293,7 @@ const EventSchedulerDashboard = () => {
                     <Button
                       variant="outline"
                       onClick={() => setShowFilters(!showFilters)}
-                      className={`bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50 hover:bg-white/70 dark:hover:bg-gray-800/70 ${showFilters ? 'bg-gray-100/70' : ''}`}
+                      className={`glass-card glass-card-hover border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white shadow-lg ${showFilters ? 'bg-gradient-to-r from-gray-600 to-gray-800 text-white border-gray-500' : ''}`}
                     >
                       <Filter className="h-4 w-4 mr-2" />
                       Filters
@@ -301,7 +301,7 @@ const EventSchedulerDashboard = () => {
                         <motion.span
                           initial={{ scale: 0 }}
                           animate={{ scale: 1 }}
-                          className="ml-2 text-xs bg-gradient-to-r from-gray-700 to-gray-900 text-white px-1.5 py-0.5 rounded-full"
+                          className="ml-2 text-xs bg-white/20 text-white px-1.5 py-0.5 rounded-full"
                         >
                           2
                         </motion.span>
@@ -317,12 +317,12 @@ const EventSchedulerDashboard = () => {
                   >
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50 hover:bg-white/70 dark:hover:bg-gray-800/70">
+                        <Button variant="outline" className="glass-card glass-card-hover border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white shadow-lg">
                           <Download className="h-4 w-4 mr-2" />
                           Export
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="glass-card border-gray-200/50 dark:border-gray-700/50">
+                      <DropdownMenuContent align="end" className="glass-card border-gray-300 dark:border-gray-600">
                         <DropdownMenuLabel>Export Format</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem onClick={() => handleExport('pdf')}>
@@ -344,7 +344,7 @@ const EventSchedulerDashboard = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.8 }}
                   >
-                    <Button variant="outline" size="icon" className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50 hover:bg-white/70 dark:hover:bg-gray-800/70">
+                    <Button variant="outline" size="icon" className="glass-card glass-card-hover border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white shadow-lg">
                       <Settings className="h-4 w-4" />
                     </Button>
                   </motion.div>

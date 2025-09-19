@@ -616,10 +616,10 @@ export default function PlayerManagementInterface() {
           className="grid grid-cols-1 md:grid-cols-4 gap-4"
         >
           {[
-            { label: 'Total Players', value: totalPlayers, icon: Users, gradient: 'from-gray-600 to-gray-800' },
-            { label: 'Active Teams', value: teams.length, icon: Heart, gradient: 'from-gray-700 to-gray-900' },
-            { label: 'Current Page', value: `${currentPage}/${totalPages}`, icon: Calendar, gradient: 'from-gray-500 to-gray-700' },
-            { label: 'Per Page', value: playersPerPage, icon: Zap, gradient: 'from-gray-800 to-black' },
+            { label: 'Total Players', value: totalPlayers, icon: Users, gradient: 'from-gray-700 to-gray-900' },
+            { label: 'Active Teams', value: teams.length, icon: Heart, gradient: 'from-gray-600 to-gray-800' },
+            { label: 'Current Page', value: `${currentPage}/${totalPages}`, icon: Calendar, gradient: 'from-gray-800 to-black' },
+            { label: 'Per Page', value: playersPerPage, icon: Zap, gradient: 'from-gray-700 to-gray-900' },
           ].map((stat) => (
             <motion.div
               key={stat.label}
@@ -723,7 +723,7 @@ export default function PlayerManagementInterface() {
                   className="glass-card glass-card-hover p-6 h-full relative overflow-hidden glow-border"
                 >
                   {/* Background Gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-gray-700 to-gray-900 opacity-5 group-hover:opacity-10 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-gray-600 to-gray-800 opacity-3 group-hover:opacity-5 transition-opacity duration-300" />
 
                   <div className="relative z-10">
                     <div className="flex items-start justify-between mb-4">
@@ -738,7 +738,7 @@ export default function PlayerManagementInterface() {
                           <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                             {player.first_name} {player.last_name}
                           </h3>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">{player.organization}</p>
+                          <p className="text-sm text-gray-700 dark:text-gray-300">{player.organization}</p>
                         </div>
                       </div>
                       <motion.div
@@ -758,19 +758,19 @@ export default function PlayerManagementInterface() {
 
                     <div className="space-y-2 text-sm mb-6">
                       {player.email && (
-                        <div className="flex items-center text-gray-600 dark:text-gray-400">
+                        <div className="flex items-center text-gray-700 dark:text-gray-300">
                           <Mail className="w-4 h-4 mr-2" />
                           <span className="truncate">{player.email}</span>
                         </div>
                       )}
                       {player.phone && (
-                        <div className="flex items-center text-gray-600 dark:text-gray-400">
+                        <div className="flex items-center text-gray-700 dark:text-gray-300">
                           <Phone className="w-4 h-4 mr-2" />
                           <span>{player.phone}</span>
                         </div>
                       )}
                       {player.date_of_birth && (
-                        <div className="flex items-center text-gray-600 dark:text-gray-400">
+                        <div className="flex items-center text-gray-700 dark:text-gray-300">
                           <Calendar className="w-4 h-4 mr-2" />
                           <span>{new Date(player.date_of_birth).toLocaleDateString()}</span>
                         </div>
@@ -782,7 +782,7 @@ export default function PlayerManagementInterface() {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => openViewModal(player)}
-                        className="px-2 py-2 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-lg text-sm font-medium hover:shadow-lg transition-shadow"
+                        className="px-2 py-2 bg-gradient-to-r from-gray-600 to-gray-800 text-white rounded-lg text-sm font-medium hover:shadow-lg transition-shadow"
                       >
                         View
                       </motion.button>
@@ -913,7 +913,7 @@ export default function PlayerManagementInterface() {
           <DialogContent className="glass-card glass-card-hover max-w-3xl max-h-[90vh] overflow-y-auto animate-scale">
             <DialogHeader className="text-center pb-6">
               <div className="flex justify-center mb-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-green-600 to-green-700 rounded-xl flex items-center justify-center shadow-lg glow-border floating-element">
+                <div className="w-12 h-12 bg-gradient-to-r from-gray-700 to-gray-900 rounded-xl flex items-center justify-center shadow-lg glow-border floating-element">
                   <UserPlus className="w-6 h-6 text-white" />
                 </div>
               </div>
@@ -927,7 +927,7 @@ export default function PlayerManagementInterface() {
               {/* Personal Information Section */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
-                  <Users className="w-5 h-5 text-green-600" />
+                  <Users className="w-5 h-5 text-gray-600" />
                   Personal Information
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -940,7 +940,7 @@ export default function PlayerManagementInterface() {
                       className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
                         formErrors.first_name
                           ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
-                          : 'border-border focus:border-green-500 focus:ring-2 focus:ring-green-500/20'
+                          : 'border-border focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20'
                       }`}
                     />
                     {formErrors.first_name && (
@@ -960,7 +960,7 @@ export default function PlayerManagementInterface() {
                       className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
                         formErrors.last_name
                           ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
-                          : 'border-border focus:border-green-500 focus:ring-2 focus:ring-green-500/20'
+                          : 'border-border focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20'
                       }`}
                     />
                     {formErrors.last_name && (
@@ -981,7 +981,7 @@ export default function PlayerManagementInterface() {
                       className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
                         formErrors.email
                           ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
-                          : 'border-border focus:border-green-500 focus:ring-2 focus:ring-green-500/20'
+                          : 'border-border focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20'
                       }`}
                     />
                     {formErrors.email && (
@@ -1001,7 +1001,7 @@ export default function PlayerManagementInterface() {
                       className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
                         formErrors.phone
                           ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
-                          : 'border-border focus:border-green-500 focus:ring-2 focus:ring-green-500/20'
+                          : 'border-border focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20'
                       }`}
                     />
                     {formErrors.phone && (
@@ -1021,7 +1021,7 @@ export default function PlayerManagementInterface() {
                       className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground transition-all duration-200 ${
                         formErrors.date_of_birth
                           ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
-                          : 'border-border focus:border-green-500 focus:ring-2 focus:ring-green-500/20'
+                          : 'border-border focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20'
                       }`}
                     />
                     {formErrors.date_of_birth && (
@@ -1041,7 +1041,7 @@ export default function PlayerManagementInterface() {
                       className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
                         formErrors.organization
                           ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
-                          : 'border-border focus:border-green-500 focus:ring-2 focus:ring-green-500/20'
+                          : 'border-border focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20'
                       }`}
                     />
                     {formErrors.organization && (
@@ -1059,7 +1059,7 @@ export default function PlayerManagementInterface() {
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                     placeholder="123 Main St, City, State, ZIP"
-                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
+                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20 transition-all duration-200"
                   />
                 </div>
               </div>
@@ -1067,7 +1067,7 @@ export default function PlayerManagementInterface() {
               {/* Emergency Contact Section */}
               <div className="space-y-4 pt-6 border-t border-border">
                 <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
-                  <Phone className="w-5 h-5 text-green-600" />
+                  <Phone className="w-5 h-5 text-gray-600" />
                   Emergency Contact
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1077,7 +1077,7 @@ export default function PlayerManagementInterface() {
                       value={formData.emergency_contact_name}
                       onChange={(e) => setFormData({ ...formData, emergency_contact_name: e.target.value })}
                       placeholder="Emergency contact name"
-                      className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
+                      className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20 transition-all duration-200"
                     />
                   </div>
                   <div className="space-y-2">
@@ -1089,7 +1089,7 @@ export default function PlayerManagementInterface() {
                       className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
                         formErrors.emergency_contact_phone
                           ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
-                          : 'border-border focus:border-green-500 focus:ring-2 focus:ring-green-500/20'
+                          : 'border-border focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20'
                       }`}
                     />
                     {formErrors.emergency_contact_phone && (
@@ -1105,7 +1105,7 @@ export default function PlayerManagementInterface() {
                       value={formData.emergency_contact_relation}
                       onChange={(e) => setFormData({ ...formData, emergency_contact_relation: e.target.value })}
                       placeholder="Parent, Guardian, etc."
-                      className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200"
+                      className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20 transition-all duration-200"
                     />
                   </div>
                 </div>
@@ -1114,7 +1114,7 @@ export default function PlayerManagementInterface() {
               {/* Medical Information Section */}
               <div className="space-y-4 pt-6 border-t border-border">
                 <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
-                  <AlertTriangle className="w-5 h-5 text-green-600" />
+                  <AlertTriangle className="w-5 h-5 text-gray-600" />
                   Medical Information
                 </h3>
                 <div className="space-y-2">
@@ -1124,7 +1124,7 @@ export default function PlayerManagementInterface() {
                     onChange={(e) => setFormData({ ...formData, medical_alerts: e.target.value })}
                     rows={3}
                     placeholder="Enter any medical conditions, allergies, or important notes..."
-                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all duration-200 resize-none"
+                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20 transition-all duration-200 resize-none"
                   />
                 </div>
               </div>
@@ -1156,7 +1156,7 @@ export default function PlayerManagementInterface() {
           <DialogContent className="glass-card glass-card-hover max-w-2xl">
             <DialogHeader className="text-center pb-6">
               <div className="flex justify-center mb-4">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center shadow-lg glow-border">
+                <div className="w-16 h-16 bg-gradient-to-r from-gray-700 to-gray-900 rounded-full flex items-center justify-center shadow-lg glow-border">
                   <span className="text-white font-bold text-xl">
                     {selectedPlayer?.first_name.charAt(0)}{selectedPlayer?.last_name.charAt(0)}
                   </span>
@@ -1174,7 +1174,7 @@ export default function PlayerManagementInterface() {
               {/* Personal Information */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
-                  <Users className="w-5 h-5 text-blue-600" />
+                  <Users className="w-5 h-5 text-gray-600" />
                   Personal Information
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1186,7 +1186,7 @@ export default function PlayerManagementInterface() {
                     <div className="space-y-1">
                       <label className="text-sm font-medium text-muted-foreground">Email</label>
                       <p className="text-foreground flex items-center gap-2">
-                        <Mail className="w-4 h-4 text-blue-600" />
+                        <Mail className="w-4 h-4 text-gray-600" />
                         {selectedPlayer.email}
                       </p>
                     </div>
@@ -1195,7 +1195,7 @@ export default function PlayerManagementInterface() {
                     <div className="space-y-1">
                       <label className="text-sm font-medium text-muted-foreground">Phone</label>
                       <p className="text-foreground flex items-center gap-2">
-                        <Phone className="w-4 h-4 text-blue-600" />
+                        <Phone className="w-4 h-4 text-gray-600" />
                         {selectedPlayer.phone}
                       </p>
                     </div>
@@ -1204,7 +1204,7 @@ export default function PlayerManagementInterface() {
                     <div className="space-y-1">
                       <label className="text-sm font-medium text-muted-foreground">Date of Birth</label>
                       <p className="text-foreground flex items-center gap-2">
-                        <Calendar className="w-4 h-4 text-blue-600" />
+                        <Calendar className="w-4 h-4 text-gray-600" />
                         {new Date(selectedPlayer.date_of_birth).toLocaleDateString()}
                         <span className="text-sm text-muted-foreground">
                           (Age: {Math.floor((Date.now() - new Date(selectedPlayer.date_of_birth).getTime()) / (365.25 * 24 * 60 * 60 * 1000))})
@@ -1225,7 +1225,7 @@ export default function PlayerManagementInterface() {
               {(selectedPlayer?.emergency_contact_name || selectedPlayer?.emergency_contact_phone) && (
                 <div className="space-y-4 pt-6 border-t border-border">
                   <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
-                    <Phone className="w-5 h-5 text-blue-600" />
+                    <Phone className="w-5 h-5 text-gray-600" />
                     Emergency Contact
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1267,7 +1267,7 @@ export default function PlayerManagementInterface() {
               {/* Account Information */}
               <div className="space-y-4 pt-6 border-t border-border">
                 <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
-                  <Calendar className="w-5 h-5 text-blue-600" />
+                  <Calendar className="w-5 h-5 text-gray-600" />
                   Account Information
                 </h3>
                 <div className="space-y-1">
@@ -1296,7 +1296,7 @@ export default function PlayerManagementInterface() {
                     openEditForm(selectedPlayer)
                   }
                 }}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl"
+                className="bg-gradient-to-r from-gray-700 to-gray-900 hover:from-gray-800 hover:to-black text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl"
               >
                 Edit Player
               </motion.button>
@@ -1309,7 +1309,7 @@ export default function PlayerManagementInterface() {
           <DialogContent className="glass-card glass-card-hover max-w-3xl max-h-[90vh] overflow-y-auto animate-scale">
             <DialogHeader className="text-center pb-6">
               <div className="flex justify-center mb-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg glow-border floating-element">
+                <div className="w-12 h-12 bg-gradient-to-r from-gray-700 to-gray-900 rounded-xl flex items-center justify-center shadow-lg glow-border floating-element">
                   <Edit className="w-6 h-6 text-white" />
                 </div>
               </div>
@@ -1323,7 +1323,7 @@ export default function PlayerManagementInterface() {
               {/* Personal Information Section */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
-                  <Users className="w-5 h-5 text-blue-600" />
+                  <Users className="w-5 h-5 text-gray-600" />
                   Personal Information
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1336,7 +1336,7 @@ export default function PlayerManagementInterface() {
                       className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
                         formErrors.first_name
                           ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
-                          : 'border-border focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                          : 'border-border focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20'
                       }`}
                     />
                     {formErrors.first_name && (
@@ -1356,7 +1356,7 @@ export default function PlayerManagementInterface() {
                       className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
                         formErrors.last_name
                           ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
-                          : 'border-border focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                          : 'border-border focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20'
                       }`}
                     />
                     {formErrors.last_name && (
@@ -1377,7 +1377,7 @@ export default function PlayerManagementInterface() {
                       className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
                         formErrors.email
                           ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
-                          : 'border-border focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                          : 'border-border focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20'
                       }`}
                     />
                     {formErrors.email && (
@@ -1397,7 +1397,7 @@ export default function PlayerManagementInterface() {
                       className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
                         formErrors.phone
                           ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
-                          : 'border-border focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                          : 'border-border focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20'
                       }`}
                     />
                     {formErrors.phone && (
@@ -1417,7 +1417,7 @@ export default function PlayerManagementInterface() {
                       className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground transition-all duration-200 ${
                         formErrors.date_of_birth
                           ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
-                          : 'border-border focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                          : 'border-border focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20'
                       }`}
                     />
                     {formErrors.date_of_birth && (
@@ -1437,7 +1437,7 @@ export default function PlayerManagementInterface() {
                       className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
                         formErrors.organization
                           ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
-                          : 'border-border focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                          : 'border-border focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20'
                       }`}
                     />
                     {formErrors.organization && (
@@ -1455,7 +1455,7 @@ export default function PlayerManagementInterface() {
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                     placeholder="123 Main St, City, State, ZIP"
-                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
+                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20 transition-all duration-200"
                   />
                 </div>
               </div>
@@ -1463,7 +1463,7 @@ export default function PlayerManagementInterface() {
               {/* Emergency Contact Section */}
               <div className="space-y-4 pt-6 border-t border-border">
                 <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
-                  <Phone className="w-5 h-5 text-blue-600" />
+                  <Phone className="w-5 h-5 text-gray-600" />
                   Emergency Contact
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1473,7 +1473,7 @@ export default function PlayerManagementInterface() {
                       value={formData.emergency_contact_name}
                       onChange={(e) => setFormData({ ...formData, emergency_contact_name: e.target.value })}
                       placeholder="Emergency contact name"
-                      className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
+                      className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20 transition-all duration-200"
                     />
                   </div>
                   <div className="space-y-2">
@@ -1485,7 +1485,7 @@ export default function PlayerManagementInterface() {
                       className={`w-full px-4 py-3 rounded-lg border-2 bg-background text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
                         formErrors.emergency_contact_phone
                           ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
-                          : 'border-border focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                          : 'border-border focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20'
                       }`}
                     />
                     {formErrors.emergency_contact_phone && (
@@ -1501,7 +1501,7 @@ export default function PlayerManagementInterface() {
                       value={formData.emergency_contact_relation}
                       onChange={(e) => setFormData({ ...formData, emergency_contact_relation: e.target.value })}
                       placeholder="Parent, Guardian, etc."
-                      className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
+                      className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20 transition-all duration-200"
                     />
                   </div>
                 </div>
@@ -1510,7 +1510,7 @@ export default function PlayerManagementInterface() {
               {/* Medical Information Section */}
               <div className="space-y-4 pt-6 border-t border-border">
                 <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
-                  <AlertTriangle className="w-5 h-5 text-blue-600" />
+                  <AlertTriangle className="w-5 h-5 text-gray-600" />
                   Medical Information
                 </h3>
                 <div className="space-y-2">
@@ -1520,7 +1520,7 @@ export default function PlayerManagementInterface() {
                     onChange={(e) => setFormData({ ...formData, medical_alerts: e.target.value })}
                     rows={3}
                     placeholder="Enter any medical conditions, allergies, or important notes..."
-                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200 resize-none"
+                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-gray-500 focus:ring-2 focus:ring-gray-500/20 transition-all duration-200 resize-none"
                   />
                 </div>
               </div>
@@ -1539,7 +1539,7 @@ export default function PlayerManagementInterface() {
                 whileTap={{ scale: 0.98 }}
                 onClick={handleEditPlayer}
                 disabled={formLoading}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+                className="bg-gradient-to-r from-gray-700 to-gray-900 hover:from-gray-800 hover:to-black text-white font-semibold px-8 py-3 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
               >
                 <span>{formLoading ? 'Updating Player...' : 'Update Player'}</span>
               </motion.button>

@@ -1059,6 +1059,228 @@ app.delete('/api/rosters/:roster_entry_id', authenticateUser, async (req, res) =
     }
 });
 
+// Attendance Tracking Endpoints
+// POST /api/attendance - Create attendance record
+app.post('/api/attendance', authenticateUser, async (req, res) => {
+    const { player_id, team_id, event_date, status, notes } = req.body;
+
+    if (!player_id || !team_id || !event_date || !status) {
+        return res.status(400).json({ error: 'player_id, team_id, event_date, and status are required' });
+    }
+
+    // Validate status values
+    const validStatuses = ['Present', 'Absent', 'Excused'];
+    if (!validStatuses.includes(status)) {
+        return res.status(400).json({ error: 'status must be one of: Present, Absent, Excused' });
+    }
+
+    try {
+        // Validate player and team exist
+        const { data: player, error: playerError } = await supabase
+            .from('players')
+            .select('id')
+            .eq('id', player_id)
+            .single();
+
+        if (playerError) {
+            return res.status(400).json({ error: 'Invalid player_id' });
+        }
+
+        const { data: team, error: teamError } = await supabase
+            .from('teams')
+            .select('id')
+            .eq('id', team_id)
+            .single();
+
+        if (teamError) {
+            return res.status(400).json({ error: 'Invalid team_id' });
+        }
+
+        // Check if player is on team roster for the event date
+        const { data: rosterCheck, error: rosterError } = await supabase
+            .from('roster_entries')
+            .select('id, start_date, end_date')
+            .eq('player_id', player_id)
+            .eq('team_id', team_id)
+            .lte('start_date', event_date)
+            .or('end_date.is.null,end_date.gte.' + event_date);
+
+        if (rosterError || !rosterCheck || rosterCheck.length === 0) {
+            return res.status(400).json({ error: 'Player is not on team roster for the specified date' });
+        }
+
+        const { data, error } = await supabase
+            .from('attendance_records')
+            .insert([{
+                player_id: parseInt(player_id),
+                team_id: parseInt(team_id),
+                event_date,
+                status,
+                notes: notes || null
+            }])
+            .select(`
+                *,
+                players (id, first_name, last_name, email),
+                teams (id, name, organization)
+            `)
+            .single();
+
+        if (error) {
+            console.error('Supabase error:', error);
+            if (error.code === '23505') { // Unique constraint violation
+                return res.status(409).json({ error: 'Attendance record already exists for this player, team, and date' });
+            }
+            return res.status(500).json({ error: 'Failed to create attendance record' });
+        }
+
+        res.status(201).json({
+            message: 'Attendance record created successfully',
+            attendance_record: data
+        });
+    } catch (error) {
+        console.error('Create attendance record error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/attendance - Get attendance records with filtering and pagination
+app.get('/api/attendance', authenticateUser, async (req, res) => {
+    const { team_id, player_id, event_date_start, event_date_end, page = 1, limit = 50 } = req.query;
+
+    try {
+        let query = supabase
+            .from('attendance_records')
+            .select(`
+                *,
+                players (id, first_name, last_name, email, phone),
+                teams (id, name, organization)
+            `, { count: 'exact' });
+
+        // Apply filters
+        if (team_id) {
+            query = query.eq('team_id', team_id);
+        }
+        if (player_id) {
+            query = query.eq('player_id', player_id);
+        }
+        if (event_date_start) {
+            query = query.gte('event_date', event_date_start);
+        }
+        if (event_date_end) {
+            query = query.lte('event_date', event_date_end);
+        }
+
+        // Apply pagination
+        const offset = (parseInt(page) - 1) * parseInt(limit);
+        query = query.range(offset, offset + parseInt(limit) - 1);
+
+        // Order by event date (most recent first)
+        query = query.order('event_date', { ascending: false });
+
+        const { data, error, count } = await query;
+
+        if (error) {
+            console.error('Supabase error:', error);
+            return res.status(500).json({ error: 'Failed to fetch attendance records' });
+        }
+
+        res.json({
+            attendance_records: data,
+            pagination: {
+                page: parseInt(page),
+                limit: parseInt(limit),
+                total: count,
+                pages: Math.ceil(count / parseInt(limit))
+            }
+        });
+    } catch (error) {
+        console.error('Get attendance records error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/attendance/{attendance_record_id} - Get specific attendance record
+app.get('/api/attendance/:attendance_record_id', authenticateUser, async (req, res) => {
+    const { attendance_record_id } = req.params;
+
+    try {
+        const { data, error } = await supabase
+            .from('attendance_records')
+            .select(`
+                *,
+                players (
+                    id, first_name, last_name, email, phone, date_of_birth,
+                    emergency_contact_name, emergency_contact_phone, emergency_contact_relation,
+                    medical_alerts, address, gender
+                ),
+                teams (id, name, organization, division, age_group, skill_level)
+            `)
+            .eq('id', attendance_record_id)
+            .single();
+
+        if (error) {
+            console.error('Supabase error:', error);
+            if (error.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Attendance record not found' });
+            }
+            return res.status(500).json({ error: 'Failed to fetch attendance record' });
+        }
+
+        res.json(data);
+    } catch (error) {
+        console.error('Get attendance record error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// PUT /api/attendance/{attendance_record_id} - Update attendance record
+app.put('/api/attendance/:attendance_record_id', authenticateUser, async (req, res) => {
+    const { attendance_record_id } = req.params;
+    const { status, notes } = req.body;
+
+    try {
+        // Validate status if provided
+        if (status) {
+            const validStatuses = ['Present', 'Absent', 'Excused'];
+            if (!validStatuses.includes(status)) {
+                return res.status(400).json({ error: 'status must be one of: Present, Absent, Excused' });
+            }
+        }
+
+        const updates = {};
+        if (status !== undefined) updates.status = status;
+        if (notes !== undefined) updates.notes = notes;
+        updates.updated_at = new Date().toISOString();
+
+        const { data, error } = await supabase
+            .from('attendance_records')
+            .update(updates)
+            .eq('id', attendance_record_id)
+            .select(`
+                *,
+                players (id, first_name, last_name, email),
+                teams (id, name, organization)
+            `)
+            .single();
+
+        if (error) {
+            console.error('Supabase error:', error);
+            if (error.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Attendance record not found' });
+            }
+            return res.status(500).json({ error: 'Failed to update attendance record' });
+        }
+
+        res.json({
+            message: 'Attendance record updated successfully',
+            attendance_record: data
+        });
+    } catch (error) {
+        console.error('Update attendance record error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // Division Management Endpoints
 // POST /api/structure/divisions - Create division
 app.post('/api/structure/divisions', async (req, res) => {
