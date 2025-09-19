@@ -527,249 +527,342 @@ export default function TeamListView() {
 
         {/* Create/Edit/Delete Dialogs remain similar but with updated styling */}
         <Dialog open={showCreateForm} onOpenChange={setShowCreateForm}>
-          <DialogContent className="glass-card border-gray-200/50 dark:border-gray-700/50">
-            <DialogHeader>
-              <DialogTitle className="gradient-text text-2xl">Create New Team</DialogTitle>
-              <DialogDescription className="text-gray-600 dark:text-gray-400">
-                Add a new team to your organization
-              </DialogDescription>
+          <DialogContent className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-2xl max-w-3xl max-h-[95vh] overflow-y-auto">
+            <DialogHeader className="border-b border-gray-100 dark:border-gray-800 pb-6 mb-8">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center">
+                  <Plus className="w-6 h-6 text-white" />
+                </div>
+                <div className="text-left">
+                  <DialogTitle className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
+                    Create New Team
+                  </DialogTitle>
+                  <DialogDescription className="text-gray-600 dark:text-gray-400">
+                    Add a new team to your organization
+                  </DialogDescription>
+                </div>
+              </div>
             </DialogHeader>
 
-            <div className="space-y-4">
+            <div className="space-y-8">
+              {/* Required Fields Section */}
               <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Team Name *</label>
-                <Input
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="Enter team name"
-                  className={`bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm ${formErrors.name ? 'border-red-500' : 'border-gray-200/50 dark:border-gray-700/50'}`}
-                />
-                {formErrors.name && (
-                  <p className="text-sm text-red-500 mt-1">{formErrors.name}</p>
-                )}
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                  Required Information
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Team Name *
+                    </label>
+                    <Input
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="Enter team name"
+                      className={`h-12 text-base border-2 transition-colors ${
+                        formErrors.name
+                          ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
+                          : 'border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-blue-500/20'
+                      }`}
+                    />
+                    {formErrors.name && (
+                      <p className="text-sm text-red-600 mt-2 flex items-center gap-1">
+                        <AlertTriangle className="w-4 h-4" />
+                        {formErrors.name}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Organization *
+                    </label>
+                    <Input
+                      value={formData.organization}
+                      onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
+                      placeholder="Enter organization"
+                      className={`h-12 text-base border-2 transition-colors ${
+                        formErrors.organization
+                          ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
+                          : 'border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-blue-500/20'
+                      }`}
+                    />
+                    {formErrors.organization && (
+                      <p className="text-sm text-red-600 mt-2 flex items-center gap-1">
+                        <AlertTriangle className="w-4 h-4" />
+                        {formErrors.organization}
+                      </p>
+                    )}
+                  </div>
+                </div>
               </div>
 
+              {/* Optional Fields Section */}
               <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Organization *</label>
-                <Input
-                  value={formData.organization}
-                  onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
-                  placeholder="Enter organization"
-                  className={`bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm ${formErrors.organization ? 'border-red-500' : 'border-gray-200/50 dark:border-gray-700/50'}`}
-                />
-                {formErrors.organization && (
-                  <p className="text-sm text-red-500 mt-1">{formErrors.organization}</p>
-                )}
-              </div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                  Additional Details
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Division
+                    </label>
+                    <Input
+                      value={formData.division}
+                      onChange={(e) => setFormData({ ...formData, division: e.target.value })}
+                      placeholder="e.g., Premier, Division 1"
+                      className="h-12 text-base border-2 border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-blue-500/20 transition-colors"
+                    />
+                  </div>
 
-              <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Division</label>
-                <Input
-                  value={formData.division}
-                  onChange={(e) => setFormData({ ...formData, division: e.target.value })}
-                  placeholder="e.g., Premier, Division 1"
-                  className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50"
-                />
-              </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Age Group
+                    </label>
+                    <Input
+                      value={formData.age_group}
+                      onChange={(e) => setFormData({ ...formData, age_group: e.target.value })}
+                      placeholder="e.g., Under 16, Adult"
+                      className="h-12 text-base border-2 border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-blue-500/20 transition-colors"
+                    />
+                  </div>
 
-              <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Age Group</label>
-                <Input
-                  value={formData.age_group}
-                  onChange={(e) => setFormData({ ...formData, age_group: e.target.value })}
-                  placeholder="e.g., Under 16, Adult"
-                  className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50"
-                />
-              </div>
-
-              <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Skill Level</label>
-                <Input
-                  value={formData.skill_level}
-                  onChange={(e) => setFormData({ ...formData, skill_level: e.target.value })}
-                  placeholder="e.g., Beginner, Intermediate, Advanced"
-                  className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50"
-                />
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Skill Level
+                    </label>
+                    <Input
+                      value={formData.skill_level}
+                      onChange={(e) => setFormData({ ...formData, skill_level: e.target.value })}
+                      placeholder="e.g., Beginner, Intermediate"
+                      className="h-12 text-base border-2 border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-blue-500/20 transition-colors"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
 
-            <DialogFooter>
-              <Button variant="outline" onClick={() => setShowCreateForm(false)}>
+            <DialogFooter className="border-t border-gray-100 dark:border-gray-800 pt-6 mt-8 flex gap-3">
+              <Button
+                variant="outline"
+                onClick={() => setShowCreateForm(false)}
+                className="px-6 py-3 h-12 text-base font-medium border-2 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800"
+              >
                 Cancel
               </Button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <Button
                 onClick={handleCreateTeam}
                 disabled={formLoading}
-                className="button-primary"
+                className="px-6 py-3 h-12 text-base font-medium bg-green-600 hover:bg-green-700 text-white disabled:opacity-50"
               >
-                <span>{formLoading ? 'Creating...' : 'Create Team'}</span>
-              </motion.button>
+                {formLoading ? (
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Creating...
+                  </div>
+                ) : (
+                  'Create Team'
+                )}
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
 
-        {/* Edit Dialog - Enhanced with better styling */}
+        {/* Edit Dialog - Clean Professional Design */}
         <Dialog open={showEditForm} onOpenChange={setShowEditForm}>
-          <DialogContent className="glass-card glass-card-hover max-w-2xl max-h-[90vh] overflow-y-auto">
-            <DialogHeader className="text-center pb-8">
-              <div className="flex justify-center mb-6">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-xl glow-border floating-element">
-                  <Edit className="w-8 h-8 text-white" />
+          <DialogContent className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-2xl max-w-3xl max-h-[95vh] overflow-y-auto">
+            <DialogHeader className="border-b border-gray-100 dark:border-gray-800 pb-6 mb-8">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
+                  <Edit className="w-6 h-6 text-white" />
+                </div>
+                <div className="text-left">
+                  <DialogTitle className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
+                    Edit Team
+                  </DialogTitle>
+                  <DialogDescription className="text-gray-600 dark:text-gray-400">
+                    Update information for <span className="font-semibold text-gray-900 dark:text-white">{selectedTeam?.name}</span>
+                  </DialogDescription>
                 </div>
               </div>
-              <DialogTitle className="gradient-text text-4xl font-bold mb-2">Edit Team</DialogTitle>
-              <DialogDescription className="text-lg text-muted-foreground">
-                Update team information for <span className="font-semibold text-foreground">{selectedTeam?.name}</span>
-              </DialogDescription>
             </DialogHeader>
 
             <div className="space-y-8">
-              {/* Team Information Card */}
-              <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-200/50 dark:border-gray-700/50">
-                <h3 className="text-xl font-bold text-foreground flex items-center gap-3 mb-6">
-                  <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
-                    <Shield className="w-5 h-5 text-white" />
-                  </div>
-                  Team Information
+              {/* Required Fields Section */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                  Required Information
                 </h3>
-
-                <div className="space-y-6">
-                  {/* Name and Organization - Required Fields */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="block text-sm font-semibold text-foreground uppercase tracking-wide">
-                        Team Name <span className="text-red-500">*</span>
-                      </label>
-                      <Input
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="Enter team name"
-                        className={`w-full px-4 py-3 text-lg rounded-lg border-2 bg-white dark:bg-gray-800 text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
-                          formErrors.name
-                            ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
-                            : 'border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
-                        }`}
-                      />
-                      {formErrors.name && (
-                        <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
-                          <AlertTriangle className="w-4 h-4" />
-                          {formErrors.name}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="space-y-2">
-                      <label className="block text-sm font-semibold text-foreground uppercase tracking-wide">
-                        Organization <span className="text-red-500">*</span>
-                      </label>
-                      <Input
-                        value={formData.organization}
-                        onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
-                        placeholder="Enter organization"
-                        className={`w-full px-4 py-3 text-lg rounded-lg border-2 bg-white dark:bg-gray-800 text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
-                          formErrors.organization
-                            ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
-                            : 'border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
-                        }`}
-                      />
-                      {formErrors.organization && (
-                        <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
-                          <AlertTriangle className="w-4 h-4" />
-                          {formErrors.organization}
-                        </p>
-                      )}
-                    </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Team Name *
+                    </label>
+                    <Input
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="Enter team name"
+                      className={`h-12 text-base border-2 transition-colors ${
+                        formErrors.name
+                          ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
+                          : 'border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-blue-500/20'
+                      }`}
+                    />
+                    {formErrors.name && (
+                      <p className="text-sm text-red-600 mt-2 flex items-center gap-1">
+                        <AlertTriangle className="w-4 h-4" />
+                        {formErrors.name}
+                      </p>
+                    )}
                   </div>
 
-                  {/* Optional Fields */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="space-y-2">
-                      <label className="block text-sm font-semibold text-foreground uppercase tracking-wide">Division</label>
-                      <Input
-                        value={formData.division}
-                        onChange={(e) => setFormData({ ...formData, division: e.target.value })}
-                        placeholder="e.g., Premier, Division 1"
-                        className="w-full px-4 py-3 text-lg rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-foreground placeholder:text-muted-foreground focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
-                      />
-                    </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Organization *
+                    </label>
+                    <Input
+                      value={formData.organization}
+                      onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
+                      placeholder="Enter organization"
+                      className={`h-12 text-base border-2 transition-colors ${
+                        formErrors.organization
+                          ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20'
+                          : 'border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-blue-500/20'
+                      }`}
+                    />
+                    {formErrors.organization && (
+                      <p className="text-sm text-red-600 mt-2 flex items-center gap-1">
+                        <AlertTriangle className="w-4 h-4" />
+                        {formErrors.organization}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
 
-                    <div className="space-y-2">
-                      <label className="block text-sm font-semibold text-foreground uppercase tracking-wide">Age Group</label>
-                      <Input
-                        value={formData.age_group}
-                        onChange={(e) => setFormData({ ...formData, age_group: e.target.value })}
-                        placeholder="e.g., Under 16, Adult"
-                        className="w-full px-4 py-3 text-lg rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-foreground placeholder:text-muted-foreground focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
-                      />
-                    </div>
+              {/* Optional Fields Section */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                  Additional Details
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Division
+                    </label>
+                    <Input
+                      value={formData.division}
+                      onChange={(e) => setFormData({ ...formData, division: e.target.value })}
+                      placeholder="e.g., Premier, Division 1"
+                      className="h-12 text-base border-2 border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-blue-500/20 transition-colors"
+                    />
+                  </div>
 
-                    <div className="space-y-2">
-                      <label className="block text-sm font-semibold text-foreground uppercase tracking-wide">Skill Level</label>
-                      <Input
-                        value={formData.skill_level}
-                        onChange={(e) => setFormData({ ...formData, skill_level: e.target.value })}
-                        placeholder="e.g., Beginner, Intermediate, Advanced"
-                        className="w-full px-4 py-3 text-lg rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-foreground placeholder:text-muted-foreground focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
-                      />
-                    </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Age Group
+                    </label>
+                    <Input
+                      value={formData.age_group}
+                      onChange={(e) => setFormData({ ...formData, age_group: e.target.value })}
+                      placeholder="e.g., Under 16, Adult"
+                      className="h-12 text-base border-2 border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-blue-500/20 transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Skill Level
+                    </label>
+                    <Input
+                      value={formData.skill_level}
+                      onChange={(e) => setFormData({ ...formData, skill_level: e.target.value })}
+                      placeholder="e.g., Beginner, Intermediate"
+                      className="h-12 text-base border-2 border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-blue-500/20 transition-colors"
+                    />
                   </div>
                 </div>
               </div>
             </div>
 
-            <DialogFooter className="mt-8 pt-6 border-t border-border gap-4">
+            <DialogFooter className="border-t border-gray-100 dark:border-gray-800 pt-6 mt-8 flex gap-3">
               <Button
                 variant="outline"
                 onClick={() => setShowEditForm(false)}
-                className="px-8 py-3 text-base font-medium border-2 border-gray-300 hover:bg-gray-100 transition-all duration-200"
+                className="px-6 py-3 h-12 text-base font-medium border-2 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800"
               >
                 Cancel
               </Button>
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+              <Button
                 onClick={handleEditTeam}
                 disabled={formLoading}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl text-base flex items-center gap-2"
+                className="px-6 py-3 h-12 text-base font-medium bg-blue-600 hover:bg-blue-700 text-white disabled:opacity-50"
               >
-                {formLoading && (
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                    className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
-                  />
+                {formLoading ? (
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Updating...
+                  </div>
+                ) : (
+                  'Update Team'
                 )}
-                <span>{formLoading ? 'Updating Team...' : 'Update Team'}</span>
-              </motion.button>
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
 
         {/* Delete Confirmation Dialog */}
         <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
-          <DialogContent className="glass-card border-gray-200/50 dark:border-gray-700/50">
-            <DialogHeader>
-              <DialogTitle className="text-2xl text-red-600">Delete Team</DialogTitle>
-              <DialogDescription className="text-gray-600 dark:text-gray-400">
-                Are you sure you want to delete "{selectedTeam?.name}"? This action cannot be undone.
-              </DialogDescription>
+          <DialogContent className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-2xl max-w-md">
+            <DialogHeader className="border-b border-gray-100 dark:border-gray-800 pb-6 mb-6">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center">
+                  <Trash2 className="w-6 h-6 text-white" />
+                </div>
+                <div className="text-left">
+                  <DialogTitle className="text-xl font-bold text-gray-900 dark:text-white mb-1">
+                    Delete Team
+                  </DialogTitle>
+                  <DialogDescription className="text-gray-600 dark:text-gray-400">
+                    This action cannot be undone
+                  </DialogDescription>
+                </div>
+              </div>
             </DialogHeader>
 
-            <DialogFooter>
-              <Button variant="outline" onClick={() => setShowDeleteDialog(false)}>
+            <div className="py-4">
+              <p className="text-gray-700 dark:text-gray-300 text-base">
+                Are you sure you want to delete{' '}
+                <span className="font-semibold text-gray-900 dark:text-white">"{selectedTeam?.name}"</span>?
+              </p>
+            </div>
+
+            <DialogFooter className="border-t border-gray-100 dark:border-gray-800 pt-6 mt-6 flex gap-3">
+              <Button
+                variant="outline"
+                onClick={() => setShowDeleteDialog(false)}
+                className="px-6 py-3 h-12 text-base font-medium border-2 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800"
+              >
                 Cancel
               </Button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <Button
                 onClick={handleDeleteTeam}
                 disabled={formLoading}
-                className="px-6 py-2 bg-gradient-to-r from-red-600 to-red-800 text-white rounded-lg hover:shadow-lg transition-shadow"
+                className="px-6 py-3 h-12 text-base font-medium bg-red-600 hover:bg-red-700 text-white disabled:opacity-50"
               >
-                {formLoading ? 'Deleting...' : 'Delete Team'}
-              </motion.button>
+                {formLoading ? (
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Deleting...
+                  </div>
+                ) : (
+                  'Delete Team'
+                )}
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>

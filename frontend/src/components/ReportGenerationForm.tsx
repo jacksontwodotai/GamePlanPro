@@ -5,6 +5,7 @@ import {
   CheckCircle, Loader2, ChevronDown, X, Search
 } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
+import RosterReportDisplay from './RosterReportDisplay'
 
 interface Team {
   id: number
@@ -95,6 +96,8 @@ export default function ReportGenerationForm() {
   const [isGenerating, setIsGenerating] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
   const [apiError, setApiError] = useState('')
+  const [rosterData, setRosterData] = useState<any[]>([])
+  const [showRosterDisplay, setShowRosterDisplay] = useState(false)
 
   const teamsApi = useApi<{ teams: Team[] }>()
   const reportApi = useApi()
@@ -111,7 +114,11 @@ export default function ReportGenerationForm() {
         setFormState(prev => ({ ...prev, format: '' }))
       }
     }
-  }, [formState.reportType])
+
+    // Reset roster display when report type or format changes
+    setShowRosterDisplay(false)
+    setRosterData([])
+  }, [formState.reportType, formState.format])
 
   const fetchTeams = async () => {
     try {
@@ -215,7 +222,15 @@ export default function ReportGenerationForm() {
       if (formState.format === 'json') {
         // For JSON, handle response data
         const response = await reportApi.execute(url)
-        setSuccessMessage(`${config.label} generated successfully! Found ${response.metadata?.total_entries || response.metadata?.total_contacts || response.metadata?.total_teams || 'unknown'} records.`)
+
+        // Special handling for roster reports - show the display component
+        if (formState.reportType === 'roster') {
+          setRosterData(response.data || [])
+          setShowRosterDisplay(true)
+          setSuccessMessage(`${config.label} generated successfully! Found ${response.metadata?.total_entries || 'unknown'} records.`)
+        } else {
+          setSuccessMessage(`${config.label} generated successfully! Found ${response.metadata?.total_entries || response.metadata?.total_contacts || response.metadata?.total_teams || 'unknown'} records.`)
+        }
       } else {
         // For CSV/PDF, trigger download
         const authHeader = localStorage.getItem('authToken') ?
@@ -255,6 +270,60 @@ export default function ReportGenerationForm() {
       setIsGenerating(false)
     }
   }
+
+  const handleRosterExport = useCallback(async (format: 'csv' | 'pdf') => {
+    try {
+      const config = reportTypeConfig.roster
+      const params = new URLSearchParams()
+
+      // Add format
+      params.append('format', format)
+
+      // Add team filters if selected
+      formState.teamIds.forEach(teamId => {
+        params.append('team_id', teamId.toString())
+      })
+
+      // Add status filter
+      if (formState.status) {
+        params.append('status', formState.status)
+      }
+
+      const url = `${config.endpoint}?${params.toString()}`
+
+      // Trigger download
+      const authHeader = localStorage.getItem('authToken') ?
+        { 'Authorization': `Bearer ${localStorage.getItem('authToken')}` } : {}
+
+      const response = await fetch(url, {
+        headers: authHeader
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.error || `HTTP ${response.status}: ${response.statusText}`)
+      }
+
+      // Create download
+      const blob = await response.blob()
+      const downloadUrl = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = downloadUrl
+
+      const extension = format === 'pdf' ? 'pdf' : 'csv'
+      const filename = `roster_report.${extension}`
+      a.download = filename
+
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      window.URL.revokeObjectURL(downloadUrl)
+
+    } catch (error) {
+      console.error('Export error:', error)
+      throw error
+    }
+  }, [formState.teamIds, formState.status])
 
   const currentConfig = formState.reportType ? reportTypeConfig[formState.reportType] : null
 
@@ -528,6 +597,25 @@ export default function ReportGenerationForm() {
                 >
                   <AlertCircle className="w-5 h-5 text-red-500 mr-3" />
                   <span className="text-red-700 dark:text-red-300">{apiError}</span>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Roster Report Display */}
+            <AnimatePresence>
+              {showRosterDisplay && formState.reportType === 'roster' && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                >
+                  <RosterReportDisplay
+                    data={rosterData}
+                    loading={false}
+                    error={null}
+                    teamFilters={selectedTeams.map(team => team.name)}
+                    onExport={handleRosterExport}
+                  />
                 </motion.div>
               )}
             </AnimatePresence>
