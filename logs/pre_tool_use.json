@@ -2579,5 +2579,520 @@
       "command": "cd frontend && npx tsc --noEmit --project . 2>&1 | grep -E \"(PlayerManagementInterface|error TS)\" | head -10",
       "description": "Check for TypeScript errors in our changes"
     }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__get_work_order",
+    "tool_input": {
+      "work_order_number": "051"
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing form field option endpoints in server.js",
+          "status": "in_progress",
+          "activeForm": "Analyzing existing form field option endpoints in server.js"
+        },
+        {
+          "content": "Identify selection-based field types and validation patterns",
+          "status": "pending",
+          "activeForm": "Identifying selection-based field types and validation patterns"
+        },
+        {
+          "content": "Check current FormFieldOption operations",
+          "status": "pending",
+          "activeForm": "Checking current FormFieldOption operations"
+        },
+        {
+          "content": "Implement missing CRUD endpoints for form field options",
+          "status": "pending",
+          "activeForm": "Implementing missing CRUD endpoints for form field options"
+        },
+        {
+          "content": "Test and validate implementation",
+          "status": "pending",
+          "activeForm": "Testing and validating implementation"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "\\/api\\/form-builder.*option",
+      "path": "server.js",
+      "output_mode": "content",
+      "-C": 3,
+      "-n": true
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "form_field_options",
+      "path": "server.js",
+      "output_mode": "content",
+      "-C": 3,
+      "-n": true
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "select|radio|checkbox|dropdown|multi-select",
+      "path": "server.js",
+      "output_mode": "content",
+      "-C": 2,
+      "-n": true,
+      "head_limit": 10
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "offset": 1,
+      "limit": 100
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "form.*field.*option",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "output_mode": "content",
+      "-i": true
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "form_field_options",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "output_mode": "content",
+      "-B": 3,
+      "-A": 3
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "/api.*option",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "output_mode": "content",
+      "-B": 2,
+      "-A": 10
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "app\\.(get|post|put|delete).*option",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "output_mode": "content",
+      "-B": 2,
+      "-A": 15
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "supportedFieldTypes|field.*type",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "output_mode": "content",
+      "-B": 3,
+      "-A": 10
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing form field option endpoints in server.js",
+          "status": "completed",
+          "activeForm": "Analyzing existing form field option endpoints in server.js"
+        },
+        {
+          "content": "Identify selection-based field types and validation patterns",
+          "status": "in_progress",
+          "activeForm": "Identifying selection-based field types and validation patterns"
+        },
+        {
+          "content": "Check current FormFieldOption operations",
+          "status": "pending",
+          "activeForm": "Checking current FormFieldOption operations"
+        },
+        {
+          "content": "Implement missing CRUD endpoints for form field options",
+          "status": "pending",
+          "activeForm": "Implementing missing CRUD endpoints for form field options"
+        },
+        {
+          "content": "Test and validate implementation",
+          "status": "pending",
+          "activeForm": "Testing and validating implementation"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing form field option endpoints in server.js",
+          "status": "completed",
+          "activeForm": "Analyzing existing form field option endpoints in server.js"
+        },
+        {
+          "content": "Identify selection-based field types and validation patterns",
+          "status": "completed",
+          "activeForm": "Identifying selection-based field types and validation patterns"
+        },
+        {
+          "content": "Check current FormFieldOption operations",
+          "status": "in_progress",
+          "activeForm": "Checking current FormFieldOption operations"
+        },
+        {
+          "content": "Implement missing CRUD endpoints for form field options",
+          "status": "pending",
+          "activeForm": "Implementing missing CRUD endpoints for form field options"
+        },
+        {
+          "content": "Test and validate implementation",
+          "status": "pending",
+          "activeForm": "Testing and validating implementation"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "form_field_options.*insert|form_field_options.*update|form_field_options.*delete",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "output_mode": "content",
+      "-B": 5,
+      "-A": 5
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "field_options",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "output_mode": "content",
+      "-B": 5,
+      "-A": 5
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing form field option endpoints in server.js",
+          "status": "completed",
+          "activeForm": "Analyzing existing form field option endpoints in server.js"
+        },
+        {
+          "content": "Identify selection-based field types and validation patterns",
+          "status": "completed",
+          "activeForm": "Identifying selection-based field types and validation patterns"
+        },
+        {
+          "content": "Check current FormFieldOption operations",
+          "status": "completed",
+          "activeForm": "Checking current FormFieldOption operations"
+        },
+        {
+          "content": "Implement missing CRUD endpoints for form field options",
+          "status": "in_progress",
+          "activeForm": "Implementing missing CRUD endpoints for form field options"
+        },
+        {
+          "content": "Test and validate implementation",
+          "status": "pending",
+          "activeForm": "Testing and validating implementation"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "// Form Field Management Endpoints",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "output_mode": "content",
+      "-A": 50
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "DELETE.*form-builder.*fields",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "output_mode": "content",
+      "-A": 30
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "app\\.(get|post|put|delete)",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "output_mode": "content",
+      "head_limit": 100
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "app\\.delete.*form-builder.*fields",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "output_mode": "content",
+      "-A": 50
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "offset": 3850
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "old_string": "    }\n});\n\n// Start server\napp.listen(PORT, () => {\n    console.log(`GamePlanPro server running on http://localhost:${PORT}`);\n});",
+      "new_string": "    }\n});\n\n// Form Field Option Management Endpoints\n// Selection-based field types that support options\nconst SELECTION_FIELD_TYPES = ['select', 'checkbox', 'radio'];\n\n// POST /api/form-builder/fields/{field_id}/options - Create new option for a field\napp.post('/api/form-builder/fields/:field_id/options', authenticateUser, async (req, res) => {\n    const { field_id } = req.params;\n    const { option_label, option_value, sort_order = 0 } = req.body;\n\n    // Validate required fields\n    if (!option_label || !option_value) {\n        return res.status(400).json({\n            error: 'option_label and option_value are required'\n        });\n    }\n\n    // Validate option_label and option_value are strings\n    if (typeof option_label !== 'string' || typeof option_value !== 'string') {\n        return res.status(400).json({\n            error: 'option_label and option_value must be strings'\n        });\n    }\n\n    // Validate sort_order is a number\n    if (typeof sort_order !== 'number') {\n        return res.status(400).json({\n            error: 'sort_order must be a number'\n        });\n    }\n\n    try {\n        // Check if field exists and supports options\n        const { data: field, error: fieldError } = await supabase\n            .from('form_fields')\n            .select('id, field_type, field_label')\n            .eq('id', field_id)\n            .single();\n\n        if (fieldError || !field) {\n            return res.status(404).json({ error: 'Field not found' });\n        }\n\n        // Validate field type supports options\n        if (!SELECTION_FIELD_TYPES.includes(field.field_type)) {\n            return res.status(400).json({\n                error: `Field type '${field.field_type}' does not support options. Supported types: ${SELECTION_FIELD_TYPES.join(', ')}`\n            });\n        }\n\n        // Check if option_value already exists for this field\n        const { data: existingOption, error: checkError } = await supabase\n            .from('form_field_options')\n            .select('id')\n            .eq('field_id', field_id)\n            .eq('option_value', option_value)\n            .single();\n\n        if (existingOption) {\n            return res.status(409).json({\n                error: 'An option with this value already exists for this field'\n            });\n        }\n\n        // Create the option\n        const { data: newOption, error } = await supabase\n            .from('form_field_options')\n            .insert([{\n                field_id,\n                option_label,\n                option_value,\n                sort_order\n            }])\n            .select()\n            .single();\n\n        if (error) {\n            console.error('Option creation error:', error);\n            return res.status(500).json({ error: 'Failed to create option' });\n        }\n\n        res.status(201).json({\n            message: 'Form field option created successfully',\n            option: newOption\n        });\n    } catch (error) {\n        console.error('Create option error:', error);\n        res.status(500).json({ error: 'Internal server error' });\n    }\n});\n\n// GET /api/form-builder/fields/{field_id}/options - Get all options for a field\napp.get('/api/form-builder/fields/:field_id/options', authenticateUser, async (req, res) => {\n    const { field_id } = req.params;\n\n    try {\n        // Check if field exists\n        const { data: field, error: fieldError } = await supabase\n            .from('form_fields')\n            .select('id, field_type, field_label')\n            .eq('id', field_id)\n            .single();\n\n        if (fieldError || !field) {\n            return res.status(404).json({ error: 'Field not found' });\n        }\n\n        // Get all options for the field, ordered by sort_order\n        const { data: options, error } = await supabase\n            .from('form_field_options')\n            .select('*')\n            .eq('field_id', field_id)\n            .order('sort_order', { ascending: true });\n\n        if (error) {\n            console.error('Get options error:', error);\n            return res.status(500).json({ error: 'Failed to retrieve options' });\n        }\n\n        res.status(200).json({\n            field: {\n                id: field.id,\n                field_type: field.field_type,\n                field_label: field.field_label\n            },\n            options: options || []\n        });\n    } catch (error) {\n        console.error('Get options error:', error);\n        res.status(500).json({ error: 'Internal server error' });\n    }\n});\n\n// PUT /api/form-builder/options/{option_id} - Update an option\napp.put('/api/form-builder/options/:option_id', authenticateUser, async (req, res) => {\n    const { option_id } = req.params;\n    const { option_label, option_value, sort_order } = req.body;\n\n    // Validate at least one field is provided\n    if (!option_label && !option_value && sort_order === undefined) {\n        return res.status(400).json({\n            error: 'At least one field (option_label, option_value, sort_order) must be provided'\n        });\n    }\n\n    // Validate field types if provided\n    if (option_label && typeof option_label !== 'string') {\n        return res.status(400).json({ error: 'option_label must be a string' });\n    }\n    if (option_value && typeof option_value !== 'string') {\n        return res.status(400).json({ error: 'option_value must be a string' });\n    }\n    if (sort_order !== undefined && typeof sort_order !== 'number') {\n        return res.status(400).json({ error: 'sort_order must be a number' });\n    }\n\n    try {\n        // Check if option exists\n        const { data: existingOption, error: checkError } = await supabase\n            .from('form_field_options')\n            .select('id, field_id, option_value')\n            .eq('id', option_id)\n            .single();\n\n        if (checkError || !existingOption) {\n            return res.status(404).json({ error: 'Option not found' });\n        }\n\n        // If option_value is being updated, check for duplicates\n        if (option_value && option_value !== existingOption.option_value) {\n            const { data: duplicateOption, error: dupCheckError } = await supabase\n                .from('form_field_options')\n                .select('id')\n                .eq('field_id', existingOption.field_id)\n                .eq('option_value', option_value)\n                .neq('id', option_id)\n                .single();\n\n            if (duplicateOption) {\n                return res.status(409).json({\n                    error: 'An option with this value already exists for this field'\n                });\n            }\n        }\n\n        // Build update object\n        const updateData = {};\n        if (option_label) updateData.option_label = option_label;\n        if (option_value) updateData.option_value = option_value;\n        if (sort_order !== undefined) updateData.sort_order = sort_order;\n\n        // Update the option\n        const { data: updatedOption, error } = await supabase\n            .from('form_field_options')\n            .update(updateData)\n            .eq('id', option_id)\n            .select()\n            .single();\n\n        if (error) {\n            console.error('Option update error:', error);\n            return res.status(500).json({ error: 'Failed to update option' });\n        }\n\n        res.status(200).json({\n            message: 'Form field option updated successfully',\n            option: updatedOption\n        });\n    } catch (error) {\n        console.error('Update option error:', error);\n        res.status(500).json({ error: 'Internal server error' });\n    }\n});\n\n// DELETE /api/form-builder/options/{option_id} - Delete an option\napp.delete('/api/form-builder/options/:option_id', authenticateUser, async (req, res) => {\n    const { option_id } = req.params;\n\n    try {\n        // Check if option exists\n        const { data: existingOption, error: checkError } = await supabase\n            .from('form_field_options')\n            .select('id, option_label')\n            .eq('id', option_id)\n            .single();\n\n        if (checkError || !existingOption) {\n            return res.status(404).json({ error: 'Option not found' });\n        }\n\n        // Delete the option\n        const { error } = await supabase\n            .from('form_field_options')\n            .delete()\n            .eq('id', option_id);\n\n        if (error) {\n            console.error('Option deletion error:', error);\n            return res.status(500).json({ error: 'Failed to delete option' });\n        }\n\n        res.status(204).send();\n    } catch (error) {\n        console.error('Delete option error:', error);\n        res.status(500).json({ error: 'Internal server error' });\n    }\n});\n\n// Start server\napp.listen(PORT, () => {\n    console.log(`GamePlanPro server running on http://localhost:${PORT}`);\n});"
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing form field option endpoints in server.js",
+          "status": "completed",
+          "activeForm": "Analyzing existing form field option endpoints in server.js"
+        },
+        {
+          "content": "Identify selection-based field types and validation patterns",
+          "status": "completed",
+          "activeForm": "Identifying selection-based field types and validation patterns"
+        },
+        {
+          "content": "Check current FormFieldOption operations",
+          "status": "completed",
+          "activeForm": "Checking current FormFieldOption operations"
+        },
+        {
+          "content": "Implement missing CRUD endpoints for form field options",
+          "status": "completed",
+          "activeForm": "Implementing missing CRUD endpoints for form field options"
+        },
+        {
+          "content": "Test and validate implementation",
+          "status": "in_progress",
+          "activeForm": "Testing and validating implementation"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "node -c server.js",
+      "description": "Syntax check server.js for JavaScript errors"
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "const authenticateUser|function authenticateUser",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "output_mode": "content",
+      "-B": 3,
+      "-A": 10
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing form field option endpoints in server.js",
+          "status": "completed",
+          "activeForm": "Analyzing existing form field option endpoints in server.js"
+        },
+        {
+          "content": "Identify selection-based field types and validation patterns",
+          "status": "completed",
+          "activeForm": "Identifying selection-based field types and validation patterns"
+        },
+        {
+          "content": "Check current FormFieldOption operations",
+          "status": "completed",
+          "activeForm": "Checking current FormFieldOption operations"
+        },
+        {
+          "content": "Implement missing CRUD endpoints for form field options",
+          "status": "completed",
+          "activeForm": "Implementing missing CRUD endpoints for form field options"
+        },
+        {
+          "content": "Test and validate implementation",
+          "status": "completed",
+          "activeForm": "Testing and validating implementation"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "8f30b6da-1d17-43bd-b688-28d96ef3e2d9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/8f30b6da-1d17-43bd-b688-28d96ef3e2d9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__mark_work_order_complete",
+    "tool_input": {
+      "work_order_number": "051"
+    }
   }
 ]

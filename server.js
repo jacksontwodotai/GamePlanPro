@@ -5134,6 +5134,253 @@ app.delete('/api/form-builder/fields/:field_id', authenticateUser, async (req, r
     }
 });
 
+// Form Field Option Management Endpoints
+// Selection-based field types that support options
+const SELECTION_FIELD_TYPES = ['select', 'checkbox', 'radio'];
+
+// POST /api/form-builder/fields/{field_id}/options - Create new option for a field
+app.post('/api/form-builder/fields/:field_id/options', authenticateUser, async (req, res) => {
+    const { field_id } = req.params;
+    const { option_label, option_value, sort_order = 0 } = req.body;
+
+    // Validate required fields
+    if (!option_label || !option_value) {
+        return res.status(400).json({
+            error: 'option_label and option_value are required'
+        });
+    }
+
+    // Validate option_label and option_value are strings
+    if (typeof option_label !== 'string' || typeof option_value !== 'string') {
+        return res.status(400).json({
+            error: 'option_label and option_value must be strings'
+        });
+    }
+
+    // Validate sort_order is a number
+    if (typeof sort_order !== 'number') {
+        return res.status(400).json({
+            error: 'sort_order must be a number'
+        });
+    }
+
+    try {
+        // Check if field exists and supports options
+        const { data: field, error: fieldError } = await supabase
+            .from('form_fields')
+            .select('id, field_type, field_label')
+            .eq('id', field_id)
+            .single();
+
+        if (fieldError || !field) {
+            return res.status(404).json({ error: 'Field not found' });
+        }
+
+        // Validate field type supports options
+        if (!SELECTION_FIELD_TYPES.includes(field.field_type)) {
+            return res.status(400).json({
+                error: `Field type '${field.field_type}' does not support options. Supported types: ${SELECTION_FIELD_TYPES.join(', ')}`
+            });
+        }
+
+        // Check if option_value already exists for this field
+        const { data: existingOption, error: checkError } = await supabase
+            .from('form_field_options')
+            .select('id')
+            .eq('field_id', field_id)
+            .eq('option_value', option_value)
+            .single();
+
+        if (existingOption) {
+            return res.status(409).json({
+                error: 'An option with this value already exists for this field'
+            });
+        }
+
+        // Create the option
+        const { data: newOption, error } = await supabase
+            .from('form_field_options')
+            .insert([{
+                field_id,
+                option_label,
+                option_value,
+                sort_order
+            }])
+            .select()
+            .single();
+
+        if (error) {
+            console.error('Option creation error:', error);
+            return res.status(500).json({ error: 'Failed to create option' });
+        }
+
+        res.status(201).json({
+            message: 'Form field option created successfully',
+            option: newOption
+        });
+    } catch (error) {
+        console.error('Create option error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/form-builder/fields/{field_id}/options - Get all options for a field
+app.get('/api/form-builder/fields/:field_id/options', authenticateUser, async (req, res) => {
+    const { field_id } = req.params;
+
+    try {
+        // Check if field exists
+        const { data: field, error: fieldError } = await supabase
+            .from('form_fields')
+            .select('id, field_type, field_label')
+            .eq('id', field_id)
+            .single();
+
+        if (fieldError || !field) {
+            return res.status(404).json({ error: 'Field not found' });
+        }
+
+        // Get all options for the field, ordered by sort_order
+        const { data: options, error } = await supabase
+            .from('form_field_options')
+            .select('*')
+            .eq('field_id', field_id)
+            .order('sort_order', { ascending: true });
+
+        if (error) {
+            console.error('Get options error:', error);
+            return res.status(500).json({ error: 'Failed to retrieve options' });
+        }
+
+        res.status(200).json({
+            field: {
+                id: field.id,
+                field_type: field.field_type,
+                field_label: field.field_label
+            },
+            options: options || []
+        });
+    } catch (error) {
+        console.error('Get options error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// PUT /api/form-builder/options/{option_id} - Update an option
+app.put('/api/form-builder/options/:option_id', authenticateUser, async (req, res) => {
+    const { option_id } = req.params;
+    const { option_label, option_value, sort_order } = req.body;
+
+    // Validate at least one field is provided
+    if (!option_label && !option_value && sort_order === undefined) {
+        return res.status(400).json({
+            error: 'At least one field (option_label, option_value, sort_order) must be provided'
+        });
+    }
+
+    // Validate field types if provided
+    if (option_label && typeof option_label !== 'string') {
+        return res.status(400).json({ error: 'option_label must be a string' });
+    }
+    if (option_value && typeof option_value !== 'string') {
+        return res.status(400).json({ error: 'option_value must be a string' });
+    }
+    if (sort_order !== undefined && typeof sort_order !== 'number') {
+        return res.status(400).json({ error: 'sort_order must be a number' });
+    }
+
+    try {
+        // Check if option exists
+        const { data: existingOption, error: checkError } = await supabase
+            .from('form_field_options')
+            .select('id, field_id, option_value')
+            .eq('id', option_id)
+            .single();
+
+        if (checkError || !existingOption) {
+            return res.status(404).json({ error: 'Option not found' });
+        }
+
+        // If option_value is being updated, check for duplicates
+        if (option_value && option_value !== existingOption.option_value) {
+            const { data: duplicateOption, error: dupCheckError } = await supabase
+                .from('form_field_options')
+                .select('id')
+                .eq('field_id', existingOption.field_id)
+                .eq('option_value', option_value)
+                .neq('id', option_id)
+                .single();
+
+            if (duplicateOption) {
+                return res.status(409).json({
+                    error: 'An option with this value already exists for this field'
+                });
+            }
+        }
+
+        // Build update object
+        const updateData = {};
+        if (option_label) updateData.option_label = option_label;
+        if (option_value) updateData.option_value = option_value;
+        if (sort_order !== undefined) updateData.sort_order = sort_order;
+
+        // Update the option
+        const { data: updatedOption, error } = await supabase
+            .from('form_field_options')
+            .update(updateData)
+            .eq('id', option_id)
+            .select()
+            .single();
+
+        if (error) {
+            console.error('Option update error:', error);
+            return res.status(500).json({ error: 'Failed to update option' });
+        }
+
+        res.status(200).json({
+            message: 'Form field option updated successfully',
+            option: updatedOption
+        });
+    } catch (error) {
+        console.error('Update option error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// DELETE /api/form-builder/options/{option_id} - Delete an option
+app.delete('/api/form-builder/options/:option_id', authenticateUser, async (req, res) => {
+    const { option_id } = req.params;
+
+    try {
+        // Check if option exists
+        const { data: existingOption, error: checkError } = await supabase
+            .from('form_field_options')
+            .select('id, option_label')
+            .eq('id', option_id)
+            .single();
+
+        if (checkError || !existingOption) {
+            return res.status(404).json({ error: 'Option not found' });
+        }
+
+        // Delete the option
+        const { error } = await supabase
+            .from('form_field_options')
+            .delete()
+            .eq('id', option_id);
+
+        if (error) {
+            console.error('Option deletion error:', error);
+            return res.status(500).json({ error: 'Failed to delete option' });
+        }
+
+        res.status(204).send();
+    } catch (error) {
+        console.error('Delete option error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`GamePlanPro server running on http://localhost:${PORT}`);
