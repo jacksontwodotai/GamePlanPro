@@ -610,35 +610,27 @@ export default function PlayerManagementInterface() {
           </motion.button>
         </motion.div>
 
-        {/* Stats Bar */}
+        {/* Simple Stats Summary */}
         <motion.div
-          variants={containerVariants}
-          className="grid grid-cols-1 md:grid-cols-4 gap-4"
+          variants={itemVariants}
+          className="glass-card glass-card-hover p-6"
         >
-          {[
-            { label: 'Total Players', value: totalPlayers, icon: Users, gradient: 'from-gray-700 to-gray-900' },
-            { label: 'Active Teams', value: teams.length, icon: Heart, gradient: 'from-gray-600 to-gray-800' },
-            { label: 'Current Page', value: `${currentPage}/${totalPages}`, icon: Calendar, gradient: 'from-gray-800 to-black' },
-            { label: 'Per Page', value: playersPerPage, icon: Zap, gradient: 'from-gray-700 to-gray-900' },
-          ].map((stat) => (
-            <motion.div
-              key={stat.label}
-              variants={itemVariants}
-              className="glass-card p-4 flex items-center space-x-4"
-            >
-              <motion.div
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.5 }}
-                className={`p-3 rounded-lg bg-gradient-to-br ${stat.gradient}`}
-              >
-                <stat.icon className="w-5 h-5 text-white" />
-              </motion.div>
-              <div>
-                <p className="text-sm text-gray-500">{stat.label}</p>
-                <p className="text-xl font-bold text-gray-900 dark:text-white">{stat.value}</p>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-6">
+              <div className="flex items-center space-x-2">
+                <Users className="w-5 h-5 text-gray-600" />
+                <span className="text-gray-600 dark:text-gray-400">Total Players:</span>
+                <span className="font-semibold text-gray-900 dark:text-white">{totalPlayers}</span>
               </div>
-            </motion.div>
-          ))}
+              <div className="hidden sm:flex items-center space-x-2">
+                <span className="text-gray-600 dark:text-gray-400">Page:</span>
+                <span className="font-semibold text-gray-900 dark:text-white">{currentPage} of {totalPages}</span>
+              </div>
+            </div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">
+              Showing {playersPerPage} per page
+            </div>
+          </div>
         </motion.div>
 
         {/* Error Alert */}
@@ -805,9 +797,9 @@ export default function PlayerManagementInterface() {
                     </div>
                   </div>
 
-                    {/* Shimmer Effect */}
-                    <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  </motion.div>
+                  {/* Shimmer Effect */}
+                  <div className="absolute inset-0 shimmer-effect opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                </motion.div>
                 </motion.div>
                 ))}
               </motion.div>

@@ -307,7 +307,7 @@ export default function TeamManagementDashboard() {
         {/* Quick Actions */}
         <motion.div
           variants={containerVariants}
-          className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"
         >
           {[
             {
@@ -323,6 +323,13 @@ export default function TeamManagementDashboard() {
               icon: Users,
               link: '/players',
               gradient: 'from-gray-600 to-gray-800'
+            },
+            {
+              title: 'Roster Management',
+              description: 'Manage team rosters and player assignments',
+              icon: Activity,
+              link: '/teams/roster',
+              gradient: 'from-gray-500 to-gray-700'
             },
             {
               title: 'Add New Player',

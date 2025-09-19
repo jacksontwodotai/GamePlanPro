@@ -9,6 +9,9 @@ import PlayerManagementDashboard from './components/PlayerManagementDashboard'
 import EventSchedulerDashboard from './components/EventSchedulerDashboard'
 import TeamStructureDashboard from './components/TeamStructureDashboard'
 import DivisionManagement from './components/DivisionManagement'
+import AgeGroupManagement from './components/AgeGroupManagement'
+import SkillLevelManagement from './components/SkillLevelManagement'
+import TeamRosterManagement from './components/TeamRosterManagement'
 
 function App() {
   return (
@@ -20,6 +23,7 @@ function App() {
           <Route index element={<TeamManagementDashboard />} />
           <Route path="teams" element={<TeamListView />} />
           <Route path="players" element={<PlayerProfileDashboard />} />
+          <Route path="roster" element={<TeamRosterManagement />} />
           <Route path="teams/create" element={<TeamListView />} />
           <Route path="players/list" element={<PlayerManagementInterface />} />
           <Route path="players/create" element={<PlayerManagementInterface />} />
@@ -27,6 +31,7 @@ function App() {
         <Route path="/teams" element={<Layout />}>
           <Route index element={<TeamListView />} />
           <Route path="create" element={<TeamListView />} />
+          <Route path="roster" element={<TeamRosterManagement />} />
           <Route path=":id" element={<TeamListView />} />
         </Route>
         <Route path="/players" element={<Layout />}>
@@ -42,8 +47,8 @@ function App() {
         <Route path="/structure" element={<Layout />}>
           <Route index element={<TeamStructureDashboard />} />
           <Route path="divisions" element={<DivisionManagement />} />
-          <Route path="age-groups" element={<TeamStructureDashboard />} />
-          <Route path="skill-levels" element={<TeamStructureDashboard />} />
+          <Route path="age-groups" element={<AgeGroupManagement />} />
+          <Route path="skill-levels" element={<SkillLevelManagement />} />
         </Route>
       </Routes>
     </Router>
