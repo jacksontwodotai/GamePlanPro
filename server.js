@@ -3,6 +3,8 @@ const { createClient } = require('@supabase/supabase-js');
 const bcrypt = require('bcryptjs');
 const cors = require('cors');
 const path = require('path');
+const PDFDocument = require('pdfkit');
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
 const app = express();
 const PORT = 2004;
@@ -3424,6 +3426,627 @@ app.delete('/api/programs/:program_id', authenticateUser, async (req, res) => {
         res.json({ message: 'Program deleted successfully' });
     } catch (error) {
         console.error('Delete program error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Report Endpoints
+// GET /api/reports/roster - Generate roster reports with multi-format support
+app.get('/api/reports/roster', authenticateUser, async (req, res) => {
+    try {
+        const { team_id, status = 'all', format = 'json' } = req.query;
+
+        // Validate format parameter
+        const validFormats = ['json', 'csv', 'pdf'];
+        if (!validFormats.includes(format)) {
+            return res.status(400).json({ error: 'Invalid format. Must be one of: json, csv, pdf' });
+        }
+
+        // Validate status parameter
+        const validStatuses = ['active', 'all'];
+        if (!validStatuses.includes(status)) {
+            return res.status(400).json({ error: 'Invalid status. Must be one of: active, all' });
+        }
+
+        // Parse team_id parameter(s) - can be single or multiple
+        let teamIds = [];
+        if (team_id) {
+            teamIds = Array.isArray(team_id) ? team_id : [team_id];
+            // Validate that all team_ids are valid integers
+            for (const id of teamIds) {
+                if (isNaN(parseInt(id))) {
+                    return res.status(400).json({ error: 'Invalid team_id. Must be a valid number' });
+                }
+            }
+        }
+
+        // Build the query
+        let query = supabase
+            .from('roster_entries')
+            .select(`
+                id,
+                start_date,
+                end_date,
+                jersey_number,
+                position,
+                created_at,
+                players (
+                    id,
+                    first_name,
+                    last_name,
+                    email,
+                    phone,
+                    player_email,
+                    player_phone,
+                    date_of_birth,
+                    position
+                ),
+                teams (
+                    id,
+                    name,
+                    organization,
+                    division,
+                    age_group,
+                    skill_level
+                )
+            `);
+
+        // Apply team filtering if specified
+        if (teamIds.length > 0) {
+            query = query.in('team_id', teamIds.map(id => parseInt(id)));
+        }
+
+        // Apply status filtering
+        if (status === 'active') {
+            const today = new Date().toISOString().split('T')[0];
+            query = query.or(`end_date.is.null,end_date.gte.${today}`);
+        }
+
+        // Order by team name and player name
+        query = query.order('team_id').order('players(last_name)');
+
+        const { data: rosterData, error } = await query;
+
+        if (error) {
+            console.error('Roster report query error:', error);
+            return res.status(500).json({ error: 'Failed to fetch roster data' });
+        }
+
+        // Check if any teams were requested but not found
+        if (teamIds.length > 0) {
+            const foundTeamIds = [...new Set(rosterData.map(entry => entry.teams?.id).filter(Boolean))];
+            const requestedTeamIds = teamIds.map(id => parseInt(id));
+            const missingTeamIds = requestedTeamIds.filter(id => !foundTeamIds.includes(id));
+
+            if (missingTeamIds.length > 0) {
+                // Check if these teams exist but have no roster entries
+                const { data: existingTeams } = await supabase
+                    .from('teams')
+                    .select('id')
+                    .in('id', missingTeamIds);
+
+                const existingTeamIds = existingTeams?.map(t => t.id) || [];
+                const nonExistentTeamIds = missingTeamIds.filter(id => !existingTeamIds.includes(id));
+
+                if (nonExistentTeamIds.length > 0) {
+                    return res.status(404).json({
+                        error: `Teams not found: ${nonExistentTeamIds.join(', ')}`
+                    });
+                }
+            }
+        }
+
+        // Format the data for response
+        const formattedData = rosterData.map(entry => ({
+            roster_entry_id: entry.id,
+            player_id: entry.players?.id,
+            player_first_name: entry.players?.first_name,
+            player_last_name: entry.players?.last_name,
+            player_email: entry.players?.email || entry.players?.player_email,
+            player_phone: entry.players?.phone || entry.players?.player_phone,
+            date_of_birth: entry.players?.date_of_birth,
+            team_id: entry.teams?.id,
+            team_name: entry.teams?.name,
+            team_organization: entry.teams?.organization,
+            team_division: entry.teams?.division,
+            team_age_group: entry.teams?.age_group,
+            team_skill_level: entry.teams?.skill_level,
+            jersey_number: entry.jersey_number,
+            position: entry.position,
+            start_date: entry.start_date,
+            end_date: entry.end_date,
+            status: entry.end_date && new Date(entry.end_date) < new Date() ? 'inactive' : 'active',
+            roster_created_at: entry.created_at
+        }));
+
+        // Generate response based on format
+        switch (format) {
+            case 'json':
+                res.json({
+                    data: formattedData,
+                    metadata: {
+                        total_entries: formattedData.length,
+                        status_filter: status,
+                        team_filter: teamIds.length > 0 ? teamIds : 'all',
+                        generated_at: new Date().toISOString()
+                    }
+                });
+                break;
+
+            case 'csv':
+                // Generate CSV
+                const csvData = formattedData.map(entry => ({
+                    'Roster Entry ID': entry.roster_entry_id,
+                    'Player ID': entry.player_id,
+                    'First Name': entry.player_first_name,
+                    'Last Name': entry.player_last_name,
+                    'Email': entry.player_email || '',
+                    'Phone': entry.player_phone || '',
+                    'Date of Birth': entry.date_of_birth || '',
+                    'Team ID': entry.team_id,
+                    'Team Name': entry.team_name,
+                    'Organization': entry.team_organization,
+                    'Division': entry.team_division || '',
+                    'Age Group': entry.team_age_group || '',
+                    'Skill Level': entry.team_skill_level || '',
+                    'Jersey Number': entry.jersey_number || '',
+                    'Position': entry.position || '',
+                    'Start Date': entry.start_date,
+                    'End Date': entry.end_date || '',
+                    'Status': entry.status,
+                    'Created At': entry.roster_created_at
+                }));
+
+                // Convert to CSV format
+                const csvHeaders = Object.keys(csvData[0] || {});
+                const csvRows = csvData.map(row =>
+                    csvHeaders.map(header => {
+                        const value = row[header] || '';
+                        // Escape quotes and wrap in quotes if contains comma or quote
+                        return value.toString().includes(',') || value.toString().includes('"')
+                            ? `"${value.toString().replace(/"/g, '""')}"`
+                            : value;
+                    }).join(',')
+                );
+
+                const csvContent = [csvHeaders.join(','), ...csvRows].join('\n');
+
+                res.setHeader('Content-Type', 'text/csv');
+                res.setHeader('Content-Disposition', 'attachment; filename="roster-report.csv"');
+                res.send(csvContent);
+                break;
+
+            case 'pdf':
+                // Generate PDF
+                const doc = new PDFDocument();
+                res.setHeader('Content-Type', 'application/pdf');
+                res.setHeader('Content-Disposition', 'attachment; filename="roster-report.pdf"');
+
+                doc.pipe(res);
+
+                // PDF Header
+                doc.fontSize(20).text('Roster Report', { align: 'center' });
+                doc.moveDown();
+                doc.fontSize(12)
+                   .text(`Generated: ${new Date().toLocaleDateString()}`)
+                   .text(`Status Filter: ${status}`)
+                   .text(`Total Entries: ${formattedData.length}`)
+                   .moveDown();
+
+                // Group data by team
+                const teamGroups = formattedData.reduce((groups, entry) => {
+                    const teamKey = `${entry.team_name} (${entry.team_organization})`;
+                    if (!groups[teamKey]) {
+                        groups[teamKey] = [];
+                    }
+                    groups[teamKey].push(entry);
+                    return groups;
+                }, {});
+
+                // Generate PDF content
+                Object.entries(teamGroups).forEach(([teamName, entries]) => {
+                    doc.fontSize(16).text(teamName, { underline: true });
+                    doc.moveDown(0.5);
+
+                    if (entries[0].team_division) {
+                        doc.fontSize(10).text(`Division: ${entries[0].team_division}`);
+                    }
+                    if (entries[0].team_age_group) {
+                        doc.fontSize(10).text(`Age Group: ${entries[0].team_age_group}`);
+                    }
+                    if (entries[0].team_skill_level) {
+                        doc.fontSize(10).text(`Skill Level: ${entries[0].team_skill_level}`);
+                    }
+                    doc.moveDown();
+
+                    entries.forEach(entry => {
+                        doc.fontSize(11)
+                           .text(`${entry.player_first_name} ${entry.player_last_name}`, { continued: true })
+                           .text(entry.jersey_number ? ` (#${entry.jersey_number})` : '', { continued: true })
+                           .text(entry.position ? ` - ${entry.position}` : '');
+
+                        if (entry.player_email) {
+                            doc.fontSize(9).text(`  Email: ${entry.player_email}`);
+                        }
+                        if (entry.player_phone) {
+                            doc.fontSize(9).text(`  Phone: ${entry.player_phone}`);
+                        }
+
+                        doc.fontSize(9)
+                           .text(`  Start Date: ${entry.start_date}`)
+                           .text(`  Status: ${entry.status}`);
+
+                        doc.moveDown(0.3);
+                    });
+
+                    doc.moveDown();
+                });
+
+                doc.end();
+                break;
+
+            default:
+                return res.status(400).json({ error: 'Invalid format' });
+        }
+
+    } catch (error) {
+        console.error('Roster report error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/reports/player-contact - Generate player contact reports with team filtering
+app.get('/api/reports/player-contact', authenticateUser, async (req, res) => {
+    try {
+        const { team_id, format = 'json' } = req.query;
+
+        // Validate format parameter
+        const validFormats = ['json', 'csv'];
+        if (!validFormats.includes(format)) {
+            return res.status(400).json({ error: 'Invalid format. Must be one of: json, csv' });
+        }
+
+        // Parse team_id parameter(s) - can be single or multiple
+        let teamIds = [];
+        if (team_id) {
+            teamIds = Array.isArray(team_id) ? team_id : [team_id];
+            // Validate that all team_ids are valid integers
+            for (const id of teamIds) {
+                if (isNaN(parseInt(id))) {
+                    return res.status(400).json({ error: 'Invalid team_id. Must be a valid number' });
+                }
+            }
+        }
+
+        let contactData;
+
+        if (teamIds.length > 0) {
+            // Filter by teams - join with roster_entries to get only players on specified teams
+            let query = supabase
+                .from('roster_entries')
+                .select(`
+                    players (
+                        id,
+                        first_name,
+                        last_name,
+                        player_email,
+                        player_phone,
+                        parent_guardian_name,
+                        parent_guardian_email,
+                        parent_guardian_phone
+                    ),
+                    teams (
+                        id,
+                        name,
+                        organization
+                    )
+                `)
+                .in('team_id', teamIds.map(id => parseInt(id)))
+                .not('players', 'is', null); // Ensure player exists
+
+            const { data: rosterData, error } = await query;
+
+            if (error) {
+                console.error('Player contact query error:', error);
+                return res.status(500).json({ error: 'Failed to fetch player contact data' });
+            }
+
+            // Check if any teams were requested but not found
+            const foundTeamIds = [...new Set(rosterData.map(entry => entry.teams?.id).filter(Boolean))];
+            const requestedTeamIds = teamIds.map(id => parseInt(id));
+            const missingTeamIds = requestedTeamIds.filter(id => !foundTeamIds.includes(id));
+
+            if (missingTeamIds.length > 0) {
+                // Check if these teams exist but have no roster entries
+                const { data: existingTeams } = await supabase
+                    .from('teams')
+                    .select('id')
+                    .in('id', missingTeamIds);
+
+                const existingTeamIds = existingTeams?.map(t => t.id) || [];
+                const nonExistentTeamIds = missingTeamIds.filter(id => !existingTeamIds.includes(id));
+
+                if (nonExistentTeamIds.length > 0) {
+                    return res.status(404).json({
+                        error: `Teams not found: ${nonExistentTeamIds.join(', ')}`
+                    });
+                }
+            }
+
+            // Remove duplicates and format data
+            const uniquePlayers = new Map();
+            rosterData.forEach(entry => {
+                if (entry.players) {
+                    const playerId = entry.players.id;
+                    if (!uniquePlayers.has(playerId)) {
+                        uniquePlayers.set(playerId, {
+                            ...entry.players,
+                            teams: [entry.teams]
+                        });
+                    } else {
+                        // Add team to existing player
+                        const existingPlayer = uniquePlayers.get(playerId);
+                        if (!existingPlayer.teams.some(team => team.id === entry.teams.id)) {
+                            existingPlayer.teams.push(entry.teams);
+                        }
+                    }
+                }
+            });
+
+            contactData = Array.from(uniquePlayers.values());
+        } else {
+            // No team filtering - get all players
+            const { data: playersData, error } = await supabase
+                .from('players')
+                .select(`
+                    id,
+                    first_name,
+                    last_name,
+                    player_email,
+                    player_phone,
+                    parent_guardian_name,
+                    parent_guardian_email,
+                    parent_guardian_phone
+                `);
+
+            if (error) {
+                console.error('Player contact query error:', error);
+                return res.status(500).json({ error: 'Failed to fetch player contact data' });
+            }
+
+            contactData = playersData.map(player => ({
+                ...player,
+                teams: [] // No team information when not filtering by teams
+            }));
+        }
+
+        // Format the data for response
+        const formattedData = contactData.map(player => ({
+            player_id: player.id,
+            first_name: player.first_name,
+            last_name: player.last_name,
+            player_email: player.player_email || '',
+            player_phone: player.player_phone || '',
+            parent_guardian_name: player.parent_guardian_name || '',
+            parent_guardian_email: player.parent_guardian_email || '',
+            parent_guardian_phone: player.parent_guardian_phone || '',
+            teams: teamIds.length > 0 ? player.teams.map(team => ({
+                id: team.id,
+                name: team.name,
+                organization: team.organization
+            })) : []
+        }));
+
+        // Generate response based on format
+        switch (format) {
+            case 'json':
+                res.json({
+                    data: formattedData,
+                    metadata: {
+                        total_contacts: formattedData.length,
+                        team_filter: teamIds.length > 0 ? teamIds : 'all',
+                        generated_at: new Date().toISOString()
+                    }
+                });
+                break;
+
+            case 'csv':
+                // Generate CSV
+                const csvData = formattedData.map(player => ({
+                    'Player ID': player.player_id,
+                    'First Name': player.first_name,
+                    'Last Name': player.last_name,
+                    'Player Email': player.player_email,
+                    'Player Phone': player.player_phone,
+                    'Parent/Guardian Name': player.parent_guardian_name,
+                    'Parent/Guardian Email': player.parent_guardian_email,
+                    'Parent/Guardian Phone': player.parent_guardian_phone,
+                    'Teams': teamIds.length > 0 ?
+                        player.teams.map(team => `${team.name} (${team.organization})`).join('; ') :
+                        'All Teams'
+                }));
+
+                // Convert to CSV format
+                const csvHeaders = Object.keys(csvData[0] || {});
+                const csvRows = csvData.map(row =>
+                    csvHeaders.map(header => {
+                        const value = row[header] || '';
+                        // Escape quotes and wrap in quotes if contains comma or quote
+                        return value.toString().includes(',') || value.toString().includes('"')
+                            ? `"${value.toString().replace(/"/g, '""')}"`
+                            : value;
+                    }).join(',')
+                );
+
+                const csvContent = [csvHeaders.join(','), ...csvRows].join('\n');
+
+                res.setHeader('Content-Type', 'text/csv');
+                res.setHeader('Content-Disposition', 'attachment; filename="player-contact-report.csv"');
+                res.send(csvContent);
+                break;
+
+            default:
+                return res.status(400).json({ error: 'Invalid format' });
+        }
+
+    } catch (error) {
+        console.error('Player contact report error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/reports/team-summary - Generate team summary reports with active player counts
+app.get('/api/reports/team-summary', authenticateUser, async (req, res) => {
+    try {
+        const { team_id, format = 'json' } = req.query;
+
+        // Validate format parameter
+        const validFormats = ['json', 'csv'];
+        if (!validFormats.includes(format)) {
+            return res.status(400).json({ error: 'Invalid format. Must be one of: json, csv' });
+        }
+
+        // Parse team_id parameter(s) - can be single or multiple
+        let teamIds = [];
+        if (team_id) {
+            teamIds = Array.isArray(team_id) ? team_id : [team_id];
+            // Validate that all team_ids are valid integers
+            for (const id of teamIds) {
+                if (isNaN(parseInt(id))) {
+                    return res.status(400).json({ error: 'Invalid team_id. Must be a valid number' });
+                }
+            }
+        }
+
+        // Build the teams query
+        let teamsQuery = supabase
+            .from('teams')
+            .select(`
+                id,
+                name,
+                organization,
+                description,
+                division,
+                age_group,
+                skill_level
+            `);
+
+        // Apply team filtering if specified
+        if (teamIds.length > 0) {
+            teamsQuery = teamsQuery.in('id', teamIds.map(id => parseInt(id)));
+        }
+
+        const { data: teamsData, error: teamsError } = await teamsQuery;
+
+        if (teamsError) {
+            console.error('Team summary query error:', teamsError);
+            return res.status(500).json({ error: 'Failed to fetch team data' });
+        }
+
+        // Check if any specific teams were requested but not found
+        if (teamIds.length > 0) {
+            const foundTeamIds = teamsData.map(team => team.id);
+            const missingTeamIds = teamIds.map(id => parseInt(id)).filter(id => !foundTeamIds.includes(id));
+
+            if (missingTeamIds.length > 0) {
+                return res.status(404).json({
+                    error: `Teams not found: ${missingTeamIds.join(', ')}`
+                });
+            }
+        }
+
+        // Get active player counts for all teams
+        const today = new Date().toISOString().split('T')[0];
+        let rosterQuery = supabase
+            .from('roster_entries')
+            .select('team_id')
+            .or(`end_date.is.null,end_date.gte.${today}`);
+
+        // Apply same team filtering to roster query if specified
+        if (teamIds.length > 0) {
+            rosterQuery = rosterQuery.in('team_id', teamIds.map(id => parseInt(id)));
+        }
+
+        const { data: rosterData, error: rosterError } = await rosterQuery;
+
+        if (rosterError) {
+            console.error('Roster count query error:', rosterError);
+            return res.status(500).json({ error: 'Failed to fetch roster data' });
+        }
+
+        // Count active players per team
+        const playerCounts = rosterData.reduce((counts, entry) => {
+            counts[entry.team_id] = (counts[entry.team_id] || 0) + 1;
+            return counts;
+        }, {});
+
+        // Format the team summary data
+        const summaryData = teamsData.map(team => ({
+            team_id: team.id,
+            team_name: team.name,
+            organization: team.organization,
+            description: team.description || '',
+            division: team.division || '',
+            age_group: team.age_group || '',
+            skill_level: team.skill_level || '',
+            active_player_count: playerCounts[team.id] || 0
+        }));
+
+        // Sort by team name for consistent output
+        summaryData.sort((a, b) => a.team_name.localeCompare(b.team_name));
+
+        // Generate response based on format
+        switch (format) {
+            case 'json':
+                res.json({
+                    data: summaryData,
+                    metadata: {
+                        total_teams: summaryData.length,
+                        total_active_players: Object.values(playerCounts).reduce((sum, count) => sum + count, 0),
+                        team_filter: teamIds.length > 0 ? teamIds : 'all',
+                        generated_at: new Date().toISOString()
+                    }
+                });
+                break;
+
+            case 'csv':
+                // Generate CSV
+                const csvData = summaryData.map(team => ({
+                    'Team ID': team.team_id,
+                    'Team Name': team.team_name,
+                    'Organization': team.organization,
+                    'Description': team.description,
+                    'Division': team.division,
+                    'Age Group': team.age_group,
+                    'Skill Level': team.skill_level,
+                    'Active Player Count': team.active_player_count
+                }));
+
+                // Convert to CSV format
+                const csvHeaders = Object.keys(csvData[0] || {});
+                const csvRows = csvData.map(row =>
+                    csvHeaders.map(header => {
+                        const value = row[header] || '';
+                        // Escape quotes and wrap in quotes if contains comma or quote
+                        return value.toString().includes(',') || value.toString().includes('"')
+                            ? `"${value.toString().replace(/"/g, '""')}"`
+                            : value;
+                    }).join(',')
+                );
+
+                const csvContent = [csvHeaders.join(','), ...csvRows].join('\n');
+
+                res.setHeader('Content-Type', 'text/csv');
+                res.setHeader('Content-Disposition', 'attachment; filename="team-summary-report.csv"');
+                res.send(csvContent);
+                break;
+
+            default:
+                return res.status(400).json({ error: 'Invalid format' });
+        }
+
+    } catch (error) {
+        console.error('Team summary report error:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });

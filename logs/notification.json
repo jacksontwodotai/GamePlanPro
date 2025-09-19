@@ -348,5 +348,40 @@
     "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
     "hook_event_name": "Notification",
     "message": "Claude is waiting for your input"
+  },
+  {
+    "session_id": "2e1f2bf9-7af5-48b0-9d07-57d2e09c80b3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/2e1f2bf9-7af5-48b0-9d07-57d2e09c80b3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "hook_event_name": "Notification",
+    "message": "Claude is waiting for your input"
+  },
+  {
+    "session_id": "2e1f2bf9-7af5-48b0-9d07-57d2e09c80b3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/2e1f2bf9-7af5-48b0-9d07-57d2e09c80b3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "hook_event_name": "Notification",
+    "message": "Claude is waiting for your input"
+  },
+  {
+    "session_id": "f7d3dbea-1061-47e5-99dc-72769fa66ae9",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/f7d3dbea-1061-47e5-99dc-72769fa66ae9.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "hook_event_name": "Notification",
+    "message": "Claude is waiting for your input"
+  },
+  {
+    "session_id": "2e1f2bf9-7af5-48b0-9d07-57d2e09c80b3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/2e1f2bf9-7af5-48b0-9d07-57d2e09c80b3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "hook_event_name": "Notification",
+    "message": "Claude is waiting for your input"
+  },
+  {
+    "session_id": "e51afb50-5089-451a-8d96-625b71aacf14",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e51afb50-5089-451a-8d96-625b71aacf14.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "hook_event_name": "Notification",
+    "message": "Claude is waiting for your input"
   }
 ]

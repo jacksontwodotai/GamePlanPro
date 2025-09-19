@@ -12,6 +12,9 @@ import DivisionManagement from './components/DivisionManagement'
 import AgeGroupManagement from './components/AgeGroupManagement'
 import SkillLevelManagement from './components/SkillLevelManagement'
 import TeamRosterManagement from './components/TeamRosterManagement'
+import AttendanceTracker from './components/AttendanceTracker'
+import AttendanceReportingDashboard from './components/AttendanceReportingDashboard'
+import RosterManagementDashboard from './components/RosterManagementDashboard'
 
 function App() {
   return (
@@ -27,11 +30,17 @@ function App() {
           <Route path="teams/create" element={<TeamListView />} />
           <Route path="players/list" element={<PlayerManagementInterface />} />
           <Route path="players/create" element={<PlayerManagementInterface />} />
+          <Route path="attendance" element={<AttendanceTracker />} />
+          <Route path="reports/attendance" element={<AttendanceReportingDashboard />} />
+          <Route path="roster/dashboard" element={<RosterManagementDashboard />} />
         </Route>
         <Route path="/teams" element={<Layout />}>
           <Route index element={<TeamListView />} />
           <Route path="create" element={<TeamListView />} />
           <Route path="roster" element={<TeamRosterManagement />} />
+          <Route path="roster/dashboard" element={<RosterManagementDashboard />} />
+          <Route path="attendance" element={<AttendanceTracker />} />
+          <Route path="reports/attendance" element={<AttendanceReportingDashboard />} />
           <Route path=":id" element={<TeamListView />} />
         </Route>
         <Route path="/players" element={<Layout />}>

@@ -29,7 +29,8 @@ import {
   MapPin,
   Sparkles,
   Zap,
-  TrendingUp
+  TrendingUp,
+  ArrowRightLeft
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useApi } from '../hooks/useApi'
@@ -76,6 +77,13 @@ interface AddPlayerFormData {
 interface EditRosterFormData {
   jersey_number: string
   position: string
+}
+
+interface TransferFormData {
+  destination_team_id: string
+  jersey_number: string
+  position: string
+  transfer_date: string
 }
 
 const containerVariants = {
@@ -145,6 +153,18 @@ export default function TeamRosterManagement() {
   // Remove Player Modal State
   const [showRemoveModal, setShowRemoveModal] = useState(false)
   const [playerToRemove, setPlayerToRemove] = useState<RosterEntry | null>(null)
+
+  // Transfer Player Modal State
+  const [showTransferModal, setShowTransferModal] = useState(false)
+  const [showTransferConfirmModal, setShowTransferConfirmModal] = useState(false)
+  const [playerToTransfer, setPlayerToTransfer] = useState<RosterEntry | null>(null)
+  const [transferFormData, setTransferFormData] = useState<TransferFormData>({
+    destination_team_id: '',
+    jersey_number: '',
+    position: '',
+    transfer_date: new Date().toISOString().split('T')[0]
+  })
+  const [transferFormErrors, setTransferFormErrors] = useState<Partial<TransferFormData>>({})
 
   const { data: teamsData, loading: teamsLoading, execute: executeTeamsApi } = useApi<{ teams: Team[] }>()
   const { data: rosterData, loading: rosterLoading, execute: executeRosterApi } = useApi<{ roster_entries: RosterEntry[] }>()
@@ -319,6 +339,114 @@ export default function TeamRosterManagement() {
     }
   }
 
+  const validateTransferForm = async (data: TransferFormData): Promise<boolean> => {
+    const errors: Partial<TransferFormData> = {}
+
+    if (!data.destination_team_id) {
+      errors.destination_team_id = 'Destination team is required'
+    }
+    if (!data.transfer_date) {
+      errors.transfer_date = 'Transfer date is required'
+    }
+    if (data.jersey_number && (isNaN(Number(data.jersey_number)) || Number(data.jersey_number) < 0)) {
+      errors.jersey_number = 'Jersey number must be a positive number'
+    }
+
+    // Check if destination team is different from current team
+    if (data.destination_team_id && selectedTeam && Number(data.destination_team_id) === selectedTeam.id) {
+      errors.destination_team_id = 'Cannot transfer to the same team'
+    }
+
+    // Check transfer date is not in the past
+    const transferDate = new Date(data.transfer_date)
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    if (transferDate < today) {
+      errors.transfer_date = 'Transfer date cannot be in the past'
+    }
+
+    // Check jersey number availability on destination team if specified
+    if (data.jersey_number && data.destination_team_id) {
+      try {
+        const result = await executeRosterApi(`/api/rosters?team_id=${data.destination_team_id}&is_active=true`)
+        const destinationRoster = result.roster_entries || []
+        const jerseyTaken = destinationRoster.some(entry => entry.jersey_number === Number(data.jersey_number))
+        if (jerseyTaken) {
+          errors.jersey_number = 'Jersey number is already taken on destination team'
+        }
+      } catch (err) {
+        console.warn('Could not validate jersey number on destination team:', err)
+      }
+    }
+
+    // Check transfer date is not before player's start date on current team
+    if (data.transfer_date && playerToTransfer) {
+      const playerStartDate = new Date(playerToTransfer.start_date)
+      const transferDate = new Date(data.transfer_date)
+      if (transferDate < playerStartDate) {
+        errors.transfer_date = 'Transfer date cannot be before player joined current team'
+      }
+    }
+
+    setTransferFormErrors(errors)
+    return Object.keys(errors).length === 0
+  }
+
+  const handleTransferPlayer = async () => {
+    if (!playerToTransfer || !selectedTeam) return
+
+    try {
+      const isValid = await validateTransferForm(transferFormData)
+      if (!isValid) return
+
+      // Show confirmation dialog
+      setShowTransferModal(false)
+      setShowTransferConfirmModal(true)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to validate transfer')
+    }
+  }
+
+  const executeTransfer = async () => {
+    if (!playerToTransfer || !selectedTeam) return
+
+    try {
+      // Step 1: End current roster entry
+      await executeOperation(`/api/rosters/${playerToTransfer.id}`, {
+        method: 'PUT',
+        body: {
+          end_date: transferFormData.transfer_date
+        }
+      })
+
+      // Step 2: Create new roster entry on destination team
+      await executeOperation('/api/rosters', {
+        method: 'POST',
+        body: {
+          player_id: playerToTransfer.player_id,
+          team_id: Number(transferFormData.destination_team_id),
+          start_date: transferFormData.transfer_date,
+          jersey_number: transferFormData.jersey_number ? Number(transferFormData.jersey_number) : null,
+          position: transferFormData.position || null
+        }
+      })
+
+      const destinationTeam = teams.find(t => t.id === Number(transferFormData.destination_team_id))
+      setSuccessMessage(
+        `${playerToTransfer.players.first_name} ${playerToTransfer.players.last_name} transferred to ${destinationTeam?.name} successfully`
+      )
+
+      setShowTransferConfirmModal(false)
+      resetTransferForm()
+
+      // Refresh data
+      await fetchTeamRoster(selectedTeam.id)
+      await fetchAvailablePlayers(selectedTeam.id)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to transfer player')
+    }
+  }
+
   const resetAddPlayerForm = () => {
     setAddPlayerFormData({
       player_id: '',
@@ -355,6 +483,29 @@ export default function TeamRosterManagement() {
   const openRemoveModal = (entry: RosterEntry) => {
     setPlayerToRemove(entry)
     setShowRemoveModal(true)
+  }
+
+  const resetTransferForm = () => {
+    setTransferFormData({
+      destination_team_id: '',
+      jersey_number: '',
+      position: '',
+      transfer_date: new Date().toISOString().split('T')[0]
+    })
+    setTransferFormErrors({})
+    setPlayerToTransfer(null)
+  }
+
+  const openTransferModal = (entry: RosterEntry) => {
+    setPlayerToTransfer(entry)
+    setTransferFormData({
+      destination_team_id: '',
+      jersey_number: entry.jersey_number?.toString() || '',
+      position: entry.position || '',
+      transfer_date: new Date().toISOString().split('T')[0]
+    })
+    setTransferFormErrors({})
+    setShowTransferModal(true)
   }
 
   // Clear messages after 5 seconds
@@ -666,6 +817,16 @@ export default function TeamRosterManagement() {
                               <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
+                                onClick={() => openTransferModal(entry)}
+                                className="p-2 bg-blue-100 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/40 transition-colors"
+                                title="Transfer"
+                                disabled={teams.length <= 1}
+                              >
+                                <ArrowRightLeft className="w-4 h-4" />
+                              </motion.button>
+                              <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
                                 onClick={() => openRemoveModal(entry)}
                                 className="p-2 bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-400 rounded-lg hover:bg-red-200 dark:hover:bg-red-900/40 transition-colors"
                                 title="Remove"
@@ -896,6 +1057,225 @@ export default function TeamRosterManagement() {
                 className="bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-200"
               >
                 {operationLoading ? 'Removing...' : 'Remove Player'}
+              </motion.button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Transfer Player Modal */}
+        <Dialog open={showTransferModal} onOpenChange={setShowTransferModal}>
+          <DialogContent className="glass-card glass-card-hover max-w-md">
+            <DialogHeader className="text-center pb-4">
+              <div className="flex justify-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl flex items-center justify-center shadow-lg">
+                  <ArrowRightLeft className="w-6 h-6 text-white" />
+                </div>
+              </div>
+              <DialogTitle className="gradient-text text-2xl font-bold">Transfer Player</DialogTitle>
+              <DialogDescription className="text-muted-foreground">
+                Transfer {playerToTransfer?.players.first_name} {playerToTransfer?.players.last_name} to another team
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="space-y-4">
+              {/* Source Team Info */}
+              <div className="bg-gray-50/50 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 rounded-lg p-4">
+                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Current Team</h4>
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center text-white font-bold text-sm">
+                    {selectedTeam?.name.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-900 dark:text-white">{selectedTeam?.name}</p>
+                    <p className="text-sm text-gray-500">{selectedTeam?.organization}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Destination Team */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Destination Team *
+                </label>
+                <Select
+                  value={transferFormData.destination_team_id}
+                  onValueChange={(value) => setTransferFormData({ ...transferFormData, destination_team_id: value })}
+                >
+                  <SelectTrigger className={`w-full ${transferFormErrors.destination_team_id ? 'border-red-500' : ''}`}>
+                    <SelectValue placeholder="Select destination team..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {teams
+                      .filter(team => team.id !== selectedTeam?.id)
+                      .map((team) => (
+                        <SelectItem key={team.id} value={team.id.toString()}>
+                          {team.name} - {team.organization}
+                        </SelectItem>
+                      ))
+                    }
+                  </SelectContent>
+                </Select>
+                {transferFormErrors.destination_team_id && (
+                  <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                    <AlertTriangle className="w-4 h-4" />
+                    {transferFormErrors.destination_team_id}
+                  </p>
+                )}
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Jersey Number
+                  </label>
+                  <Input
+                    type="number"
+                    min="0"
+                    value={transferFormData.jersey_number}
+                    onChange={(e) => setTransferFormData({ ...transferFormData, jersey_number: e.target.value })}
+                    placeholder="10"
+                    className={transferFormErrors.jersey_number ? 'border-red-500' : ''}
+                  />
+                  {transferFormErrors.jersey_number && (
+                    <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                      <AlertTriangle className="w-4 h-4" />
+                      {transferFormErrors.jersey_number}
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Position
+                  </label>
+                  <Input
+                    value={transferFormData.position}
+                    onChange={(e) => setTransferFormData({ ...transferFormData, position: e.target.value })}
+                    placeholder="Forward, Defense..."
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Transfer Date *
+                </label>
+                <Input
+                  type="date"
+                  value={transferFormData.transfer_date}
+                  onChange={(e) => setTransferFormData({ ...transferFormData, transfer_date: e.target.value })}
+                  className={transferFormErrors.transfer_date ? 'border-red-500' : ''}
+                />
+                {transferFormErrors.transfer_date && (
+                  <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                    <AlertTriangle className="w-4 h-4" />
+                    {transferFormErrors.transfer_date}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <DialogFooter className="gap-3 pt-4">
+              <Button variant="outline" onClick={() => setShowTransferModal(false)}>
+                Cancel
+              </Button>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={handleTransferPlayer}
+                disabled={operationLoading}
+                className="bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-200"
+              >
+                {operationLoading ? 'Validating...' : 'Review Transfer'}
+              </motion.button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Transfer Confirmation Modal */}
+        <Dialog open={showTransferConfirmModal} onOpenChange={setShowTransferConfirmModal}>
+          <DialogContent className="glass-card glass-card-hover max-w-md">
+            <DialogHeader className="text-center pb-4">
+              <div className="flex justify-center mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl flex items-center justify-center shadow-lg">
+                  <ArrowRightLeft className="w-6 h-6 text-white" />
+                </div>
+              </div>
+              <DialogTitle className="text-2xl font-bold text-blue-600 dark:text-blue-400">Confirm Transfer</DialogTitle>
+              <DialogDescription className="text-muted-foreground">
+                Please review the transfer details before proceeding
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="space-y-4">
+              {/* Transfer Summary */}
+              <div className="bg-blue-50/50 dark:bg-blue-900/20 border border-blue-200/50 dark:border-blue-800/50 rounded-lg p-4">
+                <h4 className="text-sm font-medium text-blue-700 dark:text-blue-300 mb-3">Transfer Summary</h4>
+
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600 dark:text-gray-400">Player:</span>
+                    <span className="font-semibold text-gray-900 dark:text-white">
+                      {playerToTransfer?.players.first_name} {playerToTransfer?.players.last_name}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600 dark:text-gray-400">From:</span>
+                    <span className="text-gray-900 dark:text-white">{selectedTeam?.name}</span>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600 dark:text-gray-400">To:</span>
+                    <span className="text-gray-900 dark:text-white">
+                      {teams.find(t => t.id === Number(transferFormData.destination_team_id))?.name}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600 dark:text-gray-400">Transfer Date:</span>
+                    <span className="text-gray-900 dark:text-white">
+                      {new Date(transferFormData.transfer_date).toLocaleDateString()}
+                    </span>
+                  </div>
+
+                  {transferFormData.jersey_number && (
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-600 dark:text-gray-400">New Jersey #:</span>
+                      <span className="font-mono font-bold text-gray-900 dark:text-white">
+                        #{transferFormData.jersey_number}
+                      </span>
+                    </div>
+                  )}
+
+                  {transferFormData.position && (
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-600 dark:text-gray-400">New Position:</span>
+                      <span className="text-gray-900 dark:text-white">{transferFormData.position}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="bg-amber-50/50 dark:bg-amber-900/20 border border-amber-200/50 dark:border-amber-800/50 rounded-lg p-4">
+                <p className="text-amber-700 dark:text-amber-300 text-sm">
+                  <strong>Note:</strong> This will end the player's current roster entry and create a new entry on the destination team. This action cannot be undone.
+                </p>
+              </div>
+            </div>
+
+            <DialogFooter className="gap-3 pt-4">
+              <Button variant="outline" onClick={() => setShowTransferConfirmModal(false)}>
+                Cancel
+              </Button>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={executeTransfer}
+                disabled={operationLoading}
+                className="bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-200"
+              >
+                {operationLoading ? 'Transferring...' : 'Confirm Transfer'}
               </motion.button>
             </DialogFooter>
           </DialogContent>

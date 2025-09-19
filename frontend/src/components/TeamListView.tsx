@@ -610,86 +610,138 @@ export default function TeamListView() {
           </DialogContent>
         </Dialog>
 
-        {/* Edit Dialog - Similar structure to Create */}
+        {/* Edit Dialog - Enhanced with better styling */}
         <Dialog open={showEditForm} onOpenChange={setShowEditForm}>
-          <DialogContent className="glass-card border-gray-200/50 dark:border-gray-700/50">
-            <DialogHeader>
-              <DialogTitle className="gradient-text text-2xl">Edit Team</DialogTitle>
-              <DialogDescription className="text-gray-600 dark:text-gray-400">
-                Update team information
+          <DialogContent className="glass-card glass-card-hover max-w-2xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader className="text-center pb-8">
+              <div className="flex justify-center mb-6">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-xl glow-border floating-element">
+                  <Edit className="w-8 h-8 text-white" />
+                </div>
+              </div>
+              <DialogTitle className="gradient-text text-4xl font-bold mb-2">Edit Team</DialogTitle>
+              <DialogDescription className="text-lg text-muted-foreground">
+                Update team information for <span className="font-semibold text-foreground">{selectedTeam?.name}</span>
               </DialogDescription>
             </DialogHeader>
 
-            <div className="space-y-4">
-              <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Team Name *</label>
-                <Input
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="Enter team name"
-                  className={`bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm ${formErrors.name ? 'border-red-500' : 'border-gray-200/50 dark:border-gray-700/50'}`}
-                />
-                {formErrors.name && (
-                  <p className="text-sm text-red-500 mt-1">{formErrors.name}</p>
-                )}
-              </div>
+            <div className="space-y-8">
+              {/* Team Information Card */}
+              <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-200/50 dark:border-gray-700/50">
+                <h3 className="text-xl font-bold text-foreground flex items-center gap-3 mb-6">
+                  <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+                    <Shield className="w-5 h-5 text-white" />
+                  </div>
+                  Team Information
+                </h3>
 
-              <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Organization *</label>
-                <Input
-                  value={formData.organization}
-                  onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
-                  placeholder="Enter organization"
-                  className={`bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm ${formErrors.organization ? 'border-red-500' : 'border-gray-200/50 dark:border-gray-700/50'}`}
-                />
-                {formErrors.organization && (
-                  <p className="text-sm text-red-500 mt-1">{formErrors.organization}</p>
-                )}
-              </div>
+                <div className="space-y-6">
+                  {/* Name and Organization - Required Fields */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="block text-sm font-semibold text-foreground uppercase tracking-wide">
+                        Team Name <span className="text-red-500">*</span>
+                      </label>
+                      <Input
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        placeholder="Enter team name"
+                        className={`w-full px-4 py-3 text-lg rounded-lg border-2 bg-white dark:bg-gray-800 text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
+                          formErrors.name
+                            ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
+                            : 'border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                        }`}
+                      />
+                      {formErrors.name && (
+                        <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                          <AlertTriangle className="w-4 h-4" />
+                          {formErrors.name}
+                        </p>
+                      )}
+                    </div>
 
-              <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Division</label>
-                <Input
-                  value={formData.division}
-                  onChange={(e) => setFormData({ ...formData, division: e.target.value })}
-                  placeholder="e.g., Premier, Division 1"
-                  className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50"
-                />
-              </div>
+                    <div className="space-y-2">
+                      <label className="block text-sm font-semibold text-foreground uppercase tracking-wide">
+                        Organization <span className="text-red-500">*</span>
+                      </label>
+                      <Input
+                        value={formData.organization}
+                        onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
+                        placeholder="Enter organization"
+                        className={`w-full px-4 py-3 text-lg rounded-lg border-2 bg-white dark:bg-gray-800 text-foreground placeholder:text-muted-foreground transition-all duration-200 ${
+                          formErrors.organization
+                            ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/20'
+                            : 'border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20'
+                        }`}
+                      />
+                      {formErrors.organization && (
+                        <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                          <AlertTriangle className="w-4 h-4" />
+                          {formErrors.organization}
+                        </p>
+                      )}
+                    </div>
+                  </div>
 
-              <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Age Group</label>
-                <Input
-                  value={formData.age_group}
-                  onChange={(e) => setFormData({ ...formData, age_group: e.target.value })}
-                  placeholder="e.g., Under 16, Adult"
-                  className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50"
-                />
-              </div>
+                  {/* Optional Fields */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="space-y-2">
+                      <label className="block text-sm font-semibold text-foreground uppercase tracking-wide">Division</label>
+                      <Input
+                        value={formData.division}
+                        onChange={(e) => setFormData({ ...formData, division: e.target.value })}
+                        placeholder="e.g., Premier, Division 1"
+                        className="w-full px-4 py-3 text-lg rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-foreground placeholder:text-muted-foreground focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
+                      />
+                    </div>
 
-              <div>
-                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Skill Level</label>
-                <Input
-                  value={formData.skill_level}
-                  onChange={(e) => setFormData({ ...formData, skill_level: e.target.value })}
-                  placeholder="e.g., Beginner, Intermediate, Advanced"
-                  className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50"
-                />
+                    <div className="space-y-2">
+                      <label className="block text-sm font-semibold text-foreground uppercase tracking-wide">Age Group</label>
+                      <Input
+                        value={formData.age_group}
+                        onChange={(e) => setFormData({ ...formData, age_group: e.target.value })}
+                        placeholder="e.g., Under 16, Adult"
+                        className="w-full px-4 py-3 text-lg rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-foreground placeholder:text-muted-foreground focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="block text-sm font-semibold text-foreground uppercase tracking-wide">Skill Level</label>
+                      <Input
+                        value={formData.skill_level}
+                        onChange={(e) => setFormData({ ...formData, skill_level: e.target.value })}
+                        placeholder="e.g., Beginner, Intermediate, Advanced"
+                        className="w-full px-4 py-3 text-lg rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-foreground placeholder:text-muted-foreground focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-200"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <DialogFooter>
-              <Button variant="outline" onClick={() => setShowEditForm(false)}>
+            <DialogFooter className="mt-8 pt-6 border-t border-border gap-4">
+              <Button
+                variant="outline"
+                onClick={() => setShowEditForm(false)}
+                className="px-8 py-3 text-base font-medium border-2 border-gray-300 hover:bg-gray-100 transition-all duration-200"
+              >
                 Cancel
               </Button>
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={handleEditTeam}
                 disabled={formLoading}
-                className="button-primary"
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl text-base flex items-center gap-2"
               >
-                <span>{formLoading ? 'Updating...' : 'Update Team'}</span>
+                {formLoading && (
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                    className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
+                  />
+                )}
+                <span>{formLoading ? 'Updating Team...' : 'Update Team'}</span>
               </motion.button>
             </DialogFooter>
           </DialogContent>

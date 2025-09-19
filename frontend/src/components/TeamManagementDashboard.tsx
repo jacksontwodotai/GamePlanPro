@@ -307,7 +307,7 @@ export default function TeamManagementDashboard() {
         {/* Quick Actions */}
         <motion.div
           variants={containerVariants}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
         >
           {[
             {
@@ -326,10 +326,24 @@ export default function TeamManagementDashboard() {
             },
             {
               title: 'Roster Management',
-              description: 'Manage team rosters and player assignments',
+              description: 'Central hub for roster and attendance management',
               icon: Activity,
-              link: '/teams/roster',
+              link: '/teams/roster/dashboard',
               gradient: 'from-gray-500 to-gray-700'
+            },
+            {
+              title: 'Attendance Tracker',
+              description: 'Track player attendance for activities',
+              icon: Activity,
+              link: '/teams/attendance',
+              gradient: 'from-blue-500 to-blue-700'
+            },
+            {
+              title: 'Attendance Reports',
+              description: 'View historical attendance data and insights',
+              icon: TrendingUp,
+              link: '/teams/reports/attendance',
+              gradient: 'from-green-500 to-green-700'
             },
             {
               title: 'Add New Player',
