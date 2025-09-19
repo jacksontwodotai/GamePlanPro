@@ -2194,5 +2194,195 @@
     "tool_input": {
       "work_order_number": "047"
     }
+  },
+  {
+    "session_id": "736bf268-57ca-4080-9064-c0a718d63890",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/736bf268-57ca-4080-9064-c0a718d63890.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__get_work_order",
+    "tool_input": {
+      "work_order_number": "050"
+    }
+  },
+  {
+    "session_id": "736bf268-57ca-4080-9064-c0a718d63890",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/736bf268-57ca-4080-9064-c0a718d63890.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing payment API and registration flow",
+          "status": "in_progress",
+          "activeForm": "Analyzing existing payment API and registration flow"
+        },
+        {
+          "content": "Choose and set up payment gateway (Stripe)",
+          "status": "pending",
+          "activeForm": "Choosing and setting up payment gateway (Stripe)"
+        },
+        {
+          "content": "Create payment form component with tokenization",
+          "status": "pending",
+          "activeForm": "Creating payment form component with tokenization"
+        },
+        {
+          "content": "Implement payment status handling and user feedback",
+          "status": "pending",
+          "activeForm": "Implementing payment status handling and user feedback"
+        },
+        {
+          "content": "Update backend API to process payment tokens",
+          "status": "pending",
+          "activeForm": "Updating backend API to process payment tokens"
+        },
+        {
+          "content": "Create payment confirmation screen",
+          "status": "pending",
+          "activeForm": "Creating payment confirmation screen"
+        },
+        {
+          "content": "Add error handling and retry functionality",
+          "status": "pending",
+          "activeForm": "Adding error handling and retry functionality"
+        },
+        {
+          "content": "Integrate payment flow with registration process",
+          "status": "pending",
+          "activeForm": "Integrating payment flow with registration process"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "736bf268-57ca-4080-9064-c0a718d63890",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/736bf268-57ca-4080-9064-c0a718d63890.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "payments",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "736bf268-57ca-4080-9064-c0a718d63890",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/736bf268-57ca-4080-9064-c0a718d63890.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/RegistrationFlow.tsx",
+      "limit": 100
+    }
+  },
+  {
+    "session_id": "736bf268-57ca-4080-9064-c0a718d63890",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/736bf268-57ca-4080-9064-c0a718d63890.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "payment|confirmation|submit",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/RegistrationFlow.tsx",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "736bf268-57ca-4080-9064-c0a718d63890",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/736bf268-57ca-4080-9064-c0a718d63890.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__supabase__execute_sql",
+    "tool_input": {
+      "query": "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = 'payments' ORDER BY ordinal_position;"
+    }
+  },
+  {
+    "session_id": "736bf268-57ca-4080-9064-c0a718d63890",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/736bf268-57ca-4080-9064-c0a718d63890.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing payment API and registration flow",
+          "status": "completed",
+          "activeForm": "Analyzing existing payment API and registration flow"
+        },
+        {
+          "content": "Choose and set up payment gateway (Stripe)",
+          "status": "in_progress",
+          "activeForm": "Choosing and setting up payment gateway (Stripe)"
+        },
+        {
+          "content": "Create payment form component with tokenization",
+          "status": "pending",
+          "activeForm": "Creating payment form component with tokenization"
+        },
+        {
+          "content": "Implement payment status handling and user feedback",
+          "status": "pending",
+          "activeForm": "Implementing payment status handling and user feedback"
+        },
+        {
+          "content": "Update backend API to process payment tokens",
+          "status": "pending",
+          "activeForm": "Updating backend API to process payment tokens"
+        },
+        {
+          "content": "Create payment confirmation screen",
+          "status": "pending",
+          "activeForm": "Creating payment confirmation screen"
+        },
+        {
+          "content": "Add error handling and retry functionality",
+          "status": "pending",
+          "activeForm": "Adding error handling and retry functionality"
+        },
+        {
+          "content": "Integrate payment flow with registration process",
+          "status": "pending",
+          "activeForm": "Integrating payment flow with registration process"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "736bf268-57ca-4080-9064-c0a718d63890",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/736bf268-57ca-4080-9064-c0a718d63890.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "npm install stripe",
+      "description": "Install Stripe Node.js library for backend"
+    }
+  },
+  {
+    "session_id": "736bf268-57ca-4080-9064-c0a718d63890",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/736bf268-57ca-4080-9064-c0a718d63890.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd /Users/jacksontumbidge/Projects/GamePlanPro/frontend && npm install @stripe/stripe-js @stripe/react-stripe-js",
+      "description": "Install Stripe frontend libraries"
+    }
   }
 ]

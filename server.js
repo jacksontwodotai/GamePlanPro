@@ -5,6 +5,7 @@ const cors = require('cors');
 const path = require('path');
 const PDFDocument = require('pdfkit');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY || 'sk_test_...');
 
 const app = express();
 const PORT = 2004;
@@ -2770,6 +2771,136 @@ app.put('/api/registrations/:registration_id', authenticateUser, async (req, res
     } catch (error) {
         console.error('Update registration error:', error);
         res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Stripe Payment Endpoints
+
+// POST /api/payments/create-intent - Create Stripe payment intent
+app.post('/api/payments/create-intent', authenticateUser, async (req, res) => {
+    const { amount, currency = 'usd', program_registration_id } = req.body;
+
+    // Validate required fields
+    if (!amount || !program_registration_id) {
+        return res.status(400).json({
+            error: 'amount and program_registration_id are required'
+        });
+    }
+
+    // Validate amount is positive
+    if (amount <= 0) {
+        return res.status(400).json({ error: 'Amount must be greater than 0' });
+    }
+
+    try {
+        // Verify the program registration exists and belongs to the user
+        const { data: registration, error: regError } = await supabase
+            .from('program_registrations')
+            .select('id, program_id, player_id, programs(name, base_fee)')
+            .eq('id', program_registration_id)
+            .single();
+
+        if (regError || !registration) {
+            return res.status(404).json({ error: 'Registration not found' });
+        }
+
+        // Create payment intent with Stripe
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: Math.round(amount * 100), // Convert to cents
+            currency,
+            metadata: {
+                program_registration_id,
+                program_name: registration.programs?.name || 'Unknown Program',
+                user_id: req.user.id
+            }
+        });
+
+        res.json({
+            client_secret: paymentIntent.client_secret,
+            payment_intent_id: paymentIntent.id
+        });
+
+    } catch (error) {
+        console.error('Create payment intent error:', error);
+        res.status(500).json({ error: 'Failed to create payment intent' });
+    }
+});
+
+// POST /api/payments/confirm - Confirm payment and record in database
+app.post('/api/payments/confirm', authenticateUser, async (req, res) => {
+    const { payment_intent_id, program_registration_id } = req.body;
+
+    if (!payment_intent_id || !program_registration_id) {
+        return res.status(400).json({
+            error: 'payment_intent_id and program_registration_id are required'
+        });
+    }
+
+    try {
+        // Retrieve payment intent from Stripe
+        const paymentIntent = await stripe.paymentIntents.retrieve(payment_intent_id);
+
+        if (paymentIntent.status !== 'succeeded') {
+            return res.status(400).json({ error: 'Payment not completed' });
+        }
+
+        // Verify the program registration exists
+        const { data: registration, error: regError } = await supabase
+            .from('program_registrations')
+            .select('id, program_id, player_id')
+            .eq('id', program_registration_id)
+            .single();
+
+        if (regError || !registration) {
+            return res.status(404).json({ error: 'Registration not found' });
+        }
+
+        // Record payment in database
+        const { data: payment, error: paymentError } = await supabase
+            .from('payments')
+            .insert({
+                program_registration_id,
+                amount: paymentIntent.amount / 100, // Convert back from cents
+                payment_method: 'stripe',
+                payment_method_details: {
+                    payment_intent_id,
+                    payment_method: paymentIntent.payment_method,
+                    charges: paymentIntent.charges
+                },
+                status: 'completed',
+                transaction_id: payment_intent_id,
+                processed_at: new Date().toISOString()
+            })
+            .select()
+            .single();
+
+        if (paymentError) {
+            console.error('Payment record error:', paymentError);
+            return res.status(500).json({ error: 'Failed to record payment' });
+        }
+
+        // Update registration status to confirmed
+        const { error: updateError } = await supabase
+            .from('program_registrations')
+            .update({
+                status: 'confirmed',
+                updated_at: new Date().toISOString()
+            })
+            .eq('id', program_registration_id);
+
+        if (updateError) {
+            console.error('Registration update error:', updateError);
+        }
+
+        res.json({
+            success: true,
+            payment,
+            message: 'Payment confirmed and registration updated'
+        });
+
+    } catch (error) {
+        console.error('Confirm payment error:', error);
+        res.status(500).json({ error: 'Failed to confirm payment' });
     }
 });
 

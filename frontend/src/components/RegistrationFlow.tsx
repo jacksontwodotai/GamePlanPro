@@ -6,6 +6,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/
 import { Input } from './ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
 import { useApi } from '../hooks/useApi'
+import PaymentForm from './PaymentForm'
+import PaymentConfirmation from './PaymentConfirmation'
 
 interface Program {
   id: string
@@ -44,7 +46,8 @@ interface RegistrationData {
 const steps = [
   { id: 'programs', title: 'Select Program', description: 'Choose from available programs' },
   { id: 'player', title: 'Player Information', description: 'Enter player details' },
-  { id: 'confirmation', title: 'Confirmation', description: 'Review and confirm registration' }
+  { id: 'payment', title: 'Payment', description: 'Complete your payment' },
+  { id: 'confirmation', title: 'Confirmation', description: 'Registration complete' }
 ]
 
 const containerVariants = {
@@ -93,6 +96,8 @@ export default function RegistrationFlow() {
   const [registrationNotes, setRegistrationNotes] = useState('')
   const [validationErrors, setValidationErrors] = useState<{ [key: string]: string }>({})
   const [registrationResult, setRegistrationResult] = useState<any>(null)
+  const [paymentResult, setPaymentResult] = useState<any>(null)
+  const [paymentError, setPaymentError] = useState('')
 
   const { loading, error, execute } = useApi<any>()
 
@@ -239,10 +244,19 @@ export default function RegistrationFlow() {
       })
 
       setRegistrationResult(registrationResponse)
-      setCurrentStep(2) // Move to confirmation step
+      setCurrentStep(2) // Move to payment step
     } catch (err) {
       console.error('Registration failed:', err)
     }
+  }
+
+  const handlePaymentSuccess = (result: any) => {
+    setPaymentResult(result)
+    setCurrentStep(3) // Move to confirmation step
+  }
+
+  const handlePaymentError = (error: string) => {
+    setPaymentError(error)
   }
 
   const formatDate = (dateString: string) => {
@@ -683,7 +697,59 @@ export default function RegistrationFlow() {
             )}
 
             {/* Step 3: Confirmation */}
-            {currentStep === 2 && registrationResult && (
+            {/* Payment Step */}
+            {currentStep === 2 && registrationResult && selectedProgram && (
+              <div className="space-y-6">
+                <div className="text-center mb-6">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-2">Complete Your Payment</h2>
+                  <p className="text-gray-600">
+                    Complete your registration by paying for {selectedProgram.name}
+                  </p>
+                </div>
+
+                {paymentError && (
+                  <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md">
+                    {paymentError}
+                  </div>
+                )}
+
+                <PaymentForm
+                  amount={selectedProgram.base_fee}
+                  programRegistrationId={registrationResult.registration.id}
+                  programName={selectedProgram.name}
+                  onSuccess={handlePaymentSuccess}
+                  onError={handlePaymentError}
+                />
+
+                <div className="flex justify-center">
+                  <Button
+                    variant="outline"
+                    onClick={() => setCurrentStep(1)}
+                    className="flex items-center gap-2"
+                  >
+                    <ArrowLeft className="h-4 w-4" />
+                    Back to Player Information
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {/* Confirmation Step */}
+            {currentStep === 3 && paymentResult && selectedProgram && (
+              <PaymentConfirmation
+                paymentResult={paymentResult}
+                programName={selectedProgram.name}
+                playerName={`${playerData.first_name} ${playerData.last_name}`}
+                amount={selectedProgram.base_fee}
+                onDownloadReceipt={() => {
+                  // TODO: Implement receipt download
+                  console.log('Download receipt')
+                }}
+              />
+            )}
+
+            {/* Legacy confirmation for non-payment flow */}
+            {currentStep === 3 && !paymentResult && registrationResult && (
               <div className="space-y-6">
                 <Card>
                   <CardHeader className="text-center">
