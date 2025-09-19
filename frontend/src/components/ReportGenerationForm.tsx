@@ -6,6 +6,8 @@ import {
 } from 'lucide-react'
 import { useApi } from '../hooks/useApi'
 import RosterReportDisplay from './RosterReportDisplay'
+import PlayerContactReportView from './PlayerContactReportView'
+import TeamSummaryReportView from './TeamSummaryReportView'
 
 interface Team {
   id: number
@@ -98,6 +100,10 @@ export default function ReportGenerationForm() {
   const [apiError, setApiError] = useState('')
   const [rosterData, setRosterData] = useState<any[]>([])
   const [showRosterDisplay, setShowRosterDisplay] = useState(false)
+  const [playerContactData, setPlayerContactData] = useState<any[]>([])
+  const [showPlayerContactDisplay, setShowPlayerContactDisplay] = useState(false)
+  const [teamSummaryData, setTeamSummaryData] = useState<any[]>([])
+  const [showTeamSummaryDisplay, setShowTeamSummaryDisplay] = useState(false)
 
   const teamsApi = useApi<{ teams: Team[] }>()
   const reportApi = useApi()
@@ -115,9 +121,13 @@ export default function ReportGenerationForm() {
       }
     }
 
-    // Reset roster display when report type or format changes
+    // Reset all report displays when report type or format changes
     setShowRosterDisplay(false)
     setRosterData([])
+    setShowPlayerContactDisplay(false)
+    setPlayerContactData([])
+    setShowTeamSummaryDisplay(false)
+    setTeamSummaryData([])
   }, [formState.reportType, formState.format])
 
   const fetchTeams = async () => {
@@ -223,11 +233,19 @@ export default function ReportGenerationForm() {
         // For JSON, handle response data
         const response = await reportApi.execute(url)
 
-        // Special handling for roster reports - show the display component
+        // Special handling for different report types - show the appropriate display component
         if (formState.reportType === 'roster') {
           setRosterData(response.data || [])
           setShowRosterDisplay(true)
           setSuccessMessage(`${config.label} generated successfully! Found ${response.metadata?.total_entries || 'unknown'} records.`)
+        } else if (formState.reportType === 'player-contact') {
+          setPlayerContactData(response.data || [])
+          setShowPlayerContactDisplay(true)
+          setSuccessMessage(`${config.label} generated successfully! Found ${response.metadata?.total_contacts || 'unknown'} contacts.`)
+        } else if (formState.reportType === 'team-summary') {
+          setTeamSummaryData(response.data || [])
+          setShowTeamSummaryDisplay(true)
+          setSuccessMessage(`${config.label} generated successfully! Found ${response.metadata?.total_teams || 'unknown'} teams.`)
         } else {
           setSuccessMessage(`${config.label} generated successfully! Found ${response.metadata?.total_entries || response.metadata?.total_contacts || response.metadata?.total_teams || 'unknown'} records.`)
         }
@@ -324,6 +342,102 @@ export default function ReportGenerationForm() {
       throw error
     }
   }, [formState.teamIds, formState.status])
+
+  const handlePlayerContactExport = useCallback(async (format: 'csv') => {
+    try {
+      const config = reportTypeConfig['player-contact']
+      const params = new URLSearchParams()
+
+      // Add format
+      params.append('format', format)
+
+      // Add team filters if selected
+      formState.teamIds.forEach(teamId => {
+        params.append('team_id', teamId.toString())
+      })
+
+      const url = `${config.endpoint}?${params.toString()}`
+
+      // Trigger download
+      const authHeader = localStorage.getItem('authToken') ?
+        { 'Authorization': `Bearer ${localStorage.getItem('authToken')}` } : {}
+
+      const response = await fetch(url, {
+        headers: authHeader
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.error || `HTTP ${response.status}: ${response.statusText}`)
+      }
+
+      // Create download
+      const blob = await response.blob()
+      const downloadUrl = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = downloadUrl
+
+      const filename = `player_contacts.csv`
+      a.download = filename
+
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      window.URL.revokeObjectURL(downloadUrl)
+
+    } catch (error) {
+      console.error('Export error:', error)
+      throw error
+    }
+  }, [formState.teamIds])
+
+  const handleTeamSummaryExport = useCallback(async (format: 'csv') => {
+    try {
+      const config = reportTypeConfig['team-summary']
+      const params = new URLSearchParams()
+
+      // Add format
+      params.append('format', format)
+
+      // Add team filters if selected
+      formState.teamIds.forEach(teamId => {
+        params.append('team_id', teamId.toString())
+      })
+
+      const url = `${config.endpoint}?${params.toString()}`
+
+      // Trigger download
+      const authHeader = localStorage.getItem('authToken') ?
+        { 'Authorization': `Bearer ${localStorage.getItem('authToken')}` } : {}
+
+      const response = await fetch(url, {
+        headers: authHeader
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.error || `HTTP ${response.status}: ${response.statusText}`)
+      }
+
+      // Create download
+      const blob = await response.blob()
+      const downloadUrl = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = downloadUrl
+
+      const filename = `team_summary.csv`
+      a.download = filename
+
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      window.URL.revokeObjectURL(downloadUrl)
+
+    } catch (error) {
+      console.error('Export error:', error)
+      throw error
+    }
+  }, [formState.teamIds])
 
   const currentConfig = formState.reportType ? reportTypeConfig[formState.reportType] : null
 
@@ -615,6 +729,40 @@ export default function ReportGenerationForm() {
                     error={null}
                     teamFilters={selectedTeams.map(team => team.name)}
                     onExport={handleRosterExport}
+                  />
+                </motion.div>
+              )}
+
+              {/* Player Contact Report Display */}
+              {showPlayerContactDisplay && formState.reportType === 'player-contact' && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                >
+                  <PlayerContactReportView
+                    data={playerContactData}
+                    loading={false}
+                    error={null}
+                    teamFilters={selectedTeams.map(team => team.name)}
+                    onExport={handlePlayerContactExport}
+                  />
+                </motion.div>
+              )}
+
+              {/* Team Summary Report Display */}
+              {showTeamSummaryDisplay && formState.reportType === 'team-summary' && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                >
+                  <TeamSummaryReportView
+                    data={teamSummaryData}
+                    loading={false}
+                    error={null}
+                    teamFilters={selectedTeams.map(team => team.name)}
+                    onExport={handleTeamSummaryExport}
                   />
                 </motion.div>
               )}

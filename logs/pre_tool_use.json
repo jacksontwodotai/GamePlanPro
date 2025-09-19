@@ -8320,5 +8320,486 @@
         }
       ]
     }
+  },
+  {
+    "session_id": "6355e61c-9024-4580-9aec-2b5a3596978f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6355e61c-9024-4580-9aec-2b5a3596978f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__get_work_order",
+    "tool_input": {
+      "work_order_number": "34"
+    }
+  },
+  {
+    "session_id": "6355e61c-9024-4580-9aec-2b5a3596978f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6355e61c-9024-4580-9aec-2b5a3596978f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing report structure and data formats",
+          "status": "in_progress",
+          "activeForm": "Analyzing existing report structure and data formats"
+        },
+        {
+          "content": "Design PlayerContactReportView component architecture",
+          "status": "pending",
+          "activeForm": "Designing PlayerContactReportView component architecture"
+        },
+        {
+          "content": "Design TeamSummaryReportView component architecture",
+          "status": "pending",
+          "activeForm": "Designing TeamSummaryReportView component architecture"
+        },
+        {
+          "content": "Plan integration with ReportGenerationForm",
+          "status": "pending",
+          "activeForm": "Planning integration with ReportGenerationForm"
+        },
+        {
+          "content": "Create detailed implementation plan for user approval",
+          "status": "pending",
+          "activeForm": "Creating detailed implementation plan for user approval"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "6355e61c-9024-4580-9aec-2b5a3596978f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6355e61c-9024-4580-9aec-2b5a3596978f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/ReportGenerationForm.tsx",
+      "offset": 32,
+      "limit": 30
+    }
+  },
+  {
+    "session_id": "6355e61c-9024-4580-9aec-2b5a3596978f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6355e61c-9024-4580-9aec-2b5a3596978f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/ReportGenerationForm.tsx",
+      "offset": 218,
+      "limit": 15
+    }
+  },
+  {
+    "session_id": "6355e61c-9024-4580-9aec-2b5a3596978f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6355e61c-9024-4580-9aec-2b5a3596978f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/RosterReportDisplay.tsx",
+      "offset": 1,
+      "limit": 30
+    }
+  },
+  {
+    "session_id": "6355e61c-9024-4580-9aec-2b5a3596978f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6355e61c-9024-4580-9aec-2b5a3596978f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing report structure and data formats",
+          "status": "completed",
+          "activeForm": "Analyzing existing report structure and data formats"
+        },
+        {
+          "content": "Design PlayerContactReportView component architecture",
+          "status": "completed",
+          "activeForm": "Designing PlayerContactReportView component architecture"
+        },
+        {
+          "content": "Design TeamSummaryReportView component architecture",
+          "status": "completed",
+          "activeForm": "Designing TeamSummaryReportView component architecture"
+        },
+        {
+          "content": "Plan integration with ReportGenerationForm",
+          "status": "completed",
+          "activeForm": "Planning integration with ReportGenerationForm"
+        },
+        {
+          "content": "Create detailed implementation plan for user approval",
+          "status": "in_progress",
+          "activeForm": "Creating detailed implementation plan for user approval"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "6355e61c-9024-4580-9aec-2b5a3596978f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6355e61c-9024-4580-9aec-2b5a3596978f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "ExitPlanMode",
+    "tool_input": {
+      "plan": "# Player Contact and Team Summary Report Display Components Implementation Plan\n\n## Overview\nCreate two specialized report display components (`PlayerContactReportView` and `TeamSummaryReportView`) that handle different report types with appropriate data structures and CSV export functionality.\n\n## Component Architecture\n\n### 1. PlayerContactReportView Component\n**File**: `frontend/src/components/PlayerContactReportView.tsx`\n\n#### Data Structure\n```typescript\ninterface PlayerContactData {\n  player_name: string\n  player_email?: string\n  player_phone?: string\n  team_name: string\n  organization?: string\n  parent_guardian_name?: string\n  parent_guardian_email?: string\n  parent_guardian_phone?: string\n  emergency_contact?: string\n}\n```\n\n#### Features\n- **Table Display**: Player name, contact info, parent/guardian details\n- **Contact Icons**: Email, phone icons for visual clarity\n- **CSV Export**: Download contact information as spreadsheet\n- **Emergency Contact**: Special highlighting for emergency contacts\n- **Responsive Design**: Mobile-friendly table with horizontal scroll\n\n### 2. TeamSummaryReportView Component\n**File**: `frontend/src/components/TeamSummaryReportView.tsx`\n\n#### Data Structure\n```typescript\ninterface TeamSummaryData {\n  team_name: string\n  organization: string\n  division?: string\n  age_group?: string\n  skill_level?: string\n  active_player_count: number\n  total_player_count: number\n  description?: string\n}\n```\n\n#### Features\n- **Summary Cards**: Team overview with player counts\n- **Statistics Display**: Active vs total players with visual indicators\n- **Team Badges**: Division, age group, skill level tags\n- **CSV Export**: Download team summaries as spreadsheet\n- **Grid Layout**: Card-based responsive layout\n\n### 3. Technical Implementation\n\n#### Common Features (Following RosterReportDisplay Pattern)\n- Loading states with spinning indicators\n- Error handling with user-friendly messages\n- Empty state handling\n- CSV export functionality with file download\n- Framer Motion animations\n- Glassmorphism design consistency\n\n#### Props Interface Pattern\n```typescript\ninterface ReportDisplayProps {\n  data: ReportData[] | null\n  loading?: boolean\n  error?: string | null\n  teamFilters?: string[]\n  onExport?: (format: 'csv') => void  // Only CSV for these components\n}\n```\n\n### 4. Integration with ReportGenerationForm\n\n#### Modifications Required\n1. **Add state management** for both report types:\n   ```typescript\n   const [playerContactData, setPlayerContactData] = useState([])\n   const [teamSummaryData, setTeamSummaryData] = useState([])\n   const [showPlayerContactDisplay, setShowPlayerContactDisplay] = useState(false)\n   const [showTeamSummaryDisplay, setShowTeamSummaryDisplay] = useState(false)\n   ```\n\n2. **Enhance JSON response handling**:\n   - Add cases for 'player-contact' and 'team-summary' report types\n   - Set appropriate data and display states\n   - Handle metadata for record counts\n\n3. **Add export handlers** for each report type\n4. **Add conditional rendering** of display components\n\n### 5. Implementation Steps\n\n1. **Create PlayerContactReportView component**\n   - Contact-focused table layout\n   - Parent/guardian contact section\n   - CSV export with contact-specific fields\n\n2. **Create TeamSummaryReportView component**\n   - Card-based team overview layout\n   - Player count statistics\n   - CSV export with team summary fields\n\n3. **Integrate both components with ReportGenerationForm**\n   - Add conditional rendering logic\n   - Add export handlers\n   - Add state management\n\n4. **Test components with various scenarios**\n   - Empty data states\n   - Large datasets\n   - Export functionality\n\n### 6. Files to Modify\n\n#### New Files\n- `frontend/src/components/PlayerContactReportView.tsx`\n- `frontend/src/components/TeamSummaryReportView.tsx`\n\n#### Modified Files\n- `frontend/src/components/ReportGenerationForm.tsx`\n  - Import new components\n  - Add state management\n  - Add JSON response handling for new report types\n  - Add export handlers\n  - Add conditional rendering\n\n### 7. Design Considerations\n\n#### PlayerContactReportView\n- **Privacy-focused**: Clear display of sensitive contact information\n- **Parent/Guardian Section**: Dedicated area for guardian contacts\n- **Communication Tools**: Click-to-call/email functionality indicators\n\n#### TeamSummaryReportView\n- **High-level Overview**: Focus on team statistics and composition\n- **Visual Indicators**: Progress bars or badges for player counts\n- **Team Identity**: Clear team branding and organizational info\n\n### 8. Export Functionality\n\nBoth components will provide CSV export only (no PDF requirement), generating files with:\n- **Player Contact CSV**: Name, emails, phones, guardian info, team details\n- **Team Summary CSV**: Team name, organization, player counts, descriptions\n\nThis implementation follows the established patterns from RosterReportDisplay while addressing the specific needs of contact and summary data presentation."
+    }
+  },
+  {
+    "session_id": "6355e61c-9024-4580-9aec-2b5a3596978f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6355e61c-9024-4580-9aec-2b5a3596978f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Create PlayerContactReportView component with contact data table",
+          "status": "in_progress",
+          "activeForm": "Creating PlayerContactReportView component with contact data table"
+        },
+        {
+          "content": "Implement CSV export functionality for player contacts",
+          "status": "pending",
+          "activeForm": "Implementing CSV export functionality for player contacts"
+        },
+        {
+          "content": "Create TeamSummaryReportView component with team overview cards",
+          "status": "pending",
+          "activeForm": "Creating TeamSummaryReportView component with team overview cards"
+        },
+        {
+          "content": "Implement CSV export functionality for team summaries",
+          "status": "pending",
+          "activeForm": "Implementing CSV export functionality for team summaries"
+        },
+        {
+          "content": "Integrate both components with ReportGenerationForm",
+          "status": "pending",
+          "activeForm": "Integrating both components with ReportGenerationForm"
+        },
+        {
+          "content": "Add state management and conditional rendering",
+          "status": "pending",
+          "activeForm": "Adding state management and conditional rendering"
+        },
+        {
+          "content": "Test components with various data scenarios",
+          "status": "pending",
+          "activeForm": "Testing components with various data scenarios"
+        },
+        {
+          "content": "Mark work order as complete",
+          "status": "pending",
+          "activeForm": "Marking work order as complete"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "6355e61c-9024-4580-9aec-2b5a3596978f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6355e61c-9024-4580-9aec-2b5a3596978f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Write",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PlayerContactReportView.tsx",
+      "content": "import { useState, useCallback } from 'react'\nimport { motion, AnimatePresence } from 'framer-motion'\nimport {\n  Users, Mail, Phone, Shield, Download, AlertCircle,\n  CheckCircle, Loader2, FileText, FileSpreadsheet, User, UserPlus\n} from 'lucide-react'\n\ninterface PlayerContactData {\n  player_name: string\n  player_email?: string\n  player_phone?: string\n  team_name: string\n  organization?: string\n  parent_guardian_name?: string\n  parent_guardian_email?: string\n  parent_guardian_phone?: string\n  emergency_contact?: string\n}\n\ninterface PlayerContactReportViewProps {\n  data: PlayerContactData[] | null\n  loading?: boolean\n  error?: string | null\n  teamFilters?: string[]\n  onExport?: (format: 'csv') => void\n}\n\ninterface ExportState {\n  isExporting: boolean\n  exportError: string | null\n  exportSuccess: string | null\n}\n\nconst containerVariants = {\n  hidden: { opacity: 0 },\n  visible: {\n    opacity: 1,\n    transition: {\n      staggerChildren: 0.08,\n      delayChildren: 0.2\n    }\n  }\n}\n\nconst itemVariants = {\n  hidden: { y: 20, opacity: 0 },\n  visible: {\n    y: 0,\n    opacity: 1,\n    transition: {\n      type: \"spring\" as const,\n      stiffness: 100,\n      damping: 15\n    }\n  }\n}\n\nexport default function PlayerContactReportView({\n  data,\n  loading = false,\n  error = null,\n  teamFilters = [],\n  onExport\n}: PlayerContactReportViewProps) {\n  const [exportState, setExportState] = useState<ExportState>({\n    isExporting: false,\n    exportError: null,\n    exportSuccess: null\n  })\n\n  const getPlayerInitials = (playerName: string): string => {\n    const names = playerName.split(' ')\n    if (names.length >= 2) {\n      return `${names[0].charAt(0)}${names[names.length - 1].charAt(0)}`.toUpperCase()\n    }\n    return playerName.charAt(0).toUpperCase()\n  }\n\n  const formatPhoneNumber = (phone?: string): string => {\n    if (!phone) return ''\n    // Basic phone formatting - you might want to enhance this\n    const cleaned = phone.replace(/\\D/g, '')\n    if (cleaned.length === 10) {\n      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6)}`\n    }\n    return phone\n  }\n\n  const generateCSV = useCallback((contactData: PlayerContactData[]): string => {\n    const headers = [\n      'Player Name', 'Player Email', 'Player Phone', 'Team', 'Organization',\n      'Parent/Guardian Name', 'Parent/Guardian Email', 'Parent/Guardian Phone', 'Emergency Contact'\n    ]\n    const csvRows = [headers.join(',')]\n\n    contactData.forEach(contact => {\n      const row = [\n        `\"${contact.player_name}\"`,\n        `\"${contact.player_email || ''}\"`,\n        `\"${contact.player_phone || ''}\"`,\n        `\"${contact.team_name}\"`,\n        `\"${contact.organization || ''}\"`,\n        `\"${contact.parent_guardian_name || ''}\"`,\n        `\"${contact.parent_guardian_email || ''}\"`,\n        `\"${contact.parent_guardian_phone || ''}\"`,\n        `\"${contact.emergency_contact || ''}\"`\n      ]\n      csvRows.push(row.join(','))\n    })\n\n    return csvRows.join('\\n')\n  }, [])\n\n  const downloadFile = useCallback((content: string, filename: string, mimeType: string) => {\n    const blob = new Blob([content], { type: mimeType })\n    const url = window.URL.createObjectURL(blob)\n    const link = document.createElement('a')\n    link.href = url\n    link.download = filename\n    document.body.appendChild(link)\n    link.click()\n    document.body.removeChild(link)\n    window.URL.revokeObjectURL(url)\n  }, [])\n\n  const handleExport = useCallback(async () => {\n    if (!data || data.length === 0) {\n      setExportState(prev => ({\n        ...prev,\n        exportError: 'No contact data available to export'\n      }))\n      return\n    }\n\n    setExportState({\n      isExporting: true,\n      exportError: null,\n      exportSuccess: null\n    })\n\n    try {\n      if (onExport) {\n        await onExport('csv')\n        setExportState({\n          isExporting: false,\n          exportError: null,\n          exportSuccess: 'CSV export initiated successfully!'\n        })\n      } else {\n        // Fallback to local CSV generation\n        const csvContent = generateCSV(data)\n        const timestamp = new Date().toISOString().slice(0, 10)\n        downloadFile(csvContent, `player_contacts_${timestamp}.csv`, 'text/csv')\n\n        setExportState({\n          isExporting: false,\n          exportError: null,\n          exportSuccess: `CSV file downloaded successfully! (${data.length} contacts)`\n        })\n      }\n    } catch (error) {\n      console.error('Export error:', error)\n      setExportState({\n        isExporting: false,\n        exportError: error instanceof Error ? error.message : 'Export failed',\n        exportSuccess: null\n      })\n    }\n\n    // Clear messages after 5 seconds\n    setTimeout(() => {\n      setExportState(prev => ({\n        ...prev,\n        exportError: null,\n        exportSuccess: null\n      }))\n    }, 5000)\n  }, [data, generateCSV, downloadFile, onExport])\n\n  if (loading) {\n    return (\n      <motion.div\n        initial={{ opacity: 0 }}\n        animate={{ opacity: 1 }}\n        className=\"glass-card p-8\"\n      >\n        <div className=\"flex items-center justify-center py-12\">\n          <motion.div\n            animate={{ rotate: 360 }}\n            transition={{ duration: 1, repeat: Infinity, ease: \"linear\" }}\n            className=\"w-8 h-8 border-4 border-gray-200 border-t-gray-600 rounded-full\"\n          />\n          <span className=\"ml-3 text-gray-600 dark:text-gray-400\">Loading contact data...</span>\n        </div>\n      </motion.div>\n    )\n  }\n\n  if (error) {\n    return (\n      <motion.div\n        initial={{ opacity: 0, y: 20 }}\n        animate={{ opacity: 1, y: 0 }}\n        className=\"glass-card p-6 border-red-500/20 bg-red-50/50 dark:bg-red-900/20\"\n      >\n        <div className=\"flex items-center space-x-2 text-red-600 dark:text-red-400\">\n          <AlertCircle className=\"h-5 w-5\" />\n          <span>{error}</span>\n        </div>\n      </motion.div>\n    )\n  }\n\n  if (!data || data.length === 0) {\n    return (\n      <motion.div\n        initial={{ opacity: 0, scale: 0.9 }}\n        animate={{ opacity: 1, scale: 1 }}\n        className=\"glass-card p-8 text-center\"\n      >\n        <Users className=\"h-16 w-16 mx-auto text-gray-300 mb-4\" />\n        <h3 className=\"text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2\">\n          No contact data found\n        </h3>\n        <p className=\"text-gray-500\">\n          No player contacts match the current filters or the data is empty.\n        </p>\n      </motion.div>\n    )\n  }\n\n  return (\n    <motion.div\n      initial=\"hidden\"\n      animate=\"visible\"\n      variants={containerVariants}\n      className=\"space-y-6\"\n    >\n      {/* Header with Export Actions */}\n      <motion.div\n        variants={itemVariants}\n        className=\"glass-card p-6 flex items-center justify-between\"\n      >\n        <div>\n          <h2 className=\"text-xl font-semibold text-gray-900 dark:text-white mb-2 flex items-center\">\n            <FileText className=\"w-5 h-5 mr-2 text-gray-600\" />\n            Player Contact Report\n          </h2>\n          <p className=\"text-gray-600 dark:text-gray-400\">\n            {data.length} contact{data.length !== 1 ? 's' : ''} found\n            {teamFilters.length > 0 && (\n              <span className=\"ml-2 text-sm\">\n                (Filtered by {teamFilters.length} team{teamFilters.length !== 1 ? 's' : ''})\n              </span>\n            )}\n          </p>\n        </div>\n\n        <div className=\"flex items-center space-x-3\">\n          <motion.button\n            whileHover={{ scale: 1.05 }}\n            whileTap={{ scale: 0.95 }}\n            onClick={handleExport}\n            disabled={exportState.isExporting}\n            className=\"button-primary flex items-center\"\n          >\n            {exportState.isExporting ? (\n              <Loader2 className=\"w-4 h-4 mr-2 animate-spin\" />\n            ) : (\n              <FileSpreadsheet className=\"w-4 h-4 mr-2\" />\n            )}\n            Export CSV\n          </motion.button>\n        </div>\n      </motion.div>\n\n      {/* Export Messages */}\n      <AnimatePresence>\n        {exportState.exportSuccess && (\n          <motion.div\n            initial={{ opacity: 0, y: -20 }}\n            animate={{ opacity: 1, y: 0 }}\n            exit={{ opacity: 0, y: -20 }}\n            className=\"glass-card p-4 border-green-500/20 bg-green-50/50 dark:bg-green-900/20\"\n          >\n            <div className=\"flex items-center space-x-2 text-green-600 dark:text-green-400\">\n              <CheckCircle className=\"w-5 h-5\" />\n              <span>{exportState.exportSuccess}</span>\n            </div>\n          </motion.div>\n        )}\n\n        {exportState.exportError && (\n          <motion.div\n            initial={{ opacity: 0, y: -20 }}\n            animate={{ opacity: 1, y: 0 }}\n            exit={{ opacity: 0, y: -20 }}\n            className=\"glass-card p-4 border-red-500/20 bg-red-50/50 dark:bg-red-900/20\"\n          >\n            <div className=\"flex items-center space-x-2 text-red-600 dark:text-red-400\">\n              <AlertCircle className=\"w-5 h-5\" />\n              <span>{exportState.exportError}</span>\n            </div>\n          </motion.div>\n        )}\n      </AnimatePresence>\n\n      {/* Contact Table */}\n      <motion.div\n        variants={itemVariants}\n        className=\"glass-card p-6\"\n      >\n        <div className=\"overflow-x-auto\">\n          <table className=\"w-full\">\n            <thead>\n              <tr className=\"border-b border-gray-200/50 dark:border-gray-700/50\">\n                <th className=\"text-left py-3 px-4 font-semibold text-gray-900 dark:text-white\">Player</th>\n                <th className=\"text-left py-3 px-4 font-semibold text-gray-900 dark:text-white\">Player Contact</th>\n                <th className=\"text-left py-3 px-4 font-semibold text-gray-900 dark:text-white\">Parent/Guardian</th>\n                <th className=\"text-left py-3 px-4 font-semibold text-gray-900 dark:text-white\">Guardian Contact</th>\n                <th className=\"text-left py-3 px-4 font-semibold text-gray-900 dark:text-white\">Team</th>\n                <th className=\"text-left py-3 px-4 font-semibold text-gray-900 dark:text-white\">Emergency</th>\n              </tr>\n            </thead>\n            <tbody>\n              <AnimatePresence>\n                {data.map((contact, index) => (\n                  <motion.tr\n                    key={`${contact.player_name}-${contact.team_name}-${index}`}\n                    initial={{ opacity: 0, y: 20 }}\n                    animate={{ opacity: 1, y: 0 }}\n                    exit={{ opacity: 0, y: -20 }}\n                    transition={{ delay: index * 0.05 }}\n                    className=\"border-b border-gray-100/50 dark:border-gray-800/50 hover:bg-gray-50/50 dark:hover:bg-gray-800/50 transition-colors\"\n                  >\n                    <td className=\"py-4 px-4\">\n                      <div className=\"flex items-center space-x-3\">\n                        <div className=\"w-10 h-10 rounded-full bg-gradient-to-br from-blue-700 to-blue-900 flex items-center justify-center text-white font-bold text-sm\">\n                          {getPlayerInitials(contact.player_name)}\n                        </div>\n                        <div>\n                          <p className=\"font-semibold text-gray-900 dark:text-white\">\n                            {contact.player_name}\n                          </p>\n                        </div>\n                      </div>\n                    </td>\n                    <td className=\"py-4 px-4\">\n                      <div className=\"space-y-1\">\n                        {contact.player_email && (\n                          <div className=\"flex items-center text-sm text-gray-600 dark:text-gray-400\">\n                            <Mail className=\"w-4 h-4 mr-2\" />\n                            <span className=\"truncate max-w-[200px]\">{contact.player_email}</span>\n                          </div>\n                        )}\n                        {contact.player_phone && (\n                          <div className=\"flex items-center text-sm text-gray-600 dark:text-gray-400\">\n                            <Phone className=\"w-4 h-4 mr-2\" />\n                            <span>{formatPhoneNumber(contact.player_phone)}</span>\n                          </div>\n                        )}\n                        {!contact.player_email && !contact.player_phone && (\n                          <span className=\"text-gray-400 italic text-sm\">No contact info</span>\n                        )}\n                      </div>\n                    </td>\n                    <td className=\"py-4 px-4\">\n                      <div className=\"flex items-center\">\n                        {contact.parent_guardian_name ? (\n                          <>\n                            <UserPlus className=\"w-4 h-4 text-gray-400 mr-2\" />\n                            <span className=\"text-gray-900 dark:text-white font-medium\">\n                              {contact.parent_guardian_name}\n                            </span>\n                          </>\n                        ) : (\n                          <span className=\"text-gray-400 italic\">Not specified</span>\n                        )}\n                      </div>\n                    </td>\n                    <td className=\"py-4 px-4\">\n                      <div className=\"space-y-1\">\n                        {contact.parent_guardian_email && (\n                          <div className=\"flex items-center text-sm text-gray-600 dark:text-gray-400\">\n                            <Mail className=\"w-4 h-4 mr-2\" />\n                            <span className=\"truncate max-w-[200px]\">{contact.parent_guardian_email}</span>\n                          </div>\n                        )}\n                        {contact.parent_guardian_phone && (\n                          <div className=\"flex items-center text-sm text-gray-600 dark:text-gray-400\">\n                            <Phone className=\"w-4 h-4 mr-2\" />\n                            <span>{formatPhoneNumber(contact.parent_guardian_phone)}</span>\n                          </div>\n                        )}\n                        {!contact.parent_guardian_email && !contact.parent_guardian_phone && (\n                          <span className=\"text-gray-400 italic text-sm\">No contact info</span>\n                        )}\n                      </div>\n                    </td>\n                    <td className=\"py-4 px-4\">\n                      <div className=\"flex items-center\">\n                        <Shield className=\"w-4 h-4 text-gray-400 mr-2\" />\n                        <div>\n                          <p className=\"text-gray-900 dark:text-white font-medium\">{contact.team_name}</p>\n                          {contact.organization && (\n                            <p className=\"text-sm text-gray-500\">{contact.organization}</p>\n                          )}\n                        </div>\n                      </div>\n                    </td>\n                    <td className=\"py-4 px-4\">\n                      {contact.emergency_contact ? (\n                        <div className=\"inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-300\">\n                          <AlertCircle className=\"w-3 h-3 mr-1\" />\n                          {contact.emergency_contact}\n                        </div>\n                      ) : (\n                        <span className=\"text-gray-400 italic text-sm\">None specified</span>\n                      )}\n                    </td>\n                  </motion.tr>\n                ))}\n              </AnimatePresence>\n            </tbody>\n          </table>\n        </div>\n      </motion.div>\n    </motion.div>\n  )\n}"
+    }
+  },
+  {
+    "session_id": "6355e61c-9024-4580-9aec-2b5a3596978f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6355e61c-9024-4580-9aec-2b5a3596978f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Create PlayerContactReportView component with contact data table",
+          "status": "completed",
+          "activeForm": "Creating PlayerContactReportView component with contact data table"
+        },
+        {
+          "content": "Implement CSV export functionality for player contacts",
+          "status": "completed",
+          "activeForm": "Implementing CSV export functionality for player contacts"
+        },
+        {
+          "content": "Create TeamSummaryReportView component with team overview cards",
+          "status": "in_progress",
+          "activeForm": "Creating TeamSummaryReportView component with team overview cards"
+        },
+        {
+          "content": "Implement CSV export functionality for team summaries",
+          "status": "pending",
+          "activeForm": "Implementing CSV export functionality for team summaries"
+        },
+        {
+          "content": "Integrate both components with ReportGenerationForm",
+          "status": "pending",
+          "activeForm": "Integrating both components with ReportGenerationForm"
+        },
+        {
+          "content": "Add state management and conditional rendering",
+          "status": "pending",
+          "activeForm": "Adding state management and conditional rendering"
+        },
+        {
+          "content": "Test components with various data scenarios",
+          "status": "pending",
+          "activeForm": "Testing components with various data scenarios"
+        },
+        {
+          "content": "Mark work order as complete",
+          "status": "pending",
+          "activeForm": "Marking work order as complete"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "6355e61c-9024-4580-9aec-2b5a3596978f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6355e61c-9024-4580-9aec-2b5a3596978f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Write",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/TeamSummaryReportView.tsx",
+      "content": "import { useState, useCallback } from 'react'\nimport { motion, AnimatePresence } from 'framer-motion'\nimport {\n  Users, Shield, Download, AlertCircle, CheckCircle, Loader2,\n  FileText, FileSpreadsheet, TrendingUp, Layers, MapPin, Trophy\n} from 'lucide-react'\n\ninterface TeamSummaryData {\n  team_name: string\n  organization: string\n  division?: string\n  age_group?: string\n  skill_level?: string\n  active_player_count: number\n  total_player_count: number\n  description?: string\n}\n\ninterface TeamSummaryReportViewProps {\n  data: TeamSummaryData[] | null\n  loading?: boolean\n  error?: string | null\n  teamFilters?: string[]\n  onExport?: (format: 'csv') => void\n}\n\ninterface ExportState {\n  isExporting: boolean\n  exportError: string | null\n  exportSuccess: string | null\n}\n\nconst containerVariants = {\n  hidden: { opacity: 0 },\n  visible: {\n    opacity: 1,\n    transition: {\n      staggerChildren: 0.1,\n      delayChildren: 0.2\n    }\n  }\n}\n\nconst itemVariants = {\n  hidden: { y: 20, opacity: 0 },\n  visible: {\n    y: 0,\n    opacity: 1,\n    transition: {\n      type: \"spring\" as const,\n      stiffness: 100,\n      damping: 15\n    }\n  }\n}\n\nexport default function TeamSummaryReportView({\n  data,\n  loading = false,\n  error = null,\n  teamFilters = [],\n  onExport\n}: TeamSummaryReportViewProps) {\n  const [exportState, setExportState] = useState<ExportState>({\n    isExporting: false,\n    exportError: null,\n    exportSuccess: null\n  })\n\n  const getTeamInitials = (teamName: string): string => {\n    const words = teamName.split(' ')\n    if (words.length >= 2) {\n      return `${words[0].charAt(0)}${words[1].charAt(0)}`.toUpperCase()\n    }\n    return teamName.charAt(0).toUpperCase()\n  }\n\n  const getPlayerCountPercentage = (active: number, total: number): number => {\n    if (total === 0) return 0\n    return Math.round((active / total) * 100)\n  }\n\n  const generateCSV = useCallback((summaryData: TeamSummaryData[]): string => {\n    const headers = [\n      'Team Name', 'Organization', 'Division', 'Age Group', 'Skill Level',\n      'Active Players', 'Total Players', 'Active Percentage', 'Description'\n    ]\n    const csvRows = [headers.join(',')]\n\n    summaryData.forEach(team => {\n      const activePercentage = getPlayerCountPercentage(team.active_player_count, team.total_player_count)\n      const row = [\n        `\"${team.team_name}\"`,\n        `\"${team.organization}\"`,\n        `\"${team.division || ''}\"`,\n        `\"${team.age_group || ''}\"`,\n        `\"${team.skill_level || ''}\"`,\n        team.active_player_count.toString(),\n        team.total_player_count.toString(),\n        `${activePercentage}%`,\n        `\"${team.description || ''}\"`\n      ]\n      csvRows.push(row.join(','))\n    })\n\n    return csvRows.join('\\n')\n  }, [])\n\n  const downloadFile = useCallback((content: string, filename: string, mimeType: string) => {\n    const blob = new Blob([content], { type: mimeType })\n    const url = window.URL.createObjectURL(blob)\n    const link = document.createElement('a')\n    link.href = url\n    link.download = filename\n    document.body.appendChild(link)\n    link.click()\n    document.body.removeChild(link)\n    window.URL.revokeObjectURL(url)\n  }, [])\n\n  const handleExport = useCallback(async () => {\n    if (!data || data.length === 0) {\n      setExportState(prev => ({\n        ...prev,\n        exportError: 'No team summary data available to export'\n      }))\n      return\n    }\n\n    setExportState({\n      isExporting: true,\n      exportError: null,\n      exportSuccess: null\n    })\n\n    try {\n      if (onExport) {\n        await onExport('csv')\n        setExportState({\n          isExporting: false,\n          exportError: null,\n          exportSuccess: 'CSV export initiated successfully!'\n        })\n      } else {\n        // Fallback to local CSV generation\n        const csvContent = generateCSV(data)\n        const timestamp = new Date().toISOString().slice(0, 10)\n        downloadFile(csvContent, `team_summary_${timestamp}.csv`, 'text/csv')\n\n        setExportState({\n          isExporting: false,\n          exportError: null,\n          exportSuccess: `CSV file downloaded successfully! (${data.length} teams)`\n        })\n      }\n    } catch (error) {\n      console.error('Export error:', error)\n      setExportState({\n        isExporting: false,\n        exportError: error instanceof Error ? error.message : 'Export failed',\n        exportSuccess: null\n      })\n    }\n\n    // Clear messages after 5 seconds\n    setTimeout(() => {\n      setExportState(prev => ({\n        ...prev,\n        exportError: null,\n        exportSuccess: null\n      }))\n    }, 5000)\n  }, [data, generateCSV, downloadFile, onExport])\n\n  if (loading) {\n    return (\n      <motion.div\n        initial={{ opacity: 0 }}\n        animate={{ opacity: 1 }}\n        className=\"glass-card p-8\"\n      >\n        <div className=\"flex items-center justify-center py-12\">\n          <motion.div\n            animate={{ rotate: 360 }}\n            transition={{ duration: 1, repeat: Infinity, ease: \"linear\" }}\n            className=\"w-8 h-8 border-4 border-gray-200 border-t-gray-600 rounded-full\"\n          />\n          <span className=\"ml-3 text-gray-600 dark:text-gray-400\">Loading team summary data...</span>\n        </div>\n      </motion.div>\n    )\n  }\n\n  if (error) {\n    return (\n      <motion.div\n        initial={{ opacity: 0, y: 20 }}\n        animate={{ opacity: 1, y: 0 }}\n        className=\"glass-card p-6 border-red-500/20 bg-red-50/50 dark:bg-red-900/20\"\n      >\n        <div className=\"flex items-center space-x-2 text-red-600 dark:text-red-400\">\n          <AlertCircle className=\"h-5 w-5\" />\n          <span>{error}</span>\n        </div>\n      </motion.div>\n    )\n  }\n\n  if (!data || data.length === 0) {\n    return (\n      <motion.div\n        initial={{ opacity: 0, scale: 0.9 }}\n        animate={{ opacity: 1, scale: 1 }}\n        className=\"glass-card p-8 text-center\"\n      >\n        <Shield className=\"h-16 w-16 mx-auto text-gray-300 mb-4\" />\n        <h3 className=\"text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2\">\n          No team data found\n        </h3>\n        <p className=\"text-gray-500\">\n          No teams match the current filters or the data is empty.\n        </p>\n      </motion.div>\n    )\n  }\n\n  const totalActivePlayers = data.reduce((sum, team) => sum + team.active_player_count, 0)\n  const totalPlayers = data.reduce((sum, team) => sum + team.total_player_count, 0)\n\n  return (\n    <motion.div\n      initial=\"hidden\"\n      animate=\"visible\"\n      variants={containerVariants}\n      className=\"space-y-6\"\n    >\n      {/* Header with Export Actions */}\n      <motion.div\n        variants={itemVariants}\n        className=\"glass-card p-6 flex items-center justify-between\"\n      >\n        <div>\n          <h2 className=\"text-xl font-semibold text-gray-900 dark:text-white mb-2 flex items-center\">\n            <FileText className=\"w-5 h-5 mr-2 text-gray-600\" />\n            Team Summary Report\n          </h2>\n          <p className=\"text-gray-600 dark:text-gray-400\">\n            {data.length} team{data.length !== 1 ? 's' : ''} \u2022 {totalActivePlayers} active players ({totalPlayers} total)\n            {teamFilters.length > 0 && (\n              <span className=\"ml-2 text-sm\">\n                (Filtered by {teamFilters.length} team{teamFilters.length !== 1 ? 's' : ''})\n              </span>\n            )}\n          </p>\n        </div>\n\n        <div className=\"flex items-center space-x-3\">\n          <motion.button\n            whileHover={{ scale: 1.05 }}\n            whileTap={{ scale: 0.95 }}\n            onClick={handleExport}\n            disabled={exportState.isExporting}\n            className=\"button-primary flex items-center\"\n          >\n            {exportState.isExporting ? (\n              <Loader2 className=\"w-4 h-4 mr-2 animate-spin\" />\n            ) : (\n              <FileSpreadsheet className=\"w-4 h-4 mr-2\" />\n            )}\n            Export CSV\n          </motion.button>\n        </div>\n      </motion.div>\n\n      {/* Export Messages */}\n      <AnimatePresence>\n        {exportState.exportSuccess && (\n          <motion.div\n            initial={{ opacity: 0, y: -20 }}\n            animate={{ opacity: 1, y: 0 }}\n            exit={{ opacity: 0, y: -20 }}\n            className=\"glass-card p-4 border-green-500/20 bg-green-50/50 dark:bg-green-900/20\"\n          >\n            <div className=\"flex items-center space-x-2 text-green-600 dark:text-green-400\">\n              <CheckCircle className=\"w-5 h-5\" />\n              <span>{exportState.exportSuccess}</span>\n            </div>\n          </motion.div>\n        )}\n\n        {exportState.exportError && (\n          <motion.div\n            initial={{ opacity: 0, y: -20 }}\n            animate={{ opacity: 1, y: 0 }}\n            exit={{ opacity: 0, y: -20 }}\n            className=\"glass-card p-4 border-red-500/20 bg-red-50/50 dark:bg-red-900/20\"\n          >\n            <div className=\"flex items-center space-x-2 text-red-600 dark:text-red-400\">\n              <AlertCircle className=\"w-5 h-5\" />\n              <span>{exportState.exportError}</span>\n            </div>\n          </motion.div>\n        )}\n      </AnimatePresence>\n\n      {/* Team Cards Grid */}\n      <motion.div\n        variants={containerVariants}\n        className=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6\"\n      >\n        <AnimatePresence>\n          {data.map((team, index) => {\n            const activePercentage = getPlayerCountPercentage(team.active_player_count, team.total_player_count)\n\n            return (\n              <motion.div\n                key={`${team.team_name}-${team.organization}-${index}`}\n                variants={itemVariants}\n                initial={{ opacity: 0, y: 20 }}\n                animate={{ opacity: 1, y: 0 }}\n                exit={{ opacity: 0, y: -20 }}\n                transition={{ delay: index * 0.1 }}\n                whileHover={{ scale: 1.02 }}\n                className=\"glass-card p-6 hover:shadow-lg transition-all duration-300\"\n              >\n                {/* Team Header */}\n                <div className=\"flex items-center space-x-3 mb-4\">\n                  <div className=\"w-12 h-12 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center text-white font-bold\">\n                    {getTeamInitials(team.team_name)}\n                  </div>\n                  <div className=\"flex-1 min-w-0\">\n                    <h3 className=\"font-semibold text-gray-900 dark:text-white truncate\">\n                      {team.team_name}\n                    </h3>\n                    <p className=\"text-sm text-gray-500 truncate\">{team.organization}</p>\n                  </div>\n                </div>\n\n                {/* Team Details */}\n                <div className=\"space-y-3 mb-4\">\n                  {/* Tags */}\n                  <div className=\"flex flex-wrap gap-2\">\n                    {team.division && (\n                      <span className=\"inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-300\">\n                        <Layers className=\"w-3 h-3 mr-1\" />\n                        {team.division}\n                      </span>\n                    )}\n                    {team.age_group && (\n                      <span className=\"inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300\">\n                        <Users className=\"w-3 h-3 mr-1\" />\n                        {team.age_group}\n                      </span>\n                    )}\n                    {team.skill_level && (\n                      <span className=\"inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 dark:bg-purple-900/20 text-purple-800 dark:text-purple-300\">\n                        <Trophy className=\"w-3 h-3 mr-1\" />\n                        {team.skill_level}\n                      </span>\n                    )}\n                  </div>\n\n                  {/* Description */}\n                  {team.description && (\n                    <p className=\"text-sm text-gray-600 dark:text-gray-400 line-clamp-2\">\n                      {team.description}\n                    </p>\n                  )}\n                </div>\n\n                {/* Player Statistics */}\n                <div className=\"space-y-3\">\n                  <div className=\"flex items-center justify-between\">\n                    <span className=\"text-sm font-medium text-gray-700 dark:text-gray-300\">Player Status</span>\n                    <span className=\"text-sm text-gray-500\">\n                      {team.active_player_count} / {team.total_player_count}\n                    </span>\n                  </div>\n\n                  {/* Progress Bar */}\n                  <div className=\"w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2\">\n                    <motion.div\n                      initial={{ width: 0 }}\n                      animate={{ width: `${activePercentage}%` }}\n                      transition={{ duration: 1, delay: index * 0.1 }}\n                      className=\"bg-gradient-to-r from-green-500 to-green-600 h-2 rounded-full\"\n                    />\n                  </div>\n\n                  {/* Statistics Row */}\n                  <div className=\"grid grid-cols-2 gap-4 pt-2\">\n                    <div className=\"text-center\">\n                      <div className=\"flex items-center justify-center space-x-1\">\n                        <TrendingUp className=\"w-4 h-4 text-green-500\" />\n                        <span className=\"text-lg font-bold text-green-600\">{team.active_player_count}</span>\n                      </div>\n                      <p className=\"text-xs text-gray-500\">Active</p>\n                    </div>\n                    <div className=\"text-center\">\n                      <div className=\"flex items-center justify-center space-x-1\">\n                        <Users className=\"w-4 h-4 text-gray-500\" />\n                        <span className=\"text-lg font-bold text-gray-600\">{team.total_player_count}</span>\n                      </div>\n                      <p className=\"text-xs text-gray-500\">Total</p>\n                    </div>\n                  </div>\n\n                  {/* Active Percentage Badge */}\n                  <div className=\"flex justify-center pt-2\">\n                    <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${\n                      activePercentage >= 90\n                        ? 'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300'\n                        : activePercentage >= 70\n                        ? 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-300'\n                        : 'bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-300'\n                    }`}>\n                      {activePercentage}% Active\n                    </span>\n                  </div>\n                </div>\n              </motion.div>\n            )\n          })}\n        </AnimatePresence>\n      </motion.div>\n    </motion.div>\n  )\n}"
+    }
+  },
+  {
+    "session_id": "6355e61c-9024-4580-9aec-2b5a3596978f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6355e61c-9024-4580-9aec-2b5a3596978f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Create PlayerContactReportView component with contact data table",
+          "status": "completed",
+          "activeForm": "Creating PlayerContactReportView component with contact data table"
+        },
+        {
+          "content": "Implement CSV export functionality for player contacts",
+          "status": "completed",
+          "activeForm": "Implementing CSV export functionality for player contacts"
+        },
+        {
+          "content": "Create TeamSummaryReportView component with team overview cards",
+          "status": "completed",
+          "activeForm": "Creating TeamSummaryReportView component with team overview cards"
+        },
+        {
+          "content": "Implement CSV export functionality for team summaries",
+          "status": "completed",
+          "activeForm": "Implementing CSV export functionality for team summaries"
+        },
+        {
+          "content": "Integrate both components with ReportGenerationForm",
+          "status": "in_progress",
+          "activeForm": "Integrating both components with ReportGenerationForm"
+        },
+        {
+          "content": "Add state management and conditional rendering",
+          "status": "pending",
+          "activeForm": "Adding state management and conditional rendering"
+        },
+        {
+          "content": "Test components with various data scenarios",
+          "status": "pending",
+          "activeForm": "Testing components with various data scenarios"
+        },
+        {
+          "content": "Mark work order as complete",
+          "status": "pending",
+          "activeForm": "Marking work order as complete"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "6355e61c-9024-4580-9aec-2b5a3596978f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6355e61c-9024-4580-9aec-2b5a3596978f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/ReportGenerationForm.tsx",
+      "old_string": "import { useApi } from '../hooks/useApi'\nimport RosterReportDisplay from './RosterReportDisplay'",
+      "new_string": "import { useApi } from '../hooks/useApi'\nimport RosterReportDisplay from './RosterReportDisplay'\nimport PlayerContactReportView from './PlayerContactReportView'\nimport TeamSummaryReportView from './TeamSummaryReportView'"
+    }
+  },
+  {
+    "session_id": "6355e61c-9024-4580-9aec-2b5a3596978f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6355e61c-9024-4580-9aec-2b5a3596978f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/ReportGenerationForm.tsx",
+      "old_string": "  const [rosterData, setRosterData] = useState<any[]>([])\n  const [showRosterDisplay, setShowRosterDisplay] = useState(false)",
+      "new_string": "  const [rosterData, setRosterData] = useState<any[]>([])\n  const [showRosterDisplay, setShowRosterDisplay] = useState(false)\n  const [playerContactData, setPlayerContactData] = useState<any[]>([])\n  const [showPlayerContactDisplay, setShowPlayerContactDisplay] = useState(false)\n  const [teamSummaryData, setTeamSummaryData] = useState<any[]>([])\n  const [showTeamSummaryDisplay, setShowTeamSummaryDisplay] = useState(false)"
+    }
+  },
+  {
+    "session_id": "6355e61c-9024-4580-9aec-2b5a3596978f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6355e61c-9024-4580-9aec-2b5a3596978f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/ReportGenerationForm.tsx",
+      "old_string": "    // Reset roster display when report type or format changes\n    setShowRosterDisplay(false)\n    setRosterData([])",
+      "new_string": "    // Reset all report displays when report type or format changes\n    setShowRosterDisplay(false)\n    setRosterData([])\n    setShowPlayerContactDisplay(false)\n    setPlayerContactData([])\n    setShowTeamSummaryDisplay(false)\n    setTeamSummaryData([])"
+    }
+  },
+  {
+    "session_id": "6355e61c-9024-4580-9aec-2b5a3596978f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6355e61c-9024-4580-9aec-2b5a3596978f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/ReportGenerationForm.tsx",
+      "old_string": "        // Special handling for roster reports - show the display component\n        if (formState.reportType === 'roster') {\n          setRosterData(response.data || [])\n          setShowRosterDisplay(true)\n          setSuccessMessage(`${config.label} generated successfully! Found ${response.metadata?.total_entries || 'unknown'} records.`)\n        } else {\n          setSuccessMessage(`${config.label} generated successfully! Found ${response.metadata?.total_entries || response.metadata?.total_contacts || response.metadata?.total_teams || 'unknown'} records.`)\n        }",
+      "new_string": "        // Special handling for different report types - show the appropriate display component\n        if (formState.reportType === 'roster') {\n          setRosterData(response.data || [])\n          setShowRosterDisplay(true)\n          setSuccessMessage(`${config.label} generated successfully! Found ${response.metadata?.total_entries || 'unknown'} records.`)\n        } else if (formState.reportType === 'player-contact') {\n          setPlayerContactData(response.data || [])\n          setShowPlayerContactDisplay(true)\n          setSuccessMessage(`${config.label} generated successfully! Found ${response.metadata?.total_contacts || 'unknown'} contacts.`)\n        } else if (formState.reportType === 'team-summary') {\n          setTeamSummaryData(response.data || [])\n          setShowTeamSummaryDisplay(true)\n          setSuccessMessage(`${config.label} generated successfully! Found ${response.metadata?.total_teams || 'unknown'} teams.`)\n        } else {\n          setSuccessMessage(`${config.label} generated successfully! Found ${response.metadata?.total_entries || response.metadata?.total_contacts || response.metadata?.total_teams || 'unknown'} records.`)\n        }"
+    }
+  },
+  {
+    "session_id": "6355e61c-9024-4580-9aec-2b5a3596978f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6355e61c-9024-4580-9aec-2b5a3596978f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/ReportGenerationForm.tsx",
+      "old_string": "    } catch (error) {\n      console.error('Export error:', error)\n      throw error\n    }\n  }, [formState.teamIds, formState.status])\n\n  const currentConfig = formState.reportType ? reportTypeConfig[formState.reportType] : null",
+      "new_string": "    } catch (error) {\n      console.error('Export error:', error)\n      throw error\n    }\n  }, [formState.teamIds, formState.status])\n\n  const handlePlayerContactExport = useCallback(async (format: 'csv') => {\n    try {\n      const config = reportTypeConfig['player-contact']\n      const params = new URLSearchParams()\n\n      // Add format\n      params.append('format', format)\n\n      // Add team filters if selected\n      formState.teamIds.forEach(teamId => {\n        params.append('team_id', teamId.toString())\n      })\n\n      const url = `${config.endpoint}?${params.toString()}`\n\n      // Trigger download\n      const authHeader = localStorage.getItem('authToken') ?\n        { 'Authorization': `Bearer ${localStorage.getItem('authToken')}` } : {}\n\n      const response = await fetch(url, {\n        headers: authHeader\n      })\n\n      if (!response.ok) {\n        const errorData = await response.json().catch(() => ({}))\n        throw new Error(errorData.error || `HTTP ${response.status}: ${response.statusText}`)\n      }\n\n      // Create download\n      const blob = await response.blob()\n      const downloadUrl = window.URL.createObjectURL(blob)\n      const a = document.createElement('a')\n      a.href = downloadUrl\n\n      const filename = `player_contacts.csv`\n      a.download = filename\n\n      document.body.appendChild(a)\n      a.click()\n      document.body.removeChild(a)\n      window.URL.revokeObjectURL(downloadUrl)\n\n    } catch (error) {\n      console.error('Export error:', error)\n      throw error\n    }\n  }, [formState.teamIds])\n\n  const handleTeamSummaryExport = useCallback(async (format: 'csv') => {\n    try {\n      const config = reportTypeConfig['team-summary']\n      const params = new URLSearchParams()\n\n      // Add format\n      params.append('format', format)\n\n      // Add team filters if selected\n      formState.teamIds.forEach(teamId => {\n        params.append('team_id', teamId.toString())\n      })\n\n      const url = `${config.endpoint}?${params.toString()}`\n\n      // Trigger download\n      const authHeader = localStorage.getItem('authToken') ?\n        { 'Authorization': `Bearer ${localStorage.getItem('authToken')}` } : {}\n\n      const response = await fetch(url, {\n        headers: authHeader\n      })\n\n      if (!response.ok) {\n        const errorData = await response.json().catch(() => ({}))\n        throw new Error(errorData.error || `HTTP ${response.status}: ${response.statusText}`)\n      }\n\n      // Create download\n      const blob = await response.blob()\n      const downloadUrl = window.URL.createObjectURL(blob)\n      const a = document.createElement('a')\n      a.href = downloadUrl\n\n      const filename = `team_summary.csv`\n      a.download = filename\n\n      document.body.appendChild(a)\n      a.click()\n      document.body.removeChild(a)\n      window.URL.revokeObjectURL(downloadUrl)\n\n    } catch (error) {\n      console.error('Export error:', error)\n      throw error\n    }\n  }, [formState.teamIds])\n\n  const currentConfig = formState.reportType ? reportTypeConfig[formState.reportType] : null"
+    }
+  },
+  {
+    "session_id": "6355e61c-9024-4580-9aec-2b5a3596978f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6355e61c-9024-4580-9aec-2b5a3596978f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/ReportGenerationForm.tsx",
+      "offset": 720,
+      "limit": 30
+    }
+  },
+  {
+    "session_id": "6355e61c-9024-4580-9aec-2b5a3596978f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6355e61c-9024-4580-9aec-2b5a3596978f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/ReportGenerationForm.tsx",
+      "old_string": "                  <RosterReportDisplay\n                    data={rosterData}\n                    loading={false}\n                    error={null}\n                    teamFilters={selectedTeams.map(team => team.name)}\n                    onExport={handleRosterExport}\n                  />\n                </motion.div>\n              )}\n            </AnimatePresence>",
+      "new_string": "                  <RosterReportDisplay\n                    data={rosterData}\n                    loading={false}\n                    error={null}\n                    teamFilters={selectedTeams.map(team => team.name)}\n                    onExport={handleRosterExport}\n                  />\n                </motion.div>\n              )}\n\n              {/* Player Contact Report Display */}\n              {showPlayerContactDisplay && formState.reportType === 'player-contact' && (\n                <motion.div\n                  initial={{ opacity: 0, y: 20 }}\n                  animate={{ opacity: 1, y: 0 }}\n                  exit={{ opacity: 0, y: -20 }}\n                >\n                  <PlayerContactReportView\n                    data={playerContactData}\n                    loading={false}\n                    error={null}\n                    teamFilters={selectedTeams.map(team => team.name)}\n                    onExport={handlePlayerContactExport}\n                  />\n                </motion.div>\n              )}\n\n              {/* Team Summary Report Display */}\n              {showTeamSummaryDisplay && formState.reportType === 'team-summary' && (\n                <motion.div\n                  initial={{ opacity: 0, y: 20 }}\n                  animate={{ opacity: 1, y: 0 }}\n                  exit={{ opacity: 0, y: -20 }}\n                >\n                  <TeamSummaryReportView\n                    data={teamSummaryData}\n                    loading={false}\n                    error={null}\n                    teamFilters={selectedTeams.map(team => team.name)}\n                    onExport={handleTeamSummaryExport}\n                  />\n                </motion.div>\n              )}\n            </AnimatePresence>"
+    }
+  },
+  {
+    "session_id": "6355e61c-9024-4580-9aec-2b5a3596978f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6355e61c-9024-4580-9aec-2b5a3596978f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Create PlayerContactReportView component with contact data table",
+          "status": "completed",
+          "activeForm": "Creating PlayerContactReportView component with contact data table"
+        },
+        {
+          "content": "Implement CSV export functionality for player contacts",
+          "status": "completed",
+          "activeForm": "Implementing CSV export functionality for player contacts"
+        },
+        {
+          "content": "Create TeamSummaryReportView component with team overview cards",
+          "status": "completed",
+          "activeForm": "Creating TeamSummaryReportView component with team overview cards"
+        },
+        {
+          "content": "Implement CSV export functionality for team summaries",
+          "status": "completed",
+          "activeForm": "Implementing CSV export functionality for team summaries"
+        },
+        {
+          "content": "Integrate both components with ReportGenerationForm",
+          "status": "completed",
+          "activeForm": "Integrating both components with ReportGenerationForm"
+        },
+        {
+          "content": "Add state management and conditional rendering",
+          "status": "completed",
+          "activeForm": "Adding state management and conditional rendering"
+        },
+        {
+          "content": "Test components with various data scenarios",
+          "status": "in_progress",
+          "activeForm": "Testing components with various data scenarios"
+        },
+        {
+          "content": "Mark work order as complete",
+          "status": "pending",
+          "activeForm": "Marking work order as complete"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "6355e61c-9024-4580-9aec-2b5a3596978f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6355e61c-9024-4580-9aec-2b5a3596978f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "fbb1d2"
+    }
+  },
+  {
+    "session_id": "6355e61c-9024-4580-9aec-2b5a3596978f",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/6355e61c-9024-4580-9aec-2b5a3596978f.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd frontend && npm run build 2>&1 | grep -E \"(error|Error)\" | head -5",
+      "description": "Check for build errors in the frontend"
+    }
   }
 ]
