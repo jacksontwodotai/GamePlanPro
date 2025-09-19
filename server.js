@@ -4809,6 +4809,331 @@ app.delete('/api/form-builder/forms/:form_id', authenticateUser, async (req, res
     }
 });
 
+// Form Field Management Endpoints
+
+// Supported field types
+const SUPPORTED_FIELD_TYPES = [
+    'text', 'email', 'number', 'tel', 'url', 'password',
+    'textarea', 'select', 'checkbox', 'radio', 'date',
+    'datetime-local', 'time', 'file', 'hidden'
+];
+
+// POST /api/form-builder/forms/{form_id}/fields - Create new form field
+app.post('/api/form-builder/forms/:form_id/fields', authenticateUser, async (req, res) => {
+    const { form_id } = req.params;
+    const {
+        field_name,
+        label,
+        field_type,
+        is_required = false,
+        default_value,
+        placeholder,
+        order_index,
+        validation_regex
+    } = req.body;
+
+    // Validate required fields
+    if (!field_name || !label || !field_type) {
+        return res.status(400).json({
+            error: 'field_name, label, and field_type are required'
+        });
+    }
+
+    // Validate field_type
+    if (!SUPPORTED_FIELD_TYPES.includes(field_type)) {
+        return res.status(400).json({
+            error: `Unsupported field_type. Supported types: ${SUPPORTED_FIELD_TYPES.join(', ')}`
+        });
+    }
+
+    // Validate field_name format
+    if (!/^[a-zA-Z][a-zA-Z0-9_]*$/.test(field_name)) {
+        return res.status(400).json({
+            error: 'field_name must start with a letter and contain only letters, numbers, and underscores'
+        });
+    }
+
+    try {
+        // Check if form exists
+        const { data: form, error: formError } = await supabase
+            .from('registration_forms')
+            .select('id')
+            .eq('id', form_id)
+            .single();
+
+        if (formError || !form) {
+            return res.status(404).json({ error: 'Form not found' });
+        }
+
+        // Check field_name uniqueness within the form
+        const { data: existingField, error: checkError } = await supabase
+            .from('form_fields')
+            .select('id')
+            .eq('form_id', form_id)
+            .eq('field_name', field_name)
+            .single();
+
+        if (existingField) {
+            return res.status(409).json({
+                error: 'A field with this name already exists in this form'
+            });
+        }
+
+        // Create the form field
+        const { data: field, error } = await supabase
+            .from('form_fields')
+            .insert([{
+                form_id,
+                field_name,
+                field_label: label,
+                field_type,
+                is_required,
+                default_value: default_value || null,
+                placeholder_text: placeholder || null,
+                sort_order: order_index || 0,
+                validation_rules: validation_regex ? { regex: validation_regex } : null
+            }])
+            .select(`
+                *,
+                form_field_options (
+                    id,
+                    option_label,
+                    option_value,
+                    sort_order
+                )
+            `)
+            .single();
+
+        if (error) {
+            console.error('Field creation error:', error);
+            return res.status(500).json({ error: 'Failed to create field' });
+        }
+
+        res.status(201).json({
+            message: 'Field created successfully',
+            field
+        });
+    } catch (error) {
+        console.error('Create field error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/form-builder/forms/{form_id}/fields - Get all fields for a form
+app.get('/api/form-builder/forms/:form_id/fields', authenticateUser, async (req, res) => {
+    const { form_id } = req.params;
+
+    try {
+        // Check if form exists
+        const { data: form, error: formError } = await supabase
+            .from('registration_forms')
+            .select('id')
+            .eq('id', form_id)
+            .single();
+
+        if (formError || !form) {
+            return res.status(404).json({ error: 'Form not found' });
+        }
+
+        // Get form fields with options
+        const { data: fields, error: fieldsError } = await supabase
+            .from('form_fields')
+            .select(`
+                *,
+                form_field_options (
+                    id,
+                    option_label,
+                    option_value,
+                    sort_order
+                )
+            `)
+            .eq('form_id', form_id)
+            .order('sort_order', { ascending: true });
+
+        if (fieldsError) {
+            console.error('Fields fetch error:', fieldsError);
+            return res.status(500).json({ error: 'Failed to fetch fields' });
+        }
+
+        res.status(200).json({
+            fields: fields || []
+        });
+    } catch (error) {
+        console.error('Get fields error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/form-builder/fields/{field_id} - Get specific form field
+app.get('/api/form-builder/fields/:field_id', authenticateUser, async (req, res) => {
+    const { field_id } = req.params;
+
+    try {
+        const { data: field, error } = await supabase
+            .from('form_fields')
+            .select(`
+                *,
+                form_field_options (
+                    id,
+                    option_label,
+                    option_value,
+                    sort_order
+                )
+            `)
+            .eq('id', field_id)
+            .single();
+
+        if (error) {
+            console.error('Field fetch error:', error);
+            if (error.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Field not found' });
+            }
+            return res.status(500).json({ error: 'Failed to fetch field' });
+        }
+
+        res.status(200).json(field);
+    } catch (error) {
+        console.error('Get field error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// PUT /api/form-builder/fields/{field_id} - Update form field
+app.put('/api/form-builder/fields/:field_id', authenticateUser, async (req, res) => {
+    const { field_id } = req.params;
+    const {
+        field_name,
+        label,
+        field_type,
+        is_required,
+        default_value,
+        placeholder,
+        order_index,
+        validation_regex
+    } = req.body;
+
+    // Validate required fields
+    if (!field_name || !label || !field_type) {
+        return res.status(400).json({
+            error: 'field_name, label, and field_type are required'
+        });
+    }
+
+    // Validate field_type
+    if (!SUPPORTED_FIELD_TYPES.includes(field_type)) {
+        return res.status(400).json({
+            error: `Unsupported field_type. Supported types: ${SUPPORTED_FIELD_TYPES.join(', ')}`
+        });
+    }
+
+    // Validate field_name format
+    if (!/^[a-zA-Z][a-zA-Z0-9_]*$/.test(field_name)) {
+        return res.status(400).json({
+            error: 'field_name must start with a letter and contain only letters, numbers, and underscores'
+        });
+    }
+
+    try {
+        // Check if field exists and get form_id
+        const { data: existingField, error: checkError } = await supabase
+            .from('form_fields')
+            .select('id, form_id')
+            .eq('id', field_id)
+            .single();
+
+        if (checkError || !existingField) {
+            return res.status(404).json({ error: 'Field not found' });
+        }
+
+        // Check field_name uniqueness within the form (excluding current field)
+        const { data: nameCheck, error: nameError } = await supabase
+            .from('form_fields')
+            .select('id')
+            .eq('form_id', existingField.form_id)
+            .eq('field_name', field_name)
+            .neq('id', field_id)
+            .single();
+
+        if (nameCheck) {
+            return res.status(409).json({
+                error: 'A field with this name already exists in this form'
+            });
+        }
+
+        // Update the field
+        const { data: field, error: updateError } = await supabase
+            .from('form_fields')
+            .update({
+                field_name,
+                field_label: label,
+                field_type,
+                is_required: is_required !== undefined ? is_required : false,
+                default_value: default_value || null,
+                placeholder_text: placeholder || null,
+                sort_order: order_index !== undefined ? order_index : 0,
+                validation_rules: validation_regex ? { regex: validation_regex } : null
+            })
+            .eq('id', field_id)
+            .select(`
+                *,
+                form_field_options (
+                    id,
+                    option_label,
+                    option_value,
+                    sort_order
+                )
+            `)
+            .single();
+
+        if (updateError) {
+            console.error('Field update error:', updateError);
+            return res.status(500).json({ error: 'Failed to update field' });
+        }
+
+        res.status(200).json({
+            message: 'Field updated successfully',
+            field
+        });
+    } catch (error) {
+        console.error('Update field error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// DELETE /api/form-builder/fields/{field_id} - Delete form field
+app.delete('/api/form-builder/fields/:field_id', authenticateUser, async (req, res) => {
+    const { field_id } = req.params;
+
+    try {
+        // Check if field exists
+        const { data: existingField, error: checkError } = await supabase
+            .from('form_fields')
+            .select('id, field_name')
+            .eq('id', field_id)
+            .single();
+
+        if (checkError || !existingField) {
+            return res.status(404).json({ error: 'Field not found' });
+        }
+
+        // Delete the field (field options will be cascade deleted)
+        const { error } = await supabase
+            .from('form_fields')
+            .delete()
+            .eq('id', field_id);
+
+        if (error) {
+            console.error('Field deletion error:', error);
+            return res.status(500).json({ error: 'Failed to delete field' });
+        }
+
+        res.status(204).send();
+    } catch (error) {
+        console.error('Delete field error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`GamePlanPro server running on http://localhost:${PORT}`);

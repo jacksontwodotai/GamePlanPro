@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Button } from './ui/button'
 import { Input } from './ui/input'
 import {
@@ -113,6 +114,8 @@ const cardHoverVariants = {
 } as const
 
 export default function PlayerManagementInterface() {
+  const location = useLocation()
+  const navigate = useNavigate()
   const [players, setPlayers] = useState<Player[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -246,6 +249,13 @@ export default function PlayerManagementInterface() {
     fetchTeams()
   }, [fetchPlayers])
 
+  // Auto-open create form when navigating to create route
+  useEffect(() => {
+    if (location.pathname.includes('create')) {
+      openCreateForm()
+    }
+  }, [location.pathname])
+
   const validateForm = (data: PlayerFormData): boolean => {
     const errors: Partial<PlayerFormData> = {}
 
@@ -368,6 +378,10 @@ export default function PlayerManagementInterface() {
       await fetchPlayers()
       setShowCreateForm(false)
       resetForm()
+      // Navigate back to list view if we came from create route
+      if (location.pathname.includes('create')) {
+        navigate('/players/list')
+      }
     } catch (err) {
       console.error('Create player error:', err)
       setError(err instanceof Error ? err.message : 'Failed to create player')
@@ -905,7 +919,13 @@ export default function PlayerManagementInterface() {
 
         {/* All Dialogs remain similar but with updated glassmorphism styling */}
         {/* Create Player Dialog */}
-        <Dialog open={showCreateForm} onOpenChange={setShowCreateForm}>
+        <Dialog open={showCreateForm} onOpenChange={(open) => {
+          setShowCreateForm(open)
+          // Navigate back to list view if dialog is closed and we came from create route
+          if (!open && location.pathname.includes('create')) {
+            navigate('/players/list')
+          }
+        }}>
           <DialogContent>
             <DialogHeader className="text-center pb-6">
               <div className="flex justify-center mb-4">
@@ -1129,7 +1149,13 @@ export default function PlayerManagementInterface() {
             <DialogFooter className="mt-8 pt-6 border-t border-border gap-3">
               <Button
                 variant="outline"
-                onClick={() => setShowCreateForm(false)}
+                onClick={() => {
+                  setShowCreateForm(false)
+                  // Navigate back to list view if we came from create route
+                  if (location.pathname.includes('create')) {
+                    navigate('/players/list')
+                  }
+                }}
                 className="px-6 py-3 border-2 border-border hover:bg-secondary transition-all duration-200"
               >
                 Cancel
