@@ -349,7 +349,7 @@ export default function TeamManagementDashboard() {
               title: 'Generate Reports',
               description: 'Create custom reports with flexible filtering',
               icon: FileText,
-              link: '/teams/reports/generate',
+              link: '/reports',
               gradient: 'from-purple-500 to-purple-700'
             },
             {

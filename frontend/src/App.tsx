@@ -16,6 +16,7 @@ import AttendanceTracker from './components/AttendanceTracker'
 import AttendanceReportingDashboard from './components/AttendanceReportingDashboard'
 import RosterManagementDashboard from './components/RosterManagementDashboard'
 import ReportGenerationForm from './components/ReportGenerationForm'
+import ReportsDashboard from './components/ReportsDashboard'
 
 function App() {
   return (
@@ -61,6 +62,13 @@ function App() {
           <Route path="divisions" element={<DivisionManagement />} />
           <Route path="age-groups" element={<AgeGroupManagement />} />
           <Route path="skill-levels" element={<SkillLevelManagement />} />
+        </Route>
+        <Route path="/reports" element={<Layout />}>
+          <Route index element={<ReportsDashboard />} />
+          <Route path="generate" element={<ReportGenerationForm />} />
+          <Route path="roster" element={<ReportGenerationForm />} />
+          <Route path="contacts" element={<ReportGenerationForm />} />
+          <Route path="teams" element={<ReportGenerationForm />} />
         </Route>
       </Routes>
     </Router>

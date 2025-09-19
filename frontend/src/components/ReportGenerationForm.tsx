@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useSearchParams, useLocation } from 'react-router-dom'
 import {
   FileText, Users, BarChart, Download, Filter, AlertCircle,
   CheckCircle, Loader2, ChevronDown, X, Search
@@ -84,6 +85,9 @@ const itemVariants = {
 }
 
 export default function ReportGenerationForm() {
+  const [searchParams] = useSearchParams()
+  const location = useLocation()
+
   const [formState, setFormState] = useState<FormState>({
     reportType: '',
     format: '',
@@ -111,6 +115,35 @@ export default function ReportGenerationForm() {
   useEffect(() => {
     fetchTeams()
   }, [])
+
+  // Handle URL parameters and route-based pre-selection
+  useEffect(() => {
+    const urlReportType = searchParams.get('type')
+    const urlFormat = searchParams.get('format')
+
+    // Check route-based selection
+    let routeReportType = ''
+    if (location.pathname.includes('/reports/roster')) {
+      routeReportType = 'roster'
+    } else if (location.pathname.includes('/reports/contacts')) {
+      routeReportType = 'player-contact'
+    } else if (location.pathname.includes('/reports/teams')) {
+      routeReportType = 'team-summary'
+    }
+
+    // Use URL parameter first, then route-based selection
+    const reportType = urlReportType || routeReportType
+
+    if (reportType && reportType !== formState.reportType) {
+      setFormState(prev => ({
+        ...prev,
+        reportType,
+        format: urlFormat || ''
+      }))
+    } else if (urlFormat && urlFormat !== formState.format) {
+      setFormState(prev => ({ ...prev, format: urlFormat }))
+    }
+  }, [searchParams, location.pathname])
 
   useEffect(() => {
     // Reset format when report type changes

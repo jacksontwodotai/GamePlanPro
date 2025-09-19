@@ -8,7 +8,8 @@ import {
   Menu,
   LogOut,
   Calendar,
-  Settings
+  Settings,
+  FileText
 } from 'lucide-react'
 import { cn } from '../lib/utils'
 
@@ -27,6 +28,11 @@ const navigation = [
     name: 'Players',
     href: '/players',
     icon: Users,
+  },
+  {
+    name: 'Reports',
+    href: '/reports',
+    icon: FileText,
   },
   {
     name: 'Team Structure',
