@@ -127,6 +127,9 @@ export default function PlayerManagementInterface() {
   const playersPerPage = 9
   const abortControllerRef = useRef<AbortController | null>(null)
 
+  // Track if we came from the create route
+  const cameFromCreateRoute = location.pathname.includes('create')
+
   // Roster assignment state
   const [showRosterModal, setShowRosterModal] = useState(false)
   const [selectedPlayerForRoster, setSelectedPlayerForRoster] = useState<Player | null>(null)
@@ -251,10 +254,10 @@ export default function PlayerManagementInterface() {
 
   // Auto-open create form when navigating to create route
   useEffect(() => {
-    if (location.pathname.includes('create')) {
+    if (cameFromCreateRoute && !showCreateForm) {
       openCreateForm()
     }
-  }, [location.pathname])
+  }, [cameFromCreateRoute, showCreateForm])
 
   const validateForm = (data: PlayerFormData): boolean => {
     const errors: Partial<PlayerFormData> = {}
@@ -379,7 +382,7 @@ export default function PlayerManagementInterface() {
       setShowCreateForm(false)
       resetForm()
       // Navigate back to list view if we came from create route
-      if (location.pathname.includes('create')) {
+      if (cameFromCreateRoute) {
         navigate('/players/list')
       }
     } catch (err) {
@@ -922,7 +925,7 @@ export default function PlayerManagementInterface() {
         <Dialog open={showCreateForm} onOpenChange={(open) => {
           setShowCreateForm(open)
           // Navigate back to list view if dialog is closed and we came from create route
-          if (!open && location.pathname.includes('create')) {
+          if (!open && cameFromCreateRoute) {
             navigate('/players/list')
           }
         }}>
@@ -1152,7 +1155,7 @@ export default function PlayerManagementInterface() {
                 onClick={() => {
                   setShowCreateForm(false)
                   // Navigate back to list view if we came from create route
-                  if (location.pathname.includes('create')) {
+                  if (cameFromCreateRoute) {
                     navigate('/players/list')
                   }
                 }}

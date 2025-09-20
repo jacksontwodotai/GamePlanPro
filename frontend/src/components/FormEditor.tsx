@@ -19,6 +19,7 @@ import { Input } from './ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from './ui/dialog'
 import { useApi } from '../hooks/useApi'
+import FormFieldEditor from './FormFieldEditor'
 
 interface Program {
   id: string
@@ -35,7 +36,16 @@ interface FormField {
   placeholder_text?: string
   help_text?: string
   validation_rules?: any
-  field_options?: any
+  default_value?: string
+  sort_order: number
+  form_field_options?: FormFieldOption[]
+}
+
+interface FormFieldOption {
+  id: string
+  field_id: string
+  option_label: string
+  option_value: string
   sort_order: number
 }
 
@@ -99,6 +109,15 @@ export default function FormEditor() {
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false)
   const [pendingNavigation, setPendingNavigation] = useState<string | null>(null)
   const [successMessage, setSuccessMessage] = useState('')
+  const [fieldEditor, setFieldEditor] = useState<{
+    isOpen: boolean
+    field: FormField | null
+    mode: 'add' | 'edit'
+  }>({
+    isOpen: false,
+    field: null,
+    mode: 'add'
+  })
 
   const { loading, error, execute } = useApi<any>()
 
@@ -285,6 +304,49 @@ export default function FormEditor() {
     setFields(newFields)
   }
 
+  const handleAddField = () => {
+    setFieldEditor({
+      isOpen: true,
+      field: null,
+      mode: 'add'
+    })
+  }
+
+  const handleEditField = (field: FormField) => {
+    setFieldEditor({
+      isOpen: true,
+      field: field,
+      mode: 'edit'
+    })
+  }
+
+  const handleFieldSave = (savedField: FormField) => {
+    if (fieldEditor.mode === 'add') {
+      // Add new field
+      setFields([...fields, savedField])
+    } else {
+      // Update existing field
+      const updatedFields = fields.map(f =>
+        f.id === savedField.id ? savedField : f
+      )
+      setFields(updatedFields)
+    }
+
+    setFieldEditor({
+      isOpen: false,
+      field: null,
+      mode: 'add'
+    })
+  }
+
+  const handleFieldEditorClose = () => {
+    setFieldEditor({
+      isOpen: false,
+      field: null,
+      mode: 'add'
+    })
+  }
+
   if (!form && form_id !== 'new') {
     return (
       <div className="container mx-auto p-6">
@@ -455,18 +517,7 @@ export default function FormEditor() {
                     </CardDescription>
                   </div>
                   <Button
-                    onClick={() => {
-                      // Add new field functionality would go here
-                      const newField: FormField = {
-                        id: `field_${Date.now()}`,
-                        field_name: `field_${fields.length + 1}`,
-                        field_label: 'New Field',
-                        field_type: 'text',
-                        is_required: false,
-                        sort_order: fields.length
-                      }
-                      setFields([...fields, newField])
-                    }}
+                    onClick={handleAddField}
                   >
                     <Plus className="h-4 w-4 mr-2" />
                     Add Field
@@ -518,10 +569,7 @@ export default function FormEditor() {
                           <Button
                             variant="outline"
                             size="sm"
-                            onClick={() => {
-                              // Edit field functionality would go here
-                              console.log('Edit field:', field)
-                            }}
+                            onClick={() => handleEditField(field)}
                           >
                             <Edit className="h-4 w-4" />
                           </Button>
@@ -563,6 +611,15 @@ export default function FormEditor() {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Field Editor Modal */}
+      <FormFieldEditor
+        field={fieldEditor.field}
+        isOpen={fieldEditor.isOpen}
+        onClose={handleFieldEditorClose}
+        onSave={handleFieldSave}
+        formId={form?.id || 'new'}
+      />
     </div>
   )
 }

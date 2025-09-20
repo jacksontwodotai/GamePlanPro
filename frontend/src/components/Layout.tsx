@@ -99,8 +99,16 @@ export default function Layout() {
     return (
       <nav className={cn("flex flex-col space-y-1", className)}>
         {filteredNavigation.map((item) => {
-          const isActive = location.pathname === item.href ||
-            location.pathname.startsWith(item.href + '/')
+          // Check for exact match first
+          const isExactMatch = location.pathname === item.href
+
+          // For nested routes, only mark as active if no other navigation item has an exact match
+          const isNestedMatch = location.pathname.startsWith(item.href + '/') &&
+            !filteredNavigation.some(navItem =>
+              navItem.href !== item.href && location.pathname === navItem.href
+            )
+
+          const isActive = isExactMatch || isNestedMatch
 
           return (
             <Button
