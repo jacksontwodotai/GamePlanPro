@@ -6071,5 +6071,59 @@
         }
       ]
     }
+  },
+  {
+    "session_id": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ccb2a809-ff49-4783-b4d3-2b52c445e5d0.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ps -ef | grep -E \"($$|$PPID)\" | head -10",
+      "description": "Show current process and parent process information"
+    },
+    "tool_response": {
+      "stdout": "  UID   PID  PPID   C STIME   TTY           TIME CMD\n    0     1     0   0 Mon11AM ??        17:54.49 /sbin/launchd\n    0   304     1   0 Mon11AM ??        56:36.34 /usr/libexec/logd\n    0   305     1   0 Mon11AM ??         0:00.29 /usr/libexec/smd\n    0   306     1   0 Mon11AM ??         0:37.54 /usr/libexec/UserEventAgent (System)\n    0   308     1   0 Mon11AM ??         9:08.82 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/FSEvents.framework/Versions/A/Support/fseventsd\n    0   309     1   0 Mon11AM ??         0:39.80 /System/Library/PrivateFrameworks/MediaRemote.framework/Support/mediaremoted\n    0   312     1   0 Mon11AM ??         3:24.11 /usr/sbin/systemstats --daemon\n  278   314     1   0 Mon11AM ??         0:07.36 /System/Library/PrivateFrameworks/MobileAccessoryUpdater.framework/Support/accessoryupdaterd 120\n    0   315     1   0 Mon11AM ??         2:36.84 /usr/libexec/configd",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ccb2a809-ff49-4783-b4d3-2b52c445e5d0.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "echo $$ && echo $PPID && ps -p $$ -o pid,ppid,comm,args",
+      "description": "Show current shell process details"
+    },
+    "tool_response": {
+      "stdout": "29471\n93681\n  PID  PPID COMM     ARGS\n29471 93681 /bin/zsh /bin/zsh -c -l source /Users/jacksontumbidge/.claude/shell-snapshots/snapshot-zsh-1758265336675-jl74e9.sh && eval 'echo $$ && echo $PPID && ps -p $$ -o pid,ppid,comm,args' \\< /dev/null && pwd -P >| /var/folders/tw/p81g2k_512qddwspmcgx29tm0000gn/T/claude-0de3-cwd",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ccb2a809-ff49-4783-b4d3-2b52c445e5d0.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ps -p 93681 -o pid,ppid,comm,args",
+      "description": "Show parent process details"
+    },
+    "tool_response": {
+      "stdout": "  PID  PPID COMM   ARGS\n93681 81190 claude claude",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
   }
 ]

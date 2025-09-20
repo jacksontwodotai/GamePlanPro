@@ -619,6 +619,7 @@ export default function FormEditor() {
         onClose={handleFieldEditorClose}
         onSave={handleFieldSave}
         formId={form?.id || 'new'}
+        existingFields={fields}
       />
     </div>
   )

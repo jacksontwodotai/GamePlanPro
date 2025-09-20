@@ -4065,5 +4065,41 @@
         }
       ]
     }
+  },
+  {
+    "session_id": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ccb2a809-ff49-4783-b4d3-2b52c445e5d0.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ps -ef | grep -E \"($$|$PPID)\" | head -10",
+      "description": "Show current process and parent process information"
+    }
+  },
+  {
+    "session_id": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ccb2a809-ff49-4783-b4d3-2b52c445e5d0.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "echo $$ && echo $PPID && ps -p $$ -o pid,ppid,comm,args",
+      "description": "Show current shell process details"
+    }
+  },
+  {
+    "session_id": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ccb2a809-ff49-4783-b4d3-2b52c445e5d0.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ps -p 93681 -o pid,ppid,comm,args",
+      "description": "Show parent process details"
+    }
   }
 ]

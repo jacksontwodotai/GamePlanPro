@@ -36,24 +36,19 @@ interface FormFieldEditorProps {
   onClose: () => void
   onSave: (field: FormField) => void
   formId: string
+  existingFields?: FormField[]
 }
 
+// WO-053 Field types: text, number, email, date, select, radio, checkbox, textarea
 const FIELD_TYPES = [
   { value: 'text', label: 'Text Input' },
-  { value: 'email', label: 'Email' },
   { value: 'number', label: 'Number' },
-  { value: 'tel', label: 'Phone' },
-  { value: 'url', label: 'URL' },
-  { value: 'password', label: 'Password' },
-  { value: 'textarea', label: 'Text Area' },
-  { value: 'select', label: 'Select Dropdown' },
-  { value: 'checkbox', label: 'Checkbox' },
-  { value: 'radio', label: 'Radio Button' },
+  { value: 'email', label: 'Email' },
   { value: 'date', label: 'Date' },
-  { value: 'datetime-local', label: 'Date & Time' },
-  { value: 'time', label: 'Time' },
-  { value: 'file', label: 'File Upload' },
-  { value: 'hidden', label: 'Hidden Field' }
+  { value: 'select', label: 'Select Dropdown' },
+  { value: 'radio', label: 'Radio Button' },
+  { value: 'checkbox', label: 'Checkbox' },
+  { value: 'textarea', label: 'Text Area' }
 ]
 
 const SELECTION_FIELD_TYPES = ['select', 'checkbox', 'radio']
@@ -69,6 +64,7 @@ export default function FormFieldEditor({ field, isOpen, onClose, onSave, formId
     default_value: '',
     sort_order: 0
   })
+  const [validationRegex, setValidationRegex] = useState('')
   const [validationErrors, setValidationErrors] = useState<{ [key: string]: string }>({})
   const [options, setOptions] = useState<FormFieldOption[]>([])
   const { loading, error, execute } = useApi()
@@ -93,6 +89,7 @@ export default function FormFieldEditor({ field, isOpen, onClose, onSave, formId
         sort_order: field.sort_order
       })
       setOptions(field.form_field_options || [])
+      setValidationRegex(field.validation_rules?.regex || '')
     } else {
       // Reset for new field
       setFieldData({
@@ -106,6 +103,7 @@ export default function FormFieldEditor({ field, isOpen, onClose, onSave, formId
         sort_order: 0
       })
       setOptions([])
+      setValidationRegex('')
     }
     setValidationErrors({})
   }, [field])
@@ -113,10 +111,17 @@ export default function FormFieldEditor({ field, isOpen, onClose, onSave, formId
   const validateField = (): boolean => {
     const errors: { [key: string]: string } = {}
 
+    // Field name validation with length and uniqueness checks
     if (!fieldData.field_name?.trim()) {
       errors.field_name = 'Field name is required'
+    } else if (fieldData.field_name.trim().length < 3 || fieldData.field_name.trim().length > 50) {
+      errors.field_name = 'Field name must be between 3-50 characters'
     } else if (!/^[a-zA-Z][a-zA-Z0-9_]*$/.test(fieldData.field_name)) {
       errors.field_name = 'Field name must start with a letter and contain only letters, numbers, and underscores'
+    } else if (existingFields && existingFields.some(f =>
+      f.field_name.toLowerCase() === fieldData.field_name?.toLowerCase() && f.id !== field?.id
+    )) {
+      errors.field_name = 'Field name must be unique within the form'
     }
 
     if (!fieldData.field_label?.trim()) {
@@ -127,6 +132,15 @@ export default function FormFieldEditor({ field, isOpen, onClose, onSave, formId
 
     if (!fieldData.field_type) {
       errors.field_type = 'Field type is required'
+    }
+
+    // Validate validation regex if provided
+    if (validationRegex?.trim()) {
+      try {
+        new RegExp(validationRegex)
+      } catch (e) {
+        errors.validation_regex = 'Invalid regular expression pattern'
+      }
     }
 
     // Validate selection-based fields have at least one option
@@ -147,7 +161,7 @@ export default function FormFieldEditor({ field, isOpen, onClose, onSave, formId
       let savedField: FormField
 
       if (field?.id && field.id.startsWith('field_')) {
-        // Existing field from server
+        // Existing field from server - update via PUT
         const response = await execute(`/api/form-builder/fields/${field.id}`, {
           method: 'PUT',
           headers: getAuthHeaders(),
@@ -158,29 +172,40 @@ export default function FormFieldEditor({ field, isOpen, onClose, onSave, formId
             is_required: fieldData.is_required || false,
             default_value: fieldData.default_value?.trim() || null,
             placeholder: fieldData.placeholder_text?.trim() || null,
+            help_text: fieldData.help_text?.trim() || null,
             order_index: fieldData.sort_order || 0,
-            validation_regex: null // Can be extended later
+            validation_regex: validationRegex?.trim() || null
           }
         })
         savedField = response.field
       } else {
-        // New field (create via form update)
-        savedField = {
-          id: field?.id || `field_${Date.now()}`,
-          field_name: fieldData.field_name!.trim(),
-          field_label: fieldData.field_label!.trim(),
-          field_type: fieldData.field_type!,
-          is_required: fieldData.is_required || false,
-          placeholder_text: fieldData.placeholder_text?.trim() || null,
-          help_text: fieldData.help_text?.trim() || null,
-          default_value: fieldData.default_value?.trim() || null,
-          sort_order: fieldData.sort_order || 0,
-          form_field_options: options
-        }
+        // New field - create via POST to form's fields endpoint
+        const response = await execute(`/api/form-builder/forms/${formId}/fields`, {
+          method: 'POST',
+          headers: {
+            ...getAuthHeaders(),
+            'Content-Type': 'application/json'
+          },
+          body: {
+            field_name: fieldData.field_name!.trim(),
+            field_label: fieldData.field_label!.trim(),
+            field_type: fieldData.field_type!,
+            is_required: fieldData.is_required || false,
+            placeholder_text: fieldData.placeholder_text?.trim() || null,
+            help_text: fieldData.help_text?.trim() || null,
+            default_value: fieldData.default_value?.trim() || null,
+            sort_order: fieldData.sort_order || 0,
+            validation_regex: validationRegex?.trim() || null,
+            options: SELECTION_FIELD_TYPES.includes(fieldData.field_type!) ? options : []
+          }
+        })
+        savedField = response.field
       }
 
-      // Include options in the saved field
-      savedField.form_field_options = options
+      // Include options in the saved field for selection-based fields
+      if (SELECTION_FIELD_TYPES.includes(savedField.field_type)) {
+        savedField.form_field_options = options
+      }
 
       onSave(savedField)
       onClose()
@@ -342,6 +367,25 @@ export default function FormFieldEditor({ field, isOpen, onClose, onSave, formId
                   onChange={(e) => setFieldData({ ...fieldData, default_value: e.target.value })}
                   placeholder="Default field value (optional)"
                 />
+              </div>
+
+              <div>
+                <label htmlFor="validation-regex" className="block text-sm font-medium mb-1">
+                  Validation Pattern (Regex)
+                </label>
+                <Input
+                  id="validation-regex"
+                  value={validationRegex || ''}
+                  onChange={(e) => setValidationRegex(e.target.value)}
+                  className={validationErrors.validation_regex ? 'border-red-500' : ''}
+                  placeholder="e.g., ^[A-Z]{2}[0-9]{3}$ (optional)"
+                />
+                {validationErrors.validation_regex && (
+                  <p className="text-red-500 text-sm mt-1">{validationErrors.validation_regex}</p>
+                )}
+                <p className="text-gray-500 text-xs mt-1">
+                  Optional regular expression pattern to validate field input
+                </p>
               </div>
             </div>
 

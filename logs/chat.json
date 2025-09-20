@@ -2402,5 +2402,450 @@
     "type": "assistant",
     "uuid": "df22af85-a54c-418f-b17a-105c47e97b78",
     "timestamp": "2025-09-19T08:23:39.491Z"
+  },
+  {
+    "parentUuid": "df22af85-a54c-418f-b17a-105c47e97b78",
+    "isSidechain": false,
+    "userType": "external",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "sessionId": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "version": "1.0.119",
+    "gitBranch": "master",
+    "type": "system",
+    "subtype": "informational",
+    "content": "\u001b[1mStop\u001b[22m [uv run ~/.claude/hooks/stop.py --chat] completed successfully",
+    "isMeta": false,
+    "timestamp": "2025-09-19T08:23:42.111Z",
+    "uuid": "dbb9d065-4eb3-46f7-9935-df167c12ac52",
+    "toolUseID": "2e020498-1bd0-4c86-bbb6-0a36d840a2e5",
+    "level": "info"
+  },
+  {
+    "parentUuid": "dbb9d065-4eb3-46f7-9935-df167c12ac52",
+    "isSidechain": false,
+    "userType": "external",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "sessionId": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "version": "1.0.119",
+    "gitBranch": "master",
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": "what process is running in this pane ? '"
+    },
+    "uuid": "b407d7be-b888-4389-88c9-28c8d20aafdd",
+    "timestamp": "2025-09-20T05:35:56.291Z",
+    "thinkingMetadata": {
+      "level": "none",
+      "disabled": false,
+      "triggers": []
+    }
+  },
+  {
+    "parentUuid": "b407d7be-b888-4389-88c9-28c8d20aafdd",
+    "isSidechain": false,
+    "userType": "external",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "sessionId": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "version": "1.0.119",
+    "gitBranch": "master",
+    "message": {
+      "id": "msg_011zaDV7WXTrcPayCavwf9ft",
+      "type": "message",
+      "role": "assistant",
+      "model": "claude-sonnet-4-20250514",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01JAqcDfkAmd8StE29SkkhqV",
+          "name": "Bash",
+          "input": {
+            "command": "ps -ef | grep -E \"($$|$PPID)\" | head -10",
+            "description": "Show current process and parent process information"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "usage": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 19558,
+        "cache_read_input_tokens": 20321,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 19558,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 5,
+        "service_tier": "standard"
+      }
+    },
+    "requestId": "req_011CTK7MgqgiPqRKwj1vjM13",
+    "type": "assistant",
+    "uuid": "a0bf0dd3-db75-4753-a332-c7b947553068",
+    "timestamp": "2025-09-20T05:36:00.744Z"
+  },
+  {
+    "parentUuid": "a0bf0dd3-db75-4753-a332-c7b947553068",
+    "isSidechain": false,
+    "userType": "external",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "sessionId": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "version": "1.0.119",
+    "gitBranch": "master",
+    "type": "system",
+    "subtype": "informational",
+    "content": "\u001b[1mPreToolUse:Bash\u001b[22m [uv run ~/.claude/hooks/pre_tool_use.py] completed successfully",
+    "isMeta": false,
+    "timestamp": "2025-09-20T05:36:00.829Z",
+    "uuid": "75d1ac49-8bc9-4722-befd-e5b56669e086",
+    "toolUseID": "toolu_01JAqcDfkAmd8StE29SkkhqV",
+    "level": "info"
+  },
+  {
+    "parentUuid": "75d1ac49-8bc9-4722-befd-e5b56669e086",
+    "isSidechain": false,
+    "userType": "external",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "sessionId": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "version": "1.0.119",
+    "gitBranch": "master",
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "tool_use_id": "toolu_01JAqcDfkAmd8StE29SkkhqV",
+          "type": "tool_result",
+          "content": "  UID   PID  PPID   C STIME   TTY           TIME CMD\n    0     1     0   0 Mon11AM ??        17:54.49 /sbin/launchd\n    0   304     1   0 Mon11AM ??        56:36.34 /usr/libexec/logd\n    0   305     1   0 Mon11AM ??         0:00.29 /usr/libexec/smd\n    0   306     1   0 Mon11AM ??         0:37.54 /usr/libexec/UserEventAgent (System)\n    0   308     1   0 Mon11AM ??         9:08.82 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/FSEvents.framework/Versions/A/Support/fseventsd\n    0   309     1   0 Mon11AM ??         0:39.80 /System/Library/PrivateFrameworks/MediaRemote.framework/Support/mediaremoted\n    0   312     1   0 Mon11AM ??         3:24.11 /usr/sbin/systemstats --daemon\n  278   314     1   0 Mon11AM ??         0:07.36 /System/Library/PrivateFrameworks/MobileAccessoryUpdater.framework/Support/accessoryupdaterd 120\n    0   315     1   0 Mon11AM ??         2:36.84 /usr/libexec/configd",
+          "is_error": false
+        }
+      ]
+    },
+    "uuid": "3a6dee53-38b1-4126-87ef-f203b51d4309",
+    "timestamp": "2025-09-20T05:36:00.907Z",
+    "toolUseResult": {
+      "stdout": "  UID   PID  PPID   C STIME   TTY           TIME CMD\n    0     1     0   0 Mon11AM ??        17:54.49 /sbin/launchd\n    0   304     1   0 Mon11AM ??        56:36.34 /usr/libexec/logd\n    0   305     1   0 Mon11AM ??         0:00.29 /usr/libexec/smd\n    0   306     1   0 Mon11AM ??         0:37.54 /usr/libexec/UserEventAgent (System)\n    0   308     1   0 Mon11AM ??         9:08.82 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/FSEvents.framework/Versions/A/Support/fseventsd\n    0   309     1   0 Mon11AM ??         0:39.80 /System/Library/PrivateFrameworks/MediaRemote.framework/Support/mediaremoted\n    0   312     1   0 Mon11AM ??         3:24.11 /usr/sbin/systemstats --daemon\n  278   314     1   0 Mon11AM ??         0:07.36 /System/Library/PrivateFrameworks/MobileAccessoryUpdater.framework/Support/accessoryupdaterd 120\n    0   315     1   0 Mon11AM ??         2:36.84 /usr/libexec/configd",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "parentUuid": "3a6dee53-38b1-4126-87ef-f203b51d4309",
+    "isSidechain": false,
+    "userType": "external",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "sessionId": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "version": "1.0.119",
+    "gitBranch": "master",
+    "type": "system",
+    "subtype": "informational",
+    "content": "Running \u001b[1mPostToolUse:Bash\u001b[22m...",
+    "isMeta": false,
+    "timestamp": "2025-09-20T05:36:00.915Z",
+    "uuid": "4c28b797-4476-4274-997f-9ccdea78aaee",
+    "toolUseID": "toolu_01JAqcDfkAmd8StE29SkkhqV",
+    "level": "info"
+  },
+  {
+    "parentUuid": "4c28b797-4476-4274-997f-9ccdea78aaee",
+    "isSidechain": false,
+    "userType": "external",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "sessionId": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "version": "1.0.119",
+    "gitBranch": "master",
+    "type": "system",
+    "subtype": "informational",
+    "content": "\u001b[1mPostToolUse:Bash\u001b[22m [uv run ~/.claude/hooks/post_tool_use.py] completed successfully",
+    "isMeta": false,
+    "timestamp": "2025-09-20T05:36:00.963Z",
+    "uuid": "73855a2f-0c57-4793-8842-403768c167b2",
+    "toolUseID": "toolu_01JAqcDfkAmd8StE29SkkhqV",
+    "level": "info"
+  },
+  {
+    "parentUuid": "73855a2f-0c57-4793-8842-403768c167b2",
+    "isSidechain": false,
+    "userType": "external",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "sessionId": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "version": "1.0.119",
+    "gitBranch": "master",
+    "message": {
+      "id": "msg_016bcQmv3yjSvymohKLGHh3X",
+      "type": "message",
+      "role": "assistant",
+      "model": "claude-sonnet-4-20250514",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01BenZHhHJmRZxXnaSHGS9hF",
+          "name": "Bash",
+          "input": {
+            "command": "echo $$ && echo $PPID && ps -p $$ -o pid,ppid,comm,args",
+            "description": "Show current shell process details"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "usage": {
+        "input_tokens": 7,
+        "cache_creation_input_tokens": 469,
+        "cache_read_input_tokens": 39879,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 469,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 25,
+        "service_tier": "standard"
+      }
+    },
+    "requestId": "req_011CTK7N1uuNw4hEjE2sZCim",
+    "type": "assistant",
+    "uuid": "2d7a7175-cf1b-4238-a6bd-0c9139324b13",
+    "timestamp": "2025-09-20T05:36:04.364Z"
+  },
+  {
+    "parentUuid": "2d7a7175-cf1b-4238-a6bd-0c9139324b13",
+    "isSidechain": false,
+    "userType": "external",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "sessionId": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "version": "1.0.119",
+    "gitBranch": "master",
+    "type": "system",
+    "subtype": "informational",
+    "content": "\u001b[1mPreToolUse:Bash\u001b[22m [uv run ~/.claude/hooks/pre_tool_use.py] completed successfully",
+    "isMeta": false,
+    "timestamp": "2025-09-20T05:36:04.425Z",
+    "uuid": "96ec5078-65c2-4ee4-bc06-92088afa3fc4",
+    "toolUseID": "toolu_01BenZHhHJmRZxXnaSHGS9hF",
+    "level": "info"
+  },
+  {
+    "parentUuid": "96ec5078-65c2-4ee4-bc06-92088afa3fc4",
+    "isSidechain": false,
+    "userType": "external",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "sessionId": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "version": "1.0.119",
+    "gitBranch": "master",
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "tool_use_id": "toolu_01BenZHhHJmRZxXnaSHGS9hF",
+          "type": "tool_result",
+          "content": "29471\n93681\n  PID  PPID COMM     ARGS\n29471 93681 /bin/zsh /bin/zsh -c -l source /Users/jacksontumbidge/.claude/shell-snapshots/snapshot-zsh-1758265336675-jl74e9.sh && eval 'echo $$ && echo $PPID && ps -p $$ -o pid,ppid,comm,args' \\< /dev/null && pwd -P >| /var/folders/tw/p81g2k_512qddwspmcgx29tm0000gn/T/claude-0de3-cwd",
+          "is_error": false
+        }
+      ]
+    },
+    "uuid": "61621c8b-f62b-420d-b9fc-dae0d4b34761",
+    "timestamp": "2025-09-20T05:36:05.507Z",
+    "toolUseResult": {
+      "stdout": "29471\n93681\n  PID  PPID COMM     ARGS\n29471 93681 /bin/zsh /bin/zsh -c -l source /Users/jacksontumbidge/.claude/shell-snapshots/snapshot-zsh-1758265336675-jl74e9.sh && eval 'echo $$ && echo $PPID && ps -p $$ -o pid,ppid,comm,args' \\< /dev/null && pwd -P >| /var/folders/tw/p81g2k_512qddwspmcgx29tm0000gn/T/claude-0de3-cwd",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "parentUuid": "61621c8b-f62b-420d-b9fc-dae0d4b34761",
+    "isSidechain": false,
+    "userType": "external",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "sessionId": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "version": "1.0.119",
+    "gitBranch": "master",
+    "type": "system",
+    "subtype": "informational",
+    "content": "Running \u001b[1mPostToolUse:Bash\u001b[22m...",
+    "isMeta": false,
+    "timestamp": "2025-09-20T05:36:05.513Z",
+    "uuid": "e025a4ff-c78d-4fec-bc89-1e1c11bc091c",
+    "toolUseID": "toolu_01BenZHhHJmRZxXnaSHGS9hF",
+    "level": "info"
+  },
+  {
+    "parentUuid": "e025a4ff-c78d-4fec-bc89-1e1c11bc091c",
+    "isSidechain": false,
+    "userType": "external",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "sessionId": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "version": "1.0.119",
+    "gitBranch": "master",
+    "type": "system",
+    "subtype": "informational",
+    "content": "\u001b[1mPostToolUse:Bash\u001b[22m [uv run ~/.claude/hooks/post_tool_use.py] completed successfully",
+    "isMeta": false,
+    "timestamp": "2025-09-20T05:36:05.560Z",
+    "uuid": "4d3df6eb-5958-425b-a18a-9821705e4724",
+    "toolUseID": "toolu_01BenZHhHJmRZxXnaSHGS9hF",
+    "level": "info"
+  },
+  {
+    "parentUuid": "4d3df6eb-5958-425b-a18a-9821705e4724",
+    "isSidechain": false,
+    "userType": "external",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "sessionId": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "version": "1.0.119",
+    "gitBranch": "master",
+    "message": {
+      "id": "msg_01WDSfwUBPvi4xbuciKAuWYf",
+      "type": "message",
+      "role": "assistant",
+      "model": "claude-sonnet-4-20250514",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_012qid5zP85f5aa7rXRoTVs9",
+          "name": "Bash",
+          "input": {
+            "command": "ps -p 93681 -o pid,ppid,comm,args",
+            "description": "Show parent process details"
+          }
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "usage": {
+        "input_tokens": 7,
+        "cache_creation_input_tokens": 264,
+        "cache_read_input_tokens": 40348,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 264,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 25,
+        "service_tier": "standard"
+      }
+    },
+    "requestId": "req_011CTK7NMxQZAfsHP7Yg8suU",
+    "type": "assistant",
+    "uuid": "1752d93c-da2a-4a01-ba6a-a628088b8229",
+    "timestamp": "2025-09-20T05:36:08.843Z"
+  },
+  {
+    "parentUuid": "1752d93c-da2a-4a01-ba6a-a628088b8229",
+    "isSidechain": false,
+    "userType": "external",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "sessionId": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "version": "1.0.119",
+    "gitBranch": "master",
+    "type": "system",
+    "subtype": "informational",
+    "content": "\u001b[1mPreToolUse:Bash\u001b[22m [uv run ~/.claude/hooks/pre_tool_use.py] completed successfully",
+    "isMeta": false,
+    "timestamp": "2025-09-20T05:36:08.908Z",
+    "uuid": "02681c62-fa85-449c-8451-e12cbb440c47",
+    "toolUseID": "toolu_012qid5zP85f5aa7rXRoTVs9",
+    "level": "info"
+  },
+  {
+    "parentUuid": "02681c62-fa85-449c-8451-e12cbb440c47",
+    "isSidechain": false,
+    "userType": "external",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "sessionId": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "version": "1.0.119",
+    "gitBranch": "master",
+    "type": "user",
+    "message": {
+      "role": "user",
+      "content": [
+        {
+          "tool_use_id": "toolu_012qid5zP85f5aa7rXRoTVs9",
+          "type": "tool_result",
+          "content": "  PID  PPID COMM   ARGS\n93681 81190 claude claude",
+          "is_error": false
+        }
+      ]
+    },
+    "uuid": "4e22e61f-d229-4739-9e12-0a4ad88156cd",
+    "timestamp": "2025-09-20T05:36:09.889Z",
+    "toolUseResult": {
+      "stdout": "  PID  PPID COMM   ARGS\n93681 81190 claude claude",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "parentUuid": "4e22e61f-d229-4739-9e12-0a4ad88156cd",
+    "isSidechain": false,
+    "userType": "external",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "sessionId": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "version": "1.0.119",
+    "gitBranch": "master",
+    "type": "system",
+    "subtype": "informational",
+    "content": "Running \u001b[1mPostToolUse:Bash\u001b[22m...",
+    "isMeta": false,
+    "timestamp": "2025-09-20T05:36:09.895Z",
+    "uuid": "12a894d8-dcf4-4f03-bc80-313c05a73ce6",
+    "toolUseID": "toolu_012qid5zP85f5aa7rXRoTVs9",
+    "level": "info"
+  },
+  {
+    "parentUuid": "12a894d8-dcf4-4f03-bc80-313c05a73ce6",
+    "isSidechain": false,
+    "userType": "external",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "sessionId": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "version": "1.0.119",
+    "gitBranch": "master",
+    "type": "system",
+    "subtype": "informational",
+    "content": "\u001b[1mPostToolUse:Bash\u001b[22m [uv run ~/.claude/hooks/post_tool_use.py] completed successfully",
+    "isMeta": false,
+    "timestamp": "2025-09-20T05:36:09.942Z",
+    "uuid": "c9bab3bc-3ede-4d7a-980f-8f0e47f21ebb",
+    "toolUseID": "toolu_012qid5zP85f5aa7rXRoTVs9",
+    "level": "info"
+  },
+  {
+    "parentUuid": "c9bab3bc-3ede-4d7a-980f-8f0e47f21ebb",
+    "isSidechain": false,
+    "userType": "external",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "sessionId": "ccb2a809-ff49-4783-b4d3-2b52c445e5d0",
+    "version": "1.0.119",
+    "gitBranch": "master",
+    "message": {
+      "id": "msg_01LtoSx4uKj29KaKBVZTwSQh",
+      "type": "message",
+      "role": "assistant",
+      "model": "claude-sonnet-4-20250514",
+      "content": [
+        {
+          "type": "text",
+          "text": "The current pane is running **Claude Code** (PID 93681). \n\nThe process hierarchy is:\n- `claude` (PID 93681) - Claude Code CLI\n- `/bin/zsh` (PID 29471) - Shell spawned by Claude for executing commands\n\nYou're in a Claude Code session running in the GamePlanPro project directory."
+        }
+      ],
+      "stop_reason": null,
+      "stop_sequence": null,
+      "usage": {
+        "input_tokens": 7,
+        "cache_creation_input_tokens": 121,
+        "cache_read_input_tokens": 40612,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 121,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1,
+        "service_tier": "standard"
+      }
+    },
+    "requestId": "req_011CTK7NgXrj5oUcW5C72bfq",
+    "type": "assistant",
+    "uuid": "886f3ed8-ab39-4619-989c-cd577e441428",
+    "timestamp": "2025-09-20T05:36:15.889Z"
   }
 ]
