@@ -8,6 +8,7 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const { body, validationResult } = require('express-validator');
+const crypto = require('crypto');
 // Environment-specific Stripe configuration
 const getStripeConfig = () => {
     const environment = process.env.NODE_ENV || 'development';
@@ -4052,6 +4053,346 @@ app.post('/api/registration-flow/:registration_id/finalize', authenticateUser, a
     }
 });
 
+// Webhook Gateway Registry and Utilities
+const webhookGateways = {
+    stripe: {
+        verifySignature: (payload, signature, secret) => {
+            try {
+                const elements = signature.split(',');
+                const signatureElements = {};
+
+                for (const element of elements) {
+                    const [key, value] = element.split('=');
+                    signatureElements[key] = value;
+                }
+
+                if (!signatureElements.t || !signatureElements.v1) {
+                    console.warn('[WEBHOOK] Invalid Stripe signature format');
+                    return false;
+                }
+
+                const timestamp = signatureElements.t;
+                const expectedSignature = signatureElements.v1;
+
+                // Create expected signature
+                const signedPayload = `${timestamp}.${payload}`;
+                const computedSignature = crypto
+                    .createHmac('sha256', secret)
+                    .update(signedPayload, 'utf8')
+                    .digest('hex');
+
+                // Verify signature
+                const isValid = crypto.timingSafeEqual(
+                    Buffer.from(expectedSignature, 'hex'),
+                    Buffer.from(computedSignature, 'hex')
+                );
+
+                if (!isValid) {
+                    console.warn('[WEBHOOK] Stripe signature verification failed');
+                    return false;
+                }
+
+                // Check timestamp (prevent replay attacks)
+                const currentTime = Math.floor(Date.now() / 1000);
+                const webhookTime = parseInt(timestamp);
+                const timeDifference = Math.abs(currentTime - webhookTime);
+
+                if (timeDifference > 300) { // 5 minutes tolerance
+                    console.warn('[WEBHOOK] Stripe webhook timestamp too old');
+                    return false;
+                }
+
+                return true;
+            } catch (error) {
+                console.error('[WEBHOOK] Stripe signature verification error:', error);
+                return false;
+            }
+        },
+        parseEvent: (payload) => {
+            try {
+                return JSON.parse(payload);
+            } catch (error) {
+                console.error('[WEBHOOK] Failed to parse Stripe event:', error);
+                return null;
+            }
+        },
+        getEventInfo: (event) => ({
+            eventId: event.id,
+            eventType: event.type,
+            objectId: event.data?.object?.id,
+            objectType: event.data?.object?.object
+        })
+    },
+    // Extensible for other gateways like PayPal, Square, etc.
+    paypal: {
+        verifySignature: (payload, signature, secret) => {
+            // PayPal webhook signature verification logic would go here
+            console.warn('[WEBHOOK] PayPal webhook verification not yet implemented');
+            return true; // Placeholder
+        },
+        parseEvent: (payload) => {
+            try {
+                return JSON.parse(payload);
+            } catch (error) {
+                console.error('[WEBHOOK] Failed to parse PayPal event:', error);
+                return null;
+            }
+        },
+        getEventInfo: (event) => ({
+            eventId: event.id,
+            eventType: event.event_type,
+            objectId: event.resource?.id,
+            objectType: event.resource_type
+        })
+    }
+};
+
+// Webhook Event Processing Logic
+const processWebhookEvent = async (gatewayName, event, webhookEventId) => {
+    const requestId = `wh_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    console.log(`[${requestId}] Processing ${gatewayName} webhook event: ${event.type || event.event_type}`);
+
+    try {
+        if (gatewayName === 'stripe') {
+            return await processStripeWebhookEvent(event, webhookEventId, requestId);
+        } else if (gatewayName === 'paypal') {
+            return await processPayPalWebhookEvent(event, webhookEventId, requestId);
+        } else {
+            console.warn(`[${requestId}] Unknown gateway: ${gatewayName}`);
+            return { success: false, error: 'Unknown gateway', shouldRetry: false };
+        }
+    } catch (error) {
+        console.error(`[${requestId}] Webhook processing error:`, error);
+        return { success: false, error: error.message, shouldRetry: true };
+    }
+};
+
+// Stripe-specific webhook event processing
+const processStripeWebhookEvent = async (event, webhookEventId, requestId) => {
+    const eventType = event.type;
+    const paymentIntent = event.data.object;
+
+    console.log(`[${requestId}] Processing Stripe event type: ${eventType}`);
+
+    switch (eventType) {
+        case 'payment_intent.succeeded':
+            return await handlePaymentIntentSucceeded(paymentIntent, webhookEventId, requestId);
+
+        case 'payment_intent.payment_failed':
+            return await handlePaymentIntentFailed(paymentIntent, webhookEventId, requestId);
+
+        case 'payment_intent.canceled':
+            return await handlePaymentIntentCanceled(paymentIntent, webhookEventId, requestId);
+
+        case 'charge.dispute.created':
+            return await handleChargeDispute(event.data.object, webhookEventId, requestId);
+
+        case 'invoice.payment_succeeded':
+        case 'invoice.payment_failed':
+            console.log(`[${requestId}] Invoice event received but not processed: ${eventType}`);
+            return { success: true, message: 'Invoice event acknowledged but not processed' };
+
+        default:
+            console.log(`[${requestId}] Unhandled Stripe event type: ${eventType}`);
+            return { success: true, message: 'Event acknowledged but not processed' };
+    }
+};
+
+// Handle successful payment intent
+const handlePaymentIntentSucceeded = async (paymentIntent, webhookEventId, requestId) => {
+    try {
+        // Find payment record by Stripe payment intent ID
+        const { data: payment, error: paymentError } = await supabase
+            .from('payments')
+            .select('id, program_registration_id, status, amount')
+            .eq('stripe_payment_intent_id', paymentIntent.id)
+            .single();
+
+        if (paymentError || !payment) {
+            console.warn(`[${requestId}] Payment not found for payment intent: ${paymentIntent.id}`);
+            return { success: true, message: 'Payment not found in database' };
+        }
+
+        // Skip if already processed
+        if (payment.status === 'completed') {
+            console.log(`[${requestId}] Payment already completed: ${payment.id}`);
+            return { success: true, message: 'Payment already completed' };
+        }
+
+        // Update payment status
+        const { error: updateError } = await supabase
+            .from('payments')
+            .update({
+                status: 'completed',
+                processed_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+                payment_method_details: {
+                    ...payment.payment_method_details,
+                    webhook_confirmed: true,
+                    webhook_event_id: webhookEventId,
+                    stripe_charges: paymentIntent.charges?.data || []
+                }
+            })
+            .eq('id', payment.id);
+
+        if (updateError) {
+            console.error(`[${requestId}] Failed to update payment:`, updateError);
+            return { success: false, error: 'Failed to update payment status', shouldRetry: true };
+        }
+
+        // Update registration status if needed
+        if (payment.program_registration_id) {
+            const { error: regUpdateError } = await supabase
+                .from('program_registrations')
+                .update({
+                    status: 'confirmed',
+                    confirmed_at: new Date().toISOString(),
+                    updated_at: new Date().toISOString()
+                })
+                .eq('id', payment.program_registration_id)
+                .eq('status', 'pending'); // Only update if still pending
+
+            if (regUpdateError) {
+                console.warn(`[${requestId}] Failed to update registration status:`, regUpdateError);
+                // Don't fail the webhook processing for this
+            }
+        }
+
+        console.log(`[${requestId}] Successfully processed payment_intent.succeeded for payment: ${payment.id}`);
+        return { success: true, message: 'Payment confirmed successfully' };
+
+    } catch (error) {
+        console.error(`[${requestId}] Error processing payment_intent.succeeded:`, error);
+        return { success: false, error: error.message, shouldRetry: true };
+    }
+};
+
+// Handle failed payment intent
+const handlePaymentIntentFailed = async (paymentIntent, webhookEventId, requestId) => {
+    try {
+        const { data: payment, error: paymentError } = await supabase
+            .from('payments')
+            .select('id, program_registration_id, status')
+            .eq('stripe_payment_intent_id', paymentIntent.id)
+            .single();
+
+        if (paymentError || !payment) {
+            console.warn(`[${requestId}] Payment not found for failed payment intent: ${paymentIntent.id}`);
+            return { success: true, message: 'Payment not found in database' };
+        }
+
+        // Update payment status to failed
+        const { error: updateError } = await supabase
+            .from('payments')
+            .update({
+                status: 'failed',
+                processed_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+                payment_method_details: {
+                    ...payment.payment_method_details,
+                    webhook_confirmed: true,
+                    webhook_event_id: webhookEventId,
+                    failure_reason: paymentIntent.last_payment_error?.message || 'Payment failed'
+                }
+            })
+            .eq('id', payment.id);
+
+        if (updateError) {
+            console.error(`[${requestId}] Failed to update failed payment:`, updateError);
+            return { success: false, error: 'Failed to update payment status', shouldRetry: true };
+        }
+
+        console.log(`[${requestId}] Successfully processed payment_intent.payment_failed for payment: ${payment.id}`);
+        return { success: true, message: 'Payment failure recorded successfully' };
+
+    } catch (error) {
+        console.error(`[${requestId}] Error processing payment_intent.payment_failed:`, error);
+        return { success: false, error: error.message, shouldRetry: true };
+    }
+};
+
+// Handle canceled payment intent
+const handlePaymentIntentCanceled = async (paymentIntent, webhookEventId, requestId) => {
+    try {
+        const { data: payment, error: paymentError } = await supabase
+            .from('payments')
+            .select('id, program_registration_id, status')
+            .eq('stripe_payment_intent_id', paymentIntent.id)
+            .single();
+
+        if (paymentError || !payment) {
+            console.warn(`[${requestId}] Payment not found for canceled payment intent: ${paymentIntent.id}`);
+            return { success: true, message: 'Payment not found in database' };
+        }
+
+        // Update payment status to canceled
+        const { error: updateError } = await supabase
+            .from('payments')
+            .update({
+                status: 'canceled',
+                processed_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+                payment_method_details: {
+                    ...payment.payment_method_details,
+                    webhook_confirmed: true,
+                    webhook_event_id: webhookEventId,
+                    cancellation_reason: paymentIntent.cancellation_reason || 'Payment canceled'
+                }
+            })
+            .eq('id', payment.id);
+
+        if (updateError) {
+            console.error(`[${requestId}] Failed to update canceled payment:`, updateError);
+            return { success: false, error: 'Failed to update payment status', shouldRetry: true };
+        }
+
+        console.log(`[${requestId}] Successfully processed payment_intent.canceled for payment: ${payment.id}`);
+        return { success: true, message: 'Payment cancellation recorded successfully' };
+
+    } catch (error) {
+        console.error(`[${requestId}] Error processing payment_intent.canceled:`, error);
+        return { success: false, error: error.message, shouldRetry: true };
+    }
+};
+
+// Handle charge disputes
+const handleChargeDispute = async (dispute, webhookEventId, requestId) => {
+    try {
+        console.warn(`[${requestId}] Charge dispute received: ${dispute.id} for charge: ${dispute.charge}`);
+
+        // Log dispute for manual review
+        const { error: logError } = await supabase
+            .from('webhook_events')
+            .update({
+                status: 'processed',
+                processed_at: new Date().toISOString(),
+                metadata: {
+                    requires_manual_review: true,
+                    dispute_id: dispute.id,
+                    dispute_reason: dispute.reason,
+                    dispute_amount: dispute.amount
+                }
+            })
+            .eq('id', webhookEventId);
+
+        if (logError) {
+            console.error(`[${requestId}] Failed to log dispute:`, logError);
+        }
+
+        return { success: true, message: 'Dispute logged for manual review' };
+
+    } catch (error) {
+        console.error(`[${requestId}] Error processing charge dispute:`, error);
+        return { success: false, error: error.message, shouldRetry: true };
+    }
+};
+
+// PayPal webhook processing (placeholder)
+const processPayPalWebhookEvent = async (event, webhookEventId, requestId) => {
+    console.log(`[${requestId}] PayPal webhook processing not yet implemented: ${event.event_type}`);
+    return { success: true, message: 'PayPal webhook acknowledged but not processed' };
+};
+
 // Stripe Payment Endpoints
 
 // POST /api/payments/create-intent - Create Stripe payment intent
@@ -4469,6 +4810,273 @@ app.post('/api/payments/confirm', paymentLimiter, authenticateUser, validatePaym
             should_retry: errorInfo.should_retry,
             ...(process.env.NODE_ENV === 'development' && { debug_info: error.message })
         });
+    }
+});
+
+// Payment Gateway Webhook Endpoints
+
+// POST /api/payments/webhook/{gateway_name} - Receive and process payment gateway webhooks
+app.post('/api/payments/webhook/:gateway_name', async (req, res) => {
+    const { gateway_name } = req.params;
+    const requestId = `wh_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+    console.log(`[${requestId}] Webhook received from ${gateway_name}`);
+
+    try {
+        // Validate gateway is supported
+        const gateway = webhookGateways[gateway_name.toLowerCase()];
+        if (!gateway) {
+            console.warn(`[${requestId}] Unsupported gateway: ${gateway_name}`);
+            return res.status(400).json({
+                error: 'Unsupported payment gateway',
+                gateway: gateway_name,
+                request_id: requestId
+            });
+        }
+
+        // Get raw body for signature verification
+        const rawBody = req.rawBody ? req.rawBody.toString() : JSON.stringify(req.body);
+
+        // Get signature from headers (gateway-specific)
+        let signature;
+        if (gateway_name.toLowerCase() === 'stripe') {
+            signature = req.headers['stripe-signature'];
+        } else if (gateway_name.toLowerCase() === 'paypal') {
+            signature = req.headers['paypal-signature'] || req.headers['paypal-auth-algo'];
+        }
+
+        if (!signature) {
+            console.warn(`[${requestId}] Missing webhook signature for ${gateway_name}`);
+            return res.status(400).json({
+                error: 'Missing webhook signature',
+                request_id: requestId
+            });
+        }
+
+        // Get webhook secret for the gateway
+        const stripeConfig = getStripeConfig();
+        let webhookSecret;
+        if (gateway_name.toLowerCase() === 'stripe') {
+            webhookSecret = stripeConfig.webhookSecret;
+        } else if (gateway_name.toLowerCase() === 'paypal') {
+            webhookSecret = process.env.PAYPAL_WEBHOOK_SECRET;
+        }
+
+        if (!webhookSecret) {
+            console.error(`[${requestId}] Missing webhook secret for ${gateway_name}`);
+            // Always return 200 to prevent gateway retries for configuration issues
+            return res.status(200).json({
+                message: 'Webhook received but not processed due to configuration',
+                request_id: requestId
+            });
+        }
+
+        // Verify webhook signature
+        const isSignatureValid = gateway.verifySignature(rawBody, signature, webhookSecret);
+        if (!isSignatureValid) {
+            console.warn(`[${requestId}] Invalid webhook signature for ${gateway_name}`);
+            // Return 400 for signature failures to prevent processing malicious webhooks
+            return res.status(400).json({
+                error: 'Invalid webhook signature',
+                request_id: requestId
+            });
+        }
+
+        console.log(`[${requestId}] Webhook signature verified for ${gateway_name}`);
+
+        // Parse event data
+        const event = gateway.parseEvent(rawBody);
+        if (!event) {
+            console.error(`[${requestId}] Failed to parse webhook event for ${gateway_name}`);
+            return res.status(400).json({
+                error: 'Invalid webhook payload',
+                request_id: requestId
+            });
+        }
+
+        // Extract event information
+        const eventInfo = gateway.getEventInfo(event);
+        console.log(`[${requestId}] Processing event: ${eventInfo.eventType} (${eventInfo.eventId})`);
+
+        // Check for duplicate events (idempotency)
+        const { data: existingEvent, error: duplicateCheckError } = await supabase
+            .from('webhook_events')
+            .select('id, status, processed_at')
+            .eq('gateway_name', gateway_name.toLowerCase())
+            .eq('event_id', eventInfo.eventId)
+            .single();
+
+        if (duplicateCheckError && duplicateCheckError.code !== 'PGRST116') {
+            console.error(`[${requestId}] Error checking for duplicate events:`, duplicateCheckError);
+            return res.status(200).json({
+                message: 'Webhook received but not processed due to database error',
+                request_id: requestId
+            });
+        }
+
+        if (existingEvent) {
+            console.log(`[${requestId}] Duplicate webhook event detected: ${eventInfo.eventId} (status: ${existingEvent.status})`);
+            return res.status(200).json({
+                message: 'Webhook event already processed',
+                request_id: requestId,
+                event_id: eventInfo.eventId,
+                status: existingEvent.status,
+                processed_at: existingEvent.processed_at
+            });
+        }
+
+        // Store webhook event for processing
+        const { data: webhookEvent, error: storeError } = await supabase
+            .from('webhook_events')
+            .insert({
+                gateway_name: gateway_name.toLowerCase(),
+                event_id: eventInfo.eventId,
+                event_type: eventInfo.eventType,
+                event_data: event,
+                signature_verified: true,
+                status: 'pending',
+                created_at: new Date().toISOString(),
+                metadata: {
+                    request_id: requestId,
+                    object_id: eventInfo.objectId,
+                    object_type: eventInfo.objectType,
+                    signature_headers: gateway_name.toLowerCase() === 'stripe' ?
+                        { 'stripe-signature': signature } :
+                        { 'paypal-signature': signature }
+                }
+            })
+            .select()
+            .single();
+
+        if (storeError) {
+            console.error(`[${requestId}] Failed to store webhook event:`, storeError);
+            return res.status(200).json({
+                message: 'Webhook received but not stored due to database error',
+                request_id: requestId
+            });
+        }
+
+        console.log(`[${requestId}] Webhook event stored with ID: ${webhookEvent.id}`);
+
+        // Process the webhook event
+        const processingResult = await processWebhookEvent(gateway_name.toLowerCase(), event, webhookEvent.id);
+
+        // Update webhook event status based on processing result
+        const updateData = {
+            processing_attempts: 1,
+            updated_at: new Date().toISOString()
+        };
+
+        if (processingResult.success) {
+            updateData.status = 'processed';
+            updateData.processed_at = new Date().toISOString();
+            updateData.metadata = {
+                ...webhookEvent.metadata,
+                processing_result: processingResult
+            };
+            console.log(`[${requestId}] Webhook event processed successfully`);
+        } else {
+            updateData.status = processingResult.shouldRetry ? 'failed' : 'ignored';
+            updateData.last_error = processingResult.error;
+            updateData.metadata = {
+                ...webhookEvent.metadata,
+                processing_result: processingResult
+            };
+            console.error(`[${requestId}] Webhook event processing failed: ${processingResult.error}`);
+        }
+
+        const { error: updateError } = await supabase
+            .from('webhook_events')
+            .update(updateData)
+            .eq('id', webhookEvent.id);
+
+        if (updateError) {
+            console.error(`[${requestId}] Failed to update webhook event status:`, updateError);
+        }
+
+        // Always return 200 OK to acknowledge webhook receipt
+        return res.status(200).json({
+            message: processingResult.success ? 'Webhook processed successfully' : 'Webhook received but processing failed',
+            request_id: requestId,
+            event_id: eventInfo.eventId,
+            event_type: eventInfo.eventType,
+            processing_status: processingResult.success ? 'processed' : (processingResult.shouldRetry ? 'failed' : 'ignored'),
+            ...(processingResult.message && { processing_message: processingResult.message })
+        });
+
+    } catch (error) {
+        console.error(`[${requestId}] Webhook processing error:`, error);
+
+        // Try to update webhook event if it was stored
+        try {
+            await supabase
+                .from('webhook_events')
+                .update({
+                    status: 'failed',
+                    last_error: error.message,
+                    processing_attempts: 1,
+                    updated_at: new Date().toISOString()
+                })
+                .eq('gateway_name', gateway_name.toLowerCase())
+                .eq('event_id', req.body?.id || 'unknown');
+        } catch (updateError) {
+            console.error(`[${requestId}] Failed to update failed webhook event:`, updateError);
+        }
+
+        // Always return 200 OK to prevent gateway retries for server errors
+        return res.status(200).json({
+            message: 'Webhook received but processing failed due to server error',
+            request_id: requestId,
+            error: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error'
+        });
+    }
+});
+
+// GET /api/payments/webhook/{gateway_name}/events - List webhook events for debugging
+app.get('/api/payments/webhook/:gateway_name/events', authenticateUser, async (req, res) => {
+    const { gateway_name } = req.params;
+    const { status, event_type, limit = 50, offset = 0 } = req.query;
+
+    // TODO: Add proper authorization check here (admin only)
+    if (req.user.role !== 'admin') {
+        return res.status(403).json({ error: 'Access denied. Admin role required.' });
+    }
+
+    try {
+        let query = supabase
+            .from('webhook_events')
+            .select('*')
+            .eq('gateway_name', gateway_name.toLowerCase())
+            .order('created_at', { ascending: false })
+            .range(offset, offset + limit - 1);
+
+        if (status) {
+            query = query.eq('status', status);
+        }
+
+        if (event_type) {
+            query = query.eq('event_type', event_type);
+        }
+
+        const { data: events, error } = await query;
+
+        if (error) {
+            console.error('Webhook events query error:', error);
+            return res.status(500).json({ error: 'Failed to fetch webhook events' });
+        }
+
+        res.json({
+            events,
+            pagination: {
+                limit: parseInt(limit),
+                offset: parseInt(offset),
+                total: events.length
+            }
+        });
+
+    } catch (error) {
+        console.error('Get webhook events error:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 });
 
