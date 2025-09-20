@@ -10,7 +10,7 @@ import { useApi } from '../hooks/useApi'
 import ProgramSelection from './registration/ProgramSelection'
 import CustomFormRenderer from './registration/CustomFormRenderer'
 import FeeSummary from './registration/FeeSummary'
-import PaymentForm from './PaymentForm'
+import PaymentInitiator from './registration/PaymentInitiator'
 import PaymentConfirmation from './PaymentConfirmation'
 
 interface Program {
@@ -52,7 +52,7 @@ const REGISTRATION_STEPS = [
   { id: 'program-selection', title: 'Select Program', description: 'Choose from available programs', component: 'ProgramSelection' },
   { id: 'form-completion', title: 'Complete Form', description: 'Fill out registration details', component: 'CustomFormRenderer' },
   { id: 'fee-summary', title: 'Review Fees', description: 'Review and confirm fees', component: 'FeeSummary' },
-  { id: 'payment', title: 'Payment', description: 'Complete your payment', component: 'PaymentForm' },
+  { id: 'payment', title: 'Payment', description: 'Complete your payment', component: 'PaymentInitiator' },
   { id: 'confirmation', title: 'Confirmation', description: 'Registration complete', component: 'PaymentConfirmation' }
 ]
 
@@ -235,8 +235,8 @@ export default function RegistrationFlow() {
         return <CustomFormRenderer {...stepProps} />
       case 'FeeSummary':
         return <FeeSummary {...stepProps} />
-      case 'PaymentForm':
-        return <PaymentForm {...stepProps} />
+      case 'PaymentInitiator':
+        return <PaymentInitiator {...stepProps} />
       case 'PaymentConfirmation':
         return <PaymentConfirmation {...stepProps} />
       default:
