@@ -2903,6 +2903,237 @@ app.post('/api/registration-flow/initiate', authenticateUser, async (req, res) =
     }
 });
 
+// POST /api/registration-flow/{registration_id}/submit-form - Submit form data for registration
+app.post('/api/registration-flow/:registration_id/submit-form', authenticateUser, async (req, res) => {
+    const { registration_id } = req.params;
+    const { form_data } = req.body;
+
+    // Validate required fields
+    if (!registration_id) {
+        return res.status(400).json({
+            error: 'registration_id is required'
+        });
+    }
+
+    if (!form_data || !Array.isArray(form_data)) {
+        return res.status(400).json({
+            error: 'form_data must be an array of {form_field_id, submitted_value} objects'
+        });
+    }
+
+    try {
+        // Validate that registration exists and belongs to the user
+        const { data: registration, error: regError } = await supabase
+            .from('program_registrations')
+            .select(`
+                id,
+                user_id,
+                status,
+                programs!inner (
+                    id,
+                    name,
+                    is_active
+                )
+            `)
+            .eq('id', registration_id)
+            .single();
+
+        if (regError) {
+            console.error('Registration fetch error:', regError);
+            if (regError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Registration not found' });
+            }
+            return res.status(500).json({ error: 'Failed to fetch registration' });
+        }
+
+        // Check authorization - user can only submit data for their own registrations
+        if (registration.user_id !== req.user.id) {
+            return res.status(403).json({ error: 'Unauthorized access to registration' });
+        }
+
+        // Check if registration is in a valid state for form submission
+        if (!['pending', 'confirmed', 'waitlisted'].includes(registration.status)) {
+            return res.status(400).json({
+                error: 'Registration is not in a valid state for form submission',
+                current_status: registration.status
+            });
+        }
+
+        // Check if program is still active
+        if (!registration.programs.is_active) {
+            return res.status(400).json({ error: 'Program is no longer active' });
+        }
+
+        // Get all form fields for validation
+        const { data: formFields, error: fieldsError } = await supabase
+            .from('form_fields')
+            .select(`
+                *,
+                registration_forms!inner (
+                    program_id
+                )
+            `)
+            .eq('registration_forms.program_id', registration.programs.id);
+
+        if (fieldsError) {
+            console.error('Form fields fetch error:', fieldsError);
+            return res.status(500).json({ error: 'Failed to fetch form fields' });
+        }
+
+        // Create a map of form fields for easy lookup
+        const fieldMap = new Map();
+        formFields.forEach(field => {
+            fieldMap.set(field.id, field);
+        });
+
+        // Validate each submitted form field
+        const validationErrors = [];
+        const validatedData = [];
+
+        for (const item of form_data) {
+            const { form_field_id, submitted_value } = item;
+
+            if (!form_field_id) {
+                validationErrors.push({ error: 'form_field_id is required for all form data items' });
+                continue;
+            }
+
+            const field = fieldMap.get(form_field_id);
+            if (!field) {
+                validationErrors.push({
+                    form_field_id,
+                    error: 'Form field not found or not associated with this program'
+                });
+                continue;
+            }
+
+            // Validate required fields
+            if (field.is_required && (!submitted_value || submitted_value.toString().trim() === '')) {
+                validationErrors.push({
+                    form_field_id,
+                    field_name: field.field_name,
+                    error: 'This field is required'
+                });
+                continue;
+            }
+
+            // Skip validation for empty optional fields
+            if (!submitted_value || submitted_value.toString().trim() === '') {
+                continue;
+            }
+
+            // Validate field type
+            const value = submitted_value.toString().trim();
+            let isValid = true;
+            let typeError = null;
+
+            switch (field.field_type) {
+                case 'email':
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(value)) {
+                        isValid = false;
+                        typeError = 'Invalid email format';
+                    }
+                    break;
+                case 'number':
+                    if (isNaN(Number(value))) {
+                        isValid = false;
+                        typeError = 'Must be a valid number';
+                    }
+                    break;
+                case 'date':
+                    if (isNaN(Date.parse(value))) {
+                        isValid = false;
+                        typeError = 'Must be a valid date';
+                    }
+                    break;
+                case 'phone':
+                    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+                    if (!phoneRegex.test(value.replace(/\D/g, ''))) {
+                        isValid = false;
+                        typeError = 'Invalid phone number format';
+                    }
+                    break;
+            }
+
+            if (!isValid) {
+                validationErrors.push({
+                    form_field_id,
+                    field_name: field.field_name,
+                    error: typeError
+                });
+                continue;
+            }
+
+            // Validate against custom validation rules (regex)
+            if (field.validation_rules && field.validation_rules.regex) {
+                try {
+                    const regex = new RegExp(field.validation_rules.regex);
+                    if (!regex.test(value)) {
+                        validationErrors.push({
+                            form_field_id,
+                            field_name: field.field_name,
+                            error: field.validation_rules.message || 'Value does not match required format'
+                        });
+                        continue;
+                    }
+                } catch (regexError) {
+                    console.error('Invalid regex in field validation:', regexError);
+                    // Skip regex validation if regex is invalid
+                }
+            }
+
+            // All validations passed
+            validatedData.push({
+                registration_id,
+                form_field_id,
+                submitted_value: value
+            });
+        }
+
+        // Return validation errors if any
+        if (validationErrors.length > 0) {
+            return res.status(400).json({
+                error: 'Validation failed',
+                validation_errors: validationErrors
+            });
+        }
+
+        // Store/update the form data
+        const results = [];
+        for (const data of validatedData) {
+            const { data: result, error: upsertError } = await supabase
+                .from('registration_form_data')
+                .upsert([data], {
+                    onConflict: 'registration_id,form_field_id'
+                })
+                .select()
+                .single();
+
+            if (upsertError) {
+                console.error('Form data upsert error:', upsertError);
+                return res.status(500).json({
+                    error: 'Failed to save form data',
+                    details: upsertError.message
+                });
+            }
+
+            results.push(result);
+        }
+
+        res.status(200).json({
+            message: 'Form data submitted successfully',
+            registration_id,
+            submitted_fields: results.length,
+            data: results
+        });
+
+    } catch (error) {
+        console.error('Form submission error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // Stripe Payment Endpoints
 
 // POST /api/payments/create-intent - Create Stripe payment intent

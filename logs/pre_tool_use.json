@@ -4198,5 +4198,758 @@
     "tool_input": {
       "work_order_number": "42"
     }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__get_work_order",
+    "tool_input": {
+      "work_order_number": "044"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze codebase structure and existing registration endpoints",
+          "status": "pending",
+          "activeForm": "Analyzing codebase structure and existing registration endpoints"
+        },
+        {
+          "content": "Review existing models for Registration, FormField, and RegistrationFormData",
+          "status": "pending",
+          "activeForm": "Reviewing existing models for Registration, FormField, and RegistrationFormData"
+        },
+        {
+          "content": "Create POST /api/registration-flow/{registration_id}/submit-form endpoint",
+          "status": "pending",
+          "activeForm": "Creating POST /api/registration-flow/{registration_id}/submit-form endpoint"
+        },
+        {
+          "content": "Implement registration validation logic",
+          "status": "pending",
+          "activeForm": "Implementing registration validation logic"
+        },
+        {
+          "content": "Implement form field value validation against field_type and validation_regex",
+          "status": "pending",
+          "activeForm": "Implementing form field value validation against field_type and validation_regex"
+        },
+        {
+          "content": "Implement data storage in RegistrationFormData records",
+          "status": "pending",
+          "activeForm": "Implementing data storage in RegistrationFormData records"
+        },
+        {
+          "content": "Add authentication and authorization checks",
+          "status": "pending",
+          "activeForm": "Adding authentication and authorization checks"
+        },
+        {
+          "content": "Test the endpoint functionality",
+          "status": "pending",
+          "activeForm": "Testing the endpoint functionality"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze codebase structure and existing registration endpoints",
+          "status": "in_progress",
+          "activeForm": "Analyzing codebase structure and existing registration endpoints"
+        },
+        {
+          "content": "Review existing models for Registration, FormField, and RegistrationFormData",
+          "status": "pending",
+          "activeForm": "Reviewing existing models for Registration, FormField, and RegistrationFormData"
+        },
+        {
+          "content": "Create POST /api/registration-flow/{registration_id}/submit-form endpoint",
+          "status": "pending",
+          "activeForm": "Creating POST /api/registration-flow/{registration_id}/submit-form endpoint"
+        },
+        {
+          "content": "Implement registration validation logic",
+          "status": "pending",
+          "activeForm": "Implementing registration validation logic"
+        },
+        {
+          "content": "Implement form field value validation against field_type and validation_regex",
+          "status": "pending",
+          "activeForm": "Implementing form field value validation against field_type and validation_regex"
+        },
+        {
+          "content": "Implement data storage in RegistrationFormData records",
+          "status": "pending",
+          "activeForm": "Implementing data storage in RegistrationFormData records"
+        },
+        {
+          "content": "Add authentication and authorization checks",
+          "status": "pending",
+          "activeForm": "Adding authentication and authorization checks"
+        },
+        {
+          "content": "Test the endpoint functionality",
+          "status": "pending",
+          "activeForm": "Testing the endpoint functionality"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "find . -type f -name \"*.py\" | grep -E \"(api|model|registration)\" | head -20",
+      "description": "Find Python files related to API, models, and registration"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la",
+      "description": "List directory contents"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "find backend -type f -name \"*.js\" | head -10",
+      "description": "Find JavaScript files in backend directory"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la backend/",
+      "description": "List contents of backend directory"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/requirements.txt"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "find . -name \"*.py\" | head -10",
+      "description": "Find Python files in the project"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "limit": 100
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "registration",
+      "path": "server.js",
+      "output_mode": "content",
+      "-i": true
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "form_field|RegistrationFormData|FormField",
+      "path": "server.js",
+      "output_mode": "content",
+      "-i": true
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "registration_form_data|RegistrationFormData",
+      "path": "server.js",
+      "output_mode": "content",
+      "-i": true
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze codebase structure and existing registration endpoints",
+          "status": "completed",
+          "activeForm": "Analyzing codebase structure and existing registration endpoints"
+        },
+        {
+          "content": "Review existing models for Registration, FormField, and RegistrationFormData",
+          "status": "in_progress",
+          "activeForm": "Reviewing existing models for Registration, FormField, and RegistrationFormData"
+        },
+        {
+          "content": "Create POST /api/registration-flow/{registration_id}/submit-form endpoint",
+          "status": "pending",
+          "activeForm": "Creating POST /api/registration-flow/{registration_id}/submit-form endpoint"
+        },
+        {
+          "content": "Implement registration validation logic",
+          "status": "pending",
+          "activeForm": "Implementing registration validation logic"
+        },
+        {
+          "content": "Implement form field value validation against field_type and validation_regex",
+          "status": "pending",
+          "activeForm": "Implementing form field value validation against field_type and validation_regex"
+        },
+        {
+          "content": "Implement data storage in RegistrationFormData records",
+          "status": "pending",
+          "activeForm": "Implementing data storage in RegistrationFormData records"
+        },
+        {
+          "content": "Add authentication and authorization checks",
+          "status": "pending",
+          "activeForm": "Adding authentication and authorization checks"
+        },
+        {
+          "content": "Test the endpoint functionality",
+          "status": "pending",
+          "activeForm": "Testing the endpoint functionality"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__supabase__list_tables",
+    "tool_input": {}
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze codebase structure and existing registration endpoints",
+          "status": "completed",
+          "activeForm": "Analyzing codebase structure and existing registration endpoints"
+        },
+        {
+          "content": "Review existing models for Registration, FormField, and RegistrationFormData",
+          "status": "completed",
+          "activeForm": "Reviewing existing models for Registration, FormField, and RegistrationFormData"
+        },
+        {
+          "content": "Create registration_form_data table to store submitted form data",
+          "status": "pending",
+          "activeForm": "Creating registration_form_data table to store submitted form data"
+        },
+        {
+          "content": "Create POST /api/registration-flow/{registration_id}/submit-form endpoint",
+          "status": "pending",
+          "activeForm": "Creating POST /api/registration-flow/{registration_id}/submit-form endpoint"
+        },
+        {
+          "content": "Implement registration validation logic",
+          "status": "pending",
+          "activeForm": "Implementing registration validation logic"
+        },
+        {
+          "content": "Implement form field value validation against field_type and validation_regex",
+          "status": "pending",
+          "activeForm": "Implementing form field value validation against field_type and validation_regex"
+        },
+        {
+          "content": "Implement data storage in RegistrationFormData records",
+          "status": "pending",
+          "activeForm": "Implementing data storage in RegistrationFormData records"
+        },
+        {
+          "content": "Add authentication and authorization checks",
+          "status": "pending",
+          "activeForm": "Adding authentication and authorization checks"
+        },
+        {
+          "content": "Test the endpoint functionality",
+          "status": "pending",
+          "activeForm": "Testing the endpoint functionality"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze codebase structure and existing registration endpoints",
+          "status": "completed",
+          "activeForm": "Analyzing codebase structure and existing registration endpoints"
+        },
+        {
+          "content": "Review existing models for Registration, FormField, and RegistrationFormData",
+          "status": "completed",
+          "activeForm": "Reviewing existing models for Registration, FormField, and RegistrationFormData"
+        },
+        {
+          "content": "Create registration_form_data table to store submitted form data",
+          "status": "in_progress",
+          "activeForm": "Creating registration_form_data table to store submitted form data"
+        },
+        {
+          "content": "Create POST /api/registration-flow/{registration_id}/submit-form endpoint",
+          "status": "pending",
+          "activeForm": "Creating POST /api/registration-flow/{registration_id}/submit-form endpoint"
+        },
+        {
+          "content": "Implement registration validation logic",
+          "status": "pending",
+          "activeForm": "Implementing registration validation logic"
+        },
+        {
+          "content": "Implement form field value validation against field_type and validation_regex",
+          "status": "pending",
+          "activeForm": "Implementing form field value validation against field_type and validation_regex"
+        },
+        {
+          "content": "Implement data storage in RegistrationFormData records",
+          "status": "pending",
+          "activeForm": "Implementing data storage in RegistrationFormData records"
+        },
+        {
+          "content": "Add authentication and authorization checks",
+          "status": "pending",
+          "activeForm": "Adding authentication and authorization checks"
+        },
+        {
+          "content": "Test the endpoint functionality",
+          "status": "pending",
+          "activeForm": "Testing the endpoint functionality"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__supabase__apply_migration",
+    "tool_input": {
+      "name": "create_registration_form_data_table",
+      "query": "CREATE TABLE registration_form_data (\n    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n    registration_id UUID NOT NULL REFERENCES program_registrations(id) ON DELETE CASCADE,\n    form_field_id UUID NOT NULL REFERENCES form_fields(id) ON DELETE CASCADE,\n    submitted_value TEXT,\n    created_at TIMESTAMPTZ DEFAULT now(),\n    updated_at TIMESTAMPTZ DEFAULT now(),\n    \n    -- Ensure one record per registration-field combination\n    UNIQUE(registration_id, form_field_id)\n);\n\n-- Add comments for documentation\nCOMMENT ON TABLE registration_form_data IS 'Stores form field data submitted during registration process';\nCOMMENT ON COLUMN registration_form_data.registration_id IS 'Reference to the program registration';\nCOMMENT ON COLUMN registration_form_data.form_field_id IS 'Reference to the form field definition';\nCOMMENT ON COLUMN registration_form_data.submitted_value IS 'The value submitted by the user for this field';\n\n-- Create index for efficient lookups\nCREATE INDEX idx_registration_form_data_registration_id ON registration_form_data(registration_id);\nCREATE INDEX idx_registration_form_data_form_field_id ON registration_form_data(form_field_id);"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze codebase structure and existing registration endpoints",
+          "status": "completed",
+          "activeForm": "Analyzing codebase structure and existing registration endpoints"
+        },
+        {
+          "content": "Review existing models for Registration, FormField, and RegistrationFormData",
+          "status": "completed",
+          "activeForm": "Reviewing existing models for Registration, FormField, and RegistrationFormData"
+        },
+        {
+          "content": "Create registration_form_data table to store submitted form data",
+          "status": "completed",
+          "activeForm": "Creating registration_form_data table to store submitted form data"
+        },
+        {
+          "content": "Create POST /api/registration-flow/{registration_id}/submit-form endpoint",
+          "status": "in_progress",
+          "activeForm": "Creating POST /api/registration-flow/{registration_id}/submit-form endpoint"
+        },
+        {
+          "content": "Implement registration validation logic",
+          "status": "pending",
+          "activeForm": "Implementing registration validation logic"
+        },
+        {
+          "content": "Implement form field value validation against field_type and validation_regex",
+          "status": "pending",
+          "activeForm": "Implementing form field value validation against field_type and validation_regex"
+        },
+        {
+          "content": "Implement data storage in RegistrationFormData records",
+          "status": "pending",
+          "activeForm": "Implementing data storage in RegistrationFormData records"
+        },
+        {
+          "content": "Add authentication and authorization checks",
+          "status": "pending",
+          "activeForm": "Adding authentication and authorization checks"
+        },
+        {
+          "content": "Test the endpoint functionality",
+          "status": "pending",
+          "activeForm": "Testing the endpoint functionality"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "POST /api/registration-flow/initiate",
+      "path": "server.js",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "offset": 2775,
+      "limit": 100
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "offset": 2870,
+      "limit": 50
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "old_string": "});\n\n// Stripe Payment Endpoints",
+      "new_string": "});\n\n// POST /api/registration-flow/{registration_id}/submit-form - Submit form data for registration\napp.post('/api/registration-flow/:registration_id/submit-form', authenticateUser, async (req, res) => {\n    const { registration_id } = req.params;\n    const { form_data } = req.body;\n\n    // Validate required fields\n    if (!registration_id) {\n        return res.status(400).json({\n            error: 'registration_id is required'\n        });\n    }\n\n    if (!form_data || !Array.isArray(form_data)) {\n        return res.status(400).json({\n            error: 'form_data must be an array of {form_field_id, submitted_value} objects'\n        });\n    }\n\n    try {\n        // Validate that registration exists and belongs to the user\n        const { data: registration, error: regError } = await supabase\n            .from('program_registrations')\n            .select(`\n                id,\n                user_id,\n                status,\n                programs!inner (\n                    id,\n                    name,\n                    is_active\n                )\n            `)\n            .eq('id', registration_id)\n            .single();\n\n        if (regError) {\n            console.error('Registration fetch error:', regError);\n            if (regError.code === 'PGRST116') {\n                return res.status(404).json({ error: 'Registration not found' });\n            }\n            return res.status(500).json({ error: 'Failed to fetch registration' });\n        }\n\n        // Check authorization - user can only submit data for their own registrations\n        if (registration.user_id !== req.user.id) {\n            return res.status(403).json({ error: 'Unauthorized access to registration' });\n        }\n\n        // Check if registration is in a valid state for form submission\n        if (!['pending', 'confirmed', 'waitlisted'].includes(registration.status)) {\n            return res.status(400).json({\n                error: 'Registration is not in a valid state for form submission',\n                current_status: registration.status\n            });\n        }\n\n        // Check if program is still active\n        if (!registration.programs.is_active) {\n            return res.status(400).json({ error: 'Program is no longer active' });\n        }\n\n        // Get all form fields for validation\n        const { data: formFields, error: fieldsError } = await supabase\n            .from('form_fields')\n            .select(`\n                *,\n                registration_forms!inner (\n                    program_id\n                )\n            `)\n            .eq('registration_forms.program_id', registration.programs.id);\n\n        if (fieldsError) {\n            console.error('Form fields fetch error:', fieldsError);\n            return res.status(500).json({ error: 'Failed to fetch form fields' });\n        }\n\n        // Create a map of form fields for easy lookup\n        const fieldMap = new Map();\n        formFields.forEach(field => {\n            fieldMap.set(field.id, field);\n        });\n\n        // Validate each submitted form field\n        const validationErrors = [];\n        const validatedData = [];\n\n        for (const item of form_data) {\n            const { form_field_id, submitted_value } = item;\n\n            if (!form_field_id) {\n                validationErrors.push({ error: 'form_field_id is required for all form data items' });\n                continue;\n            }\n\n            const field = fieldMap.get(form_field_id);\n            if (!field) {\n                validationErrors.push({\n                    form_field_id,\n                    error: 'Form field not found or not associated with this program'\n                });\n                continue;\n            }\n\n            // Validate required fields\n            if (field.is_required && (!submitted_value || submitted_value.toString().trim() === '')) {\n                validationErrors.push({\n                    form_field_id,\n                    field_name: field.field_name,\n                    error: 'This field is required'\n                });\n                continue;\n            }\n\n            // Skip validation for empty optional fields\n            if (!submitted_value || submitted_value.toString().trim() === '') {\n                continue;\n            }\n\n            // Validate field type\n            const value = submitted_value.toString().trim();\n            let isValid = true;\n            let typeError = null;\n\n            switch (field.field_type) {\n                case 'email':\n                    const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;\n                    if (!emailRegex.test(value)) {\n                        isValid = false;\n                        typeError = 'Invalid email format';\n                    }\n                    break;\n                case 'number':\n                    if (isNaN(Number(value))) {\n                        isValid = false;\n                        typeError = 'Must be a valid number';\n                    }\n                    break;\n                case 'date':\n                    if (isNaN(Date.parse(value))) {\n                        isValid = false;\n                        typeError = 'Must be a valid date';\n                    }\n                    break;\n                case 'phone':\n                    const phoneRegex = /^[\\+]?[1-9][\\d]{0,15}$/;\n                    if (!phoneRegex.test(value.replace(/\\D/g, ''))) {\n                        isValid = false;\n                        typeError = 'Invalid phone number format';\n                    }\n                    break;\n            }\n\n            if (!isValid) {\n                validationErrors.push({\n                    form_field_id,\n                    field_name: field.field_name,\n                    error: typeError\n                });\n                continue;\n            }\n\n            // Validate against custom validation rules (regex)\n            if (field.validation_rules && field.validation_rules.regex) {\n                try {\n                    const regex = new RegExp(field.validation_rules.regex);\n                    if (!regex.test(value)) {\n                        validationErrors.push({\n                            form_field_id,\n                            field_name: field.field_name,\n                            error: field.validation_rules.message || 'Value does not match required format'\n                        });\n                        continue;\n                    }\n                } catch (regexError) {\n                    console.error('Invalid regex in field validation:', regexError);\n                    // Skip regex validation if regex is invalid\n                }\n            }\n\n            // All validations passed\n            validatedData.push({\n                registration_id,\n                form_field_id,\n                submitted_value: value\n            });\n        }\n\n        // Return validation errors if any\n        if (validationErrors.length > 0) {\n            return res.status(400).json({\n                error: 'Validation failed',\n                validation_errors: validationErrors\n            });\n        }\n\n        // Store/update the form data\n        const results = [];\n        for (const data of validatedData) {\n            const { data: result, error: upsertError } = await supabase\n                .from('registration_form_data')\n                .upsert([data], {\n                    onConflict: 'registration_id,form_field_id'\n                })\n                .select()\n                .single();\n\n            if (upsertError) {\n                console.error('Form data upsert error:', upsertError);\n                return res.status(500).json({\n                    error: 'Failed to save form data',\n                    details: upsertError.message\n                });\n            }\n\n            results.push(result);\n        }\n\n        res.status(200).json({\n            message: 'Form data submitted successfully',\n            registration_id,\n            submitted_fields: results.length,\n            data: results\n        });\n\n    } catch (error) {\n        console.error('Form submission error:', error);\n        res.status(500).json({ error: 'Internal server error' });\n    }\n});\n\n// Stripe Payment Endpoints"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze codebase structure and existing registration endpoints",
+          "status": "completed",
+          "activeForm": "Analyzing codebase structure and existing registration endpoints"
+        },
+        {
+          "content": "Review existing models for Registration, FormField, and RegistrationFormData",
+          "status": "completed",
+          "activeForm": "Reviewing existing models for Registration, FormField, and RegistrationFormData"
+        },
+        {
+          "content": "Create registration_form_data table to store submitted form data",
+          "status": "completed",
+          "activeForm": "Creating registration_form_data table to store submitted form data"
+        },
+        {
+          "content": "Create POST /api/registration-flow/{registration_id}/submit-form endpoint",
+          "status": "completed",
+          "activeForm": "Creating POST /api/registration-flow/{registration_id}/submit-form endpoint"
+        },
+        {
+          "content": "Implement registration validation logic",
+          "status": "completed",
+          "activeForm": "Implementing registration validation logic"
+        },
+        {
+          "content": "Implement form field value validation against field_type and validation_regex",
+          "status": "completed",
+          "activeForm": "Implementing form field value validation against field_type and validation_regex"
+        },
+        {
+          "content": "Implement data storage in RegistrationFormData records",
+          "status": "completed",
+          "activeForm": "Implementing data storage in RegistrationFormData records"
+        },
+        {
+          "content": "Add authentication and authorization checks",
+          "status": "completed",
+          "activeForm": "Adding authentication and authorization checks"
+        },
+        {
+          "content": "Test the endpoint functionality",
+          "status": "in_progress",
+          "activeForm": "Testing the endpoint functionality"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/package.json"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ps aux | grep \"node server.js\" | grep -v grep",
+      "description": "Check if server is already running"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "kill 40411 && sleep 2 && npm start",
+      "description": "Restart the server with new changes",
+      "run_in_background": true
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "8bc7c0"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__supabase__execute_sql",
+    "tool_input": {
+      "query": "SELECT COUNT(*) as user_count FROM users;"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "8bc7c0"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__supabase__execute_sql",
+    "tool_input": {
+      "query": "SELECT * FROM programs LIMIT 1;"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze codebase structure and existing registration endpoints",
+          "status": "completed",
+          "activeForm": "Analyzing codebase structure and existing registration endpoints"
+        },
+        {
+          "content": "Review existing models for Registration, FormField, and RegistrationFormData",
+          "status": "completed",
+          "activeForm": "Reviewing existing models for Registration, FormField, and RegistrationFormData"
+        },
+        {
+          "content": "Create registration_form_data table to store submitted form data",
+          "status": "completed",
+          "activeForm": "Creating registration_form_data table to store submitted form data"
+        },
+        {
+          "content": "Create POST /api/registration-flow/{registration_id}/submit-form endpoint",
+          "status": "completed",
+          "activeForm": "Creating POST /api/registration-flow/{registration_id}/submit-form endpoint"
+        },
+        {
+          "content": "Implement registration validation logic",
+          "status": "completed",
+          "activeForm": "Implementing registration validation logic"
+        },
+        {
+          "content": "Implement form field value validation against field_type and validation_regex",
+          "status": "completed",
+          "activeForm": "Implementing form field value validation against field_type and validation_regex"
+        },
+        {
+          "content": "Implement data storage in RegistrationFormData records",
+          "status": "completed",
+          "activeForm": "Implementing data storage in RegistrationFormData records"
+        },
+        {
+          "content": "Add authentication and authorization checks",
+          "status": "completed",
+          "activeForm": "Adding authentication and authorization checks"
+        },
+        {
+          "content": "Test the endpoint functionality",
+          "status": "completed",
+          "activeForm": "Testing the endpoint functionality"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__mark_work_order_complete",
+    "tool_input": {
+      "work_order_number": "044"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "8bc7c0"
+    }
   }
 ]
