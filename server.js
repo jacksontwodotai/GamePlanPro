@@ -2774,6 +2774,135 @@ app.put('/api/registrations/:registration_id', authenticateUser, async (req, res
     }
 });
 
+// Registration Flow Endpoints
+
+// POST /api/registration-flow/initiate - Initiate registration process
+app.post('/api/registration-flow/initiate', authenticateUser, async (req, res) => {
+    const { player_id, program_id } = req.body;
+
+    // Validate required fields
+    if (!player_id || !program_id) {
+        return res.status(400).json({
+            error: 'player_id and program_id are required'
+        });
+    }
+
+    try {
+        // Validate that player exists
+        const { data: player, error: playerError } = await supabase
+            .from('players')
+            .select('id, first_name, last_name, email')
+            .eq('id', player_id)
+            .single();
+
+        if (playerError) {
+            console.error('Player fetch error:', playerError);
+            if (playerError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Player not found' });
+            }
+            return res.status(500).json({ error: 'Failed to fetch player details' });
+        }
+
+        // Validate that program exists and is active
+        const { data: program, error: programError } = await supabase
+            .from('programs')
+            .select('*')
+            .eq('id', program_id)
+            .single();
+
+        if (programError) {
+            console.error('Program fetch error:', programError);
+            if (programError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Program not found' });
+            }
+            return res.status(500).json({ error: 'Failed to fetch program details' });
+        }
+
+        // Validate program is active
+        if (!program.is_active) {
+            return res.status(400).json({ error: 'Program is not currently active' });
+        }
+
+        // Check if registration already exists for this combination
+        const { data: existingRegistration, error: checkError } = await supabase
+            .from('program_registrations')
+            .select('id')
+            .eq('player_id', player_id)
+            .eq('program_id', program_id)
+            .single();
+
+        if (existingRegistration) {
+            return res.status(409).json({
+                error: 'Registration already exists for this player/program combination',
+                registration_id: existingRegistration.id
+            });
+        }
+
+        // Create new registration with status 'Pending'
+        const { data: registration, error: registrationError } = await supabase
+            .from('program_registrations')
+            .insert([{
+                player_id,
+                program_id,
+                user_id: req.user.id,
+                status: 'pending',
+                amount_paid: 0,
+                notes: null
+            }])
+            .select('id')
+            .single();
+
+        if (registrationError) {
+            console.error('Registration creation error:', registrationError);
+            return res.status(500).json({ error: 'Failed to create registration' });
+        }
+
+        // Retrieve the complete RegistrationForm structure associated with the program
+        const { data: registrationForm, error: formError } = await supabase
+            .from('registration_forms')
+            .select(`
+                *,
+                form_fields (
+                    *,
+                    form_field_options (*)
+                )
+            `)
+            .eq('program_id', program_id)
+            .eq('is_active', true)
+            .single();
+
+        if (formError) {
+            console.error('Registration form fetch error:', formError);
+            // If no form exists, return registration without form
+            return res.status(201).json({
+                message: 'Registration initiated successfully',
+                registration_id: registration.id,
+                registration_form: null,
+                warning: 'No active registration form found for this program'
+            });
+        }
+
+        // Sort form fields by sort_order and options by order_index
+        if (registrationForm.form_fields) {
+            registrationForm.form_fields.sort((a, b) => a.sort_order - b.sort_order);
+            registrationForm.form_fields.forEach(field => {
+                if (field.form_field_options) {
+                    field.form_field_options.sort((a, b) => a.order_index - b.order_index);
+                }
+            });
+        }
+
+        res.status(201).json({
+            message: 'Registration initiated successfully',
+            registration_id: registration.id,
+            registration_form: registrationForm
+        });
+    } catch (error) {
+        console.error('Registration initiation error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // Stripe Payment Endpoints
 
 // POST /api/payments/create-intent - Create Stripe payment intent
