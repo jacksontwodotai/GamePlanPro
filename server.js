@@ -3302,6 +3302,229 @@ app.get('/api/registration-flow/:registration_id/status', authenticateUser, asyn
     }
 });
 
+// POST /api/registration-flow/{registration_id}/calculate-fees - Calculate and update registration fees
+app.post('/api/registration-flow/:registration_id/calculate-fees', authenticateUser, async (req, res) => {
+    const { registration_id } = req.params;
+
+    // Validate required fields
+    if (!registration_id) {
+        return res.status(400).json({
+            error: 'registration_id is required'
+        });
+    }
+
+    try {
+        // Fetch registration with program details
+        const { data: registration, error: regError } = await supabase
+            .from('program_registrations')
+            .select(`
+                *,
+                programs (
+                    id,
+                    name,
+                    base_fee,
+                    is_active
+                )
+            `)
+            .eq('id', registration_id)
+            .single();
+
+        if (regError) {
+            console.error('Registration fetch error:', regError);
+            if (regError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Registration not found' });
+            }
+            return res.status(500).json({ error: 'Failed to fetch registration' });
+        }
+
+        // Check authorization - user can only calculate fees for their own registrations
+        if (registration.user_id !== req.user.id) {
+            return res.status(403).json({ error: 'Unauthorized access to registration' });
+        }
+
+        // Check if registration is in a valid state for fee calculation
+        if (!['pending', 'confirmed', 'waitlisted'].includes(registration.status)) {
+            return res.status(400).json({
+                error: 'Registration is not in a valid state for fee calculation',
+                current_status: registration.status
+            });
+        }
+
+        // Check if program is still active
+        if (!registration.programs.is_active) {
+            return res.status(400).json({ error: 'Program is no longer active' });
+        }
+
+        // Get submitted form data for this registration
+        const { data: formData, error: formError } = await supabase
+            .from('registration_form_data')
+            .select(`
+                *,
+                form_fields (
+                    id,
+                    field_name,
+                    field_type,
+                    validation_rules
+                )
+            `)
+            .eq('registration_id', registration_id);
+
+        if (formError) {
+            console.error('Form data fetch error:', formError);
+            return res.status(500).json({ error: 'Failed to fetch form data' });
+        }
+
+        // Initialize fee calculation
+        const baseFee = parseFloat(registration.programs.base_fee || 0);
+        let totalFee = baseFee;
+        const feeBreakdown = [
+            {
+                description: 'Program Base Fee',
+                amount: baseFee,
+                type: 'base'
+            }
+        ];
+
+        // Apply form data-based fee modifications
+        const formDataMap = new Map();
+        (formData || []).forEach(item => {
+            if (item.form_fields) {
+                formDataMap.set(item.form_fields.field_name, {
+                    value: item.submitted_value,
+                    field_type: item.form_fields.field_type,
+                    validation_rules: item.form_fields.validation_rules
+                });
+            }
+        });
+
+        // Example fee modification rules (can be extended)
+        // Check for age-based discounts
+        if (formDataMap.has('age') || formDataMap.has('date_of_birth')) {
+            const ageValue = formDataMap.get('age')?.value;
+            const dobValue = formDataMap.get('date_of_birth')?.value;
+
+            let age = null;
+            if (ageValue && !isNaN(parseInt(ageValue))) {
+                age = parseInt(ageValue);
+            } else if (dobValue) {
+                const birthDate = new Date(dobValue);
+                if (!isNaN(birthDate.getTime())) {
+                    const today = new Date();
+                    age = today.getFullYear() - birthDate.getFullYear();
+                    const monthDiff = today.getMonth() - birthDate.getMonth();
+                    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                        age--;
+                    }
+                }
+            }
+
+            if (age !== null) {
+                // Example: Youth discount for under 16
+                if (age < 16) {
+                    const youthDiscount = baseFee * 0.2; // 20% discount
+                    totalFee -= youthDiscount;
+                    feeBreakdown.push({
+                        description: 'Youth Discount (Under 16)',
+                        amount: -youthDiscount,
+                        type: 'discount'
+                    });
+                }
+                // Example: Senior discount for 65+
+                else if (age >= 65) {
+                    const seniorDiscount = baseFee * 0.15; // 15% discount
+                    totalFee -= seniorDiscount;
+                    feeBreakdown.push({
+                        description: 'Senior Discount (65+)',
+                        amount: -seniorDiscount,
+                        type: 'discount'
+                    });
+                }
+            }
+        }
+
+        // Check for equipment rental fees
+        if (formDataMap.has('equipment_rental')) {
+            const equipmentValue = formDataMap.get('equipment_rental')?.value;
+            if (equipmentValue === 'yes' || equipmentValue === 'true') {
+                const equipmentFee = 50.00; // Example equipment rental fee
+                totalFee += equipmentFee;
+                feeBreakdown.push({
+                    description: 'Equipment Rental Fee',
+                    amount: equipmentFee,
+                    type: 'addition'
+                });
+            }
+        }
+
+        // Check for meal plan additions
+        if (formDataMap.has('meal_plan')) {
+            const mealPlanValue = formDataMap.get('meal_plan')?.value;
+            if (mealPlanValue === 'full' || mealPlanValue === 'yes') {
+                const mealFee = 75.00; // Example meal plan fee
+                totalFee += mealFee;
+                feeBreakdown.push({
+                    description: 'Meal Plan Fee',
+                    amount: mealFee,
+                    type: 'addition'
+                });
+            }
+        }
+
+        // Ensure total fee is non-negative
+        totalFee = Math.max(0, totalFee);
+
+        // Update the registration with calculated fees
+        const { data: updatedRegistration, error: updateError } = await supabase
+            .from('program_registrations')
+            .update({
+                total_amount_due: totalFee,
+                updated_at: new Date().toISOString()
+            })
+            .eq('id', registration_id)
+            .select()
+            .single();
+
+        if (updateError) {
+            console.error('Registration update error:', updateError);
+            return res.status(500).json({ error: 'Failed to update registration fees' });
+        }
+
+        // Calculate financial status
+        const amountPaid = parseFloat(updatedRegistration.amount_paid || 0);
+        const balanceDue = Math.max(0, totalFee - amountPaid);
+
+        // Build response with fee breakdown
+        const response = {
+            registration_id: registration_id,
+            calculation_timestamp: new Date().toISOString(),
+            previous_total: parseFloat(registration.total_amount_due || registration.programs.base_fee || 0),
+            new_total: totalFee,
+            fee_breakdown: feeBreakdown,
+            financial_summary: {
+                total_amount_due: totalFee,
+                amount_paid: amountPaid,
+                balance_due: balanceDue,
+                payment_status: balanceDue === 0 ? 'paid' : amountPaid > 0 ? 'partial' : 'unpaid'
+            },
+            form_data_processed: {
+                total_fields_processed: formData ? formData.length : 0,
+                fields_used_for_calculation: Array.from(formDataMap.keys()).filter(key =>
+                    ['age', 'date_of_birth', 'equipment_rental', 'meal_plan'].includes(key)
+                )
+            },
+            message: totalFee !== parseFloat(registration.total_amount_due || registration.programs.base_fee || 0)
+                ? 'Fees recalculated based on form data'
+                : 'No fee changes applied - base fee maintained'
+        };
+
+        res.status(200).json(response);
+
+    } catch (error) {
+        console.error('Fee calculation error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // Stripe Payment Endpoints
 
 // POST /api/payments/create-intent - Create Stripe payment intent
