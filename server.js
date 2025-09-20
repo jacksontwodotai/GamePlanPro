@@ -4866,6 +4866,109 @@ app.delete('/api/programs/:program_id', authenticateUser, async (req, res) => {
     }
 });
 
+// GET /api/programs/:program_id/registration-form - Get registration form for a program
+app.get('/api/programs/:program_id/registration-form', authenticateUser, async (req, res) => {
+    const { program_id } = req.params;
+
+    try {
+        // Validate program_id
+        if (!program_id || isNaN(parseInt(program_id))) {
+            return res.status(400).json({ error: 'Valid program ID is required' });
+        }
+
+        // First, check if the program exists
+        const { data: program, error: programError } = await supabase
+            .from('programs')
+            .select('id, name, description')
+            .eq('id', program_id)
+            .single();
+
+        if (programError) {
+            if (programError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Program not found' });
+            }
+            console.error('Program fetch error:', programError);
+            return res.status(500).json({ error: 'Failed to fetch program' });
+        }
+
+        // Get the registration form associated with this program
+        // For now, we'll assume there's a relationship or we use a default form
+        // This would typically be stored in a program_registration_forms table
+        // For this implementation, let's get a default form or the first available form
+
+        const { data: forms, error: formsError } = await supabase
+            .from('registration_forms')
+            .select(`
+                id,
+                name,
+                description,
+                is_active,
+                registration_form_fields (
+                    id,
+                    field_name,
+                    field_type,
+                    label,
+                    placeholder,
+                    is_required,
+                    validation_regex,
+                    error_message,
+                    sort_order,
+                    registration_form_field_options (
+                        id,
+                        option_value,
+                        option_label,
+                        sort_order
+                    )
+                )
+            `)
+            .eq('is_active', true)
+            .order('created_at', { ascending: false })
+            .limit(1);
+
+        if (formsError) {
+            console.error('Registration forms fetch error:', formsError);
+            return res.status(500).json({ error: 'Failed to fetch registration forms' });
+        }
+
+        if (!forms || forms.length === 0) {
+            return res.status(404).json({ error: 'No active registration form found' });
+        }
+
+        const form = forms[0];
+
+        // Transform the data structure to match the frontend expectations
+        const transformedForm = {
+            id: form.id,
+            name: form.name,
+            description: form.description,
+            fields: form.registration_form_fields
+                .map(field => ({
+                    id: field.id,
+                    field_name: field.field_name,
+                    field_type: field.field_type,
+                    label: field.label,
+                    placeholder: field.placeholder,
+                    is_required: field.is_required,
+                    validation_regex: field.validation_regex,
+                    error_message: field.error_message,
+                    sort_order: field.sort_order,
+                    options: field.registration_form_field_options
+                        ?.sort((a, b) => a.sort_order - b.sort_order)
+                        ?.map(option => ({
+                            value: option.option_value,
+                            label: option.option_label
+                        })) || []
+                }))
+                .sort((a, b) => a.sort_order - b.sort_order)
+        };
+
+        res.json(transformedForm);
+    } catch (error) {
+        console.error('Get program registration form error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // Report Endpoints
 // GET /api/reports/roster - Generate roster reports with multi-format support
 app.get('/api/reports/roster', authenticateUser, async (req, res) => {
