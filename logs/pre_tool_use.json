@@ -286,5 +286,176 @@
       "command": "cd frontend && npx tsc --noEmit",
       "description": "Check TypeScript compilation"
     }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "old_string": "const express = require('express');\nconst { createClient } = require('@supabase/supabase-js');\nconst bcrypt = require('bcryptjs');\nconst cors = require('cors');\nconst path = require('path');\nconst PDFDocument = require('pdfkit');\nconst createCsvWriter = require('csv-writer').createObjectCsvWriter;",
+      "new_string": "const express = require('express');\nconst { createClient } = require('@supabase/supabase-js');\nconst bcrypt = require('bcryptjs');\nconst cors = require('cors');\nconst path = require('path');\nconst PDFDocument = require('pdfkit');\nconst createCsvWriter = require('csv-writer').createObjectCsvWriter;\nconst helmet = require('helmet');\nconst rateLimit = require('express-rate-limit');\nconst { body, validationResult } = require('express-validator');"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "offset": 95,
+      "limit": 15
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "old_string": "// Middleware\napp.use(cors());\napp.use(express.json());",
+      "new_string": "// Security Middleware for PCI Compliance\napp.use(helmet({\n    contentSecurityPolicy: {\n        directives: {\n            defaultSrc: [\"'self'\"],\n            scriptSrc: [\"'self'\", \"'unsafe-inline'\", \"'unsafe-eval'\", \"https://js.stripe.com\", \"https://checkout.stripe.com\"],\n            styleSrc: [\"'self'\", \"'unsafe-inline'\", \"https://fonts.googleapis.com\"],\n            fontSrc: [\"'self'\", \"https://fonts.gstatic.com\"],\n            imgSrc: [\"'self'\", \"data:\", \"https:\", \"blob:\"],\n            connectSrc: [\"'self'\", \"https://api.stripe.com\", \"https://checkout.stripe.com\", \"https://js.stripe.com\"],\n            frameSrc: [\"'self'\", \"https://js.stripe.com\", \"https://hooks.stripe.com\"],\n            objectSrc: [\"'none'\"],\n            mediaSrc: [\"'self'\"],\n            manifestSrc: [\"'self'\"],\n            baseUri: [\"'self'\"],\n            formAction: [\"'self'\"],\n            frameAncestors: [\"'none'\"],\n            upgradeInsecureRequests: process.env.NODE_ENV === 'production' ? [] : false\n        }\n    },\n    crossOriginEmbedderPolicy: false, // Required for Stripe\n    hsts: {\n        maxAge: 31536000,\n        includeSubDomains: true,\n        preload: true\n    },\n    referrerPolicy: { policy: \"strict-origin-when-cross-origin\" }\n}));\n\n// CORS configuration with security considerations\napp.use(cors({\n    origin: process.env.NODE_ENV === 'production'\n        ? ['https://yourdomain.com', 'https://www.yourdomain.com'] // Update with actual production domains\n        : ['http://localhost:3000', 'http://localhost:3001', 'http://127.0.0.1:3000', 'http://127.0.0.1:3001'],\n    credentials: true,\n    optionsSuccessStatus: 200,\n    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],\n    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],\n    exposedHeaders: ['X-RateLimit-Limit', 'X-RateLimit-Remaining', 'X-RateLimit-Reset']\n}));\n\n// Enhanced JSON parsing with size limits for security\napp.use(express.json({\n    limit: '10mb',\n    verify: (req, res, buf, encoding) => {\n        // Store raw body for webhook verification if needed\n        req.rawBody = buf;\n    }\n}));\napp.use(express.urlencoded({ extended: true, limit: '10mb' }));\n\n// General rate limiting for all endpoints\nconst generalLimiter = rateLimit({\n    windowMs: 15 * 60 * 1000, // 15 minutes\n    max: 1000, // Limit each IP to 1000 requests per windowMs\n    message: {\n        error: 'Too many requests from this IP, please try again later.',\n        retryAfter: 15 * 60 // 15 minutes in seconds\n    },\n    standardHeaders: true,\n    legacyHeaders: false,\n    handler: (req, res) => {\n        console.warn(`Rate limit exceeded for IP: ${req.ip}, Path: ${req.path}`);\n        res.status(429).json({\n            error: 'Too many requests from this IP, please try again later.',\n            retryAfter: 15 * 60\n        });\n    }\n});\n\n// Strict rate limiting for payment endpoints\nconst paymentLimiter = rateLimit({\n    windowMs: 15 * 60 * 1000, // 15 minutes\n    max: 50, // Limit each IP to 50 payment requests per windowMs\n    message: {\n        error: 'Too many payment attempts from this IP, please try again later.',\n        retryAfter: 15 * 60\n    },\n    standardHeaders: true,\n    legacyHeaders: false,\n    keyGenerator: (req) => {\n        // Use both IP and user ID for authenticated requests\n        return req.user ? `${req.ip}:${req.user.id}` : req.ip;\n    },\n    handler: (req, res) => {\n        console.warn(`Payment rate limit exceeded for IP: ${req.ip}, User: ${req.user?.id || 'anonymous'}, Path: ${req.path}`);\n        res.status(429).json({\n            error: 'Too many payment attempts. Please wait before trying again.',\n            retryAfter: 15 * 60,\n            security_note: 'This restriction helps protect against fraudulent activity.'\n        });\n    }\n});\n\n// Very strict rate limiting for authentication endpoints\nconst authLimiter = rateLimit({\n    windowMs: 15 * 60 * 1000, // 15 minutes\n    max: 10, // Limit each IP to 10 auth requests per windowMs\n    message: {\n        error: 'Too many authentication attempts from this IP, please try again later.',\n        retryAfter: 15 * 60\n    },\n    standardHeaders: true,\n    legacyHeaders: false,\n    handler: (req, res) => {\n        console.warn(`Auth rate limit exceeded for IP: ${req.ip}, Path: ${req.path}`);\n        res.status(429).json({\n            error: 'Too many authentication attempts. Please wait before trying again.',\n            retryAfter: 15 * 60\n        });\n    }\n});\n\n// Apply general rate limiting to all routes\napp.use(generalLimiter);\n\n// Apply strict rate limiting to authentication routes\napp.use('/api/auth', authLimiter);\napp.use('/api/login', authLimiter);\napp.use('/api/register', authLimiter);\n\n// Input validation middleware for payment endpoints\nconst validatePaymentInput = [\n    body('amount')\n        .isFloat({ min: 0.01, max: 999999 })\n        .withMessage('Amount must be a positive number between 0.01 and 999999'),\n    body('currency')\n        .optional()\n        .isIn(['usd', 'cad', 'eur', 'gbp'])\n        .withMessage('Currency must be one of: USD, CAD, EUR, GBP'),\n    body('program_registration_id')\n        .isUUID()\n        .withMessage('Program registration ID must be a valid UUID'),\n    (req, res, next) => {\n        const errors = validationResult(req);\n        if (!errors.isEmpty()) {\n            return res.status(400).json({\n                error: 'Validation failed',\n                details: errors.array(),\n                timestamp: new Date().toISOString()\n            });\n        }\n        next();\n    }\n];\n\nconst validatePaymentConfirmInput = [\n    body('payment_intent_id')\n        .matches(/^pi_[a-zA-Z0-9_]+$/)\n        .withMessage('Payment intent ID must be a valid Stripe payment intent ID'),\n    body('program_registration_id')\n        .isUUID()\n        .withMessage('Program registration ID must be a valid UUID'),\n    (req, res, next) => {\n        const errors = validationResult(req);\n        if (!errors.isEmpty()) {\n            return res.status(400).json({\n                error: 'Validation failed',\n                details: errors.array(),\n                timestamp: new Date().toISOString()\n            });\n        }\n        next();\n    }\n];\n\n// Security logging middleware\napp.use((req, res, next) => {\n    // Log security-relevant events\n    if (req.path.includes('payment') || req.path.includes('auth')) {\n        console.log(`[SECURITY] ${new Date().toISOString()} - ${req.method} ${req.path} - IP: ${req.ip} - User-Agent: ${req.get('User-Agent')}`);\n    }\n    next();\n});\n\n// Middleware\napp.use(express.json());"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "old_string": "// POST /api/payments/create-intent - Create Stripe payment intent\napp.post('/api/payments/create-intent', authenticateUser, async (req, res) => {",
+      "new_string": "// POST /api/payments/create-intent - Create Stripe payment intent\napp.post('/api/payments/create-intent', paymentLimiter, authenticateUser, validatePaymentInput, async (req, res) => {"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "old_string": "// POST /api/payments/confirm - Confirm payment and record in database\napp.post('/api/payments/confirm', authenticateUser, async (req, res) => {",
+      "new_string": "// POST /api/payments/confirm - Confirm payment and record in database\napp.post('/api/payments/confirm', paymentLimiter, authenticateUser, validatePaymentConfirmInput, async (req, res) => {"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "app\\.(get|post|put|delete)\\(.*\\/api\\/payments",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "old_string": "// POST /api/payments - Record a new payment\napp.post('/api/payments', authenticateUser, async (req, res) => {",
+      "new_string": "// POST /api/payments - Record a new payment\napp.post('/api/payments', paymentLimiter, authenticateUser, async (req, res) => {"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "old_string": "// GET /api/payments - List payments with filtering\napp.get('/api/payments', authenticateUser, async (req, res) => {",
+      "new_string": "// GET /api/payments - List payments with filtering\napp.get('/api/payments', paymentLimiter, authenticateUser, async (req, res) => {"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "old_string": "// GET /api/payments/{payment_id} - Get payment details\napp.get('/api/payments/:payment_id', authenticateUser, async (req, res) => {",
+      "new_string": "// GET /api/payments/{payment_id} - Get payment details\napp.get('/api/payments/:payment_id', paymentLimiter, authenticateUser, async (req, res) => {"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing Stripe payment integration and gaps",
+          "status": "completed",
+          "activeForm": "Analyzing existing Stripe payment integration and gaps"
+        },
+        {
+          "content": "Review payment API endpoints and database structure",
+          "status": "completed",
+          "activeForm": "Reviewing payment API endpoints and database structure"
+        },
+        {
+          "content": "Enhance payment gateway SDK integration with better error handling",
+          "status": "completed",
+          "activeForm": "Enhancing payment gateway SDK integration with better error handling"
+        },
+        {
+          "content": "Add environment-specific configuration management",
+          "status": "completed",
+          "activeForm": "Adding environment-specific configuration management"
+        },
+        {
+          "content": "Enhance payment confirmation endpoint with better error handling",
+          "status": "completed",
+          "activeForm": "Enhancing payment confirmation endpoint with better error handling"
+        },
+        {
+          "content": "Add PCI compliance and security enhancements",
+          "status": "completed",
+          "activeForm": "Adding PCI compliance and security enhancements"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__mark_work_order_complete",
+    "tool_input": {
+      "work_order_number": "066"
+    }
   }
 ]

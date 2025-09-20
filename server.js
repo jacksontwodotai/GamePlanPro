@@ -5,7 +5,87 @@ const cors = require('cors');
 const path = require('path');
 const PDFDocument = require('pdfkit');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY || 'sk_test_...');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+const { body, validationResult } = require('express-validator');
+// Environment-specific Stripe configuration
+const getStripeConfig = () => {
+    const environment = process.env.NODE_ENV || 'development';
+
+    const config = {
+        development: {
+            secretKey: process.env.STRIPE_SECRET_KEY_DEV || 'sk_test_...',
+            webhookSecret: process.env.STRIPE_WEBHOOK_SECRET_DEV,
+            connectTimeout: 10000,
+            maxRetries: 3
+        },
+        staging: {
+            secretKey: process.env.STRIPE_SECRET_KEY_STAGING || process.env.STRIPE_SECRET_KEY,
+            webhookSecret: process.env.STRIPE_WEBHOOK_SECRET_STAGING,
+            connectTimeout: 15000,
+            maxRetries: 2
+        },
+        production: {
+            secretKey: process.env.STRIPE_SECRET_KEY,
+            webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
+            connectTimeout: 20000,
+            maxRetries: 1
+        }
+    };
+
+    if (!config[environment].secretKey) {
+        console.error(`Missing Stripe secret key for environment: ${environment}`);
+        throw new Error('Stripe configuration error: Missing secret key');
+    }
+
+    return config[environment];
+};
+
+const stripeConfig = getStripeConfig();
+const stripe = require('stripe')(stripeConfig.secretKey, {
+    timeout: stripeConfig.connectTimeout,
+    maxNetworkRetries: stripeConfig.maxRetries
+});
+
+// Enhanced error handling for payment processing
+const handlePaymentError = (error, context = 'payment') => {
+    console.error(`Payment error in ${context}:`, {
+        message: error.message,
+        type: error.type,
+        code: error.code,
+        decline_code: error.decline_code,
+        charge_id: error.charge,
+        payment_intent_id: error.payment_intent?.id,
+        stack: error.stack
+    });
+
+    // Map Stripe errors to user-friendly messages
+    const errorMessages = {
+        'card_declined': 'Your card was declined. Please try a different payment method.',
+        'expired_card': 'Your card has expired. Please use a different card.',
+        'insufficient_funds': 'Your card has insufficient funds. Please try a different payment method.',
+        'incorrect_cvc': 'Your card security code is incorrect. Please check and try again.',
+        'processing_error': 'An error occurred while processing your card. Please try again.',
+        'rate_limit': 'Too many requests. Please wait a moment and try again.',
+        'api_connection_error': 'Connection to payment processor failed. Please try again.',
+        'api_error': 'Payment processor error. Please try again later.',
+        'authentication_error': 'Payment authentication failed. Please contact support.',
+        'invalid_request_error': 'Invalid payment request. Please check your information.',
+        'idempotency_error': 'Duplicate payment request. Please refresh and try again.'
+    };
+
+    const userMessage = errorMessages[error.code] ||
+                       errorMessages[error.type] ||
+                       'Payment processing failed. Please try again or contact support.';
+
+    return {
+        user_message: userMessage,
+        error_type: error.type,
+        error_code: error.code,
+        decline_code: error.decline_code,
+        should_retry: ['rate_limit', 'api_connection_error', 'processing_error'].includes(error.code)
+    };
+};
 
 const app = express();
 const PORT = 2004;
@@ -15,8 +95,182 @@ const supabaseUrl = 'https://xsuaxjaijknvnrxgfpqt.supabase.co';
 const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhzdWF4amFpamtudm5yeGdmcHF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc5OTIxNzIsImV4cCI6MjA3MzU2ODE3Mn0.uNilBSWxyhr7hCTtr_9DI2AY7ppbTYlgo-MS0bao0-w';
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+// Security Middleware for PCI Compliance
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://js.stripe.com", "https://checkout.stripe.com"],
+            styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+            fontSrc: ["'self'", "https://fonts.gstatic.com"],
+            imgSrc: ["'self'", "data:", "https:", "blob:"],
+            connectSrc: ["'self'", "https://api.stripe.com", "https://checkout.stripe.com", "https://js.stripe.com"],
+            frameSrc: ["'self'", "https://js.stripe.com", "https://hooks.stripe.com"],
+            objectSrc: ["'none'"],
+            mediaSrc: ["'self'"],
+            manifestSrc: ["'self'"],
+            baseUri: ["'self'"],
+            formAction: ["'self'"],
+            frameAncestors: ["'none'"],
+            upgradeInsecureRequests: process.env.NODE_ENV === 'production' ? [] : false
+        }
+    },
+    crossOriginEmbedderPolicy: false, // Required for Stripe
+    hsts: {
+        maxAge: 31536000,
+        includeSubDomains: true,
+        preload: true
+    },
+    referrerPolicy: { policy: "strict-origin-when-cross-origin" }
+}));
+
+// CORS configuration with security considerations
+app.use(cors({
+    origin: process.env.NODE_ENV === 'production'
+        ? ['https://yourdomain.com', 'https://www.yourdomain.com'] // Update with actual production domains
+        : ['http://localhost:3000', 'http://localhost:3001', 'http://127.0.0.1:3000', 'http://127.0.0.1:3001'],
+    credentials: true,
+    optionsSuccessStatus: 200,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
+    exposedHeaders: ['X-RateLimit-Limit', 'X-RateLimit-Remaining', 'X-RateLimit-Reset']
+}));
+
+// Enhanced JSON parsing with size limits for security
+app.use(express.json({
+    limit: '10mb',
+    verify: (req, res, buf, encoding) => {
+        // Store raw body for webhook verification if needed
+        req.rawBody = buf;
+    }
+}));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// General rate limiting for all endpoints
+const generalLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 1000, // Limit each IP to 1000 requests per windowMs
+    message: {
+        error: 'Too many requests from this IP, please try again later.',
+        retryAfter: 15 * 60 // 15 minutes in seconds
+    },
+    standardHeaders: true,
+    legacyHeaders: false,
+    handler: (req, res) => {
+        console.warn(`Rate limit exceeded for IP: ${req.ip}, Path: ${req.path}`);
+        res.status(429).json({
+            error: 'Too many requests from this IP, please try again later.',
+            retryAfter: 15 * 60
+        });
+    }
+});
+
+// Strict rate limiting for payment endpoints
+const paymentLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 50, // Limit each IP to 50 payment requests per windowMs
+    message: {
+        error: 'Too many payment attempts from this IP, please try again later.',
+        retryAfter: 15 * 60
+    },
+    standardHeaders: true,
+    legacyHeaders: false,
+    keyGenerator: (req) => {
+        // Use both IP and user ID for authenticated requests
+        return req.user ? `${req.ip}:${req.user.id}` : req.ip;
+    },
+    handler: (req, res) => {
+        console.warn(`Payment rate limit exceeded for IP: ${req.ip}, User: ${req.user?.id || 'anonymous'}, Path: ${req.path}`);
+        res.status(429).json({
+            error: 'Too many payment attempts. Please wait before trying again.',
+            retryAfter: 15 * 60,
+            security_note: 'This restriction helps protect against fraudulent activity.'
+        });
+    }
+});
+
+// Very strict rate limiting for authentication endpoints
+const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 10, // Limit each IP to 10 auth requests per windowMs
+    message: {
+        error: 'Too many authentication attempts from this IP, please try again later.',
+        retryAfter: 15 * 60
+    },
+    standardHeaders: true,
+    legacyHeaders: false,
+    handler: (req, res) => {
+        console.warn(`Auth rate limit exceeded for IP: ${req.ip}, Path: ${req.path}`);
+        res.status(429).json({
+            error: 'Too many authentication attempts. Please wait before trying again.',
+            retryAfter: 15 * 60
+        });
+    }
+});
+
+// Apply general rate limiting to all routes
+app.use(generalLimiter);
+
+// Apply strict rate limiting to authentication routes
+app.use('/api/auth', authLimiter);
+app.use('/api/login', authLimiter);
+app.use('/api/register', authLimiter);
+
+// Input validation middleware for payment endpoints
+const validatePaymentInput = [
+    body('amount')
+        .isFloat({ min: 0.01, max: 999999 })
+        .withMessage('Amount must be a positive number between 0.01 and 999999'),
+    body('currency')
+        .optional()
+        .isIn(['usd', 'cad', 'eur', 'gbp'])
+        .withMessage('Currency must be one of: USD, CAD, EUR, GBP'),
+    body('program_registration_id')
+        .isUUID()
+        .withMessage('Program registration ID must be a valid UUID'),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                error: 'Validation failed',
+                details: errors.array(),
+                timestamp: new Date().toISOString()
+            });
+        }
+        next();
+    }
+];
+
+const validatePaymentConfirmInput = [
+    body('payment_intent_id')
+        .matches(/^pi_[a-zA-Z0-9_]+$/)
+        .withMessage('Payment intent ID must be a valid Stripe payment intent ID'),
+    body('program_registration_id')
+        .isUUID()
+        .withMessage('Program registration ID must be a valid UUID'),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                error: 'Validation failed',
+                details: errors.array(),
+                timestamp: new Date().toISOString()
+            });
+        }
+        next();
+    }
+];
+
+// Security logging middleware
+app.use((req, res, next) => {
+    // Log security-relevant events
+    if (req.path.includes('payment') || req.path.includes('auth')) {
+        console.log(`[SECURITY] ${new Date().toISOString()} - ${req.method} ${req.path} - IP: ${req.ip} - User-Agent: ${req.get('User-Agent')}`);
+    }
+    next();
+});
+
 // Middleware
-app.use(cors());
 app.use(express.json());
 
 // Serve static files from frontend dist directory
@@ -3801,137 +4055,427 @@ app.post('/api/registration-flow/:registration_id/finalize', authenticateUser, a
 // Stripe Payment Endpoints
 
 // POST /api/payments/create-intent - Create Stripe payment intent
-app.post('/api/payments/create-intent', authenticateUser, async (req, res) => {
-    const { amount, currency = 'usd', program_registration_id } = req.body;
+app.post('/api/payments/create-intent', paymentLimiter, authenticateUser, validatePaymentInput, async (req, res) => {
+    const { amount, currency = 'usd', program_registration_id, automatic_payment_methods = { enabled: true } } = req.body;
+    const requestId = `pi_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-    // Validate required fields
-    if (!amount || !program_registration_id) {
-        return res.status(400).json({
-            error: 'amount and program_registration_id are required'
-        });
+    // Enhanced validation with detailed error messages
+    const validationErrors = [];
+
+    if (!amount) validationErrors.push('amount is required');
+    if (!program_registration_id) validationErrors.push('program_registration_id is required');
+    if (amount && (typeof amount !== 'number' || amount <= 0)) {
+        validationErrors.push('amount must be a positive number');
+    }
+    if (amount && amount > 999999) {
+        validationErrors.push('amount exceeds maximum allowed value');
+    }
+    if (currency && !['usd', 'cad', 'eur', 'gbp'].includes(currency.toLowerCase())) {
+        validationErrors.push('currency must be one of: USD, CAD, EUR, GBP');
     }
 
-    // Validate amount is positive
-    if (amount <= 0) {
-        return res.status(400).json({ error: 'Amount must be greater than 0' });
+    if (validationErrors.length > 0) {
+        return res.status(400).json({
+            error: 'Validation failed',
+            details: validationErrors,
+            request_id: requestId
+        });
     }
 
     try {
-        // Verify the program registration exists and belongs to the user
+        console.log(`[${requestId}] Creating payment intent for registration ${program_registration_id}, amount: ${amount} ${currency}`);
+
+        // Enhanced registration verification with more security checks
         const { data: registration, error: regError } = await supabase
             .from('program_registrations')
-            .select('id, program_id, player_id, programs(name, base_fee)')
+            .select(`
+                id, program_id, player_id, status, created_at,
+                programs(id, name, base_fee, is_active, registration_close_date),
+                players(id, first_name, last_name, email)
+            `)
             .eq('id', program_registration_id)
             .single();
 
-        if (regError || !registration) {
-            return res.status(404).json({ error: 'Registration not found' });
+        if (regError) {
+            console.error(`[${requestId}] Registration lookup error:`, regError);
+            return res.status(404).json({
+                error: 'Registration not found',
+                request_id: requestId
+            });
         }
 
-        // Create payment intent with Stripe
-        const paymentIntent = await stripe.paymentIntents.create({
-            amount: Math.round(amount * 100), // Convert to cents
-            currency,
-            metadata: {
-                program_registration_id,
-                program_name: registration.programs?.name || 'Unknown Program',
-                user_id: req.user.id
+        if (!registration) {
+            console.error(`[${requestId}] Registration not found for ID: ${program_registration_id}`);
+            return res.status(404).json({
+                error: 'Registration not found',
+                request_id: requestId
+            });
+        }
+
+        // Security: Verify registration belongs to authenticated user or is accessible
+        if (registration.player_id !== req.user.id && req.user.role !== 'admin') {
+            console.warn(`[${requestId}] Unauthorized access attempt: User ${req.user.id} tried to access registration ${program_registration_id}`);
+            return res.status(403).json({
+                error: 'Access denied',
+                request_id: requestId
+            });
+        }
+
+        // Business logic: Check if program is still active and accepting registrations
+        const program = registration.programs;
+        if (!program.is_active) {
+            return res.status(400).json({
+                error: 'Program is no longer active',
+                request_id: requestId
+            });
+        }
+
+        if (program.registration_close_date && new Date(program.registration_close_date) < new Date()) {
+            return res.status(400).json({
+                error: 'Registration period has closed for this program',
+                request_id: requestId
+            });
+        }
+
+        // Check for existing pending payment intents for this registration
+        const { data: existingPayments } = await supabase
+            .from('payments')
+            .select('stripe_payment_intent_id, status')
+            .eq('program_registration_id', program_registration_id)
+            .eq('status', 'pending')
+            .order('created_at', { ascending: false })
+            .limit(1);
+
+        if (existingPayments && existingPayments.length > 0) {
+            console.log(`[${requestId}] Found existing pending payment, checking Stripe status`);
+            try {
+                const existingIntent = await stripe.paymentIntents.retrieve(existingPayments[0].stripe_payment_intent_id);
+                if (existingIntent.status === 'requires_payment_method' || existingIntent.status === 'requires_confirmation') {
+                    console.log(`[${requestId}] Returning existing payment intent: ${existingIntent.id}`);
+                    return res.json({
+                        client_secret: existingIntent.client_secret,
+                        payment_intent_id: existingIntent.id,
+                        request_id: requestId
+                    });
+                }
+            } catch (stripeError) {
+                console.warn(`[${requestId}] Could not retrieve existing payment intent:`, stripeError.message);
             }
-        });
+        }
+
+        // Enhanced Stripe payment intent creation with security features
+        const stripeConfig = getStripeConfig();
+        const paymentIntentData = {
+            amount: Math.round(amount * 100), // Convert to cents
+            currency: currency.toLowerCase(),
+            automatic_payment_methods,
+            metadata: {
+                program_registration_id: program_registration_id.toString(),
+                program_id: program.id.toString(),
+                program_name: program.name,
+                player_id: registration.player_id.toString(),
+                player_name: `${registration.players.first_name} ${registration.players.last_name}`,
+                user_id: req.user.id.toString(),
+                environment: process.env.NODE_ENV || 'development',
+                request_id: requestId,
+                created_at: new Date().toISOString()
+            },
+            description: `Registration fee for ${program.name} - ${registration.players.first_name} ${registration.players.last_name}`,
+            // Enhanced security settings
+            capture_method: 'automatic',
+            confirmation_method: 'automatic',
+            setup_future_usage: 'off_session'
+        };
+
+        console.log(`[${requestId}] Creating Stripe payment intent with amount: $${amount}`);
+        const paymentIntent = await stripe.paymentIntents.create(paymentIntentData);
+
+        // Store payment record in database for tracking
+        const { error: paymentError } = await supabase
+            .from('payments')
+            .insert({
+                stripe_payment_intent_id: paymentIntent.id,
+                program_registration_id,
+                amount,
+                currency: currency.toLowerCase(),
+                status: 'pending',
+                created_at: new Date().toISOString(),
+                metadata: {
+                    request_id: requestId,
+                    stripe_client_secret: paymentIntent.client_secret,
+                    automatic_payment_methods
+                }
+            });
+
+        if (paymentError) {
+            console.error(`[${requestId}] Failed to store payment record:`, paymentError);
+            // Continue anyway - payment intent was created successfully
+        }
+
+        console.log(`[${requestId}] Payment intent created successfully: ${paymentIntent.id}`);
 
         res.json({
             client_secret: paymentIntent.client_secret,
-            payment_intent_id: paymentIntent.id
+            payment_intent_id: paymentIntent.id,
+            request_id: requestId,
+            amount: amount,
+            currency: currency.toLowerCase(),
+            program_name: program.name
         });
 
     } catch (error) {
-        console.error('Create payment intent error:', error);
-        res.status(500).json({ error: 'Failed to create payment intent' });
+        console.error(`[${requestId}] Create payment intent error:`, error);
+
+        // Enhanced error handling using our error handler
+        const errorInfo = handlePaymentError(error, 'payment_intent_creation');
+
+        return res.status(errorInfo.error_type === 'validation_error' ? 400 : 500).json({
+            error: errorInfo.user_message,
+            error_type: errorInfo.error_type,
+            request_id: requestId,
+            should_retry: errorInfo.should_retry,
+            ...(process.env.NODE_ENV === 'development' && { debug_info: error.message })
+        });
     }
 });
 
 // POST /api/payments/confirm - Confirm payment and record in database
-app.post('/api/payments/confirm', authenticateUser, async (req, res) => {
+app.post('/api/payments/confirm', paymentLimiter, authenticateUser, validatePaymentConfirmInput, async (req, res) => {
     const { payment_intent_id, program_registration_id } = req.body;
+    const requestId = `pc_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-    if (!payment_intent_id || !program_registration_id) {
+    // Enhanced validation
+    const validationErrors = [];
+
+    if (!payment_intent_id) validationErrors.push('payment_intent_id is required');
+    if (!program_registration_id) validationErrors.push('program_registration_id is required');
+    if (payment_intent_id && (typeof payment_intent_id !== 'string' || !payment_intent_id.startsWith('pi_'))) {
+        validationErrors.push('payment_intent_id must be a valid Stripe payment intent ID');
+    }
+
+    if (validationErrors.length > 0) {
         return res.status(400).json({
-            error: 'payment_intent_id and program_registration_id are required'
+            error: 'Validation failed',
+            details: validationErrors,
+            request_id: requestId
         });
     }
 
     try {
-        // Retrieve payment intent from Stripe
-        const paymentIntent = await stripe.paymentIntents.retrieve(payment_intent_id);
+        console.log(`[${requestId}] Confirming payment intent: ${payment_intent_id} for registration: ${program_registration_id}`);
 
-        if (paymentIntent.status !== 'succeeded') {
-            return res.status(400).json({ error: 'Payment not completed' });
+        // Check if payment already exists in our database
+        const { data: existingPayment } = await supabase
+            .from('payments')
+            .select('id, status, stripe_payment_intent_id')
+            .eq('stripe_payment_intent_id', payment_intent_id)
+            .eq('program_registration_id', program_registration_id)
+            .single();
+
+        if (existingPayment) {
+            if (existingPayment.status === 'completed') {
+                console.log(`[${requestId}] Payment already confirmed: ${existingPayment.id}`);
+                return res.json({
+                    success: true,
+                    payment: existingPayment,
+                    message: 'Payment already confirmed',
+                    request_id: requestId,
+                    already_processed: true
+                });
+            }
         }
 
-        // Verify the program registration exists
+        // Retrieve and validate payment intent from Stripe
+        let paymentIntent;
+        try {
+            paymentIntent = await stripe.paymentIntents.retrieve(payment_intent_id, {
+                expand: ['payment_method', 'charges.data.balance_transaction']
+            });
+        } catch (stripeError) {
+            console.error(`[${requestId}] Stripe retrieval error:`, stripeError);
+            const errorInfo = handlePaymentError(stripeError, 'payment_intent_retrieval');
+            return res.status(404).json({
+                error: errorInfo.user_message,
+                error_type: errorInfo.error_type,
+                request_id: requestId
+            });
+        }
+
+        // Enhanced payment status validation
+        const validCompletionStatuses = ['succeeded', 'requires_capture'];
+        if (!validCompletionStatuses.includes(paymentIntent.status)) {
+            console.warn(`[${requestId}] Payment intent not in valid completion status: ${paymentIntent.status}`);
+            return res.status(400).json({
+                error: 'Payment has not been completed successfully',
+                payment_status: paymentIntent.status,
+                request_id: requestId,
+                should_retry: paymentIntent.status === 'requires_confirmation' || paymentIntent.status === 'requires_action'
+            });
+        }
+
+        // Enhanced registration verification with security checks
         const { data: registration, error: regError } = await supabase
             .from('program_registrations')
-            .select('id, program_id, player_id')
+            .select(`
+                id, program_id, player_id, status, created_at,
+                programs(id, name, base_fee, is_active),
+                players(id, first_name, last_name, email)
+            `)
             .eq('id', program_registration_id)
             .single();
 
-        if (regError || !registration) {
-            return res.status(404).json({ error: 'Registration not found' });
+        if (regError) {
+            console.error(`[${requestId}] Registration lookup error:`, regError);
+            return res.status(404).json({
+                error: 'Registration not found',
+                request_id: requestId
+            });
         }
 
-        // Record payment in database
-        const { data: payment, error: paymentError } = await supabase
-            .from('payments')
-            .insert({
-                program_registration_id,
-                amount: paymentIntent.amount / 100, // Convert back from cents
-                payment_method: 'stripe',
-                payment_method_details: {
-                    payment_intent_id,
-                    payment_method: paymentIntent.payment_method,
-                    charges: paymentIntent.charges
-                },
-                status: 'completed',
-                transaction_id: payment_intent_id,
-                processed_at: new Date().toISOString()
-            })
-            .select()
-            .single();
+        if (!registration) {
+            console.error(`[${requestId}] Registration not found for ID: ${program_registration_id}`);
+            return res.status(404).json({
+                error: 'Registration not found',
+                request_id: requestId
+            });
+        }
 
-        if (paymentError) {
-            console.error('Payment record error:', paymentError);
-            return res.status(500).json({ error: 'Failed to record payment' });
+        // Security: Verify registration belongs to authenticated user or admin
+        if (registration.player_id !== req.user.id && req.user.role !== 'admin') {
+            console.warn(`[${requestId}] Unauthorized access attempt: User ${req.user.id} tried to confirm payment for registration ${program_registration_id}`);
+            return res.status(403).json({
+                error: 'Access denied',
+                request_id: requestId
+            });
+        }
+
+        // Verify payment metadata matches registration
+        const metadata = paymentIntent.metadata || {};
+        if (metadata.program_registration_id && metadata.program_registration_id !== program_registration_id.toString()) {
+            console.error(`[${requestId}] Payment intent metadata mismatch: expected ${program_registration_id}, got ${metadata.program_registration_id}`);
+            return res.status(400).json({
+                error: 'Payment intent does not match this registration',
+                request_id: requestId
+            });
+        }
+
+        // Prepare enhanced payment record
+        const paymentRecord = {
+            program_registration_id,
+            amount: paymentIntent.amount / 100, // Convert back from cents
+            currency: paymentIntent.currency,
+            payment_method: 'stripe',
+            stripe_payment_intent_id: payment_intent_id,
+            payment_method_details: {
+                payment_intent_id,
+                payment_method_id: paymentIntent.payment_method,
+                payment_method_type: paymentIntent.payment_method_types?.[0] || 'card',
+                last4: paymentIntent.charges?.data?.[0]?.payment_method_details?.card?.last4,
+                brand: paymentIntent.charges?.data?.[0]?.payment_method_details?.card?.brand,
+                exp_month: paymentIntent.charges?.data?.[0]?.payment_method_details?.card?.exp_month,
+                exp_year: paymentIntent.charges?.data?.[0]?.payment_method_details?.card?.exp_year,
+                charges: paymentIntent.charges?.data || [],
+                receipt_url: paymentIntent.charges?.data?.[0]?.receipt_url
+            },
+            status: existingPayment ? 'completed' : 'completed',
+            transaction_id: payment_intent_id,
+            stripe_fee: paymentIntent.charges?.data?.[0]?.balance_transaction?.fee || 0,
+            net_amount: (paymentIntent.charges?.data?.[0]?.balance_transaction?.net || paymentIntent.amount) / 100,
+            processed_at: new Date().toISOString(),
+            metadata: {
+                request_id: requestId,
+                stripe_created: new Date(paymentIntent.created * 1000).toISOString(),
+                confirmation_method: paymentIntent.confirmation_method,
+                capture_method: paymentIntent.capture_method
+            }
+        };
+
+        console.log(`[${requestId}] Recording payment in database`);
+
+        // Record or update payment in database
+        let payment;
+        if (existingPayment) {
+            const { data: updatedPayment, error: paymentError } = await supabase
+                .from('payments')
+                .update(paymentRecord)
+                .eq('id', existingPayment.id)
+                .select()
+                .single();
+
+            if (paymentError) {
+                console.error(`[${requestId}] Payment update error:`, paymentError);
+                return res.status(500).json({
+                    error: 'Failed to update payment record',
+                    request_id: requestId
+                });
+            }
+            payment = updatedPayment;
+        } else {
+            const { data: newPayment, error: paymentError } = await supabase
+                .from('payments')
+                .insert(paymentRecord)
+                .select()
+                .single();
+
+            if (paymentError) {
+                console.error(`[${requestId}] Payment insert error:`, paymentError);
+                return res.status(500).json({
+                    error: 'Failed to record payment',
+                    request_id: requestId
+                });
+            }
+            payment = newPayment;
         }
 
         // Update registration status to confirmed
+        console.log(`[${requestId}] Updating registration status to confirmed`);
         const { error: updateError } = await supabase
             .from('program_registrations')
             .update({
                 status: 'confirmed',
-                updated_at: new Date().toISOString()
+                updated_at: new Date().toISOString(),
+                confirmed_at: new Date().toISOString()
             })
             .eq('id', program_registration_id);
 
         if (updateError) {
-            console.error('Registration update error:', updateError);
+            console.error(`[${requestId}] Registration update error:`, updateError);
+            // Don't fail the request - payment was recorded successfully
         }
+
+        console.log(`[${requestId}] Payment confirmation completed successfully`);
 
         res.json({
             success: true,
             payment,
-            message: 'Payment confirmed and registration updated'
+            registration_status: 'confirmed',
+            message: 'Payment confirmed and registration updated',
+            request_id: requestId,
+            receipt_url: paymentRecord.payment_method_details.receipt_url,
+            amount_charged: paymentRecord.amount,
+            currency: paymentRecord.currency
         });
 
     } catch (error) {
-        console.error('Confirm payment error:', error);
-        res.status(500).json({ error: 'Failed to confirm payment' });
+        console.error(`[${requestId}] Confirm payment error:`, error);
+
+        // Enhanced error handling
+        const errorInfo = handlePaymentError(error, 'payment_confirmation');
+
+        return res.status(errorInfo.error_type === 'validation_error' ? 400 : 500).json({
+            error: errorInfo.user_message,
+            error_type: errorInfo.error_type,
+            request_id: requestId,
+            should_retry: errorInfo.should_retry,
+            ...(process.env.NODE_ENV === 'development' && { debug_info: error.message })
+        });
     }
 });
 
 // Payment Management Endpoints
 
 // POST /api/payments - Record a new payment
-app.post('/api/payments', authenticateUser, async (req, res) => {
+app.post('/api/payments', paymentLimiter, authenticateUser, async (req, res) => {
     const { registration_id, amount, method, transaction_id } = req.body;
 
     // Validate required fields
@@ -4072,7 +4616,7 @@ app.post('/api/payments', authenticateUser, async (req, res) => {
 });
 
 // GET /api/payments - List payments with filtering
-app.get('/api/payments', authenticateUser, async (req, res) => {
+app.get('/api/payments', paymentLimiter, authenticateUser, async (req, res) => {
     const {
         registration_id,
         status,
@@ -4177,7 +4721,7 @@ app.get('/api/payments', authenticateUser, async (req, res) => {
 });
 
 // GET /api/payments/{payment_id} - Get payment details
-app.get('/api/payments/:payment_id', authenticateUser, async (req, res) => {
+app.get('/api/payments/:payment_id', paymentLimiter, authenticateUser, async (req, res) => {
     const { payment_id } = req.params;
 
     try {
