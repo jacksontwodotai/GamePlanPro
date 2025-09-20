@@ -3525,6 +3525,279 @@ app.post('/api/registration-flow/:registration_id/calculate-fees', authenticateU
     }
 });
 
+// POST /api/registration-flow/{registration_id}/finalize - Finalize registration and determine next steps
+app.post('/api/registration-flow/:registration_id/finalize', authenticateUser, async (req, res) => {
+    const { registration_id } = req.params;
+
+    // Validate required fields
+    if (!registration_id) {
+        return res.status(400).json({
+            error: 'registration_id is required'
+        });
+    }
+
+    try {
+        // Fetch registration with all related data
+        const { data: registration, error: regError } = await supabase
+            .from('program_registrations')
+            .select(`
+                *,
+                programs (
+                    id,
+                    name,
+                    base_fee,
+                    is_active,
+                    registration_forms (
+                        id,
+                        is_active,
+                        form_fields (
+                            id,
+                            field_name,
+                            field_label,
+                            field_type,
+                            is_required,
+                            validation_rules
+                        )
+                    )
+                )
+            `)
+            .eq('id', registration_id)
+            .single();
+
+        if (regError) {
+            console.error('Registration fetch error:', regError);
+            if (regError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Registration not found' });
+            }
+            return res.status(500).json({ error: 'Failed to fetch registration' });
+        }
+
+        // Check authorization - user can only finalize their own registrations
+        if (registration.user_id !== req.user.id) {
+            return res.status(403).json({ error: 'Unauthorized access to registration' });
+        }
+
+        // Check if registration is in a valid state for finalization
+        if (!['pending', 'confirmed', 'waitlisted'].includes(registration.status)) {
+            return res.status(400).json({
+                error: 'Registration is not in a valid state for finalization',
+                current_status: registration.status,
+                allowed_statuses: ['pending', 'confirmed', 'waitlisted']
+            });
+        }
+
+        // Check if program is still active
+        if (!registration.programs.is_active) {
+            return res.status(400).json({ error: 'Program is no longer active' });
+        }
+
+        // Get submitted form data for validation
+        const { data: formData, error: formError } = await supabase
+            .from('registration_form_data')
+            .select(`
+                *,
+                form_fields (
+                    id,
+                    field_name,
+                    field_label,
+                    field_type,
+                    is_required,
+                    validation_rules
+                )
+            `)
+            .eq('registration_id', registration_id);
+
+        if (formError) {
+            console.error('Form data fetch error:', formError);
+            return res.status(500).json({ error: 'Failed to fetch form data' });
+        }
+
+        // Validate all required form fields are completed
+        const validationErrors = [];
+
+        // Get all required fields from the program's registration form
+        const programForm = registration.programs.registration_forms?.[0];
+        if (programForm && programForm.form_fields) {
+            const requiredFields = programForm.form_fields.filter(field => field.is_required);
+
+            // Create a map of submitted form data
+            const submittedFieldsMap = new Map();
+            (formData || []).forEach(item => {
+                if (item.form_fields) {
+                    submittedFieldsMap.set(item.form_fields.field_name, item.submitted_value);
+                }
+            });
+
+            // Check each required field
+            for (const requiredField of requiredFields) {
+                const submittedValue = submittedFieldsMap.get(requiredField.field_name);
+
+                if (!submittedValue || submittedValue.toString().trim() === '') {
+                    validationErrors.push({
+                        field_name: requiredField.field_name,
+                        field_label: requiredField.field_label,
+                        error: 'This required field has not been completed'
+                    });
+                } else {
+                    // Validate field type and format
+                    const value = submittedValue.toString().trim();
+                    let isValid = true;
+                    let typeError = null;
+
+                    switch (requiredField.field_type) {
+                        case 'email':
+                            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                            if (!emailRegex.test(value)) {
+                                isValid = false;
+                                typeError = 'Invalid email format';
+                            }
+                            break;
+                        case 'number':
+                            if (isNaN(Number(value))) {
+                                isValid = false;
+                                typeError = 'Must be a valid number';
+                            }
+                            break;
+                        case 'date':
+                            if (isNaN(Date.parse(value))) {
+                                isValid = false;
+                                typeError = 'Must be a valid date';
+                            }
+                            break;
+                        case 'phone':
+                            const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+                            if (!phoneRegex.test(value.replace(/\D/g, ''))) {
+                                isValid = false;
+                                typeError = 'Invalid phone number format';
+                            }
+                            break;
+                    }
+
+                    if (!isValid) {
+                        validationErrors.push({
+                            field_name: requiredField.field_name,
+                            field_label: requiredField.field_label,
+                            error: typeError
+                        });
+                    }
+
+                    // Validate against custom validation rules (regex)
+                    if (isValid && requiredField.validation_rules && requiredField.validation_rules.regex) {
+                        try {
+                            const regex = new RegExp(requiredField.validation_rules.regex);
+                            if (!regex.test(value)) {
+                                validationErrors.push({
+                                    field_name: requiredField.field_name,
+                                    field_label: requiredField.field_label,
+                                    error: requiredField.validation_rules.message || 'Value does not match required format'
+                                });
+                            }
+                        } catch (regexError) {
+                            console.error('Invalid regex in field validation:', regexError);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Return validation errors if any
+        if (validationErrors.length > 0) {
+            return res.status(400).json({
+                error: 'Registration cannot be finalized - required fields are missing or invalid',
+                validation_errors: validationErrors,
+                message: 'Please complete all required fields before finalizing registration'
+            });
+        }
+
+        // Ensure fees are calculated and up to date
+        const totalAmountDue = parseFloat(registration.total_amount_due || registration.programs.base_fee || 0);
+        const amountPaid = parseFloat(registration.amount_paid || 0);
+        const balanceDue = Math.max(0, totalAmountDue - amountPaid);
+
+        // Determine final status based on payment requirements
+        let finalStatus;
+        let nextSteps = [];
+
+        if (balanceDue === 0) {
+            finalStatus = 'Complete';
+            nextSteps.push({
+                step: 'registration_complete',
+                description: 'Registration is complete - no payment required',
+                action_required: false
+            });
+        } else {
+            finalStatus = 'ReadyForPayment';
+            nextSteps.push({
+                step: 'payment_required',
+                description: `Payment of $${balanceDue.toFixed(2)} is required to complete registration`,
+                action_required: true,
+                amount_due: balanceDue,
+                payment_url: `/api/payments/create-intent`, // Integration point for payment processing
+                payment_methods: ['credit_card', 'debit_card', 'bank_transfer']
+            });
+        }
+
+        // Update registration status
+        const { data: updatedRegistration, error: updateError } = await supabase
+            .from('program_registrations')
+            .update({
+                status: finalStatus,
+                updated_at: new Date().toISOString()
+            })
+            .eq('id', registration_id)
+            .select()
+            .single();
+
+        if (updateError) {
+            console.error('Registration update error:', updateError);
+            return res.status(500).json({ error: 'Failed to update registration status' });
+        }
+
+        // Build comprehensive finalization response
+        const response = {
+            registration_id: registration_id,
+            finalization_timestamp: new Date().toISOString(),
+            previous_status: registration.status,
+            final_status: finalStatus,
+
+            // Financial summary
+            financial_summary: {
+                total_amount_due: totalAmountDue,
+                amount_paid: amountPaid,
+                balance_due: balanceDue,
+                payment_required: balanceDue > 0
+            },
+
+            // Validation summary
+            validation_summary: {
+                all_required_fields_completed: true,
+                total_required_fields: programForm?.form_fields?.filter(f => f.is_required).length || 0,
+                total_completed_fields: formData ? formData.length : 0
+            },
+
+            // Next steps for the user
+            next_steps: nextSteps,
+
+            // Status information
+            status_info: {
+                can_modify_registration: false, // Registration is now finalized
+                can_make_payment: balanceDue > 0,
+                registration_complete: finalStatus === 'Complete'
+            },
+
+            message: finalStatus === 'Complete'
+                ? 'Registration has been successfully finalized and is complete'
+                : 'Registration has been finalized and is ready for payment'
+        };
+
+        res.status(200).json(response);
+
+    } catch (error) {
+        console.error('Registration finalization error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // Stripe Payment Endpoints
 
 // POST /api/payments/create-intent - Create Stripe payment intent
