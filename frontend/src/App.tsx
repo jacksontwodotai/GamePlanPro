@@ -24,6 +24,7 @@ import PublicRegistration from './components/PublicRegistration'
 import RegistrationManagementDashboard from './components/RegistrationManagementDashboard'
 import PaymentHistoryDashboard from './components/PaymentHistoryDashboard'
 import FormManagement from './components/FormManagement'
+import FormBuilderDashboard from './components/FormBuilderDashboard'
 import FormEditor from './components/FormEditor'
 import { AuthProvider } from './contexts/AuthContext'
 
@@ -49,7 +50,7 @@ function App() {
           <Route path="programs" element={<ProgramManagement />} />
           <Route path="registrations" element={<RegistrationManagementDashboard />} />
           <Route path="payments" element={<PaymentHistoryDashboard />} />
-          <Route path="forms" element={<FormManagement />} />
+          <Route path="forms" element={<FormBuilderDashboard />} />
           <Route path="forms/new" element={<FormEditor />} />
           <Route path="forms/:formId" element={<FormEditor />} />
         </Route>
