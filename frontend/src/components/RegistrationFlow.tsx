@@ -11,7 +11,7 @@ import ProgramSelection from './registration/ProgramSelection'
 import CustomFormRenderer from './registration/CustomFormRenderer'
 import FeeSummary from './registration/FeeSummary'
 import PaymentInitiator from './registration/PaymentInitiator'
-import PaymentConfirmation from './PaymentConfirmation'
+import RegistrationConfirmation from './registration/RegistrationConfirmation'
 
 interface Program {
   id: string
@@ -53,7 +53,7 @@ const REGISTRATION_STEPS = [
   { id: 'form-completion', title: 'Complete Form', description: 'Fill out registration details', component: 'CustomFormRenderer' },
   { id: 'fee-summary', title: 'Review Fees', description: 'Review and confirm fees', component: 'FeeSummary' },
   { id: 'payment', title: 'Payment', description: 'Complete your payment', component: 'PaymentInitiator' },
-  { id: 'confirmation', title: 'Confirmation', description: 'Registration complete', component: 'PaymentConfirmation' }
+  { id: 'confirmation', title: 'Confirmation', description: 'Registration complete', component: 'RegistrationConfirmation' }
 ]
 
 // Registration flow state interface
@@ -237,8 +237,8 @@ export default function RegistrationFlow() {
         return <FeeSummary {...stepProps} />
       case 'PaymentInitiator':
         return <PaymentInitiator {...stepProps} />
-      case 'PaymentConfirmation':
-        return <PaymentConfirmation {...stepProps} />
+      case 'RegistrationConfirmation':
+        return <RegistrationConfirmation {...stepProps} />
       default:
         return <div>Unknown step component: {currentStepData.component}</div>
     }
