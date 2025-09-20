@@ -102,10 +102,14 @@ export default function Layout() {
           // Check for exact match first
           const isExactMatch = location.pathname === item.href
 
-          // For nested routes, only mark as active if no other navigation item has an exact match
+          // For nested routes, only mark as active if:
+          // 1. Current path starts with this item's href + '/'
+          // 2. No other navigation item has a more specific match (longer href that also matches)
           const isNestedMatch = location.pathname.startsWith(item.href + '/') &&
             !filteredNavigation.some(navItem =>
-              navItem.href !== item.href && location.pathname === navItem.href
+              navItem.href !== item.href &&
+              navItem.href.length > item.href.length &&
+              location.pathname.startsWith(navItem.href)
             )
 
           const isActive = isExactMatch || isNestedMatch

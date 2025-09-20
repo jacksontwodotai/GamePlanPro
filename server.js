@@ -3134,6 +3134,174 @@ app.post('/api/registration-flow/:registration_id/submit-form', authenticateUser
     }
 });
 
+// GET /api/registration-flow/{registration_id}/status - Get comprehensive registration status
+app.get('/api/registration-flow/:registration_id/status', authenticateUser, async (req, res) => {
+    const { registration_id } = req.params;
+
+    // Validate required fields
+    if (!registration_id) {
+        return res.status(400).json({
+            error: 'registration_id is required'
+        });
+    }
+
+    try {
+        // Fetch registration with all related data
+        const { data: registration, error: regError } = await supabase
+            .from('program_registrations')
+            .select(`
+                *,
+                users (
+                    id,
+                    first_name,
+                    last_name,
+                    email,
+                    organization
+                ),
+                programs (
+                    id,
+                    name,
+                    description,
+                    season,
+                    start_date,
+                    end_date,
+                    registration_open_date,
+                    registration_close_date,
+                    max_capacity,
+                    base_fee,
+                    is_active
+                ),
+                players (
+                    id,
+                    first_name,
+                    last_name,
+                    email,
+                    phone,
+                    date_of_birth,
+                    gender,
+                    player_email,
+                    player_phone,
+                    parent_guardian_name,
+                    parent_guardian_email,
+                    parent_guardian_phone,
+                    emergency_contact_name,
+                    emergency_contact_phone,
+                    emergency_contact_relation,
+                    medical_alerts,
+                    address
+                )
+            `)
+            .eq('id', registration_id)
+            .single();
+
+        if (regError) {
+            console.error('Registration fetch error:', regError);
+            if (regError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Registration not found' });
+            }
+            return res.status(500).json({ error: 'Failed to fetch registration' });
+        }
+
+        // Check authorization - user can only access their own registrations
+        if (registration.user_id !== req.user.id) {
+            return res.status(403).json({ error: 'Unauthorized access to registration' });
+        }
+
+        // Fetch form data with field definitions
+        const { data: formData, error: formError } = await supabase
+            .from('registration_form_data')
+            .select(`
+                *,
+                form_fields (
+                    id,
+                    field_name,
+                    field_label,
+                    field_type,
+                    is_required,
+                    placeholder_text,
+                    help_text,
+                    validation_rules,
+                    sort_order
+                )
+            `)
+            .eq('registration_id', registration_id)
+            .order('form_fields.sort_order', { ascending: true });
+
+        if (formError) {
+            console.error('Form data fetch error:', formError);
+            return res.status(500).json({ error: 'Failed to fetch form data' });
+        }
+
+        // Calculate financial information
+        const baseFee = parseFloat(registration.programs?.base_fee || 0);
+        const amountPaid = parseFloat(registration.amount_paid || 0);
+        const balanceDue = Math.max(0, baseFee - amountPaid);
+
+        // Build comprehensive status response
+        const statusResponse = {
+            // Core registration data
+            registration: {
+                id: registration.id,
+                status: registration.status,
+                registration_date: registration.registration_date,
+                amount_paid: amountPaid,
+                notes: registration.notes,
+                created_at: registration.created_at,
+                updated_at: registration.updated_at
+            },
+
+            // Program information
+            program: registration.programs,
+
+            // Player information
+            player: registration.players,
+
+            // User information
+            user: registration.users,
+
+            // Financial information
+            financial: {
+                total_amount_due: baseFee,
+                amount_paid: amountPaid,
+                balance_due: balanceDue,
+                payment_status: balanceDue === 0 ? 'paid' : amountPaid > 0 ? 'partial' : 'unpaid'
+            },
+
+            // Form data with field definitions
+            form_data: (formData || []).map(item => ({
+                form_field_id: item.form_field_id,
+                submitted_value: item.submitted_value,
+                field_definition: item.form_fields ? {
+                    field_name: item.form_fields.field_name,
+                    field_label: item.form_fields.field_label,
+                    field_type: item.form_fields.field_type,
+                    is_required: item.form_fields.is_required,
+                    placeholder_text: item.form_fields.placeholder_text,
+                    help_text: item.form_fields.help_text,
+                    validation_rules: item.form_fields.validation_rules,
+                    sort_order: item.form_fields.sort_order
+                } : null,
+                submitted_at: item.created_at,
+                last_updated: item.updated_at
+            })),
+
+            // Summary statistics
+            summary: {
+                total_form_fields_completed: formData ? formData.length : 0,
+                registration_complete: registration.status === 'confirmed',
+                payment_complete: balanceDue === 0,
+                can_submit_payment: balanceDue > 0 && ['pending', 'confirmed', 'waitlisted'].includes(registration.status)
+            }
+        };
+
+        res.json(statusResponse);
+
+    } catch (error) {
+        console.error('Registration status fetch error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // Stripe Payment Endpoints
 
 // POST /api/payments/create-intent - Create Stripe payment intent

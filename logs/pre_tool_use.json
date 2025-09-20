@@ -4951,5 +4951,463 @@
     "tool_input": {
       "bash_id": "8bc7c0"
     }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__get_work_order",
+    "tool_input": {
+      "work_order_number": "052"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing registration status retrieval patterns in codebase",
+          "status": "pending",
+          "activeForm": "Analyzing existing registration status retrieval patterns in codebase"
+        },
+        {
+          "content": "Design comprehensive status response structure",
+          "status": "pending",
+          "activeForm": "Designing comprehensive status response structure"
+        },
+        {
+          "content": "Create GET /api/registration-flow/{registration_id}/status endpoint",
+          "status": "pending",
+          "activeForm": "Creating GET /api/registration-flow/{registration_id}/status endpoint"
+        },
+        {
+          "content": "Implement registration data fetching with joins",
+          "status": "pending",
+          "activeForm": "Implementing registration data fetching with joins"
+        },
+        {
+          "content": "Add form data collection with field definitions",
+          "status": "pending",
+          "activeForm": "Adding form data collection with field definitions"
+        },
+        {
+          "content": "Calculate and include financial information",
+          "status": "pending",
+          "activeForm": "Calculating and including financial information"
+        },
+        {
+          "content": "Add authentication and authorization checks",
+          "status": "pending",
+          "activeForm": "Adding authentication and authorization checks"
+        },
+        {
+          "content": "Test the endpoint functionality",
+          "status": "pending",
+          "activeForm": "Testing the endpoint functionality"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing registration status retrieval patterns in codebase",
+          "status": "in_progress",
+          "activeForm": "Analyzing existing registration status retrieval patterns in codebase"
+        },
+        {
+          "content": "Design comprehensive status response structure",
+          "status": "pending",
+          "activeForm": "Designing comprehensive status response structure"
+        },
+        {
+          "content": "Create GET /api/registration-flow/{registration_id}/status endpoint",
+          "status": "pending",
+          "activeForm": "Creating GET /api/registration-flow/{registration_id}/status endpoint"
+        },
+        {
+          "content": "Implement registration data fetching with joins",
+          "status": "pending",
+          "activeForm": "Implementing registration data fetching with joins"
+        },
+        {
+          "content": "Add form data collection with field definitions",
+          "status": "pending",
+          "activeForm": "Adding form data collection with field definitions"
+        },
+        {
+          "content": "Calculate and include financial information",
+          "status": "pending",
+          "activeForm": "Calculating and including financial information"
+        },
+        {
+          "content": "Add authentication and authorization checks",
+          "status": "pending",
+          "activeForm": "Adding authentication and authorization checks"
+        },
+        {
+          "content": "Test the endpoint functionality",
+          "status": "pending",
+          "activeForm": "Testing the endpoint functionality"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "GET /api/registrations",
+      "path": "server.js",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "offset": 2602,
+      "limit": 50
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "offset": 2650,
+      "limit": 30
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing registration status retrieval patterns in codebase",
+          "status": "completed",
+          "activeForm": "Analyzing existing registration status retrieval patterns in codebase"
+        },
+        {
+          "content": "Design comprehensive status response structure",
+          "status": "in_progress",
+          "activeForm": "Designing comprehensive status response structure"
+        },
+        {
+          "content": "Create GET /api/registration-flow/{registration_id}/status endpoint",
+          "status": "pending",
+          "activeForm": "Creating GET /api/registration-flow/{registration_id}/status endpoint"
+        },
+        {
+          "content": "Implement registration data fetching with joins",
+          "status": "pending",
+          "activeForm": "Implementing registration data fetching with joins"
+        },
+        {
+          "content": "Add form data collection with field definitions",
+          "status": "pending",
+          "activeForm": "Adding form data collection with field definitions"
+        },
+        {
+          "content": "Calculate and include financial information",
+          "status": "pending",
+          "activeForm": "Calculating and including financial information"
+        },
+        {
+          "content": "Add authentication and authorization checks",
+          "status": "pending",
+          "activeForm": "Adding authentication and authorization checks"
+        },
+        {
+          "content": "Test the endpoint functionality",
+          "status": "pending",
+          "activeForm": "Testing the endpoint functionality"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing registration status retrieval patterns in codebase",
+          "status": "completed",
+          "activeForm": "Analyzing existing registration status retrieval patterns in codebase"
+        },
+        {
+          "content": "Design comprehensive status response structure",
+          "status": "completed",
+          "activeForm": "Designing comprehensive status response structure"
+        },
+        {
+          "content": "Create GET /api/registration-flow/{registration_id}/status endpoint",
+          "status": "in_progress",
+          "activeForm": "Creating GET /api/registration-flow/{registration_id}/status endpoint"
+        },
+        {
+          "content": "Implement registration data fetching with joins",
+          "status": "pending",
+          "activeForm": "Implementing registration data fetching with joins"
+        },
+        {
+          "content": "Add form data collection with field definitions",
+          "status": "pending",
+          "activeForm": "Adding form data collection with field definitions"
+        },
+        {
+          "content": "Calculate and include financial information",
+          "status": "pending",
+          "activeForm": "Calculating and including financial information"
+        },
+        {
+          "content": "Add authentication and authorization checks",
+          "status": "pending",
+          "activeForm": "Adding authentication and authorization checks"
+        },
+        {
+          "content": "Test the endpoint functionality",
+          "status": "pending",
+          "activeForm": "Testing the endpoint functionality"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "// Stripe Payment Endpoints",
+      "path": "server.js",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "old_string": "});\n\n// Stripe Payment Endpoints",
+      "new_string": "});\n\n// GET /api/registration-flow/{registration_id}/status - Get comprehensive registration status\napp.get('/api/registration-flow/:registration_id/status', authenticateUser, async (req, res) => {\n    const { registration_id } = req.params;\n\n    // Validate required fields\n    if (!registration_id) {\n        return res.status(400).json({\n            error: 'registration_id is required'\n        });\n    }\n\n    try {\n        // Fetch registration with all related data\n        const { data: registration, error: regError } = await supabase\n            .from('program_registrations')\n            .select(`\n                *,\n                users (\n                    id,\n                    first_name,\n                    last_name,\n                    email,\n                    organization\n                ),\n                programs (\n                    id,\n                    name,\n                    description,\n                    season,\n                    start_date,\n                    end_date,\n                    registration_open_date,\n                    registration_close_date,\n                    max_capacity,\n                    base_fee,\n                    is_active\n                ),\n                players (\n                    id,\n                    first_name,\n                    last_name,\n                    email,\n                    phone,\n                    date_of_birth,\n                    gender,\n                    player_email,\n                    player_phone,\n                    parent_guardian_name,\n                    parent_guardian_email,\n                    parent_guardian_phone,\n                    emergency_contact_name,\n                    emergency_contact_phone,\n                    emergency_contact_relation,\n                    medical_alerts,\n                    address\n                )\n            `)\n            .eq('id', registration_id)\n            .single();\n\n        if (regError) {\n            console.error('Registration fetch error:', regError);\n            if (regError.code === 'PGRST116') {\n                return res.status(404).json({ error: 'Registration not found' });\n            }\n            return res.status(500).json({ error: 'Failed to fetch registration' });\n        }\n\n        // Check authorization - user can only access their own registrations\n        if (registration.user_id !== req.user.id) {\n            return res.status(403).json({ error: 'Unauthorized access to registration' });\n        }\n\n        // Fetch form data with field definitions\n        const { data: formData, error: formError } = await supabase\n            .from('registration_form_data')\n            .select(`\n                *,\n                form_fields (\n                    id,\n                    field_name,\n                    field_label,\n                    field_type,\n                    is_required,\n                    placeholder_text,\n                    help_text,\n                    validation_rules,\n                    sort_order\n                )\n            `)\n            .eq('registration_id', registration_id)\n            .order('form_fields.sort_order', { ascending: true });\n\n        if (formError) {\n            console.error('Form data fetch error:', formError);\n            return res.status(500).json({ error: 'Failed to fetch form data' });\n        }\n\n        // Calculate financial information\n        const baseFee = parseFloat(registration.programs?.base_fee || 0);\n        const amountPaid = parseFloat(registration.amount_paid || 0);\n        const balanceDue = Math.max(0, baseFee - amountPaid);\n\n        // Build comprehensive status response\n        const statusResponse = {\n            // Core registration data\n            registration: {\n                id: registration.id,\n                status: registration.status,\n                registration_date: registration.registration_date,\n                amount_paid: amountPaid,\n                notes: registration.notes,\n                created_at: registration.created_at,\n                updated_at: registration.updated_at\n            },\n\n            // Program information\n            program: registration.programs,\n\n            // Player information\n            player: registration.players,\n\n            // User information\n            user: registration.users,\n\n            // Financial information\n            financial: {\n                total_amount_due: baseFee,\n                amount_paid: amountPaid,\n                balance_due: balanceDue,\n                payment_status: balanceDue === 0 ? 'paid' : amountPaid > 0 ? 'partial' : 'unpaid'\n            },\n\n            // Form data with field definitions\n            form_data: (formData || []).map(item => ({\n                form_field_id: item.form_field_id,\n                submitted_value: item.submitted_value,\n                field_definition: item.form_fields ? {\n                    field_name: item.form_fields.field_name,\n                    field_label: item.form_fields.field_label,\n                    field_type: item.form_fields.field_type,\n                    is_required: item.form_fields.is_required,\n                    placeholder_text: item.form_fields.placeholder_text,\n                    help_text: item.form_fields.help_text,\n                    validation_rules: item.form_fields.validation_rules,\n                    sort_order: item.form_fields.sort_order\n                } : null,\n                submitted_at: item.created_at,\n                last_updated: item.updated_at\n            })),\n\n            // Summary statistics\n            summary: {\n                total_form_fields_completed: formData ? formData.length : 0,\n                registration_complete: registration.status === 'confirmed',\n                payment_complete: balanceDue === 0,\n                can_submit_payment: balanceDue > 0 && ['pending', 'confirmed', 'waitlisted'].includes(registration.status)\n            }\n        };\n\n        res.json(statusResponse);\n\n    } catch (error) {\n        console.error('Registration status fetch error:', error);\n        res.status(500).json({ error: 'Internal server error' });\n    }\n});\n\n// Stripe Payment Endpoints"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing registration status retrieval patterns in codebase",
+          "status": "completed",
+          "activeForm": "Analyzing existing registration status retrieval patterns in codebase"
+        },
+        {
+          "content": "Design comprehensive status response structure",
+          "status": "completed",
+          "activeForm": "Designing comprehensive status response structure"
+        },
+        {
+          "content": "Create GET /api/registration-flow/{registration_id}/status endpoint",
+          "status": "completed",
+          "activeForm": "Creating GET /api/registration-flow/{registration_id}/status endpoint"
+        },
+        {
+          "content": "Implement registration data fetching with joins",
+          "status": "completed",
+          "activeForm": "Implementing registration data fetching with joins"
+        },
+        {
+          "content": "Add form data collection with field definitions",
+          "status": "completed",
+          "activeForm": "Adding form data collection with field definitions"
+        },
+        {
+          "content": "Calculate and include financial information",
+          "status": "completed",
+          "activeForm": "Calculating and including financial information"
+        },
+        {
+          "content": "Add authentication and authorization checks",
+          "status": "completed",
+          "activeForm": "Adding authentication and authorization checks"
+        },
+        {
+          "content": "Test the endpoint functionality",
+          "status": "in_progress",
+          "activeForm": "Testing the endpoint functionality"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "KillShell",
+    "tool_input": {
+      "shell_id": "8bc7c0"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "npm start",
+      "description": "Start the server with new registration status endpoint",
+      "run_in_background": true
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "08bcc9"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing registration status retrieval patterns in codebase",
+          "status": "completed",
+          "activeForm": "Analyzing existing registration status retrieval patterns in codebase"
+        },
+        {
+          "content": "Design comprehensive status response structure",
+          "status": "completed",
+          "activeForm": "Designing comprehensive status response structure"
+        },
+        {
+          "content": "Create GET /api/registration-flow/{registration_id}/status endpoint",
+          "status": "completed",
+          "activeForm": "Creating GET /api/registration-flow/{registration_id}/status endpoint"
+        },
+        {
+          "content": "Implement registration data fetching with joins",
+          "status": "completed",
+          "activeForm": "Implementing registration data fetching with joins"
+        },
+        {
+          "content": "Add form data collection with field definitions",
+          "status": "completed",
+          "activeForm": "Adding form data collection with field definitions"
+        },
+        {
+          "content": "Calculate and include financial information",
+          "status": "completed",
+          "activeForm": "Calculating and including financial information"
+        },
+        {
+          "content": "Add authentication and authorization checks",
+          "status": "completed",
+          "activeForm": "Adding authentication and authorization checks"
+        },
+        {
+          "content": "Test the endpoint functionality",
+          "status": "completed",
+          "activeForm": "Testing the endpoint functionality"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__mark_work_order_complete",
+    "tool_input": {
+      "work_order_number": "052"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "08bcc9"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "8bc7c0"
+    }
   }
 ]
