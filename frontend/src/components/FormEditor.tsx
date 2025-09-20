@@ -5,13 +5,18 @@ import {
   Save,
   Plus,
   Settings,
-  Eye,
   ArrowUp,
   ArrowDown,
   Edit,
   Trash2,
   GripVertical,
-  AlertTriangle
+  AlertTriangle,
+  Type,
+  Hash,
+  Mail,
+  Calendar,
+  ChevronDown,
+  AlertCircle as AlertCircleIcon
 } from 'lucide-react'
 import { Button } from './ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
@@ -109,6 +114,15 @@ export default function FormEditor() {
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false)
   const [pendingNavigation, setPendingNavigation] = useState<string | null>(null)
   const [successMessage, setSuccessMessage] = useState('')
+  const [deleteConfirmDialog, setDeleteConfirmDialog] = useState<{
+    isOpen: boolean
+    field: FormField | null
+    index: number | null
+  }>({
+    isOpen: false,
+    field: null,
+    index: null
+  })
   const [fieldEditor, setFieldEditor] = useState<{
     isOpen: boolean
     field: FormField | null
@@ -300,8 +314,89 @@ export default function FormEditor() {
   }
 
   const removeField = (index: number) => {
-    const newFields = fields.filter((_, i) => i !== index)
-    setFields(newFields)
+    const field = fields[index]
+    setDeleteConfirmDialog({
+      isOpen: true,
+      field: field,
+      index: index
+    })
+  }
+
+  const handleDeleteField = async () => {
+    if (deleteConfirmDialog.field && deleteConfirmDialog.index !== null) {
+      try {
+        // If field has a server ID, delete via API
+        if (deleteConfirmDialog.field.id && deleteConfirmDialog.field.id.startsWith('field_')) {
+          await execute(`/api/form-builder/fields/${deleteConfirmDialog.field.id}`, {
+            method: 'DELETE',
+            headers: getAuthHeaders()
+          })
+        }
+
+        // Remove from local state
+        const newFields = fields.filter((_, i) => i !== deleteConfirmDialog.index)
+        setFields(newFields)
+
+        setSuccessMessage('Field deleted successfully!')
+        setTimeout(() => setSuccessMessage(''), 3000)
+      } catch (err) {
+        console.error('Failed to delete field:', err)
+      }
+    }
+
+    setDeleteConfirmDialog({
+      isOpen: false,
+      field: null,
+      index: null
+    })
+  }
+
+  const cancelDeleteField = () => {
+    setDeleteConfirmDialog({
+      isOpen: false,
+      field: null,
+      index: null
+    })
+  }
+
+  const getFieldTypeIcon = (fieldType: string) => {
+    switch (fieldType) {
+      case 'text':
+      case 'textarea':
+        return Type
+      case 'number':
+        return Hash
+      case 'email':
+        return Mail
+      case 'date':
+        return Calendar
+      case 'select':
+      case 'radio':
+      case 'checkbox':
+        return ChevronDown
+      default:
+        return Type
+    }
+  }
+
+  const getFieldTypeColor = (fieldType: string) => {
+    switch (fieldType) {
+      case 'text':
+      case 'textarea':
+        return 'text-blue-600'
+      case 'number':
+        return 'text-green-600'
+      case 'email':
+        return 'text-purple-600'
+      case 'date':
+        return 'text-orange-600'
+      case 'select':
+      case 'radio':
+      case 'checkbox':
+        return 'text-indigo-600'
+      default:
+        return 'text-gray-600'
+    }
   }
 
   const handleAddField = () => {
@@ -532,58 +627,110 @@ export default function FormEditor() {
                   </div>
                 ) : (
                   <div className="space-y-3">
-                    {fields.map((field, index) => (
-                      <motion.div
-                        key={field.id}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors"
-                      >
-                        <div className="flex items-center space-x-3">
-                          <GripVertical className="h-4 w-4 text-gray-400" />
-                          <div>
-                            <p className="font-medium">{field.field_label}</p>
-                            <p className="text-sm text-gray-500">
-                              {field.field_type} • {field.is_required ? 'Required' : 'Optional'}
-                            </p>
-                          </div>
-                        </div>
+                    {fields.map((field, index) => {
+                      const FieldIcon = getFieldTypeIcon(field.field_type)
+                      const fieldTypeColor = getFieldTypeColor(field.field_type)
 
-                        <div className="flex items-center space-x-2">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => moveField(index, 'up')}
-                            disabled={index === 0}
-                          >
-                            <ArrowUp className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => moveField(index, 'down')}
-                            disabled={index === fields.length - 1}
-                          >
-                            <ArrowDown className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleEditField(field)}
-                          >
-                            <Edit className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => removeField(index)}
-                            className="text-red-600 hover:text-red-700"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </motion.div>
-                    ))}
+                      return (
+                        <motion.div
+                          key={field.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="border border-gray-200 rounded-lg hover:border-gray-300 transition-all duration-200 hover:shadow-sm"
+                        >
+                          <div className="p-4">
+                            <div className="flex items-start justify-between">
+                              <div className="flex items-start space-x-3 flex-1">
+                                <GripVertical className="h-4 w-4 text-gray-400 mt-1" />
+                                <div className="flex items-center space-x-2">
+                                  <FieldIcon className={`h-4 w-4 ${fieldTypeColor}`} />
+                                  <div className="flex-1">
+                                    <div className="flex items-center space-x-2">
+                                      <p className="font-medium text-gray-900">{field.field_label}</p>
+                                      {field.is_required && (
+                                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                          <AlertCircleIcon className="h-3 w-3 mr-1" />
+                                          Required
+                                        </span>
+                                      )}
+                                    </div>
+                                    <div className="flex items-center space-x-2 mt-1">
+                                      <span className={`text-sm font-medium ${fieldTypeColor}`}>
+                                        {field.field_type.charAt(0).toUpperCase() + field.field_type.slice(1)}
+                                      </span>
+                                      <span className="text-gray-300">•</span>
+                                      <span className="text-sm text-gray-500">{field.field_name}</span>
+                                    </div>
+                                    {(field.placeholder_text || field.help_text || field.validation_rules?.regex) && (
+                                      <div className="mt-2 space-y-1">
+                                        {field.placeholder_text && (
+                                          <p className="text-xs text-gray-500">
+                                            <span className="font-medium">Placeholder:</span> {field.placeholder_text}
+                                          </p>
+                                        )}
+                                        {field.help_text && (
+                                          <p className="text-xs text-gray-500">
+                                            <span className="font-medium">Help:</span> {field.help_text}
+                                          </p>
+                                        )}
+                                        {field.validation_rules?.regex && (
+                                          <p className="text-xs text-gray-500">
+                                            <span className="font-medium">Validation:</span> {field.validation_rules.regex}
+                                          </p>
+                                        )}
+                                        {field.form_field_options && field.form_field_options.length > 0 && (
+                                          <p className="text-xs text-gray-500">
+                                            <span className="font-medium">Options:</span> {field.form_field_options.length} configured
+                                          </p>
+                                        )}
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div className="flex items-center space-x-2 ml-4">
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => moveField(index, 'up')}
+                                  disabled={index === 0}
+                                  title="Move field up"
+                                >
+                                  <ArrowUp className="h-4 w-4" />
+                                </Button>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => moveField(index, 'down')}
+                                  disabled={index === fields.length - 1}
+                                  title="Move field down"
+                                >
+                                  <ArrowDown className="h-4 w-4" />
+                                </Button>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => handleEditField(field)}
+                                  title="Edit field properties"
+                                >
+                                  <Edit className="h-4 w-4" />
+                                </Button>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => removeField(index)}
+                                  className="text-red-600 hover:text-red-700"
+                                  title="Delete field"
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
+                        </motion.div>
+                      )
+                    })}
                   </div>
                 )}
               </CardContent>
@@ -607,6 +754,31 @@ export default function FormEditor() {
             </Button>
             <Button variant="destructive" onClick={confirmNavigation}>
               Leave Without Saving
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Field Confirmation Dialog */}
+      <Dialog open={deleteConfirmDialog.isOpen} onOpenChange={(open) => !open && cancelDeleteField()}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete Field</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete the field "{deleteConfirmDialog.field?.field_label}"?
+              This action cannot be undone and will permanently remove the field and all its configuration.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-end gap-2 mt-4">
+            <Button variant="outline" onClick={cancelDeleteField}>
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleDeleteField}
+              disabled={loading}
+            >
+              {loading ? 'Deleting...' : 'Delete Field'}
             </Button>
           </div>
         </DialogContent>
