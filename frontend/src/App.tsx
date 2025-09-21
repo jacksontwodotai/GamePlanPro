@@ -26,6 +26,7 @@ import PaymentHistoryDashboard from './components/PaymentHistoryDashboard'
 import FormManagement from './components/FormManagement'
 import FormBuilderDashboard from './components/FormBuilderDashboard'
 import FormEditor from './components/FormEditor'
+import VenueListManagement from './components/VenueListManagement'
 import { AuthProvider } from './contexts/AuthContext'
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
           <Route path="forms" element={<FormBuilderDashboard />} />
           <Route path="forms/new" element={<FormEditor />} />
           <Route path="forms/:formId" element={<FormEditor />} />
+          <Route path="venues" element={<VenueListManagement />} />
         </Route>
         <Route path="/teams" element={<Layout />}>
           <Route index element={<TeamListView />} />

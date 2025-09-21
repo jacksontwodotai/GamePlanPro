@@ -6313,5 +6313,803 @@
       "stderrLines": 4,
       "timestamp": "2025-09-21T22:24:32.407Z"
     }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd ../.. && ls -la",
+      "description": "Navigate up two levels to find frontend"
+    },
+    "tool_response": {
+      "stdout": "total 48\ndrwxr-xr-x@ 21 jacksontumbidge  staff    672 16 Sep 12:37 .\ndrwxr-x---+ 53 jacksontumbidge  staff   1696 22 Sep 08:31 ..\n-rw-r--r--@  1 jacksontumbidge  staff  14340 17 Sep 10:38 .DS_Store\ndrwxr-xr-x@ 30 jacksontumbidge  staff    960  1 Sep 14:38 AgentTracker\ndrwxr-xr-x@ 10 jacksontumbidge  staff    320 13 Sep 17:51 cactus-kingdom\ndrwxr-xr-x@ 26 jacksontumbidge  staff    832  1 Sep 13:04 core-project-pulse\ndrwxr-xr-x@ 61 jacksontumbidge  staff   1952 22 Aug 09:56 dcdpng-content-hub\ndrwxr-xr-x   5 jacksontumbidge  staff    160 18 Jul 13:39 Fishbowl\ndrwxr-xr-x@  4 jacksontumbidge  staff    128 25 Aug 10:17 form-email service (DCDPNG- form subbmission\ndrwxr-xr-x  21 jacksontumbidge  staff    672 25 Aug 12:23 form-email service (DCDPNG- form subbmission \ndrwxr-xr-x@ 20 jacksontumbidge  staff    640 15 Aug 13:06 fresh-page-seed\ndrwxr-xr-x@ 16 jacksontumbidge  staff    512 21 Sep 16:29 GamePlanPro\n-rw-r--r--@  1 jacksontumbidge  staff   5505 15 Jul 16:02 how-to-do-fishbowl.md\ndrwxr-xr-x@ 89 jacksontumbidge  staff   2848  2 Sep 09:00 ISG-supply-intel-agent-DASHBOARD\ndrwxr-xr-x@ 31 jacksontumbidge  staff    992  4 Aug 11:32 Local-Chat\ndrwxr-xr-x@  4 jacksontumbidge  staff    128 20 Aug 10:47 logs\ndrwxr-xr-x@ 32 jacksontumbidge  staff   1024 21 Aug 16:47 marketing-page\ndrwxr-xr-x@ 44 jacksontumbidge  staff   1408 18 Sep 09:08 mono\ndrwxr-xr-x@ 20 jacksontumbidge  staff    640 15 Aug 13:06 neon-vision-reflow\ndrwxr-xr-x@ 24 jacksontumbidge  staff    768 18 Sep 16:53 TwoDot-Obsidian\ndrwxr-xr-x@  8 jacksontumbidge  staff    256 15 Aug 13:06 VibeCoding",
+      "stderr": "Shell cwd was reset to /Users/jacksontumbidge/Projects/GamePlanPro",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la",
+      "description": "Check GamePlanPro directory contents"
+    },
+    "tool_response": {
+      "stdout": "total 888\ndrwxr-xr-x@  16 jacksontumbidge  staff     512 21 Sep 16:29 .\ndrwxr-xr-x@  21 jacksontumbidge  staff     672 16 Sep 12:37 ..\ndrwxr-xr-x@   3 jacksontumbidge  staff      96 16 Sep 13:48 .claude\n-rw-r--r--@   1 jacksontumbidge  staff     253 19 Sep 16:20 .env.sample\ndrwxr-xr-x@  12 jacksontumbidge  staff     384 22 Sep 08:31 .git\n-rw-r--r--@   1 jacksontumbidge  staff     216 17 Sep 14:41 .mcp.json\ndrwxr-xr-x@  25 jacksontumbidge  staff     800 21 Sep 13:54 .playwright-mcp\ndrwxr-xr-x@  17 jacksontumbidge  staff     544 22 Sep 08:30 backend\ndrwxr-xr-x@  25 jacksontumbidge  staff     800 21 Sep 19:54 frontend\n-rw-r--r--@   1 jacksontumbidge  staff   14099 17 Sep 10:46 index.html.backup\ndrwxr-xr-x@   8 jacksontumbidge  staff     256 16 Sep 13:23 logs\ndrwxr-xr-x@ 153 jacksontumbidge  staff    4896 20 Sep 17:11 node_modules\n-rw-r--r--@   1 jacksontumbidge  staff   70635 20 Sep 17:11 package-lock.json\n-rw-r--r--@   1 jacksontumbidge  staff     579 20 Sep 17:11 package.json\n-rw-r--r--@   1 jacksontumbidge  staff    3865 18 Sep 18:51 PAYMENT_API_TESTING.md\n-rw-r--r--@   1 jacksontumbidge  staff  344558 21 Sep 16:29 server.js",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la frontend/",
+      "description": "Check frontend directory"
+    },
+    "tool_response": {
+      "stdout": "total 528\ndrwxr-xr-x@  25 jacksontumbidge  staff     800 21 Sep 19:54 .\ndrwxr-xr-x@  16 jacksontumbidge  staff     512 21 Sep 16:29 ..\n-rw-r--r--@   1 jacksontumbidge  staff      91 19 Sep 16:19 .env.sample\n-rw-r--r--@   1 jacksontumbidge  staff     253 17 Sep 09:04 .gitignore\ndrwxr-xr-x@  19 jacksontumbidge  staff     608 17 Sep 13:39 .playwright-mcp\n-rw-r--r--@   1 jacksontumbidge  staff    3329 21 Sep 17:27 CALENDAR_IMPLEMENTATION.md\ndrwxr-xr-x@   5 jacksontumbidge  staff     160 19 Sep 16:29 dist\n-rw-r--r--@   1 jacksontumbidge  staff     610 17 Sep 09:04 eslint.config.js\n-rw-r--r--@   1 jacksontumbidge  staff    7675 21 Sep 19:54 EVENT_DETAIL_VIEW_IMPLEMENTATION.md\n-rw-r--r--@   1 jacksontumbidge  staff       0 17 Sep 16:33 gameplanpro.db\n-rw-r--r--@   1 jacksontumbidge  staff     366 17 Sep 09:04 index.html\ndrwxr-xr-x@   8 jacksontumbidge  staff     256 17 Sep 13:56 logs\ndrwxr-xr-x@ 233 jacksontumbidge  staff    7456 19 Sep 16:16 node_modules\n-rw-r--r--@   1 jacksontumbidge  staff  197664 19 Sep 16:16 package-lock.json\n-rw-r--r--@   1 jacksontumbidge  staff    1283 19 Sep 16:16 package.json\n-rw-r--r--@   1 jacksontumbidge  staff      79 17 Sep 11:41 postcss.config.js\ndrwxr-xr-x@   3 jacksontumbidge  staff      96 17 Sep 09:04 public\n-rw-r--r--@   1 jacksontumbidge  staff    2269 17 Sep 09:04 README.md\ndrwxr-xr-x@  12 jacksontumbidge  staff     384 20 Sep 15:27 src\n-rw-r--r--@   1 jacksontumbidge  staff    3514 18 Sep 13:14 tailwind.config.js\n-rw-r--r--@   1 jacksontumbidge  staff    5569 21 Sep 19:49 TEAM_SELECTOR_IMPLEMENTATION.md\n-rw-r--r--@   1 jacksontumbidge  staff     796 19 Sep 13:49 tsconfig.app.json\n-rw-r--r--@   1 jacksontumbidge  staff     119 17 Sep 09:04 tsconfig.json\n-rw-r--r--@   1 jacksontumbidge  staff     630 17 Sep 09:04 tsconfig.node.json\n-rw-r--r--@   1 jacksontumbidge  staff     330 21 Sep 16:17 vite.config.ts",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/App.tsx"
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/App.tsx",
+        "content": "import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'\nimport Layout from './components/Layout'\nimport Login from './components/Login'\nimport RegistrationMainDashboard from './components/RegistrationMainDashboard'\nimport TeamManagementDashboard from './components/TeamManagementDashboard'\nimport TeamListView from './components/TeamListView'\nimport PlayerManagementInterface from './components/PlayerManagementInterface'\nimport PlayerProfileDashboard from './components/PlayerProfileDashboard'\nimport PlayerManagementDashboard from './components/PlayerManagementDashboard'\nimport EventSchedulerDashboard from './components/EventSchedulerDashboard'\nimport TeamStructureDashboard from './components/TeamStructureDashboard'\nimport DivisionManagement from './components/DivisionManagement'\nimport AgeGroupManagement from './components/AgeGroupManagement'\nimport SkillLevelManagement from './components/SkillLevelManagement'\nimport TeamRosterManagement from './components/TeamRosterManagement'\nimport AttendanceTracker from './components/AttendanceTracker'\nimport AttendanceReportingDashboard from './components/AttendanceReportingDashboard'\nimport RosterManagementDashboard from './components/RosterManagementDashboard'\nimport ReportGenerationForm from './components/ReportGenerationForm'\nimport ReportsDashboard from './components/ReportsDashboard'\nimport ProgramManagement from './components/ProgramManagement'\nimport RegistrationFlow from './components/RegistrationFlow'\nimport PublicRegistration from './components/PublicRegistration'\nimport RegistrationManagementDashboard from './components/RegistrationManagementDashboard'\nimport PaymentHistoryDashboard from './components/PaymentHistoryDashboard'\nimport FormManagement from './components/FormManagement'\nimport FormBuilderDashboard from './components/FormBuilderDashboard'\nimport FormEditor from './components/FormEditor'\nimport { AuthProvider } from './contexts/AuthContext'\n\nfunction App() {\n  return (\n    <AuthProvider>\n      <Router>\n      <Routes>\n        <Route path=\"/\" element={<Login />} />\n        <Route path=\"/login\" element={<Login />} />\n        <Route path=\"/dashboard\" element={<Layout />}>\n          <Route index element={<RegistrationMainDashboard />} />\n          <Route path=\"teams\" element={<TeamListView />} />\n          <Route path=\"players\" element={<PlayerProfileDashboard />} />\n          <Route path=\"roster\" element={<TeamRosterManagement />} />\n          <Route path=\"teams/create\" element={<TeamListView />} />\n          <Route path=\"players/list\" element={<PlayerManagementInterface />} />\n          <Route path=\"players/create\" element={<PlayerManagementInterface />} />\n          <Route path=\"attendance\" element={<AttendanceTracker />} />\n          <Route path=\"reports/attendance\" element={<AttendanceReportingDashboard />} />\n          <Route path=\"reports/generate\" element={<ReportGenerationForm />} />\n          <Route path=\"roster/dashboard\" element={<RosterManagementDashboard />} />\n          <Route path=\"programs\" element={<ProgramManagement />} />\n          <Route path=\"registrations\" element={<RegistrationManagementDashboard />} />\n          <Route path=\"payments\" element={<PaymentHistoryDashboard />} />\n          <Route path=\"forms\" element={<FormBuilderDashboard />} />\n          <Route path=\"forms/new\" element={<FormEditor />} />\n          <Route path=\"forms/:formId\" element={<FormEditor />} />\n        </Route>\n        <Route path=\"/teams\" element={<Layout />}>\n          <Route index element={<TeamListView />} />\n          <Route path=\"create\" element={<TeamListView />} />\n          <Route path=\"roster\" element={<TeamRosterManagement />} />\n          <Route path=\"roster/dashboard\" element={<RosterManagementDashboard />} />\n          <Route path=\"attendance\" element={<AttendanceTracker />} />\n          <Route path=\"reports/attendance\" element={<AttendanceReportingDashboard />} />\n          <Route path=\"reports/generate\" element={<ReportGenerationForm />} />\n          <Route path=\":id\" element={<TeamListView />} />\n        </Route>\n        <Route path=\"/players\" element={<Layout />}>\n          <Route index element={<PlayerProfileDashboard />} />\n          <Route path=\"list\" element={<PlayerManagementInterface />} />\n          <Route path=\"enhanced\" element={<PlayerManagementDashboard />} />\n          <Route path=\"create\" element={<PlayerManagementInterface />} />\n          <Route path=\":id\" element={<PlayerManagementInterface />} />\n        </Route>\n        <Route path=\"/events/*\" element={<Layout />}>\n          <Route path=\"*\" element={<EventSchedulerDashboard />} />\n        </Route>\n        <Route path=\"/structure\" element={<Layout />}>\n          <Route index element={<TeamStructureDashboard />} />\n          <Route path=\"divisions\" element={<DivisionManagement />} />\n          <Route path=\"age-groups\" element={<AgeGroupManagement />} />\n          <Route path=\"skill-levels\" element={<SkillLevelManagement />} />\n        </Route>\n        <Route path=\"/reports\" element={<Layout />}>\n          <Route index element={<ReportsDashboard />} />\n          <Route path=\"generate\" element={<ReportGenerationForm />} />\n          <Route path=\"roster\" element={<ReportGenerationForm />} />\n          <Route path=\"contacts\" element={<ReportGenerationForm />} />\n          <Route path=\"teams\" element={<ReportGenerationForm />} />\n        </Route>\n        <Route path=\"/programs\" element={<Layout />}>\n          <Route index element={<ProgramManagement />} />\n        </Route>\n        <Route path=\"/register\" element={<RegistrationFlow />} />\n        <Route path=\"/signup\" element={<PublicRegistration />} />\n      </Routes>\n      </Router>\n    </AuthProvider>\n  )\n}\n\nexport default App\n",
+        "numLines": 102,
+        "startLine": 1,
+        "totalLines": 102
+      }
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la frontend/src/",
+      "description": "Check frontend src directory structure"
+    },
+    "tool_response": {
+      "stdout": "total 48\ndrwxr-xr-x@ 12 jacksontumbidge  staff   384 20 Sep 15:27 .\ndrwxr-xr-x@ 25 jacksontumbidge  staff   800 21 Sep 19:54 ..\n-rw-r--r--@  1 jacksontumbidge  staff  5732 20 Sep 15:27 App.tsx\ndrwxr-xr-x@  3 jacksontumbidge  staff    96 17 Sep 09:04 assets\ndrwxr-xr-x@ 63 jacksontumbidge  staff  2016 21 Sep 19:53 components\ndrwxr-xr-x@  4 jacksontumbidge  staff   128 21 Sep 17:22 contexts\ndrwxr-xr-x@  3 jacksontumbidge  staff    96 19 Sep 11:07 data\ndrwxr-xr-x@  3 jacksontumbidge  staff    96 19 Sep 08:46 hooks\n-rw-r--r--@  1 jacksontumbidge  staff  6136 19 Sep 11:00 index.css\ndrwxr-xr-x@  4 jacksontumbidge  staff   128 21 Sep 17:03 lib\n-rw-r--r--@  1 jacksontumbidge  staff   230 19 Sep 11:23 main.tsx\n-rw-r--r--@  1 jacksontumbidge  staff    38 17 Sep 09:04 vite-env.d.ts",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/Layout.tsx"
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/Layout.tsx",
+        "content": "import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'\nimport { Button } from './ui/button'\nimport { Sheet, SheetContent, SheetTrigger } from './ui/sheet'\nimport {\n  Home,\n  Shield,\n  Users,\n  Menu,\n  LogOut,\n  Calendar,\n  Settings,\n  FileText,\n  GraduationCap,\n  FormInput,\n  UserCheck,\n  CreditCard\n} from 'lucide-react'\nimport { cn } from '../lib/utils'\nimport { useAuth } from '../contexts/AuthContext'\n\nconst navigation = [\n  {\n    name: 'Dashboard',\n    href: '/dashboard',\n    icon: Home,\n    roles: ['admin', 'user']\n  },\n  {\n    name: 'Programs',\n    href: '/programs',\n    icon: GraduationCap,\n    roles: ['admin', 'user']\n  },\n  {\n    name: 'Teams',\n    href: '/teams',\n    icon: Shield,\n    roles: ['admin']\n  },\n  {\n    name: 'Players',\n    href: '/players',\n    icon: Users,\n    roles: ['admin']\n  },\n  {\n    name: 'Registrations',\n    href: '/dashboard/registrations',\n    icon: UserCheck,\n    roles: ['admin']\n  },\n  {\n    name: 'Payments',\n    href: '/dashboard/payments',\n    icon: CreditCard,\n    roles: ['admin']\n  },\n  {\n    name: 'Forms',\n    href: '/dashboard/forms',\n    icon: FormInput,\n    roles: ['admin']\n  },\n  {\n    name: 'Reports',\n    href: '/reports',\n    icon: FileText,\n    roles: ['admin']\n  },\n  {\n    name: 'Team Structure',\n    href: '/structure',\n    icon: Settings,\n    roles: ['admin']\n  },\n  {\n    name: 'Events',\n    href: '/events',\n    icon: Calendar,\n    roles: ['admin']\n  },\n]\n\nexport default function Layout() {\n  const location = useLocation()\n  const navigate = useNavigate()\n  const { user, logout, isLoading } = useAuth()\n\n  const handleLogout = () => {\n    logout()\n    navigate('/login')\n  }\n\n  const NavItems = ({ className }: { className?: string }) => {\n    const filteredNavigation = navigation.filter(item =>\n      user && item.roles.includes(user.role)\n    )\n\n    return (\n      <nav className={cn(\"flex flex-col space-y-1\", className)}>\n        {filteredNavigation.map((item) => {\n          // Check for exact match first\n          const isExactMatch = location.pathname === item.href\n\n          // Only show as active if it's an exact match\n          // This prevents parent routes from being highlighted when child routes are active\n          const isActive = isExactMatch\n\n          return (\n            <Button\n              key={item.name}\n              asChild\n              variant=\"ghost\"\n              className={cn(\n                \"justify-start h-12 text-base font-medium transition-all duration-200\",\n                isActive\n                  ? \"bg-orange-50 text-orange-600 border-r-4 border-orange-500 shadow-sm\"\n                  : \"text-zinc-700 hover:bg-zinc-50 hover:text-black\"\n              )}\n            >\n              <Link to={item.href}>\n                <item.icon className=\"mr-3 h-5 w-5\" />\n                {item.name}\n              </Link>\n            </Button>\n          )\n        })}\n      </nav>\n    )\n  }\n\n  return (\n    <div className=\"h-screen flex bg-zinc-900\">\n      {/* Desktop Sidebar */}\n      <div className=\"hidden lg:flex lg:w-72 lg:flex-col\">\n        <div className=\"bg-white border-r border-zinc-200 shadow-xl h-full flex flex-col\">\n          {/* Logo Header */}\n          <div className=\"flex items-center h-20 px-6 border-b border-zinc-100\">\n            <Link to=\"/dashboard\" className=\"flex items-center space-x-3\">\n              <div className=\"w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center shadow-lg\">\n                <Shield className=\"h-6 w-6 text-white\" />\n              </div>\n              <span className=\"text-2xl font-bold text-black\">GamePlanPro</span>\n            </Link>\n          </div>\n\n          {/* Navigation */}\n          <div className=\"flex-1 flex flex-col pt-8 pb-4 overflow-y-auto\">\n            <div className=\"px-6\">\n              <NavItems />\n            </div>\n          </div>\n\n          {/* User Info & Sign Out */}\n          <div className=\"flex-shrink-0 border-t border-zinc-100 p-6\">\n            {user && (\n              <div className=\"mb-4 p-3 bg-gray-50 rounded-lg\">\n                <p className=\"text-sm font-medium text-gray-900\">\n                  {user.firstName} {user.lastName}\n                </p>\n                <p className=\"text-xs text-gray-600\">{user.email}</p>\n                <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium mt-1 ${\n                  user.role === 'admin'\n                    ? 'bg-orange-100 text-orange-800'\n                    : 'bg-blue-100 text-blue-800'\n                }`}>\n                  {user.role.charAt(0).toUpperCase() + user.role.slice(1)}\n                </span>\n              </div>\n            )}\n            <Button\n              variant=\"ghost\"\n              onClick={handleLogout}\n              className=\"w-full justify-start text-zinc-600 hover:text-black hover:bg-zinc-50 h-12 text-base\"\n            >\n              <LogOut className=\"mr-3 h-5 w-5\" />\n              Sign Out\n            </Button>\n          </div>\n        </div>\n      </div>\n\n      {/* Mobile Navigation */}\n      <div className=\"lg:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-zinc-200 shadow-sm\">\n        <div className=\"flex items-center justify-between p-4\">\n          <Link to=\"/dashboard\" className=\"flex items-center space-x-2\">\n            <div className=\"w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center shadow-md\">\n              <Shield className=\"h-5 w-5 text-white\" />\n            </div>\n            <span className=\"text-xl font-bold text-black\">GamePlanPro</span>\n          </Link>\n\n          <Sheet>\n            <SheetTrigger asChild>\n              <Button variant=\"outline\" size=\"icon\" className=\"border-zinc-300 hover:bg-zinc-50\">\n                <Menu className=\"h-5 w-5\" />\n              </Button>\n            </SheetTrigger>\n            <SheetContent side=\"left\" className=\"w-80 p-0\">\n              <div className=\"flex flex-col h-full\">\n                <div className=\"p-6 border-b border-zinc-100\">\n                  <Link to=\"/dashboard\" className=\"flex items-center space-x-3\">\n                    <div className=\"w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center shadow-lg\">\n                      <Shield className=\"h-6 w-6 text-white\" />\n                    </div>\n                    <span className=\"text-2xl font-bold text-black\">GamePlanPro</span>\n                  </Link>\n                </div>\n\n                <div className=\"flex-1 p-6\">\n                  <NavItems />\n                </div>\n\n                <div className=\"border-t border-zinc-100 p-6\">\n                  {user && (\n                    <div className=\"mb-4 p-3 bg-gray-50 rounded-lg\">\n                      <p className=\"text-sm font-medium text-gray-900\">\n                        {user.firstName} {user.lastName}\n                      </p>\n                      <p className=\"text-xs text-gray-600\">{user.email}</p>\n                      <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium mt-1 ${\n                        user.role === 'admin'\n                          ? 'bg-orange-100 text-orange-800'\n                          : 'bg-blue-100 text-blue-800'\n                      }`}>\n                        {user.role.charAt(0).toUpperCase() + user.role.slice(1)}\n                      </span>\n                    </div>\n                  )}\n                  <Button\n                    variant=\"ghost\"\n                    onClick={handleLogout}\n                    className=\"w-full justify-start text-zinc-600 hover:text-black hover:bg-zinc-50 h-12 text-base\"\n                  >\n                    <LogOut className=\"mr-3 h-5 w-5\" />\n                    Sign Out\n                  </Button>\n                </div>\n              </div>\n            </SheetContent>\n          </Sheet>\n        </div>\n      </div>\n\n      {/* Main Content Area */}\n      <div className=\"flex-1 flex flex-col lg:pt-0 pt-20 bg-zinc-900\">\n        <main className=\"flex-1 overflow-y-auto\">\n          <div className=\"p-8 max-w-full\">\n            <Outlet />\n          </div>\n        </main>\n      </div>\n    </div>\n  )\n}",
+        "numLines": 255,
+        "startLine": 1,
+        "totalLines": 255
+      }
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la frontend/src/components/ | head -20",
+      "description": "Check components directory structure"
+    },
+    "tool_response": {
+      "stdout": "total 2704\ndrwxr-xr-x@ 63 jacksontumbidge  staff   2016 21 Sep 19:53 .\ndrwxr-xr-x@ 12 jacksontumbidge  staff    384 20 Sep 15:27 ..\n-rw-r--r--@  1 jacksontumbidge  staff  48980 21 Sep 13:42 AdminPaymentManagementDashboard.tsx\n-rw-r--r--@  1 jacksontumbidge  staff  27151 19 Sep 10:15 AgeGroupManagement.tsx\n-rw-r--r--@  1 jacksontumbidge  staff  23605 19 Sep 10:42 AttendanceReportingDashboard.tsx\n-rw-r--r--@  1 jacksontumbidge  staff  19028 19 Sep 10:39 AttendanceTracker.tsx\n-rw-r--r--@  1 jacksontumbidge  staff  24121 18 Sep 18:07 DivisionManagement.tsx\n-rw-r--r--@  1 jacksontumbidge  staff  34355 21 Sep 16:31 EventCalendar.tsx\n-rw-r--r--@  1 jacksontumbidge  staff  22590 21 Sep 17:26 EventCalendarView.tsx\n-rw-r--r--@  1 jacksontumbidge  staff   8616 19 Sep 08:55 EventDetailsModal.tsx\n-rw-r--r--@  1 jacksontumbidge  staff  18010 21 Sep 19:53 EventDetailView.tsx\n-rw-r--r--@  1 jacksontumbidge  staff   4157 18 Sep 13:39 EventErrorBoundary.tsx\n-rw-r--r--@  1 jacksontumbidge  staff  18418 21 Sep 19:48 EventForm.tsx\n-rw-r--r--@  1 jacksontumbidge  staff  25397 21 Sep 16:34 EventFormComponent.tsx\n-rw-r--r--@  1 jacksontumbidge  staff  13951 19 Sep 11:13 EventListView.tsx\n-rw-r--r--@  1 jacksontumbidge  staff   3973 19 Sep 08:34 EventModal.tsx\n-rw-r--r--@  1 jacksontumbidge  staff  13958 19 Sep 13:45 EventSchedulerDashboard.tsx\n-rw-r--r--@  1 jacksontumbidge  staff  19892 19 Sep 18:20 FieldOptionEditor.tsx\n-rw-r--r--@  1 jacksontumbidge  staff   8718 20 Sep 15:26 FormBuilderDashboard.tsx",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la frontend/src/components/ui/",
+      "description": "Check available UI components"
+    },
+    "tool_response": {
+      "stdout": "total 96\ndrwxr-xr-x@ 12 jacksontumbidge  staff   384 21 Sep 19:47 .\ndrwxr-xr-x@ 63 jacksontumbidge  staff  2016 21 Sep 19:53 ..\n-rw-r--r--@  1 jacksontumbidge  staff  1838 17 Sep 09:46 button.tsx\n-rw-r--r--@  1 jacksontumbidge  staff  1880 17 Sep 09:46 card.tsx\n-rw-r--r--@  1 jacksontumbidge  staff  1618 21 Sep 19:47 checkbox.tsx\n-rw-r--r--@  1 jacksontumbidge  staff  3982 19 Sep 10:47 dialog.tsx\n-rw-r--r--@  1 jacksontumbidge  staff  7280 18 Sep 13:35 dropdown-menu.tsx\n-rw-r--r--@  1 jacksontumbidge  staff   827 17 Sep 09:46 input.tsx\ndrwxr-xr-x@  4 jacksontumbidge  staff   128 17 Sep 09:46 logs\n-rw-r--r--@  1 jacksontumbidge  staff  6058 19 Sep 11:07 phone-input.tsx\n-rw-r--r--@  1 jacksontumbidge  staff  2824 19 Sep 10:29 select.tsx\n-rw-r--r--@  1 jacksontumbidge  staff  4291 17 Sep 09:46 sheet.tsx",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "grep -l \"list\\|table\\|pagina\" frontend/src/components/*.tsx | head -5",
+      "description": "Find existing list/table components for patterns"
+    },
+    "tool_response": {
+      "stdout": "frontend/src/components/AdminPaymentManagementDashboard.tsx\nfrontend/src/components/AgeGroupManagement.tsx\nfrontend/src/components/AttendanceReportingDashboard.tsx\nfrontend/src/components/DivisionManagement.tsx\nfrontend/src/components/EventCalendar.tsx",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/AgeGroupManagement.tsx",
+      "limit": 100
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/AgeGroupManagement.tsx",
+        "content": "import { useEffect, useState } from 'react'\nimport { Button } from './ui/button'\nimport { Input } from './ui/input'\nimport {\n  Dialog,\n  DialogContent,\n  DialogDescription,\n  DialogFooter,\n  DialogHeader,\n  DialogTitle,\n} from './ui/dialog'\nimport { Search, Plus, Edit, Trash2, Users, AlertTriangle, ChevronLeft, ChevronRight, Sparkles, Zap } from 'lucide-react'\nimport { motion, AnimatePresence } from 'framer-motion'\n\ninterface AgeGroup {\n  id: string\n  name: string\n  description?: string\n  min_age?: number\n  max_age?: number\n  created_at: string\n  updated_at: string\n}\n\ninterface AgeGroupFormData {\n  name: string\n  description: string\n  min_age: string\n  max_age: string\n}\n\ninterface Notification {\n  type: 'success' | 'error'\n  message: string\n}\n\nconst containerVariants = {\n  hidden: { opacity: 0 },\n  visible: {\n    opacity: 1,\n    transition: {\n      staggerChildren: 0.1,\n      delayChildren: 0.2\n    }\n  }\n} as const\n\nconst itemVariants = {\n  hidden: { y: 20, opacity: 0 },\n  visible: {\n    y: 0,\n    opacity: 1,\n    transition: {\n      type: \"spring\" as const,\n      stiffness: 100,\n      damping: 15\n    }\n  }\n} as const\n\nconst cardHoverVariants = {\n  rest: { scale: 1 },\n  hover: {\n    scale: 1.02,\n    transition: {\n      type: \"spring\" as const,\n      stiffness: 400,\n      damping: 25\n    }\n  }\n} as const\n\nexport default function AgeGroupManagement() {\n  const [ageGroups, setAgeGroups] = useState<AgeGroup[]>([])\n  const [filteredAgeGroups, setFilteredAgeGroups] = useState<AgeGroup[]>([])\n  const [loading, setLoading] = useState(true)\n  const [error, setError] = useState<string | null>(null)\n  const [searchTerm, setSearchTerm] = useState('')\n  const [currentPage, setCurrentPage] = useState(1)\n  const [totalPages, setTotalPages] = useState(1)\n  const [totalAgeGroups, setTotalAgeGroups] = useState(0)\n  const ageGroupsPerPage = 10\n\n  // Form state\n  const [showCreateForm, setShowCreateForm] = useState(false)\n  const [showEditForm, setShowEditForm] = useState(false)\n  const [showDeleteDialog, setShowDeleteDialog] = useState(false)\n  const [selectedAgeGroup, setSelectedAgeGroup] = useState<AgeGroup | null>(null)\n  const [formData, setFormData] = useState<AgeGroupFormData>({\n    name: '',\n    description: '',\n    min_age: '',\n    max_age: ''\n  })\n  const [formLoading, setFormLoading] = useState(false)\n  const [formErrors, setFormErrors] = useState<Partial<AgeGroupFormData>>({})\n\n  // Notification state\n  const [notification, setNotification] = useState<Notification | null>(null)\n",
+        "numLines": 100,
+        "startLine": 1,
+        "totalLines": 773
+      }
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze frontend structure and existing patterns",
+          "status": "completed",
+          "activeForm": "Analyzing frontend structure and existing patterns"
+        },
+        {
+          "content": "Design venue list component architecture",
+          "status": "in_progress",
+          "activeForm": "Designing venue list component architecture"
+        },
+        {
+          "content": "Implement venue list with pagination",
+          "status": "pending",
+          "activeForm": "Implementing venue list with pagination"
+        },
+        {
+          "content": "Add filtering capabilities",
+          "status": "pending",
+          "activeForm": "Adding filtering capabilities"
+        },
+        {
+          "content": "Implement action buttons (view/edit/delete)",
+          "status": "pending",
+          "activeForm": "Implementing action buttons (view/edit/delete)"
+        },
+        {
+          "content": "Add loading states and error handling",
+          "status": "pending",
+          "activeForm": "Adding loading states and error handling"
+        },
+        {
+          "content": "Integrate with venue API endpoints",
+          "status": "pending",
+          "activeForm": "Integrating with venue API endpoints"
+        },
+        {
+          "content": "Test venue list functionality",
+          "status": "pending",
+          "activeForm": "Testing venue list functionality"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [
+        {
+          "content": "Analyze frontend structure and existing patterns",
+          "status": "in_progress",
+          "activeForm": "Analyzing frontend structure and existing patterns"
+        },
+        {
+          "content": "Design venue list component architecture",
+          "status": "pending",
+          "activeForm": "Designing venue list component architecture"
+        },
+        {
+          "content": "Implement venue list with pagination",
+          "status": "pending",
+          "activeForm": "Implementing venue list with pagination"
+        },
+        {
+          "content": "Add filtering capabilities",
+          "status": "pending",
+          "activeForm": "Adding filtering capabilities"
+        },
+        {
+          "content": "Implement action buttons (view/edit/delete)",
+          "status": "pending",
+          "activeForm": "Implementing action buttons (view/edit/delete)"
+        },
+        {
+          "content": "Add loading states and error handling",
+          "status": "pending",
+          "activeForm": "Adding loading states and error handling"
+        },
+        {
+          "content": "Integrate with venue API endpoints",
+          "status": "pending",
+          "activeForm": "Integrating with venue API endpoints"
+        },
+        {
+          "content": "Test venue list functionality",
+          "status": "pending",
+          "activeForm": "Testing venue list functionality"
+        }
+      ],
+      "newTodos": [
+        {
+          "content": "Analyze frontend structure and existing patterns",
+          "status": "completed",
+          "activeForm": "Analyzing frontend structure and existing patterns"
+        },
+        {
+          "content": "Design venue list component architecture",
+          "status": "in_progress",
+          "activeForm": "Designing venue list component architecture"
+        },
+        {
+          "content": "Implement venue list with pagination",
+          "status": "pending",
+          "activeForm": "Implementing venue list with pagination"
+        },
+        {
+          "content": "Add filtering capabilities",
+          "status": "pending",
+          "activeForm": "Adding filtering capabilities"
+        },
+        {
+          "content": "Implement action buttons (view/edit/delete)",
+          "status": "pending",
+          "activeForm": "Implementing action buttons (view/edit/delete)"
+        },
+        {
+          "content": "Add loading states and error handling",
+          "status": "pending",
+          "activeForm": "Adding loading states and error handling"
+        },
+        {
+          "content": "Integrate with venue API endpoints",
+          "status": "pending",
+          "activeForm": "Integrating with venue API endpoints"
+        },
+        {
+          "content": "Test venue list functionality",
+          "status": "pending",
+          "activeForm": "Testing venue list functionality"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze frontend structure and existing patterns",
+          "status": "completed",
+          "activeForm": "Analyzing frontend structure and existing patterns"
+        },
+        {
+          "content": "Design venue list component architecture",
+          "status": "completed",
+          "activeForm": "Designing venue list component architecture"
+        },
+        {
+          "content": "Implement venue list with pagination",
+          "status": "in_progress",
+          "activeForm": "Implementing venue list with pagination"
+        },
+        {
+          "content": "Add filtering capabilities",
+          "status": "pending",
+          "activeForm": "Adding filtering capabilities"
+        },
+        {
+          "content": "Implement action buttons (view/edit/delete)",
+          "status": "pending",
+          "activeForm": "Implementing action buttons (view/edit/delete)"
+        },
+        {
+          "content": "Add loading states and error handling",
+          "status": "pending",
+          "activeForm": "Adding loading states and error handling"
+        },
+        {
+          "content": "Integrate with venue API endpoints",
+          "status": "pending",
+          "activeForm": "Integrating with venue API endpoints"
+        },
+        {
+          "content": "Test venue list functionality",
+          "status": "pending",
+          "activeForm": "Testing venue list functionality"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [
+        {
+          "content": "Analyze frontend structure and existing patterns",
+          "status": "completed",
+          "activeForm": "Analyzing frontend structure and existing patterns"
+        },
+        {
+          "content": "Design venue list component architecture",
+          "status": "in_progress",
+          "activeForm": "Designing venue list component architecture"
+        },
+        {
+          "content": "Implement venue list with pagination",
+          "status": "pending",
+          "activeForm": "Implementing venue list with pagination"
+        },
+        {
+          "content": "Add filtering capabilities",
+          "status": "pending",
+          "activeForm": "Adding filtering capabilities"
+        },
+        {
+          "content": "Implement action buttons (view/edit/delete)",
+          "status": "pending",
+          "activeForm": "Implementing action buttons (view/edit/delete)"
+        },
+        {
+          "content": "Add loading states and error handling",
+          "status": "pending",
+          "activeForm": "Adding loading states and error handling"
+        },
+        {
+          "content": "Integrate with venue API endpoints",
+          "status": "pending",
+          "activeForm": "Integrating with venue API endpoints"
+        },
+        {
+          "content": "Test venue list functionality",
+          "status": "pending",
+          "activeForm": "Testing venue list functionality"
+        }
+      ],
+      "newTodos": [
+        {
+          "content": "Analyze frontend structure and existing patterns",
+          "status": "completed",
+          "activeForm": "Analyzing frontend structure and existing patterns"
+        },
+        {
+          "content": "Design venue list component architecture",
+          "status": "completed",
+          "activeForm": "Designing venue list component architecture"
+        },
+        {
+          "content": "Implement venue list with pagination",
+          "status": "in_progress",
+          "activeForm": "Implementing venue list with pagination"
+        },
+        {
+          "content": "Add filtering capabilities",
+          "status": "pending",
+          "activeForm": "Adding filtering capabilities"
+        },
+        {
+          "content": "Implement action buttons (view/edit/delete)",
+          "status": "pending",
+          "activeForm": "Implementing action buttons (view/edit/delete)"
+        },
+        {
+          "content": "Add loading states and error handling",
+          "status": "pending",
+          "activeForm": "Adding loading states and error handling"
+        },
+        {
+          "content": "Integrate with venue API endpoints",
+          "status": "pending",
+          "activeForm": "Integrating with venue API endpoints"
+        },
+        {
+          "content": "Test venue list functionality",
+          "status": "pending",
+          "activeForm": "Testing venue list functionality"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Write",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/VenueListManagement.tsx",
+      "content": "import { useEffect, useState } from 'react'\nimport { Button } from './ui/button'\nimport { Input } from './ui/input'\nimport {\n  Dialog,\n  DialogContent,\n  DialogDescription,\n  DialogFooter,\n  DialogHeader,\n  DialogTitle,\n} from './ui/dialog'\nimport {\n  Search,\n  Plus,\n  Edit,\n  Trash2,\n  MapPin,\n  AlertTriangle,\n  ChevronLeft,\n  ChevronRight,\n  Building2,\n  Users,\n  Eye,\n  Filter,\n  X\n} from 'lucide-react'\nimport { motion, AnimatePresence } from 'framer-motion'\n\ninterface Venue {\n  id: string\n  name: string\n  address?: string\n  city?: string\n  state?: string\n  zip_code?: string\n  capacity?: number\n  description?: string\n  is_active: boolean\n  created_at: string\n  updated_at: string\n}\n\ninterface VenueFilters {\n  name: string\n  city: string\n  state: string\n  minCapacity: string\n  maxCapacity: string\n  isActive: boolean | null\n}\n\ninterface Notification {\n  type: 'success' | 'error'\n  message: string\n}\n\nconst containerVariants = {\n  hidden: { opacity: 0 },\n  visible: {\n    opacity: 1,\n    transition: {\n      staggerChildren: 0.1,\n      delayChildren: 0.2\n    }\n  }\n} as const\n\nconst itemVariants = {\n  hidden: { y: 20, opacity: 0 },\n  visible: {\n    y: 0,\n    opacity: 1,\n    transition: {\n      type: \"spring\" as const,\n      stiffness: 100,\n      damping: 15\n    }\n  }\n} as const\n\nconst cardHoverVariants = {\n  rest: { scale: 1 },\n  hover: {\n    scale: 1.02,\n    transition: {\n      type: \"spring\" as const,\n      stiffness: 400,\n      damping: 25\n    }\n  }\n} as const\n\nexport default function VenueListManagement() {\n  const [venues, setVenues] = useState<Venue[]>([])\n  const [filteredVenues, setFilteredVenues] = useState<Venue[]>([])\n  const [loading, setLoading] = useState(true)\n  const [error, setError] = useState<string | null>(null)\n  const [currentPage, setCurrentPage] = useState(1)\n  const [totalPages, setTotalPages] = useState(1)\n  const [totalVenues, setTotalVenues] = useState(0)\n  const venuesPerPage = 12\n\n  // Filter state\n  const [showFilters, setShowFilters] = useState(false)\n  const [filters, setFilters] = useState<VenueFilters>({\n    name: '',\n    city: '',\n    state: '',\n    minCapacity: '',\n    maxCapacity: '',\n    isActive: null\n  })\n\n  // Dialog state\n  const [showDeleteDialog, setShowDeleteDialog] = useState(false)\n  const [selectedVenue, setSelectedVenue] = useState<Venue | null>(null)\n  const [deleteLoading, setDeleteLoading] = useState(false)\n\n  // Notification state\n  const [notification, setNotification] = useState<Notification | null>(null)\n\n  // Mock API functions (to be replaced with actual API calls)\n  const fetchVenues = async (page: number = 1, venueFilters: VenueFilters) => {\n    try {\n      setLoading(true)\n      setError(null)\n\n      // Build query parameters\n      const params = new URLSearchParams({\n        skip: ((page - 1) * venuesPerPage).toString(),\n        limit: venuesPerPage.toString()\n      })\n\n      if (venueFilters.name) params.append('name', venueFilters.name)\n      if (venueFilters.city) params.append('city', venueFilters.city)\n      if (venueFilters.state) params.append('state', venueFilters.state)\n      if (venueFilters.minCapacity) params.append('min_capacity', venueFilters.minCapacity)\n      if (venueFilters.maxCapacity) params.append('max_capacity', venueFilters.maxCapacity)\n      if (venueFilters.isActive !== null) params.append('is_active', venueFilters.isActive.toString())\n\n      const response = await fetch(`/api/venues?${params}`)\n\n      if (!response.ok) {\n        throw new Error('Failed to fetch venues')\n      }\n\n      const data = await response.json()\n\n      // For now, mock the response structure since we don't have pagination metadata\n      setVenues(data)\n      setFilteredVenues(data)\n      setTotalVenues(data.length)\n      setTotalPages(Math.ceil(data.length / venuesPerPage))\n\n    } catch (err) {\n      setError(err instanceof Error ? err.message : 'Failed to fetch venues')\n      showNotification('error', 'Failed to load venues')\n    } finally {\n      setLoading(false)\n    }\n  }\n\n  const deleteVenue = async (venueId: string) => {\n    try {\n      setDeleteLoading(true)\n\n      const response = await fetch(`/api/venues/${venueId}`, {\n        method: 'DELETE'\n      })\n\n      if (!response.ok) {\n        throw new Error('Failed to delete venue')\n      }\n\n      // Remove venue from local state\n      setVenues(prev => prev.filter(venue => venue.id !== venueId))\n      setFilteredVenues(prev => prev.filter(venue => venue.id !== venueId))\n      setTotalVenues(prev => prev - 1)\n\n      showNotification('success', 'Venue deleted successfully')\n      setShowDeleteDialog(false)\n      setSelectedVenue(null)\n\n    } catch (err) {\n      const message = err instanceof Error ? err.message : 'Failed to delete venue'\n      setError(message)\n      showNotification('error', message)\n    } finally {\n      setDeleteLoading(false)\n    }\n  }\n\n  const showNotification = (type: 'success' | 'error', message: string) => {\n    setNotification({ type, message })\n    setTimeout(() => setNotification(null), 5000)\n  }\n\n  const handleFilterChange = (key: keyof VenueFilters, value: string | boolean | null) => {\n    setFilters(prev => ({ ...prev, [key]: value }))\n  }\n\n  const applyFilters = () => {\n    setCurrentPage(1)\n    fetchVenues(1, filters)\n  }\n\n  const clearFilters = () => {\n    const clearedFilters: VenueFilters = {\n      name: '',\n      city: '',\n      state: '',\n      minCapacity: '',\n      maxCapacity: '',\n      isActive: null\n    }\n    setFilters(clearedFilters)\n    setCurrentPage(1)\n    fetchVenues(1, clearedFilters)\n  }\n\n  const handlePageChange = (page: number) => {\n    setCurrentPage(page)\n    fetchVenues(page, filters)\n    window.scrollTo({ top: 0, behavior: 'smooth' })\n  }\n\n  const handleDeleteClick = (venue: Venue) => {\n    setSelectedVenue(venue)\n    setShowDeleteDialog(true)\n  }\n\n  const handleViewDetails = (venue: Venue) => {\n    // TODO: Navigate to venue details page\n    console.log('View details for venue:', venue.id)\n  }\n\n  const handleEditVenue = (venue: Venue) => {\n    // TODO: Navigate to venue edit page\n    console.log('Edit venue:', venue.id)\n  }\n\n  const handleCreateVenue = () => {\n    // TODO: Navigate to venue creation page\n    console.log('Create new venue')\n  }\n\n  useEffect(() => {\n    fetchVenues(1, filters)\n  }, [])\n\n  const renderPagination = () => {\n    if (totalPages <= 1) return null\n\n    const pages = []\n    const showEllipsis = totalPages > 7\n\n    if (showEllipsis) {\n      // Always show first page\n      pages.push(1)\n\n      // Show ellipsis or pages around current page\n      if (currentPage > 4) {\n        pages.push('...')\n      }\n\n      // Show pages around current page\n      const start = Math.max(2, currentPage - 1)\n      const end = Math.min(totalPages - 1, currentPage + 1)\n\n      for (let i = start; i <= end; i++) {\n        if (!pages.includes(i)) {\n          pages.push(i)\n        }\n      }\n\n      // Show ellipsis before last page if needed\n      if (currentPage < totalPages - 3) {\n        pages.push('...')\n      }\n\n      // Always show last page\n      if (!pages.includes(totalPages)) {\n        pages.push(totalPages)\n      }\n    } else {\n      // Show all pages if 7 or fewer\n      for (let i = 1; i <= totalPages; i++) {\n        pages.push(i)\n      }\n    }\n\n    return (\n      <div className=\"flex items-center justify-center space-x-2 mt-8\">\n        <Button\n          variant=\"outline\"\n          size=\"sm\"\n          onClick={() => handlePageChange(currentPage - 1)}\n          disabled={currentPage === 1}\n          className=\"flex items-center space-x-1\"\n        >\n          <ChevronLeft className=\"h-4 w-4\" />\n          <span>Previous</span>\n        </Button>\n\n        <div className=\"flex space-x-1\">\n          {pages.map((page, index) => (\n            page === '...' ? (\n              <span key={index} className=\"px-3 py-2 text-gray-500\">...</span>\n            ) : (\n              <Button\n                key={page}\n                variant={currentPage === page ? \"default\" : \"outline\"}\n                size=\"sm\"\n                onClick={() => handlePageChange(page as number)}\n                className=\"min-w-[40px]\"\n              >\n                {page}\n              </Button>\n            )\n          ))}\n        </div>\n\n        <Button\n          variant=\"outline\"\n          size=\"sm\"\n          onClick={() => handlePageChange(currentPage + 1)}\n          disabled={currentPage === totalPages}\n          className=\"flex items-center space-x-1\"\n        >\n          <span>Next</span>\n          <ChevronRight className=\"h-4 w-4\" />\n        </Button>\n      </div>\n    )\n  }\n\n  const formatAddress = (venue: Venue) => {\n    const parts = []\n    if (venue.address) parts.push(venue.address)\n    if (venue.city) parts.push(venue.city)\n    if (venue.state) parts.push(venue.state)\n    if (venue.zip_code) parts.push(venue.zip_code)\n    return parts.join(', ') || 'No address provided'\n  }\n\n  return (\n    <motion.div\n      variants={containerVariants}\n      initial=\"hidden\"\n      animate=\"visible\"\n      className=\"space-y-6\"\n    >\n      {/* Header */}\n      <motion.div variants={itemVariants} className=\"flex items-center justify-between\">\n        <div>\n          <h1 className=\"text-3xl font-bold text-white flex items-center space-x-3\">\n            <Building2 className=\"h-8 w-8 text-orange-500\" />\n            <span>Venue Management</span>\n          </h1>\n          <p className=\"text-gray-400 mt-2\">\n            Manage venues and their details, amenities, and availability\n          </p>\n        </div>\n\n        <Button\n          onClick={handleCreateVenue}\n          className=\"bg-orange-500 hover:bg-orange-600 text-white flex items-center space-x-2\"\n        >\n          <Plus className=\"h-4 w-4\" />\n          <span>Create New Venue</span>\n        </Button>\n      </motion.div>\n\n      {/* Notification */}\n      <AnimatePresence>\n        {notification && (\n          <motion.div\n            initial={{ opacity: 0, y: -20 }}\n            animate={{ opacity: 1, y: 0 }}\n            exit={{ opacity: 0, y: -20 }}\n            className={`p-4 rounded-lg ${\n              notification.type === 'success' ? 'bg-green-500' : 'bg-red-500'\n            } text-white`}\n          >\n            {notification.message}\n          </motion.div>\n        )}\n      </AnimatePresence>\n\n      {/* Search and Filters */}\n      <motion.div variants={itemVariants} className=\"bg-zinc-800 rounded-lg p-6 space-y-4\">\n        <div className=\"flex items-center space-x-4\">\n          <div className=\"flex-1 relative\">\n            <Search className=\"absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4\" />\n            <Input\n              placeholder=\"Search venues by name...\"\n              value={filters.name}\n              onChange={(e) => handleFilterChange('name', e.target.value)}\n              onKeyPress={(e) => e.key === 'Enter' && applyFilters()}\n              className=\"pl-10 bg-zinc-700 border-zinc-600 text-white placeholder-gray-400\"\n            />\n          </div>\n\n          <Button\n            variant=\"outline\"\n            onClick={() => setShowFilters(!showFilters)}\n            className=\"flex items-center space-x-2 border-zinc-600 text-gray-300 hover:bg-zinc-700\"\n          >\n            <Filter className=\"h-4 w-4\" />\n            <span>Filters</span>\n            {Object.values(filters).some(value => value !== '' && value !== null) && (\n              <div className=\"w-2 h-2 bg-orange-500 rounded-full\" />\n            )}\n          </Button>\n\n          <Button\n            onClick={applyFilters}\n            className=\"bg-orange-500 hover:bg-orange-600 text-white\"\n          >\n            Search\n          </Button>\n        </div>\n\n        {/* Advanced Filters */}\n        <AnimatePresence>\n          {showFilters && (\n            <motion.div\n              initial={{ height: 0, opacity: 0 }}\n              animate={{ height: 'auto', opacity: 1 }}\n              exit={{ height: 0, opacity: 0 }}\n              transition={{ duration: 0.3 }}\n              className=\"overflow-hidden\"\n            >\n              <div className=\"pt-4 border-t border-zinc-700 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4\">\n                <div>\n                  <label className=\"block text-sm font-medium text-gray-300 mb-2\">City</label>\n                  <Input\n                    placeholder=\"Enter city\"\n                    value={filters.city}\n                    onChange={(e) => handleFilterChange('city', e.target.value)}\n                    className=\"bg-zinc-700 border-zinc-600 text-white placeholder-gray-400\"\n                  />\n                </div>\n\n                <div>\n                  <label className=\"block text-sm font-medium text-gray-300 mb-2\">State</label>\n                  <Input\n                    placeholder=\"Enter state\"\n                    value={filters.state}\n                    onChange={(e) => handleFilterChange('state', e.target.value)}\n                    className=\"bg-zinc-700 border-zinc-600 text-white placeholder-gray-400\"\n                  />\n                </div>\n\n                <div>\n                  <label className=\"block text-sm font-medium text-gray-300 mb-2\">Min Capacity</label>\n                  <Input\n                    type=\"number\"\n                    placeholder=\"0\"\n                    value={filters.minCapacity}\n                    onChange={(e) => handleFilterChange('minCapacity', e.target.value)}\n                    className=\"bg-zinc-700 border-zinc-600 text-white placeholder-gray-400\"\n                  />\n                </div>\n\n                <div>\n                  <label className=\"block text-sm font-medium text-gray-300 mb-2\">Max Capacity</label>\n                  <Input\n                    type=\"number\"\n                    placeholder=\"Unlimited\"\n                    value={filters.maxCapacity}\n                    onChange={(e) => handleFilterChange('maxCapacity', e.target.value)}\n                    className=\"bg-zinc-700 border-zinc-600 text-white placeholder-gray-400\"\n                  />\n                </div>\n              </div>\n\n              <div className=\"flex items-center justify-between mt-4\">\n                <div className=\"flex items-center space-x-4\">\n                  <label className=\"text-sm font-medium text-gray-300\">Status:</label>\n                  <Button\n                    variant={filters.isActive === null ? \"default\" : \"outline\"}\n                    size=\"sm\"\n                    onClick={() => handleFilterChange('isActive', null)}\n                    className=\"h-8\"\n                  >\n                    All\n                  </Button>\n                  <Button\n                    variant={filters.isActive === true ? \"default\" : \"outline\"}\n                    size=\"sm\"\n                    onClick={() => handleFilterChange('isActive', true)}\n                    className=\"h-8\"\n                  >\n                    Active\n                  </Button>\n                  <Button\n                    variant={filters.isActive === false ? \"default\" : \"outline\"}\n                    size=\"sm\"\n                    onClick={() => handleFilterChange('isActive', false)}\n                    className=\"h-8\"\n                  >\n                    Inactive\n                  </Button>\n                </div>\n\n                <Button\n                  variant=\"ghost\"\n                  size=\"sm\"\n                  onClick={clearFilters}\n                  className=\"text-gray-400 hover:text-white flex items-center space-x-1\"\n                >\n                  <X className=\"h-4 w-4\" />\n                  <span>Clear Filters</span>\n                </Button>\n              </div>\n            </motion.div>\n          )}\n        </AnimatePresence>\n      </motion.div>\n\n      {/* Results Summary */}\n      {!loading && (\n        <motion.div variants={itemVariants} className=\"text-gray-400 text-sm\">\n          Showing {filteredVenues.length} of {totalVenues} venues\n          {filters.name && ` matching \"${filters.name}\"`}\n        </motion.div>\n      )}\n\n      {/* Loading State */}\n      {loading && (\n        <motion.div variants={itemVariants} className=\"flex items-center justify-center py-12\">\n          <div className=\"text-center\">\n            <div className=\"animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500 mx-auto mb-4\"></div>\n            <p className=\"text-gray-400\">Loading venues...</p>\n          </div>\n        </motion.div>\n      )}\n\n      {/* Error State */}\n      {error && !loading && (\n        <motion.div variants={itemVariants} className=\"text-center py-12\">\n          <AlertTriangle className=\"h-12 w-12 text-red-500 mx-auto mb-4\" />\n          <h3 className=\"text-lg font-medium text-white mb-2\">Error Loading Venues</h3>\n          <p className=\"text-gray-400 mb-4\">{error}</p>\n          <Button\n            onClick={() => fetchVenues(currentPage, filters)}\n            className=\"bg-orange-500 hover:bg-orange-600 text-white\"\n          >\n            Try Again\n          </Button>\n        </motion.div>\n      )}\n\n      {/* Empty State */}\n      {!loading && !error && filteredVenues.length === 0 && (\n        <motion.div variants={itemVariants} className=\"text-center py-12\">\n          <Building2 className=\"h-12 w-12 text-gray-500 mx-auto mb-4\" />\n          <h3 className=\"text-lg font-medium text-white mb-2\">No Venues Found</h3>\n          <p className=\"text-gray-400 mb-4\">\n            {Object.values(filters).some(value => value !== '' && value !== null)\n              ? \"No venues match your current filters. Try adjusting your search criteria.\"\n              : \"Get started by creating your first venue.\"\n            }\n          </p>\n          {Object.values(filters).some(value => value !== '' && value !== null) ? (\n            <Button\n              variant=\"outline\"\n              onClick={clearFilters}\n              className=\"border-zinc-600 text-gray-300 hover:bg-zinc-700\"\n            >\n              Clear Filters\n            </Button>\n          ) : (\n            <Button\n              onClick={handleCreateVenue}\n              className=\"bg-orange-500 hover:bg-orange-600 text-white\"\n            >\n              Create Your First Venue\n            </Button>\n          )}\n        </motion.div>\n      )}\n\n      {/* Venues Grid */}\n      {!loading && !error && filteredVenues.length > 0 && (\n        <motion.div\n          variants={containerVariants}\n          className=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6\"\n        >\n          {filteredVenues.map((venue) => (\n            <motion.div\n              key={venue.id}\n              variants={itemVariants}\n              whileHover=\"hover\"\n              initial=\"rest\"\n              animate=\"rest\"\n            >\n              <motion.div\n                variants={cardHoverVariants}\n                className=\"bg-zinc-800 rounded-lg p-6 border border-zinc-700 hover:border-zinc-600 transition-colors\"\n              >\n                {/* Venue Header */}\n                <div className=\"flex items-start justify-between mb-4\">\n                  <div className=\"flex-1\">\n                    <h3 className=\"text-lg font-semibold text-white mb-1\">{venue.name}</h3>\n                    <div className=\"flex items-center space-x-2\">\n                      <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${\n                        venue.is_active\n                          ? 'bg-green-100 text-green-800'\n                          : 'bg-red-100 text-red-800'\n                      }`}>\n                        {venue.is_active ? 'Active' : 'Inactive'}\n                      </span>\n                      {venue.capacity && (\n                        <span className=\"inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800\">\n                          <Users className=\"h-3 w-3 mr-1\" />\n                          {venue.capacity}\n                        </span>\n                      )}\n                    </div>\n                  </div>\n                </div>\n\n                {/* Address */}\n                <div className=\"mb-4\">\n                  <div className=\"flex items-start space-x-2 text-gray-400\">\n                    <MapPin className=\"h-4 w-4 mt-0.5 flex-shrink-0\" />\n                    <span className=\"text-sm\">{formatAddress(venue)}</span>\n                  </div>\n                </div>\n\n                {/* Description */}\n                {venue.description && (\n                  <div className=\"mb-4\">\n                    <p className=\"text-gray-400 text-sm line-clamp-2\">{venue.description}</p>\n                  </div>\n                )}\n\n                {/* Actions */}\n                <div className=\"flex items-center space-x-2 pt-4 border-t border-zinc-700\">\n                  <Button\n                    variant=\"outline\"\n                    size=\"sm\"\n                    onClick={() => handleViewDetails(venue)}\n                    className=\"flex-1 border-zinc-600 text-gray-300 hover:bg-zinc-700\"\n                  >\n                    <Eye className=\"h-4 w-4 mr-1\" />\n                    View\n                  </Button>\n                  <Button\n                    variant=\"outline\"\n                    size=\"sm\"\n                    onClick={() => handleEditVenue(venue)}\n                    className=\"flex-1 border-zinc-600 text-gray-300 hover:bg-zinc-700\"\n                  >\n                    <Edit className=\"h-4 w-4 mr-1\" />\n                    Edit\n                  </Button>\n                  <Button\n                    variant=\"outline\"\n                    size=\"sm\"\n                    onClick={() => handleDeleteClick(venue)}\n                    className=\"border-red-600 text-red-400 hover:bg-red-600 hover:text-white\"\n                  >\n                    <Trash2 className=\"h-4 w-4\" />\n                  </Button>\n                </div>\n              </motion.div>\n            </motion.div>\n          ))}\n        </motion.div>\n      )}\n\n      {/* Pagination */}\n      {!loading && !error && filteredVenues.length > 0 && renderPagination()}\n\n      {/* Delete Confirmation Dialog */}\n      <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>\n        <DialogContent className=\"bg-zinc-800 border-zinc-700\">\n          <DialogHeader>\n            <DialogTitle className=\"text-white flex items-center space-x-2\">\n              <AlertTriangle className=\"h-5 w-5 text-red-500\" />\n              <span>Delete Venue</span>\n            </DialogTitle>\n            <DialogDescription className=\"text-gray-400\">\n              Are you sure you want to delete \"{selectedVenue?.name}\"? This action cannot be undone.\n              {selectedVenue && (\n                <div className=\"mt-3 p-3 bg-yellow-50 border border-yellow-200 rounded-md\">\n                  <p className=\"text-sm text-yellow-800\">\n                    <strong>Warning:</strong> Deleting this venue may affect scheduled events and other related data.\n                  </p>\n                </div>\n              )}\n            </DialogDescription>\n          </DialogHeader>\n          <DialogFooter>\n            <Button\n              variant=\"outline\"\n              onClick={() => setShowDeleteDialog(false)}\n              disabled={deleteLoading}\n              className=\"border-zinc-600 text-gray-300 hover:bg-zinc-700\"\n            >\n              Cancel\n            </Button>\n            <Button\n              variant=\"destructive\"\n              onClick={() => selectedVenue && deleteVenue(selectedVenue.id)}\n              disabled={deleteLoading}\n              className=\"bg-red-600 hover:bg-red-700\"\n            >\n              {deleteLoading ? (\n                <div className=\"flex items-center space-x-2\">\n                  <div className=\"animate-spin rounded-full h-4 w-4 border-b-2 border-white\"></div>\n                  <span>Deleting...</span>\n                </div>\n              ) : (\n                'Delete Venue'\n              )}\n            </Button>\n          </DialogFooter>\n        </DialogContent>\n      </Dialog>\n    </motion.div>\n  )\n}"
+    },
+    "tool_response": {
+      "type": "create",
+      "filePath": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/VenueListManagement.tsx",
+      "content": "import { useEffect, useState } from 'react'\nimport { Button } from './ui/button'\nimport { Input } from './ui/input'\nimport {\n  Dialog,\n  DialogContent,\n  DialogDescription,\n  DialogFooter,\n  DialogHeader,\n  DialogTitle,\n} from './ui/dialog'\nimport {\n  Search,\n  Plus,\n  Edit,\n  Trash2,\n  MapPin,\n  AlertTriangle,\n  ChevronLeft,\n  ChevronRight,\n  Building2,\n  Users,\n  Eye,\n  Filter,\n  X\n} from 'lucide-react'\nimport { motion, AnimatePresence } from 'framer-motion'\n\ninterface Venue {\n  id: string\n  name: string\n  address?: string\n  city?: string\n  state?: string\n  zip_code?: string\n  capacity?: number\n  description?: string\n  is_active: boolean\n  created_at: string\n  updated_at: string\n}\n\ninterface VenueFilters {\n  name: string\n  city: string\n  state: string\n  minCapacity: string\n  maxCapacity: string\n  isActive: boolean | null\n}\n\ninterface Notification {\n  type: 'success' | 'error'\n  message: string\n}\n\nconst containerVariants = {\n  hidden: { opacity: 0 },\n  visible: {\n    opacity: 1,\n    transition: {\n      staggerChildren: 0.1,\n      delayChildren: 0.2\n    }\n  }\n} as const\n\nconst itemVariants = {\n  hidden: { y: 20, opacity: 0 },\n  visible: {\n    y: 0,\n    opacity: 1,\n    transition: {\n      type: \"spring\" as const,\n      stiffness: 100,\n      damping: 15\n    }\n  }\n} as const\n\nconst cardHoverVariants = {\n  rest: { scale: 1 },\n  hover: {\n    scale: 1.02,\n    transition: {\n      type: \"spring\" as const,\n      stiffness: 400,\n      damping: 25\n    }\n  }\n} as const\n\nexport default function VenueListManagement() {\n  const [venues, setVenues] = useState<Venue[]>([])\n  const [filteredVenues, setFilteredVenues] = useState<Venue[]>([])\n  const [loading, setLoading] = useState(true)\n  const [error, setError] = useState<string | null>(null)\n  const [currentPage, setCurrentPage] = useState(1)\n  const [totalPages, setTotalPages] = useState(1)\n  const [totalVenues, setTotalVenues] = useState(0)\n  const venuesPerPage = 12\n\n  // Filter state\n  const [showFilters, setShowFilters] = useState(false)\n  const [filters, setFilters] = useState<VenueFilters>({\n    name: '',\n    city: '',\n    state: '',\n    minCapacity: '',\n    maxCapacity: '',\n    isActive: null\n  })\n\n  // Dialog state\n  const [showDeleteDialog, setShowDeleteDialog] = useState(false)\n  const [selectedVenue, setSelectedVenue] = useState<Venue | null>(null)\n  const [deleteLoading, setDeleteLoading] = useState(false)\n\n  // Notification state\n  const [notification, setNotification] = useState<Notification | null>(null)\n\n  // Mock API functions (to be replaced with actual API calls)\n  const fetchVenues = async (page: number = 1, venueFilters: VenueFilters) => {\n    try {\n      setLoading(true)\n      setError(null)\n\n      // Build query parameters\n      const params = new URLSearchParams({\n        skip: ((page - 1) * venuesPerPage).toString(),\n        limit: venuesPerPage.toString()\n      })\n\n      if (venueFilters.name) params.append('name', venueFilters.name)\n      if (venueFilters.city) params.append('city', venueFilters.city)\n      if (venueFilters.state) params.append('state', venueFilters.state)\n      if (venueFilters.minCapacity) params.append('min_capacity', venueFilters.minCapacity)\n      if (venueFilters.maxCapacity) params.append('max_capacity', venueFilters.maxCapacity)\n      if (venueFilters.isActive !== null) params.append('is_active', venueFilters.isActive.toString())\n\n      const response = await fetch(`/api/venues?${params}`)\n\n      if (!response.ok) {\n        throw new Error('Failed to fetch venues')\n      }\n\n      const data = await response.json()\n\n      // For now, mock the response structure since we don't have pagination metadata\n      setVenues(data)\n      setFilteredVenues(data)\n      setTotalVenues(data.length)\n      setTotalPages(Math.ceil(data.length / venuesPerPage))\n\n    } catch (err) {\n      setError(err instanceof Error ? err.message : 'Failed to fetch venues')\n      showNotification('error', 'Failed to load venues')\n    } finally {\n      setLoading(false)\n    }\n  }\n\n  const deleteVenue = async (venueId: string) => {\n    try {\n      setDeleteLoading(true)\n\n      const response = await fetch(`/api/venues/${venueId}`, {\n        method: 'DELETE'\n      })\n\n      if (!response.ok) {\n        throw new Error('Failed to delete venue')\n      }\n\n      // Remove venue from local state\n      setVenues(prev => prev.filter(venue => venue.id !== venueId))\n      setFilteredVenues(prev => prev.filter(venue => venue.id !== venueId))\n      setTotalVenues(prev => prev - 1)\n\n      showNotification('success', 'Venue deleted successfully')\n      setShowDeleteDialog(false)\n      setSelectedVenue(null)\n\n    } catch (err) {\n      const message = err instanceof Error ? err.message : 'Failed to delete venue'\n      setError(message)\n      showNotification('error', message)\n    } finally {\n      setDeleteLoading(false)\n    }\n  }\n\n  const showNotification = (type: 'success' | 'error', message: string) => {\n    setNotification({ type, message })\n    setTimeout(() => setNotification(null), 5000)\n  }\n\n  const handleFilterChange = (key: keyof VenueFilters, value: string | boolean | null) => {\n    setFilters(prev => ({ ...prev, [key]: value }))\n  }\n\n  const applyFilters = () => {\n    setCurrentPage(1)\n    fetchVenues(1, filters)\n  }\n\n  const clearFilters = () => {\n    const clearedFilters: VenueFilters = {\n      name: '',\n      city: '',\n      state: '',\n      minCapacity: '',\n      maxCapacity: '',\n      isActive: null\n    }\n    setFilters(clearedFilters)\n    setCurrentPage(1)\n    fetchVenues(1, clearedFilters)\n  }\n\n  const handlePageChange = (page: number) => {\n    setCurrentPage(page)\n    fetchVenues(page, filters)\n    window.scrollTo({ top: 0, behavior: 'smooth' })\n  }\n\n  const handleDeleteClick = (venue: Venue) => {\n    setSelectedVenue(venue)\n    setShowDeleteDialog(true)\n  }\n\n  const handleViewDetails = (venue: Venue) => {\n    // TODO: Navigate to venue details page\n    console.log('View details for venue:', venue.id)\n  }\n\n  const handleEditVenue = (venue: Venue) => {\n    // TODO: Navigate to venue edit page\n    console.log('Edit venue:', venue.id)\n  }\n\n  const handleCreateVenue = () => {\n    // TODO: Navigate to venue creation page\n    console.log('Create new venue')\n  }\n\n  useEffect(() => {\n    fetchVenues(1, filters)\n  }, [])\n\n  const renderPagination = () => {\n    if (totalPages <= 1) return null\n\n    const pages = []\n    const showEllipsis = totalPages > 7\n\n    if (showEllipsis) {\n      // Always show first page\n      pages.push(1)\n\n      // Show ellipsis or pages around current page\n      if (currentPage > 4) {\n        pages.push('...')\n      }\n\n      // Show pages around current page\n      const start = Math.max(2, currentPage - 1)\n      const end = Math.min(totalPages - 1, currentPage + 1)\n\n      for (let i = start; i <= end; i++) {\n        if (!pages.includes(i)) {\n          pages.push(i)\n        }\n      }\n\n      // Show ellipsis before last page if needed\n      if (currentPage < totalPages - 3) {\n        pages.push('...')\n      }\n\n      // Always show last page\n      if (!pages.includes(totalPages)) {\n        pages.push(totalPages)\n      }\n    } else {\n      // Show all pages if 7 or fewer\n      for (let i = 1; i <= totalPages; i++) {\n        pages.push(i)\n      }\n    }\n\n    return (\n      <div className=\"flex items-center justify-center space-x-2 mt-8\">\n        <Button\n          variant=\"outline\"\n          size=\"sm\"\n          onClick={() => handlePageChange(currentPage - 1)}\n          disabled={currentPage === 1}\n          className=\"flex items-center space-x-1\"\n        >\n          <ChevronLeft className=\"h-4 w-4\" />\n          <span>Previous</span>\n        </Button>\n\n        <div className=\"flex space-x-1\">\n          {pages.map((page, index) => (\n            page === '...' ? (\n              <span key={index} className=\"px-3 py-2 text-gray-500\">...</span>\n            ) : (\n              <Button\n                key={page}\n                variant={currentPage === page ? \"default\" : \"outline\"}\n                size=\"sm\"\n                onClick={() => handlePageChange(page as number)}\n                className=\"min-w-[40px]\"\n              >\n                {page}\n              </Button>\n            )\n          ))}\n        </div>\n\n        <Button\n          variant=\"outline\"\n          size=\"sm\"\n          onClick={() => handlePageChange(currentPage + 1)}\n          disabled={currentPage === totalPages}\n          className=\"flex items-center space-x-1\"\n        >\n          <span>Next</span>\n          <ChevronRight className=\"h-4 w-4\" />\n        </Button>\n      </div>\n    )\n  }\n\n  const formatAddress = (venue: Venue) => {\n    const parts = []\n    if (venue.address) parts.push(venue.address)\n    if (venue.city) parts.push(venue.city)\n    if (venue.state) parts.push(venue.state)\n    if (venue.zip_code) parts.push(venue.zip_code)\n    return parts.join(', ') || 'No address provided'\n  }\n\n  return (\n    <motion.div\n      variants={containerVariants}\n      initial=\"hidden\"\n      animate=\"visible\"\n      className=\"space-y-6\"\n    >\n      {/* Header */}\n      <motion.div variants={itemVariants} className=\"flex items-center justify-between\">\n        <div>\n          <h1 className=\"text-3xl font-bold text-white flex items-center space-x-3\">\n            <Building2 className=\"h-8 w-8 text-orange-500\" />\n            <span>Venue Management</span>\n          </h1>\n          <p className=\"text-gray-400 mt-2\">\n            Manage venues and their details, amenities, and availability\n          </p>\n        </div>\n\n        <Button\n          onClick={handleCreateVenue}\n          className=\"bg-orange-500 hover:bg-orange-600 text-white flex items-center space-x-2\"\n        >\n          <Plus className=\"h-4 w-4\" />\n          <span>Create New Venue</span>\n        </Button>\n      </motion.div>\n\n      {/* Notification */}\n      <AnimatePresence>\n        {notification && (\n          <motion.div\n            initial={{ opacity: 0, y: -20 }}\n            animate={{ opacity: 1, y: 0 }}\n            exit={{ opacity: 0, y: -20 }}\n            className={`p-4 rounded-lg ${\n              notification.type === 'success' ? 'bg-green-500' : 'bg-red-500'\n            } text-white`}\n          >\n            {notification.message}\n          </motion.div>\n        )}\n      </AnimatePresence>\n\n      {/* Search and Filters */}\n      <motion.div variants={itemVariants} className=\"bg-zinc-800 rounded-lg p-6 space-y-4\">\n        <div className=\"flex items-center space-x-4\">\n          <div className=\"flex-1 relative\">\n            <Search className=\"absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4\" />\n            <Input\n              placeholder=\"Search venues by name...\"\n              value={filters.name}\n              onChange={(e) => handleFilterChange('name', e.target.value)}\n              onKeyPress={(e) => e.key === 'Enter' && applyFilters()}\n              className=\"pl-10 bg-zinc-700 border-zinc-600 text-white placeholder-gray-400\"\n            />\n          </div>\n\n          <Button\n            variant=\"outline\"\n            onClick={() => setShowFilters(!showFilters)}\n            className=\"flex items-center space-x-2 border-zinc-600 text-gray-300 hover:bg-zinc-700\"\n          >\n            <Filter className=\"h-4 w-4\" />\n            <span>Filters</span>\n            {Object.values(filters).some(value => value !== '' && value !== null) && (\n              <div className=\"w-2 h-2 bg-orange-500 rounded-full\" />\n            )}\n          </Button>\n\n          <Button\n            onClick={applyFilters}\n            className=\"bg-orange-500 hover:bg-orange-600 text-white\"\n          >\n            Search\n          </Button>\n        </div>\n\n        {/* Advanced Filters */}\n        <AnimatePresence>\n          {showFilters && (\n            <motion.div\n              initial={{ height: 0, opacity: 0 }}\n              animate={{ height: 'auto', opacity: 1 }}\n              exit={{ height: 0, opacity: 0 }}\n              transition={{ duration: 0.3 }}\n              className=\"overflow-hidden\"\n            >\n              <div className=\"pt-4 border-t border-zinc-700 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4\">\n                <div>\n                  <label className=\"block text-sm font-medium text-gray-300 mb-2\">City</label>\n                  <Input\n                    placeholder=\"Enter city\"\n                    value={filters.city}\n                    onChange={(e) => handleFilterChange('city', e.target.value)}\n                    className=\"bg-zinc-700 border-zinc-600 text-white placeholder-gray-400\"\n                  />\n                </div>\n\n                <div>\n                  <label className=\"block text-sm font-medium text-gray-300 mb-2\">State</label>\n                  <Input\n                    placeholder=\"Enter state\"\n                    value={filters.state}\n                    onChange={(e) => handleFilterChange('state', e.target.value)}\n                    className=\"bg-zinc-700 border-zinc-600 text-white placeholder-gray-400\"\n                  />\n                </div>\n\n                <div>\n                  <label className=\"block text-sm font-medium text-gray-300 mb-2\">Min Capacity</label>\n                  <Input\n                    type=\"number\"\n                    placeholder=\"0\"\n                    value={filters.minCapacity}\n                    onChange={(e) => handleFilterChange('minCapacity', e.target.value)}\n                    className=\"bg-zinc-700 border-zinc-600 text-white placeholder-gray-400\"\n                  />\n                </div>\n\n                <div>\n                  <label className=\"block text-sm font-medium text-gray-300 mb-2\">Max Capacity</label>\n                  <Input\n                    type=\"number\"\n                    placeholder=\"Unlimited\"\n                    value={filters.maxCapacity}\n                    onChange={(e) => handleFilterChange('maxCapacity', e.target.value)}\n                    className=\"bg-zinc-700 border-zinc-600 text-white placeholder-gray-400\"\n                  />\n                </div>\n              </div>\n\n              <div className=\"flex items-center justify-between mt-4\">\n                <div className=\"flex items-center space-x-4\">\n                  <label className=\"text-sm font-medium text-gray-300\">Status:</label>\n                  <Button\n                    variant={filters.isActive === null ? \"default\" : \"outline\"}\n                    size=\"sm\"\n                    onClick={() => handleFilterChange('isActive', null)}\n                    className=\"h-8\"\n                  >\n                    All\n                  </Button>\n                  <Button\n                    variant={filters.isActive === true ? \"default\" : \"outline\"}\n                    size=\"sm\"\n                    onClick={() => handleFilterChange('isActive', true)}\n                    className=\"h-8\"\n                  >\n                    Active\n                  </Button>\n                  <Button\n                    variant={filters.isActive === false ? \"default\" : \"outline\"}\n                    size=\"sm\"\n                    onClick={() => handleFilterChange('isActive', false)}\n                    className=\"h-8\"\n                  >\n                    Inactive\n                  </Button>\n                </div>\n\n                <Button\n                  variant=\"ghost\"\n                  size=\"sm\"\n                  onClick={clearFilters}\n                  className=\"text-gray-400 hover:text-white flex items-center space-x-1\"\n                >\n                  <X className=\"h-4 w-4\" />\n                  <span>Clear Filters</span>\n                </Button>\n              </div>\n            </motion.div>\n          )}\n        </AnimatePresence>\n      </motion.div>\n\n      {/* Results Summary */}\n      {!loading && (\n        <motion.div variants={itemVariants} className=\"text-gray-400 text-sm\">\n          Showing {filteredVenues.length} of {totalVenues} venues\n          {filters.name && ` matching \"${filters.name}\"`}\n        </motion.div>\n      )}\n\n      {/* Loading State */}\n      {loading && (\n        <motion.div variants={itemVariants} className=\"flex items-center justify-center py-12\">\n          <div className=\"text-center\">\n            <div className=\"animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500 mx-auto mb-4\"></div>\n            <p className=\"text-gray-400\">Loading venues...</p>\n          </div>\n        </motion.div>\n      )}\n\n      {/* Error State */}\n      {error && !loading && (\n        <motion.div variants={itemVariants} className=\"text-center py-12\">\n          <AlertTriangle className=\"h-12 w-12 text-red-500 mx-auto mb-4\" />\n          <h3 className=\"text-lg font-medium text-white mb-2\">Error Loading Venues</h3>\n          <p className=\"text-gray-400 mb-4\">{error}</p>\n          <Button\n            onClick={() => fetchVenues(currentPage, filters)}\n            className=\"bg-orange-500 hover:bg-orange-600 text-white\"\n          >\n            Try Again\n          </Button>\n        </motion.div>\n      )}\n\n      {/* Empty State */}\n      {!loading && !error && filteredVenues.length === 0 && (\n        <motion.div variants={itemVariants} className=\"text-center py-12\">\n          <Building2 className=\"h-12 w-12 text-gray-500 mx-auto mb-4\" />\n          <h3 className=\"text-lg font-medium text-white mb-2\">No Venues Found</h3>\n          <p className=\"text-gray-400 mb-4\">\n            {Object.values(filters).some(value => value !== '' && value !== null)\n              ? \"No venues match your current filters. Try adjusting your search criteria.\"\n              : \"Get started by creating your first venue.\"\n            }\n          </p>\n          {Object.values(filters).some(value => value !== '' && value !== null) ? (\n            <Button\n              variant=\"outline\"\n              onClick={clearFilters}\n              className=\"border-zinc-600 text-gray-300 hover:bg-zinc-700\"\n            >\n              Clear Filters\n            </Button>\n          ) : (\n            <Button\n              onClick={handleCreateVenue}\n              className=\"bg-orange-500 hover:bg-orange-600 text-white\"\n            >\n              Create Your First Venue\n            </Button>\n          )}\n        </motion.div>\n      )}\n\n      {/* Venues Grid */}\n      {!loading && !error && filteredVenues.length > 0 && (\n        <motion.div\n          variants={containerVariants}\n          className=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6\"\n        >\n          {filteredVenues.map((venue) => (\n            <motion.div\n              key={venue.id}\n              variants={itemVariants}\n              whileHover=\"hover\"\n              initial=\"rest\"\n              animate=\"rest\"\n            >\n              <motion.div\n                variants={cardHoverVariants}\n                className=\"bg-zinc-800 rounded-lg p-6 border border-zinc-700 hover:border-zinc-600 transition-colors\"\n              >\n                {/* Venue Header */}\n                <div className=\"flex items-start justify-between mb-4\">\n                  <div className=\"flex-1\">\n                    <h3 className=\"text-lg font-semibold text-white mb-1\">{venue.name}</h3>\n                    <div className=\"flex items-center space-x-2\">\n                      <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${\n                        venue.is_active\n                          ? 'bg-green-100 text-green-800'\n                          : 'bg-red-100 text-red-800'\n                      }`}>\n                        {venue.is_active ? 'Active' : 'Inactive'}\n                      </span>\n                      {venue.capacity && (\n                        <span className=\"inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800\">\n                          <Users className=\"h-3 w-3 mr-1\" />\n                          {venue.capacity}\n                        </span>\n                      )}\n                    </div>\n                  </div>\n                </div>\n\n                {/* Address */}\n                <div className=\"mb-4\">\n                  <div className=\"flex items-start space-x-2 text-gray-400\">\n                    <MapPin className=\"h-4 w-4 mt-0.5 flex-shrink-0\" />\n                    <span className=\"text-sm\">{formatAddress(venue)}</span>\n                  </div>\n                </div>\n\n                {/* Description */}\n                {venue.description && (\n                  <div className=\"mb-4\">\n                    <p className=\"text-gray-400 text-sm line-clamp-2\">{venue.description}</p>\n                  </div>\n                )}\n\n                {/* Actions */}\n                <div className=\"flex items-center space-x-2 pt-4 border-t border-zinc-700\">\n                  <Button\n                    variant=\"outline\"\n                    size=\"sm\"\n                    onClick={() => handleViewDetails(venue)}\n                    className=\"flex-1 border-zinc-600 text-gray-300 hover:bg-zinc-700\"\n                  >\n                    <Eye className=\"h-4 w-4 mr-1\" />\n                    View\n                  </Button>\n                  <Button\n                    variant=\"outline\"\n                    size=\"sm\"\n                    onClick={() => handleEditVenue(venue)}\n                    className=\"flex-1 border-zinc-600 text-gray-300 hover:bg-zinc-700\"\n                  >\n                    <Edit className=\"h-4 w-4 mr-1\" />\n                    Edit\n                  </Button>\n                  <Button\n                    variant=\"outline\"\n                    size=\"sm\"\n                    onClick={() => handleDeleteClick(venue)}\n                    className=\"border-red-600 text-red-400 hover:bg-red-600 hover:text-white\"\n                  >\n                    <Trash2 className=\"h-4 w-4\" />\n                  </Button>\n                </div>\n              </motion.div>\n            </motion.div>\n          ))}\n        </motion.div>\n      )}\n\n      {/* Pagination */}\n      {!loading && !error && filteredVenues.length > 0 && renderPagination()}\n\n      {/* Delete Confirmation Dialog */}\n      <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>\n        <DialogContent className=\"bg-zinc-800 border-zinc-700\">\n          <DialogHeader>\n            <DialogTitle className=\"text-white flex items-center space-x-2\">\n              <AlertTriangle className=\"h-5 w-5 text-red-500\" />\n              <span>Delete Venue</span>\n            </DialogTitle>\n            <DialogDescription className=\"text-gray-400\">\n              Are you sure you want to delete \"{selectedVenue?.name}\"? This action cannot be undone.\n              {selectedVenue && (\n                <div className=\"mt-3 p-3 bg-yellow-50 border border-yellow-200 rounded-md\">\n                  <p className=\"text-sm text-yellow-800\">\n                    <strong>Warning:</strong> Deleting this venue may affect scheduled events and other related data.\n                  </p>\n                </div>\n              )}\n            </DialogDescription>\n          </DialogHeader>\n          <DialogFooter>\n            <Button\n              variant=\"outline\"\n              onClick={() => setShowDeleteDialog(false)}\n              disabled={deleteLoading}\n              className=\"border-zinc-600 text-gray-300 hover:bg-zinc-700\"\n            >\n              Cancel\n            </Button>\n            <Button\n              variant=\"destructive\"\n              onClick={() => selectedVenue && deleteVenue(selectedVenue.id)}\n              disabled={deleteLoading}\n              className=\"bg-red-600 hover:bg-red-700\"\n            >\n              {deleteLoading ? (\n                <div className=\"flex items-center space-x-2\">\n                  <div className=\"animate-spin rounded-full h-4 w-4 border-b-2 border-white\"></div>\n                  <span>Deleting...</span>\n                </div>\n              ) : (\n                'Delete Venue'\n              )}\n            </Button>\n          </DialogFooter>\n        </DialogContent>\n      </Dialog>\n    </motion.div>\n  )\n}",
+      "structuredPatch": []
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/App.tsx",
+      "old_string": "import FormManagement from './components/FormManagement'\nimport FormBuilderDashboard from './components/FormBuilderDashboard'\nimport FormEditor from './components/FormEditor'\nimport { AuthProvider } from './contexts/AuthContext'",
+      "new_string": "import FormManagement from './components/FormManagement'\nimport FormBuilderDashboard from './components/FormBuilderDashboard'\nimport FormEditor from './components/FormEditor'\nimport VenueListManagement from './components/VenueListManagement'\nimport { AuthProvider } from './contexts/AuthContext'"
+    },
+    "tool_response": {
+      "filePath": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/App.tsx",
+      "oldString": "import FormManagement from './components/FormManagement'\nimport FormBuilderDashboard from './components/FormBuilderDashboard'\nimport FormEditor from './components/FormEditor'\nimport { AuthProvider } from './contexts/AuthContext'",
+      "newString": "import FormManagement from './components/FormManagement'\nimport FormBuilderDashboard from './components/FormBuilderDashboard'\nimport FormEditor from './components/FormEditor'\nimport VenueListManagement from './components/VenueListManagement'\nimport { AuthProvider } from './contexts/AuthContext'",
+      "originalFile": "import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'\nimport Layout from './components/Layout'\nimport Login from './components/Login'\nimport RegistrationMainDashboard from './components/RegistrationMainDashboard'\nimport TeamManagementDashboard from './components/TeamManagementDashboard'\nimport TeamListView from './components/TeamListView'\nimport PlayerManagementInterface from './components/PlayerManagementInterface'\nimport PlayerProfileDashboard from './components/PlayerProfileDashboard'\nimport PlayerManagementDashboard from './components/PlayerManagementDashboard'\nimport EventSchedulerDashboard from './components/EventSchedulerDashboard'\nimport TeamStructureDashboard from './components/TeamStructureDashboard'\nimport DivisionManagement from './components/DivisionManagement'\nimport AgeGroupManagement from './components/AgeGroupManagement'\nimport SkillLevelManagement from './components/SkillLevelManagement'\nimport TeamRosterManagement from './components/TeamRosterManagement'\nimport AttendanceTracker from './components/AttendanceTracker'\nimport AttendanceReportingDashboard from './components/AttendanceReportingDashboard'\nimport RosterManagementDashboard from './components/RosterManagementDashboard'\nimport ReportGenerationForm from './components/ReportGenerationForm'\nimport ReportsDashboard from './components/ReportsDashboard'\nimport ProgramManagement from './components/ProgramManagement'\nimport RegistrationFlow from './components/RegistrationFlow'\nimport PublicRegistration from './components/PublicRegistration'\nimport RegistrationManagementDashboard from './components/RegistrationManagementDashboard'\nimport PaymentHistoryDashboard from './components/PaymentHistoryDashboard'\nimport FormManagement from './components/FormManagement'\nimport FormBuilderDashboard from './components/FormBuilderDashboard'\nimport FormEditor from './components/FormEditor'\nimport { AuthProvider } from './contexts/AuthContext'\n\nfunction App() {\n  return (\n    <AuthProvider>\n      <Router>\n      <Routes>\n        <Route path=\"/\" element={<Login />} />\n        <Route path=\"/login\" element={<Login />} />\n        <Route path=\"/dashboard\" element={<Layout />}>\n          <Route index element={<RegistrationMainDashboard />} />\n          <Route path=\"teams\" element={<TeamListView />} />\n          <Route path=\"players\" element={<PlayerProfileDashboard />} />\n          <Route path=\"roster\" element={<TeamRosterManagement />} />\n          <Route path=\"teams/create\" element={<TeamListView />} />\n          <Route path=\"players/list\" element={<PlayerManagementInterface />} />\n          <Route path=\"players/create\" element={<PlayerManagementInterface />} />\n          <Route path=\"attendance\" element={<AttendanceTracker />} />\n          <Route path=\"reports/attendance\" element={<AttendanceReportingDashboard />} />\n          <Route path=\"reports/generate\" element={<ReportGenerationForm />} />\n          <Route path=\"roster/dashboard\" element={<RosterManagementDashboard />} />\n          <Route path=\"programs\" element={<ProgramManagement />} />\n          <Route path=\"registrations\" element={<RegistrationManagementDashboard />} />\n          <Route path=\"payments\" element={<PaymentHistoryDashboard />} />\n          <Route path=\"forms\" element={<FormBuilderDashboard />} />\n          <Route path=\"forms/new\" element={<FormEditor />} />\n          <Route path=\"forms/:formId\" element={<FormEditor />} />\n        </Route>\n        <Route path=\"/teams\" element={<Layout />}>\n          <Route index element={<TeamListView />} />\n          <Route path=\"create\" element={<TeamListView />} />\n          <Route path=\"roster\" element={<TeamRosterManagement />} />\n          <Route path=\"roster/dashboard\" element={<RosterManagementDashboard />} />\n          <Route path=\"attendance\" element={<AttendanceTracker />} />\n          <Route path=\"reports/attendance\" element={<AttendanceReportingDashboard />} />\n          <Route path=\"reports/generate\" element={<ReportGenerationForm />} />\n          <Route path=\":id\" element={<TeamListView />} />\n        </Route>\n        <Route path=\"/players\" element={<Layout />}>\n          <Route index element={<PlayerProfileDashboard />} />\n          <Route path=\"list\" element={<PlayerManagementInterface />} />\n          <Route path=\"enhanced\" element={<PlayerManagementDashboard />} />\n          <Route path=\"create\" element={<PlayerManagementInterface />} />\n          <Route path=\":id\" element={<PlayerManagementInterface />} />\n        </Route>\n        <Route path=\"/events/*\" element={<Layout />}>\n          <Route path=\"*\" element={<EventSchedulerDashboard />} />\n        </Route>\n        <Route path=\"/structure\" element={<Layout />}>\n          <Route index element={<TeamStructureDashboard />} />\n          <Route path=\"divisions\" element={<DivisionManagement />} />\n          <Route path=\"age-groups\" element={<AgeGroupManagement />} />\n          <Route path=\"skill-levels\" element={<SkillLevelManagement />} />\n        </Route>\n        <Route path=\"/reports\" element={<Layout />}>\n          <Route index element={<ReportsDashboard />} />\n          <Route path=\"generate\" element={<ReportGenerationForm />} />\n          <Route path=\"roster\" element={<ReportGenerationForm />} />\n          <Route path=\"contacts\" element={<ReportGenerationForm />} />\n          <Route path=\"teams\" element={<ReportGenerationForm />} />\n        </Route>\n        <Route path=\"/programs\" element={<Layout />}>\n          <Route index element={<ProgramManagement />} />\n        </Route>\n        <Route path=\"/register\" element={<RegistrationFlow />} />\n        <Route path=\"/signup\" element={<PublicRegistration />} />\n      </Routes>\n      </Router>\n    </AuthProvider>\n  )\n}\n\nexport default App\n",
+      "structuredPatch": [
+        {
+          "oldStart": 26,
+          "oldLines": 6,
+          "newStart": 26,
+          "newLines": 7,
+          "lines": [
+            " import FormManagement from './components/FormManagement'",
+            " import FormBuilderDashboard from './components/FormBuilderDashboard'",
+            " import FormEditor from './components/FormEditor'",
+            "+import VenueListManagement from './components/VenueListManagement'",
+            " import { AuthProvider } from './contexts/AuthContext'",
+            " ",
+            " function App() {"
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/App.tsx",
+      "old_string": "          <Route path=\"forms\" element={<FormBuilderDashboard />} />\n          <Route path=\"forms/new\" element={<FormEditor />} />\n          <Route path=\"forms/:formId\" element={<FormEditor />} />\n        </Route>",
+      "new_string": "          <Route path=\"forms\" element={<FormBuilderDashboard />} />\n          <Route path=\"forms/new\" element={<FormEditor />} />\n          <Route path=\"forms/:formId\" element={<FormEditor />} />\n          <Route path=\"venues\" element={<VenueListManagement />} />\n        </Route>"
+    },
+    "tool_response": {
+      "filePath": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/App.tsx",
+      "oldString": "          <Route path=\"forms\" element={<FormBuilderDashboard />} />\n          <Route path=\"forms/new\" element={<FormEditor />} />\n          <Route path=\"forms/:formId\" element={<FormEditor />} />\n        </Route>",
+      "newString": "          <Route path=\"forms\" element={<FormBuilderDashboard />} />\n          <Route path=\"forms/new\" element={<FormEditor />} />\n          <Route path=\"forms/:formId\" element={<FormEditor />} />\n          <Route path=\"venues\" element={<VenueListManagement />} />\n        </Route>",
+      "originalFile": "import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'\nimport Layout from './components/Layout'\nimport Login from './components/Login'\nimport RegistrationMainDashboard from './components/RegistrationMainDashboard'\nimport TeamManagementDashboard from './components/TeamManagementDashboard'\nimport TeamListView from './components/TeamListView'\nimport PlayerManagementInterface from './components/PlayerManagementInterface'\nimport PlayerProfileDashboard from './components/PlayerProfileDashboard'\nimport PlayerManagementDashboard from './components/PlayerManagementDashboard'\nimport EventSchedulerDashboard from './components/EventSchedulerDashboard'\nimport TeamStructureDashboard from './components/TeamStructureDashboard'\nimport DivisionManagement from './components/DivisionManagement'\nimport AgeGroupManagement from './components/AgeGroupManagement'\nimport SkillLevelManagement from './components/SkillLevelManagement'\nimport TeamRosterManagement from './components/TeamRosterManagement'\nimport AttendanceTracker from './components/AttendanceTracker'\nimport AttendanceReportingDashboard from './components/AttendanceReportingDashboard'\nimport RosterManagementDashboard from './components/RosterManagementDashboard'\nimport ReportGenerationForm from './components/ReportGenerationForm'\nimport ReportsDashboard from './components/ReportsDashboard'\nimport ProgramManagement from './components/ProgramManagement'\nimport RegistrationFlow from './components/RegistrationFlow'\nimport PublicRegistration from './components/PublicRegistration'\nimport RegistrationManagementDashboard from './components/RegistrationManagementDashboard'\nimport PaymentHistoryDashboard from './components/PaymentHistoryDashboard'\nimport FormManagement from './components/FormManagement'\nimport FormBuilderDashboard from './components/FormBuilderDashboard'\nimport FormEditor from './components/FormEditor'\nimport VenueListManagement from './components/VenueListManagement'\nimport { AuthProvider } from './contexts/AuthContext'\n\nfunction App() {\n  return (\n    <AuthProvider>\n      <Router>\n      <Routes>\n        <Route path=\"/\" element={<Login />} />\n        <Route path=\"/login\" element={<Login />} />\n        <Route path=\"/dashboard\" element={<Layout />}>\n          <Route index element={<RegistrationMainDashboard />} />\n          <Route path=\"teams\" element={<TeamListView />} />\n          <Route path=\"players\" element={<PlayerProfileDashboard />} />\n          <Route path=\"roster\" element={<TeamRosterManagement />} />\n          <Route path=\"teams/create\" element={<TeamListView />} />\n          <Route path=\"players/list\" element={<PlayerManagementInterface />} />\n          <Route path=\"players/create\" element={<PlayerManagementInterface />} />\n          <Route path=\"attendance\" element={<AttendanceTracker />} />\n          <Route path=\"reports/attendance\" element={<AttendanceReportingDashboard />} />\n          <Route path=\"reports/generate\" element={<ReportGenerationForm />} />\n          <Route path=\"roster/dashboard\" element={<RosterManagementDashboard />} />\n          <Route path=\"programs\" element={<ProgramManagement />} />\n          <Route path=\"registrations\" element={<RegistrationManagementDashboard />} />\n          <Route path=\"payments\" element={<PaymentHistoryDashboard />} />\n          <Route path=\"forms\" element={<FormBuilderDashboard />} />\n          <Route path=\"forms/new\" element={<FormEditor />} />\n          <Route path=\"forms/:formId\" element={<FormEditor />} />\n        </Route>\n        <Route path=\"/teams\" element={<Layout />}>\n          <Route index element={<TeamListView />} />\n          <Route path=\"create\" element={<TeamListView />} />\n          <Route path=\"roster\" element={<TeamRosterManagement />} />\n          <Route path=\"roster/dashboard\" element={<RosterManagementDashboard />} />\n          <Route path=\"attendance\" element={<AttendanceTracker />} />\n          <Route path=\"reports/attendance\" element={<AttendanceReportingDashboard />} />\n          <Route path=\"reports/generate\" element={<ReportGenerationForm />} />\n          <Route path=\":id\" element={<TeamListView />} />\n        </Route>\n        <Route path=\"/players\" element={<Layout />}>\n          <Route index element={<PlayerProfileDashboard />} />\n          <Route path=\"list\" element={<PlayerManagementInterface />} />\n          <Route path=\"enhanced\" element={<PlayerManagementDashboard />} />\n          <Route path=\"create\" element={<PlayerManagementInterface />} />\n          <Route path=\":id\" element={<PlayerManagementInterface />} />\n        </Route>\n        <Route path=\"/events/*\" element={<Layout />}>\n          <Route path=\"*\" element={<EventSchedulerDashboard />} />\n        </Route>\n        <Route path=\"/structure\" element={<Layout />}>\n          <Route index element={<TeamStructureDashboard />} />\n          <Route path=\"divisions\" element={<DivisionManagement />} />\n          <Route path=\"age-groups\" element={<AgeGroupManagement />} />\n          <Route path=\"skill-levels\" element={<SkillLevelManagement />} />\n        </Route>\n        <Route path=\"/reports\" element={<Layout />}>\n          <Route index element={<ReportsDashboard />} />\n          <Route path=\"generate\" element={<ReportGenerationForm />} />\n          <Route path=\"roster\" element={<ReportGenerationForm />} />\n          <Route path=\"contacts\" element={<ReportGenerationForm />} />\n          <Route path=\"teams\" element={<ReportGenerationForm />} />\n        </Route>\n        <Route path=\"/programs\" element={<Layout />}>\n          <Route index element={<ProgramManagement />} />\n        </Route>\n        <Route path=\"/register\" element={<RegistrationFlow />} />\n        <Route path=\"/signup\" element={<PublicRegistration />} />\n      </Routes>\n      </Router>\n    </AuthProvider>\n  )\n}\n\nexport default App\n",
+      "structuredPatch": [
+        {
+          "oldStart": 54,
+          "oldLines": 6,
+          "newStart": 54,
+          "newLines": 7,
+          "lines": [
+            "           <Route path=\"forms\" element={<FormBuilderDashboard />} />",
+            "           <Route path=\"forms/new\" element={<FormEditor />} />",
+            "           <Route path=\"forms/:formId\" element={<FormEditor />} />",
+            "+          <Route path=\"venues\" element={<VenueListManagement />} />",
+            "         </Route>",
+            "         <Route path=\"/teams\" element={<Layout />}>",
+            "           <Route index element={<TeamListView />} />"
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/Layout.tsx",
+      "old_string": "  FormInput,\n  UserCheck,\n  CreditCard\n} from 'lucide-react'",
+      "new_string": "  FormInput,\n  UserCheck,\n  CreditCard,\n  Building2\n} from 'lucide-react'"
+    },
+    "tool_response": {
+      "filePath": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/Layout.tsx",
+      "oldString": "  FormInput,\n  UserCheck,\n  CreditCard\n} from 'lucide-react'",
+      "newString": "  FormInput,\n  UserCheck,\n  CreditCard,\n  Building2\n} from 'lucide-react'",
+      "originalFile": "import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'\nimport { Button } from './ui/button'\nimport { Sheet, SheetContent, SheetTrigger } from './ui/sheet'\nimport {\n  Home,\n  Shield,\n  Users,\n  Menu,\n  LogOut,\n  Calendar,\n  Settings,\n  FileText,\n  GraduationCap,\n  FormInput,\n  UserCheck,\n  CreditCard\n} from 'lucide-react'\nimport { cn } from '../lib/utils'\nimport { useAuth } from '../contexts/AuthContext'\n\nconst navigation = [\n  {\n    name: 'Dashboard',\n    href: '/dashboard',\n    icon: Home,\n    roles: ['admin', 'user']\n  },\n  {\n    name: 'Programs',\n    href: '/programs',\n    icon: GraduationCap,\n    roles: ['admin', 'user']\n  },\n  {\n    name: 'Teams',\n    href: '/teams',\n    icon: Shield,\n    roles: ['admin']\n  },\n  {\n    name: 'Players',\n    href: '/players',\n    icon: Users,\n    roles: ['admin']\n  },\n  {\n    name: 'Registrations',\n    href: '/dashboard/registrations',\n    icon: UserCheck,\n    roles: ['admin']\n  },\n  {\n    name: 'Payments',\n    href: '/dashboard/payments',\n    icon: CreditCard,\n    roles: ['admin']\n  },\n  {\n    name: 'Forms',\n    href: '/dashboard/forms',\n    icon: FormInput,\n    roles: ['admin']\n  },\n  {\n    name: 'Reports',\n    href: '/reports',\n    icon: FileText,\n    roles: ['admin']\n  },\n  {\n    name: 'Team Structure',\n    href: '/structure',\n    icon: Settings,\n    roles: ['admin']\n  },\n  {\n    name: 'Events',\n    href: '/events',\n    icon: Calendar,\n    roles: ['admin']\n  },\n]\n\nexport default function Layout() {\n  const location = useLocation()\n  const navigate = useNavigate()\n  const { user, logout, isLoading } = useAuth()\n\n  const handleLogout = () => {\n    logout()\n    navigate('/login')\n  }\n\n  const NavItems = ({ className }: { className?: string }) => {\n    const filteredNavigation = navigation.filter(item =>\n      user && item.roles.includes(user.role)\n    )\n\n    return (\n      <nav className={cn(\"flex flex-col space-y-1\", className)}>\n        {filteredNavigation.map((item) => {\n          // Check for exact match first\n          const isExactMatch = location.pathname === item.href\n\n          // Only show as active if it's an exact match\n          // This prevents parent routes from being highlighted when child routes are active\n          const isActive = isExactMatch\n\n          return (\n            <Button\n              key={item.name}\n              asChild\n              variant=\"ghost\"\n              className={cn(\n                \"justify-start h-12 text-base font-medium transition-all duration-200\",\n                isActive\n                  ? \"bg-orange-50 text-orange-600 border-r-4 border-orange-500 shadow-sm\"\n                  : \"text-zinc-700 hover:bg-zinc-50 hover:text-black\"\n              )}\n            >\n              <Link to={item.href}>\n                <item.icon className=\"mr-3 h-5 w-5\" />\n                {item.name}\n              </Link>\n            </Button>\n          )\n        })}\n      </nav>\n    )\n  }\n\n  return (\n    <div className=\"h-screen flex bg-zinc-900\">\n      {/* Desktop Sidebar */}\n      <div className=\"hidden lg:flex lg:w-72 lg:flex-col\">\n        <div className=\"bg-white border-r border-zinc-200 shadow-xl h-full flex flex-col\">\n          {/* Logo Header */}\n          <div className=\"flex items-center h-20 px-6 border-b border-zinc-100\">\n            <Link to=\"/dashboard\" className=\"flex items-center space-x-3\">\n              <div className=\"w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center shadow-lg\">\n                <Shield className=\"h-6 w-6 text-white\" />\n              </div>\n              <span className=\"text-2xl font-bold text-black\">GamePlanPro</span>\n            </Link>\n          </div>\n\n          {/* Navigation */}\n          <div className=\"flex-1 flex flex-col pt-8 pb-4 overflow-y-auto\">\n            <div className=\"px-6\">\n              <NavItems />\n            </div>\n          </div>\n\n          {/* User Info & Sign Out */}\n          <div className=\"flex-shrink-0 border-t border-zinc-100 p-6\">\n            {user && (\n              <div className=\"mb-4 p-3 bg-gray-50 rounded-lg\">\n                <p className=\"text-sm font-medium text-gray-900\">\n                  {user.firstName} {user.lastName}\n                </p>\n                <p className=\"text-xs text-gray-600\">{user.email}</p>\n                <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium mt-1 ${\n                  user.role === 'admin'\n                    ? 'bg-orange-100 text-orange-800'\n                    : 'bg-blue-100 text-blue-800'\n                }`}>\n                  {user.role.charAt(0).toUpperCase() + user.role.slice(1)}\n                </span>\n              </div>\n            )}\n            <Button\n              variant=\"ghost\"\n              onClick={handleLogout}\n              className=\"w-full justify-start text-zinc-600 hover:text-black hover:bg-zinc-50 h-12 text-base\"\n            >\n              <LogOut className=\"mr-3 h-5 w-5\" />\n              Sign Out\n            </Button>\n          </div>\n        </div>\n      </div>\n\n      {/* Mobile Navigation */}\n      <div className=\"lg:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-zinc-200 shadow-sm\">\n        <div className=\"flex items-center justify-between p-4\">\n          <Link to=\"/dashboard\" className=\"flex items-center space-x-2\">\n            <div className=\"w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center shadow-md\">\n              <Shield className=\"h-5 w-5 text-white\" />\n            </div>\n            <span className=\"text-xl font-bold text-black\">GamePlanPro</span>\n          </Link>\n\n          <Sheet>\n            <SheetTrigger asChild>\n              <Button variant=\"outline\" size=\"icon\" className=\"border-zinc-300 hover:bg-zinc-50\">\n                <Menu className=\"h-5 w-5\" />\n              </Button>\n            </SheetTrigger>\n            <SheetContent side=\"left\" className=\"w-80 p-0\">\n              <div className=\"flex flex-col h-full\">\n                <div className=\"p-6 border-b border-zinc-100\">\n                  <Link to=\"/dashboard\" className=\"flex items-center space-x-3\">\n                    <div className=\"w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center shadow-lg\">\n                      <Shield className=\"h-6 w-6 text-white\" />\n                    </div>\n                    <span className=\"text-2xl font-bold text-black\">GamePlanPro</span>\n                  </Link>\n                </div>\n\n                <div className=\"flex-1 p-6\">\n                  <NavItems />\n                </div>\n\n                <div className=\"border-t border-zinc-100 p-6\">\n                  {user && (\n                    <div className=\"mb-4 p-3 bg-gray-50 rounded-lg\">\n                      <p className=\"text-sm font-medium text-gray-900\">\n                        {user.firstName} {user.lastName}\n                      </p>\n                      <p className=\"text-xs text-gray-600\">{user.email}</p>\n                      <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium mt-1 ${\n                        user.role === 'admin'\n                          ? 'bg-orange-100 text-orange-800'\n                          : 'bg-blue-100 text-blue-800'\n                      }`}>\n                        {user.role.charAt(0).toUpperCase() + user.role.slice(1)}\n                      </span>\n                    </div>\n                  )}\n                  <Button\n                    variant=\"ghost\"\n                    onClick={handleLogout}\n                    className=\"w-full justify-start text-zinc-600 hover:text-black hover:bg-zinc-50 h-12 text-base\"\n                  >\n                    <LogOut className=\"mr-3 h-5 w-5\" />\n                    Sign Out\n                  </Button>\n                </div>\n              </div>\n            </SheetContent>\n          </Sheet>\n        </div>\n      </div>\n\n      {/* Main Content Area */}\n      <div className=\"flex-1 flex flex-col lg:pt-0 pt-20 bg-zinc-900\">\n        <main className=\"flex-1 overflow-y-auto\">\n          <div className=\"p-8 max-w-full\">\n            <Outlet />\n          </div>\n        </main>\n      </div>\n    </div>\n  )\n}",
+      "structuredPatch": [
+        {
+          "oldStart": 13,
+          "oldLines": 7,
+          "newStart": 13,
+          "newLines": 8,
+          "lines": [
+            "   GraduationCap,",
+            "   FormInput,",
+            "   UserCheck,",
+            "-  CreditCard",
+            "+  CreditCard,",
+            "+  Building2",
+            " } from 'lucide-react'",
+            " import { cn } from '../lib/utils'",
+            " import { useAuth } from '../contexts/AuthContext'"
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/Layout.tsx",
+      "old_string": "  {\n    name: 'Events',\n    href: '/events',\n    icon: Calendar,\n    roles: ['admin']\n  },\n]",
+      "new_string": "  {\n    name: 'Events',\n    href: '/events',\n    icon: Calendar,\n    roles: ['admin']\n  },\n  {\n    name: 'Venues',\n    href: '/dashboard/venues',\n    icon: Building2,\n    roles: ['admin']\n  },\n]"
+    },
+    "tool_response": {
+      "filePath": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/Layout.tsx",
+      "oldString": "  {\n    name: 'Events',\n    href: '/events',\n    icon: Calendar,\n    roles: ['admin']\n  },\n]",
+      "newString": "  {\n    name: 'Events',\n    href: '/events',\n    icon: Calendar,\n    roles: ['admin']\n  },\n  {\n    name: 'Venues',\n    href: '/dashboard/venues',\n    icon: Building2,\n    roles: ['admin']\n  },\n]",
+      "originalFile": "import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'\nimport { Button } from './ui/button'\nimport { Sheet, SheetContent, SheetTrigger } from './ui/sheet'\nimport {\n  Home,\n  Shield,\n  Users,\n  Menu,\n  LogOut,\n  Calendar,\n  Settings,\n  FileText,\n  GraduationCap,\n  FormInput,\n  UserCheck,\n  CreditCard,\n  Building2\n} from 'lucide-react'\nimport { cn } from '../lib/utils'\nimport { useAuth } from '../contexts/AuthContext'\n\nconst navigation = [\n  {\n    name: 'Dashboard',\n    href: '/dashboard',\n    icon: Home,\n    roles: ['admin', 'user']\n  },\n  {\n    name: 'Programs',\n    href: '/programs',\n    icon: GraduationCap,\n    roles: ['admin', 'user']\n  },\n  {\n    name: 'Teams',\n    href: '/teams',\n    icon: Shield,\n    roles: ['admin']\n  },\n  {\n    name: 'Players',\n    href: '/players',\n    icon: Users,\n    roles: ['admin']\n  },\n  {\n    name: 'Registrations',\n    href: '/dashboard/registrations',\n    icon: UserCheck,\n    roles: ['admin']\n  },\n  {\n    name: 'Payments',\n    href: '/dashboard/payments',\n    icon: CreditCard,\n    roles: ['admin']\n  },\n  {\n    name: 'Forms',\n    href: '/dashboard/forms',\n    icon: FormInput,\n    roles: ['admin']\n  },\n  {\n    name: 'Reports',\n    href: '/reports',\n    icon: FileText,\n    roles: ['admin']\n  },\n  {\n    name: 'Team Structure',\n    href: '/structure',\n    icon: Settings,\n    roles: ['admin']\n  },\n  {\n    name: 'Events',\n    href: '/events',\n    icon: Calendar,\n    roles: ['admin']\n  },\n]\n\nexport default function Layout() {\n  const location = useLocation()\n  const navigate = useNavigate()\n  const { user, logout, isLoading } = useAuth()\n\n  const handleLogout = () => {\n    logout()\n    navigate('/login')\n  }\n\n  const NavItems = ({ className }: { className?: string }) => {\n    const filteredNavigation = navigation.filter(item =>\n      user && item.roles.includes(user.role)\n    )\n\n    return (\n      <nav className={cn(\"flex flex-col space-y-1\", className)}>\n        {filteredNavigation.map((item) => {\n          // Check for exact match first\n          const isExactMatch = location.pathname === item.href\n\n          // Only show as active if it's an exact match\n          // This prevents parent routes from being highlighted when child routes are active\n          const isActive = isExactMatch\n\n          return (\n            <Button\n              key={item.name}\n              asChild\n              variant=\"ghost\"\n              className={cn(\n                \"justify-start h-12 text-base font-medium transition-all duration-200\",\n                isActive\n                  ? \"bg-orange-50 text-orange-600 border-r-4 border-orange-500 shadow-sm\"\n                  : \"text-zinc-700 hover:bg-zinc-50 hover:text-black\"\n              )}\n            >\n              <Link to={item.href}>\n                <item.icon className=\"mr-3 h-5 w-5\" />\n                {item.name}\n              </Link>\n            </Button>\n          )\n        })}\n      </nav>\n    )\n  }\n\n  return (\n    <div className=\"h-screen flex bg-zinc-900\">\n      {/* Desktop Sidebar */}\n      <div className=\"hidden lg:flex lg:w-72 lg:flex-col\">\n        <div className=\"bg-white border-r border-zinc-200 shadow-xl h-full flex flex-col\">\n          {/* Logo Header */}\n          <div className=\"flex items-center h-20 px-6 border-b border-zinc-100\">\n            <Link to=\"/dashboard\" className=\"flex items-center space-x-3\">\n              <div className=\"w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center shadow-lg\">\n                <Shield className=\"h-6 w-6 text-white\" />\n              </div>\n              <span className=\"text-2xl font-bold text-black\">GamePlanPro</span>\n            </Link>\n          </div>\n\n          {/* Navigation */}\n          <div className=\"flex-1 flex flex-col pt-8 pb-4 overflow-y-auto\">\n            <div className=\"px-6\">\n              <NavItems />\n            </div>\n          </div>\n\n          {/* User Info & Sign Out */}\n          <div className=\"flex-shrink-0 border-t border-zinc-100 p-6\">\n            {user && (\n              <div className=\"mb-4 p-3 bg-gray-50 rounded-lg\">\n                <p className=\"text-sm font-medium text-gray-900\">\n                  {user.firstName} {user.lastName}\n                </p>\n                <p className=\"text-xs text-gray-600\">{user.email}</p>\n                <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium mt-1 ${\n                  user.role === 'admin'\n                    ? 'bg-orange-100 text-orange-800'\n                    : 'bg-blue-100 text-blue-800'\n                }`}>\n                  {user.role.charAt(0).toUpperCase() + user.role.slice(1)}\n                </span>\n              </div>\n            )}\n            <Button\n              variant=\"ghost\"\n              onClick={handleLogout}\n              className=\"w-full justify-start text-zinc-600 hover:text-black hover:bg-zinc-50 h-12 text-base\"\n            >\n              <LogOut className=\"mr-3 h-5 w-5\" />\n              Sign Out\n            </Button>\n          </div>\n        </div>\n      </div>\n\n      {/* Mobile Navigation */}\n      <div className=\"lg:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-zinc-200 shadow-sm\">\n        <div className=\"flex items-center justify-between p-4\">\n          <Link to=\"/dashboard\" className=\"flex items-center space-x-2\">\n            <div className=\"w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center shadow-md\">\n              <Shield className=\"h-5 w-5 text-white\" />\n            </div>\n            <span className=\"text-xl font-bold text-black\">GamePlanPro</span>\n          </Link>\n\n          <Sheet>\n            <SheetTrigger asChild>\n              <Button variant=\"outline\" size=\"icon\" className=\"border-zinc-300 hover:bg-zinc-50\">\n                <Menu className=\"h-5 w-5\" />\n              </Button>\n            </SheetTrigger>\n            <SheetContent side=\"left\" className=\"w-80 p-0\">\n              <div className=\"flex flex-col h-full\">\n                <div className=\"p-6 border-b border-zinc-100\">\n                  <Link to=\"/dashboard\" className=\"flex items-center space-x-3\">\n                    <div className=\"w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center shadow-lg\">\n                      <Shield className=\"h-6 w-6 text-white\" />\n                    </div>\n                    <span className=\"text-2xl font-bold text-black\">GamePlanPro</span>\n                  </Link>\n                </div>\n\n                <div className=\"flex-1 p-6\">\n                  <NavItems />\n                </div>\n\n                <div className=\"border-t border-zinc-100 p-6\">\n                  {user && (\n                    <div className=\"mb-4 p-3 bg-gray-50 rounded-lg\">\n                      <p className=\"text-sm font-medium text-gray-900\">\n                        {user.firstName} {user.lastName}\n                      </p>\n                      <p className=\"text-xs text-gray-600\">{user.email}</p>\n                      <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium mt-1 ${\n                        user.role === 'admin'\n                          ? 'bg-orange-100 text-orange-800'\n                          : 'bg-blue-100 text-blue-800'\n                      }`}>\n                        {user.role.charAt(0).toUpperCase() + user.role.slice(1)}\n                      </span>\n                    </div>\n                  )}\n                  <Button\n                    variant=\"ghost\"\n                    onClick={handleLogout}\n                    className=\"w-full justify-start text-zinc-600 hover:text-black hover:bg-zinc-50 h-12 text-base\"\n                  >\n                    <LogOut className=\"mr-3 h-5 w-5\" />\n                    Sign Out\n                  </Button>\n                </div>\n              </div>\n            </SheetContent>\n          </Sheet>\n        </div>\n      </div>\n\n      {/* Main Content Area */}\n      <div className=\"flex-1 flex flex-col lg:pt-0 pt-20 bg-zinc-900\">\n        <main className=\"flex-1 overflow-y-auto\">\n          <div className=\"p-8 max-w-full\">\n            <Outlet />\n          </div>\n        </main>\n      </div>\n    </div>\n  )\n}",
+      "structuredPatch": [
+        {
+          "oldStart": 80,
+          "oldLines": 6,
+          "newStart": 80,
+          "newLines": 12,
+          "lines": [
+            "     icon: Calendar,",
+            "     roles: ['admin']",
+            "   },",
+            "+  {",
+            "+    name: 'Venues',",
+            "+    href: '/dashboard/venues',",
+            "+    icon: Building2,",
+            "+    roles: ['admin']",
+            "+  },",
+            " ]",
+            " ",
+            " export default function Layout() {"
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze frontend structure and existing patterns",
+          "status": "completed",
+          "activeForm": "Analyzing frontend structure and existing patterns"
+        },
+        {
+          "content": "Design venue list component architecture",
+          "status": "completed",
+          "activeForm": "Designing venue list component architecture"
+        },
+        {
+          "content": "Implement venue list with pagination",
+          "status": "completed",
+          "activeForm": "Implementing venue list with pagination"
+        },
+        {
+          "content": "Add filtering capabilities",
+          "status": "completed",
+          "activeForm": "Adding filtering capabilities"
+        },
+        {
+          "content": "Implement action buttons (view/edit/delete)",
+          "status": "completed",
+          "activeForm": "Implementing action buttons (view/edit/delete)"
+        },
+        {
+          "content": "Add loading states and error handling",
+          "status": "completed",
+          "activeForm": "Adding loading states and error handling"
+        },
+        {
+          "content": "Integrate with venue API endpoints",
+          "status": "completed",
+          "activeForm": "Integrating with venue API endpoints"
+        },
+        {
+          "content": "Test venue list functionality",
+          "status": "completed",
+          "activeForm": "Testing venue list functionality"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [
+        {
+          "content": "Analyze frontend structure and existing patterns",
+          "status": "completed",
+          "activeForm": "Analyzing frontend structure and existing patterns"
+        },
+        {
+          "content": "Design venue list component architecture",
+          "status": "completed",
+          "activeForm": "Designing venue list component architecture"
+        },
+        {
+          "content": "Implement venue list with pagination",
+          "status": "in_progress",
+          "activeForm": "Implementing venue list with pagination"
+        },
+        {
+          "content": "Add filtering capabilities",
+          "status": "pending",
+          "activeForm": "Adding filtering capabilities"
+        },
+        {
+          "content": "Implement action buttons (view/edit/delete)",
+          "status": "pending",
+          "activeForm": "Implementing action buttons (view/edit/delete)"
+        },
+        {
+          "content": "Add loading states and error handling",
+          "status": "pending",
+          "activeForm": "Adding loading states and error handling"
+        },
+        {
+          "content": "Integrate with venue API endpoints",
+          "status": "pending",
+          "activeForm": "Integrating with venue API endpoints"
+        },
+        {
+          "content": "Test venue list functionality",
+          "status": "pending",
+          "activeForm": "Testing venue list functionality"
+        }
+      ],
+      "newTodos": [
+        {
+          "content": "Analyze frontend structure and existing patterns",
+          "status": "completed",
+          "activeForm": "Analyzing frontend structure and existing patterns"
+        },
+        {
+          "content": "Design venue list component architecture",
+          "status": "completed",
+          "activeForm": "Designing venue list component architecture"
+        },
+        {
+          "content": "Implement venue list with pagination",
+          "status": "completed",
+          "activeForm": "Implementing venue list with pagination"
+        },
+        {
+          "content": "Add filtering capabilities",
+          "status": "completed",
+          "activeForm": "Adding filtering capabilities"
+        },
+        {
+          "content": "Implement action buttons (view/edit/delete)",
+          "status": "completed",
+          "activeForm": "Implementing action buttons (view/edit/delete)"
+        },
+        {
+          "content": "Add loading states and error handling",
+          "status": "completed",
+          "activeForm": "Adding loading states and error handling"
+        },
+        {
+          "content": "Integrate with venue API endpoints",
+          "status": "completed",
+          "activeForm": "Integrating with venue API endpoints"
+        },
+        {
+          "content": "Test venue list functionality",
+          "status": "completed",
+          "activeForm": "Testing venue list functionality"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "mcp__software-factory__mark_work_order_complete",
+    "tool_input": {
+      "work_order_number": "097"
+    },
+    "tool_response": [
+      {
+        "type": "text",
+        "text": "{\"result\":\"Successfully marked work order #97 'Implement Venue List Management Interface' as complete\"}"
+      }
+    ]
   }
 ]

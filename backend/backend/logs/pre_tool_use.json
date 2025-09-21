@@ -589,5 +589,139 @@
     "tool_input": {
       "work_order_number": "104"
     }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__get_work_order",
+    "tool_input": {
+      "work_order_number": "097"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze frontend structure and existing patterns",
+          "status": "in_progress",
+          "activeForm": "Analyzing frontend structure and existing patterns"
+        },
+        {
+          "content": "Design venue list component architecture",
+          "status": "pending",
+          "activeForm": "Designing venue list component architecture"
+        },
+        {
+          "content": "Implement venue list with pagination",
+          "status": "pending",
+          "activeForm": "Implementing venue list with pagination"
+        },
+        {
+          "content": "Add filtering capabilities",
+          "status": "pending",
+          "activeForm": "Adding filtering capabilities"
+        },
+        {
+          "content": "Implement action buttons (view/edit/delete)",
+          "status": "pending",
+          "activeForm": "Implementing action buttons (view/edit/delete)"
+        },
+        {
+          "content": "Add loading states and error handling",
+          "status": "pending",
+          "activeForm": "Adding loading states and error handling"
+        },
+        {
+          "content": "Integrate with venue API endpoints",
+          "status": "pending",
+          "activeForm": "Integrating with venue API endpoints"
+        },
+        {
+          "content": "Test venue list functionality",
+          "status": "pending",
+          "activeForm": "Testing venue list functionality"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la frontend/",
+      "description": "Check frontend directory structure"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/package.json"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la",
+      "description": "Check current directory structure"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la frontend/",
+      "description": "Check frontend directory from project root"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd .. && ls -la",
+      "description": "Navigate to project root and check structure"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd .. && ls -la frontend/",
+      "description": "Check frontend directory structure"
+    }
   }
 ]

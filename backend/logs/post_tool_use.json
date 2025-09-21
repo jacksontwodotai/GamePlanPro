@@ -3015,5 +3015,23 @@
       "userModified": false,
       "replaceAll": true
     }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd .. && ls -la",
+      "description": "Navigate to project root and check structure"
+    },
+    "tool_response": {
+      "stdout": "total 144\ndrwxr-xr-x@ 17 jacksontumbidge  staff    544 22 Sep 08:30 .\ndrwxr-xr-x@ 16 jacksontumbidge  staff    512 21 Sep 16:29 ..\ndrwxr-xr-x@  6 jacksontumbidge  staff    192 21 Sep 16:45 alembic\n-rw-r--r--@  1 jacksontumbidge  staff   4928 21 Sep 16:45 alembic.ini\n-rw-r--r--@  1 jacksontumbidge  staff   4543 21 Sep 16:56 API_README.md\ndrwxr-xr-x@  7 jacksontumbidge  staff    224 21 Sep 20:19 app\ndrwxr-xr-x@  4 jacksontumbidge  staff    128 21 Sep 20:19 backend\n-rw-r--r--@  1 jacksontumbidge  staff   7363 21 Sep 20:11 EVENT_TEAM_ASSOCIATION_IMPLEMENTATION.md\ndrwxr-xr-x@  7 jacksontumbidge  staff    224 21 Sep 16:51 logs\n-rw-r--r--@  1 jacksontumbidge  staff   1483 22 Sep 08:29 main.py\ndrwxr-xr-x@  2 jacksontumbidge  staff     64 21 Sep 16:43 migrations\n-rw-r--r--@  1 jacksontumbidge  staff    141 19 Sep 10:47 requirements.txt\n-rw-r--r--@  1 jacksontumbidge  staff   2572 21 Sep 16:56 test_api.py\n-rw-r--r--@  1 jacksontumbidge  staff  10936 22 Sep 08:24 test_venue_amenities_api.py\n-rw-r--r--@  1 jacksontumbidge  staff  12375 22 Sep 08:30 test_venue_amenity_associations_api.py\n-rw-r--r--@  1 jacksontumbidge  staff   6992 21 Sep 20:21 test_venues_api.py\ndrwxr-xr-x@  2 jacksontumbidge  staff     64 21 Sep 16:43 tests",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
   }
 ]

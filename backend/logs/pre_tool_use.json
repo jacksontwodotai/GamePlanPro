@@ -1449,5 +1449,29 @@
       "command": "cd backend && /Library/Developer/CommandLineTools/usr/bin/python3 -c \"import sys; print(sys.version)\"",
       "description": "Check system python version"
     }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd ../.. && ls -la",
+      "description": "Navigate up two levels to find frontend"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd ../.. && ls -la frontend/",
+      "description": "Check frontend directory from correct root"
+    }
   }
 ]

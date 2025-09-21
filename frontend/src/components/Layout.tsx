@@ -13,7 +13,8 @@ import {
   GraduationCap,
   FormInput,
   UserCheck,
-  CreditCard
+  CreditCard,
+  Building2
 } from 'lucide-react'
 import { cn } from '../lib/utils'
 import { useAuth } from '../contexts/AuthContext'
@@ -77,6 +78,12 @@ const navigation = [
     name: 'Events',
     href: '/events',
     icon: Calendar,
+    roles: ['admin']
+  },
+  {
+    name: 'Venues',
+    href: '/dashboard/venues',
+    icon: Building2,
     roles: ['admin']
   },
 ]
