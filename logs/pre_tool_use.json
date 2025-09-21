@@ -1260,5 +1260,280 @@
     "tool_input": {
       "work_order_number": "077"
     }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__get_work_order",
+    "tool_input": {
+      "work_order_number": "063"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing payment components in registration flow",
+          "status": "in_progress",
+          "activeForm": "Analyzing existing payment components in registration flow"
+        },
+        {
+          "content": "Review current Stripe Elements integration",
+          "status": "pending",
+          "activeForm": "Reviewing current Stripe Elements integration"
+        },
+        {
+          "content": "Enhance PaymentForm component with proper validation",
+          "status": "pending",
+          "activeForm": "Enhancing PaymentForm component with proper validation"
+        },
+        {
+          "content": "Implement loading states and error handling",
+          "status": "pending",
+          "activeForm": "Implementing loading states and error handling"
+        },
+        {
+          "content": "Add balance due display and payment processing",
+          "status": "pending",
+          "activeForm": "Adding balance due display and payment processing"
+        },
+        {
+          "content": "Test payment flow integration with registration",
+          "status": "pending",
+          "activeForm": "Testing payment flow integration with registration"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Glob",
+    "tool_input": {
+      "pattern": "**/PaymentForm*",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PaymentForm.tsx"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/registration/PaymentInitiator.tsx",
+      "offset": 300,
+      "limit": 50
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "POST.*\\/api\\/payments\\/process",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "app\\.(post|get|put|delete)\\(.*\\/api\\/payments",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing payment components in registration flow",
+          "status": "completed",
+          "activeForm": "Analyzing existing payment components in registration flow"
+        },
+        {
+          "content": "Review current Stripe Elements integration",
+          "status": "completed",
+          "activeForm": "Reviewing current Stripe Elements integration"
+        },
+        {
+          "content": "Enhance PaymentForm with improved validation and UX",
+          "status": "in_progress",
+          "activeForm": "Enhancing PaymentForm with improved validation and UX"
+        },
+        {
+          "content": "Add card validation feedback and better error handling",
+          "status": "pending",
+          "activeForm": "Adding card validation feedback and better error handling"
+        },
+        {
+          "content": "Improve loading states and success feedback",
+          "status": "pending",
+          "activeForm": "Improving loading states and success feedback"
+        },
+        {
+          "content": "Verify registration flow integration and redirects",
+          "status": "pending",
+          "activeForm": "Verifying registration flow integration and redirects"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PaymentForm.tsx",
+      "old_string": "const PaymentFormContent = ({ amount, programRegistrationId, programName, onSuccess, onError }: PaymentFormProps) => {\n  const stripe = useStripe()\n  const elements = useElements()\n  const [isProcessing, setIsProcessing] = useState(false)\n  const [clientSecret, setClientSecret] = useState('')\n  const [paymentIntentId, setPaymentIntentId] = useState('')\n  const [errorMessage, setErrorMessage] = useState('')\n\n  const { loading: createIntentLoading, execute } = useApi<any>()",
+      "new_string": "const PaymentFormContent = ({ amount, programRegistrationId, programName, onSuccess, onError }: PaymentFormProps) => {\n  const stripe = useStripe()\n  const elements = useElements()\n  const [isProcessing, setIsProcessing] = useState(false)\n  const [clientSecret, setClientSecret] = useState('')\n  const [paymentIntentId, setPaymentIntentId] = useState('')\n  const [errorMessage, setErrorMessage] = useState('')\n  const [cardComplete, setCardComplete] = useState(false)\n  const [cardError, setCardError] = useState('')\n  const [paymentSuccess, setPaymentSuccess] = useState(false)\n\n  const { loading: createIntentLoading, execute } = useApi<any>()"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PaymentForm.tsx",
+      "old_string": "  const handleSubmit = async (event: React.FormEvent) => {\n    event.preventDefault()\n\n    if (!stripe || !elements || !clientSecret) {\n      return\n    }\n\n    setIsProcessing(true)\n    setErrorMessage('')\n\n    const cardElement = elements.getElement(CardElement)\n    if (!cardElement) {\n      setErrorMessage('Payment form not loaded properly')\n      setIsProcessing(false)\n      return\n    }\n\n    try {\n      // Confirm payment with Stripe\n      const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {\n        payment_method: {\n          card: cardElement,\n        }\n      })\n\n      if (error) {\n        setErrorMessage(error.message || 'Payment failed')\n        onError(error.message || 'Payment failed')\n      } else if (paymentIntent?.status === 'succeeded') {\n        // Confirm payment with backend\n        const confirmResponse = await execute('/api/payments/confirm', {\n          method: 'POST',\n          headers: {\n            'Content-Type': 'application/json',\n            ...getAuthHeaders()\n          },\n          body: JSON.stringify({\n            payment_intent_id: paymentIntentId,\n            program_registration_id: programRegistrationId\n          })\n        })\n\n        onSuccess({\n          paymentIntent,\n          payment: confirmResponse.payment,\n          message: confirmResponse.message\n        })\n      }\n    } catch (err: any) {\n      const errorMsg = err.message || 'Payment confirmation failed'\n      setErrorMessage(errorMsg)\n      onError(errorMsg)\n    } finally {\n      setIsProcessing(false)\n    }\n  }",
+      "new_string": "  // Handle card input changes for real-time validation\n  const handleCardChange = (event: any) => {\n    setCardComplete(event.complete)\n    setCardError(event.error?.message || '')\n\n    // Clear general error when user starts typing\n    if (errorMessage && event.complete) {\n      setErrorMessage('')\n    }\n  }\n\n  // Enhanced form validation\n  const validateForm = () => {\n    if (!stripe || !elements) {\n      setErrorMessage('Payment system not loaded. Please refresh and try again.')\n      return false\n    }\n\n    if (!clientSecret) {\n      setErrorMessage('Payment not initialized. Please refresh and try again.')\n      return false\n    }\n\n    if (!cardComplete) {\n      setErrorMessage('Please complete your card information.')\n      return false\n    }\n\n    if (cardError) {\n      setErrorMessage(cardError)\n      return false\n    }\n\n    return true\n  }\n\n  const handleSubmit = async (event: React.FormEvent) => {\n    event.preventDefault()\n\n    // Enhanced form validation\n    if (!validateForm()) {\n      return\n    }\n\n    setIsProcessing(true)\n    setErrorMessage('')\n    setCardError('')\n\n    const cardElement = elements.getElement(CardElement)\n    if (!cardElement) {\n      setErrorMessage('Payment form not loaded properly. Please refresh and try again.')\n      setIsProcessing(false)\n      return\n    }\n\n    try {\n      // Confirm payment with Stripe\n      const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {\n        payment_method: {\n          card: cardElement,\n        }\n      })\n\n      if (error) {\n        // Enhanced error handling with user-friendly messages\n        let userFriendlyMessage = error.message || 'Payment failed'\n\n        switch (error.code) {\n          case 'card_declined':\n            userFriendlyMessage = 'Your card was declined. Please try a different payment method or contact your bank.'\n            break\n          case 'expired_card':\n            userFriendlyMessage = 'Your card has expired. Please use a different card.'\n            break\n          case 'incorrect_cvc':\n            userFriendlyMessage = 'Your card security code is incorrect. Please check and try again.'\n            break\n          case 'processing_error':\n            userFriendlyMessage = 'An error occurred while processing your card. Please try again.'\n            break\n          case 'insufficient_funds':\n            userFriendlyMessage = 'Your card has insufficient funds. Please try a different payment method.'\n            break\n          default:\n            userFriendlyMessage = error.message || 'Payment failed. Please try again.'\n        }\n\n        setErrorMessage(userFriendlyMessage)\n        onError(userFriendlyMessage)\n      } else if (paymentIntent?.status === 'succeeded') {\n        // Show success state briefly before confirming with backend\n        setPaymentSuccess(true)\n\n        // Confirm payment with backend\n        const confirmResponse = await execute('/api/payments/confirm', {\n          method: 'POST',\n          headers: {\n            'Content-Type': 'application/json',\n            ...getAuthHeaders()\n          },\n          body: JSON.stringify({\n            payment_intent_id: paymentIntentId,\n            program_registration_id: programRegistrationId\n          })\n        })\n\n        onSuccess({\n          paymentIntent,\n          payment: confirmResponse.payment,\n          message: confirmResponse.message || 'Payment completed successfully'\n        })\n      } else {\n        setErrorMessage('Payment was not completed. Please try again.')\n        onError('Payment was not completed. Please try again.')\n      }\n    } catch (err: any) {\n      let errorMsg = 'Payment confirmation failed. Please try again.'\n\n      // Handle specific API errors\n      if (err.status === 400) {\n        errorMsg = 'Invalid payment information. Please check your details and try again.'\n      } else if (err.status === 404) {\n        errorMsg = 'Registration not found. Please refresh and try again.'\n      } else if (err.status >= 500) {\n        errorMsg = 'Server error occurred. Please try again in a moment.'\n      } else if (err.message) {\n        errorMsg = err.message\n      }\n\n      setErrorMessage(errorMsg)\n      onError(errorMsg)\n      setPaymentSuccess(false)\n    } finally {\n      setIsProcessing(false)\n    }\n  }"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PaymentForm.tsx",
+      "old_string": "          {/* Card Input */}\n          <div className=\"space-y-2\">\n            <label className=\"text-sm font-medium text-gray-700\">\n              Card Information\n            </label>\n            <div className=\"border rounded-md p-3 bg-white\">\n              <CardElement options={cardElementOptions} />\n            </div>\n          </div>",
+      "new_string": "          {/* Card Input */}\n          <div className=\"space-y-2\">\n            <label className=\"text-sm font-medium text-gray-700\">\n              Card Information\n            </label>\n            <div className={`border rounded-md p-3 bg-white transition-colors ${\n              cardError ? 'border-red-300 bg-red-50' :\n              cardComplete ? 'border-green-300 bg-green-50' : 'border-gray-300'\n            }`}>\n              <CardElement\n                options={cardElementOptions}\n                onChange={handleCardChange}\n              />\n            </div>\n\n            {/* Real-time card validation feedback */}\n            {cardError && (\n              <motion.div\n                initial={{ opacity: 0, y: -5 }}\n                animate={{ opacity: 1, y: 0 }}\n                className=\"flex items-center gap-2 text-red-600 text-sm\"\n              >\n                <AlertCircle className=\"h-4 w-4\" />\n                <span>{cardError}</span>\n              </motion.div>\n            )}\n\n            {cardComplete && !cardError && (\n              <motion.div\n                initial={{ opacity: 0, y: -5 }}\n                animate={{ opacity: 1, y: 0 }}\n                className=\"flex items-center gap-2 text-green-600 text-sm\"\n              >\n                <CheckCircle className=\"h-4 w-4\" />\n                <span>Card information looks good</span>\n              </motion.div>\n            )}\n          </div>"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/PaymentForm.tsx",
+      "old_string": "          {/* Submit Button */}\n          <Button\n            type=\"submit\"\n            className=\"w-full\"\n            disabled={!stripe || isProcessing || !clientSecret}\n          >\n            {isProcessing ? (\n              <>\n                <Loader2 className=\"h-4 w-4 animate-spin mr-2\" />\n                Processing Payment...\n              </>\n            ) : (\n              <>\n                <Lock className=\"h-4 w-4 mr-2\" />\n                Pay ${amount.toFixed(2)}\n              </>\n            )}\n          </Button>",
+      "new_string": "          {/* Submit Button */}\n          <Button\n            type=\"submit\"\n            className={`w-full transition-all ${\n              paymentSuccess ? 'bg-green-600 hover:bg-green-700' : ''\n            }`}\n            disabled={!stripe || isProcessing || !clientSecret || !cardComplete || !!cardError}\n          >\n            {paymentSuccess ? (\n              <>\n                <CheckCircle className=\"h-4 w-4 mr-2\" />\n                Payment Successful!\n              </>\n            ) : isProcessing ? (\n              <>\n                <Loader2 className=\"h-4 w-4 animate-spin mr-2\" />\n                {paymentSuccess ? 'Confirming Payment...' : 'Processing Payment...'}\n              </>\n            ) : (\n              <>\n                <Lock className=\"h-4 w-4 mr-2\" />\n                Pay ${amount.toFixed(2)}\n              </>\n            )}\n          </Button>\n\n          {/* Enhanced button state messages */}\n          {!cardComplete && !isProcessing && (\n            <p className=\"text-center text-sm text-gray-500\">\n              Complete your card information to continue\n            </p>\n          )}\n\n          {cardComplete && !cardError && !isProcessing && (\n            <p className=\"text-center text-sm text-green-600\">\n              Ready to process payment\n            </p>\n          )}"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/package.json"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing payment components in registration flow",
+          "status": "completed",
+          "activeForm": "Analyzing existing payment components in registration flow"
+        },
+        {
+          "content": "Review current Stripe Elements integration",
+          "status": "completed",
+          "activeForm": "Reviewing current Stripe Elements integration"
+        },
+        {
+          "content": "Enhance PaymentForm with improved validation and UX",
+          "status": "completed",
+          "activeForm": "Enhancing PaymentForm with improved validation and UX"
+        },
+        {
+          "content": "Add card validation feedback and better error handling",
+          "status": "completed",
+          "activeForm": "Adding card validation feedback and better error handling"
+        },
+        {
+          "content": "Improve loading states and success feedback",
+          "status": "completed",
+          "activeForm": "Improving loading states and success feedback"
+        },
+        {
+          "content": "Verify registration flow integration and redirects",
+          "status": "completed",
+          "activeForm": "Verifying registration flow integration and redirects"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__mark_work_order_complete",
+    "tool_input": {
+      "work_order_number": "063"
+    }
   }
 ]
