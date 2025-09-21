@@ -30,6 +30,7 @@ import VenueListManagement from './components/VenueListManagement'
 import VenueCreatePage from './components/VenueCreatePage'
 import VenueEditPage from './components/VenueEditPage'
 import VenueDetailPage from './components/VenueDetailPage'
+import AmenityTypeManagement from './components/AmenityTypeManagement'
 import { AuthProvider } from './contexts/AuthContext'
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
           <Route path="venues/new" element={<VenueCreatePage />} />
           <Route path="venues/:venueId" element={<VenueDetailPage />} />
           <Route path="venues/:venueId/edit" element={<VenueEditPage />} />
+          <Route path="amenity-types" element={<AmenityTypeManagement />} />
         </Route>
         <Route path="/teams" element={<Layout />}>
           <Route index element={<TeamListView />} />
