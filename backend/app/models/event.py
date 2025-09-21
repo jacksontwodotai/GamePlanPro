@@ -1,11 +1,15 @@
 from sqlmodel import SQLModel, Field, Relationship, Index
-from typing import Optional
+from typing import Optional, List, TYPE_CHECKING
 from datetime import datetime
 import uuid
 from enum import Enum
-from sqlalchemy import Column, String, Text, DateTime, Boolean, ForeignKey, CheckConstraint
+from sqlalchemy import Column, String, Text, DateTime, Boolean, Integer, ForeignKey, CheckConstraint
 from sqlalchemy.dialects.postgresql import UUID
 from pydantic import validator
+
+if TYPE_CHECKING:
+    from .event_team import EventTeam
+    from .venue import Venue
 
 class EventType(str, Enum):
     PRACTICE = "Practice"
@@ -44,8 +48,9 @@ class Event(SQLModel, table=True):
         foreign_key="venues.id",
         sa_column=Column(UUID(as_uuid=True), ForeignKey("venues.id", ondelete="SET NULL"), nullable=True)
     )
-    created_by_user_id: uuid.UUID = Field(
-        sa_column=Column(UUID(as_uuid=True), nullable=False)
+    created_by_user_id: int = Field(
+        foreign_key="users.id",
+        sa_column=Column(Integer, ForeignKey("users.id"), nullable=False)
     )
     is_recurring: bool = Field(
         default=False,
@@ -66,6 +71,9 @@ class Event(SQLModel, table=True):
 
     # Relationship to venue
     venue: Optional["Venue"] = Relationship(back_populates="events")
+
+    # Relationship to event teams (many-to-many through EventTeam)
+    event_teams: List["EventTeam"] = Relationship(back_populates="event")
 
     @validator('end_time')
     def validate_end_time_after_start(cls, v, values):
