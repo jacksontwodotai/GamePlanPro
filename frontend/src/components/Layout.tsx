@@ -102,17 +102,9 @@ export default function Layout() {
           // Check for exact match first
           const isExactMatch = location.pathname === item.href
 
-          // For nested routes, only mark as active if:
-          // 1. Current path starts with this item's href + '/'
-          // 2. No other navigation item has a more specific match (longer href that also matches)
-          const isNestedMatch = location.pathname.startsWith(item.href + '/') &&
-            !filteredNavigation.some(navItem =>
-              navItem.href !== item.href &&
-              navItem.href.length > item.href.length &&
-              location.pathname.startsWith(navItem.href)
-            )
-
-          const isActive = isExactMatch || isNestedMatch
+          // Only show as active if it's an exact match
+          // This prevents parent routes from being highlighted when child routes are active
+          const isActive = isExactMatch
 
           return (
             <Button

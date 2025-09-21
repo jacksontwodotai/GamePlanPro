@@ -6424,6 +6424,204 @@ app.get('/api/programs/:program_id/registration-form', authenticateUser, async (
     }
 });
 
+// Admin authentication middleware
+const authenticateAdmin = async (req, res, next) => {
+    try {
+        const authHeader = req.headers.authorization;
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return res.status(401).json({ error: 'Missing or invalid authorization header' });
+        }
+
+        const token = authHeader.substring(7);
+
+        // Verify the JWT token with Supabase
+        const { data: user, error } = await supabase.auth.getUser(token);
+
+        if (error || !user) {
+            return res.status(401).json({ error: 'Invalid or expired token' });
+        }
+
+        // Check if user has admin role
+        const { data: userProfile, error: profileError } = await supabase
+            .from('users')
+            .select('role')
+            .eq('email', user.user.email)
+            .single();
+
+        if (profileError || !userProfile || userProfile.role !== 'admin') {
+            return res.status(403).json({ error: 'Admin access required' });
+        }
+
+        req.user = user.user;
+        next();
+    } catch (error) {
+        console.error('Admin authentication error:', error);
+        return res.status(401).json({ error: 'Authentication failed' });
+    }
+};
+
+// Admin Program Administration Endpoints
+
+// PUT /api/admin/registration/programs/{program_id}/settings - Update program settings
+app.put('/api/admin/registration/programs/:program_id/settings', authenticateAdmin, async (req, res) => {
+    const { program_id } = req.params;
+    const { max_capacity, registration_open_date, registration_close_date, is_active } = req.body;
+
+    try {
+        // Validate program_id (UUID format)
+        if (!program_id || !program_id.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
+            return res.status(400).json({ error: 'Valid program ID is required' });
+        }
+
+        // Check if program exists
+        const { data: existingProgram, error: fetchError } = await supabase
+            .from('programs')
+            .select('id, name')
+            .eq('id', program_id)
+            .single();
+
+        if (fetchError) {
+            if (fetchError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Program not found' });
+            }
+            console.error('Program fetch error:', fetchError);
+            return res.status(500).json({ error: 'Failed to fetch program' });
+        }
+
+        // Validate input data
+        const updates = {};
+
+        if (max_capacity !== undefined) {
+            if (max_capacity !== null && (!Number.isInteger(max_capacity) || max_capacity <= 0)) {
+                return res.status(400).json({ error: 'max_capacity must be a positive integer or null' });
+            }
+            updates.max_capacity = max_capacity;
+        }
+
+        if (registration_open_date !== undefined) {
+            if (!registration_open_date || isNaN(Date.parse(registration_open_date))) {
+                return res.status(400).json({ error: 'registration_open_date must be a valid date' });
+            }
+            updates.registration_open_date = registration_open_date;
+        }
+
+        if (registration_close_date !== undefined) {
+            if (!registration_close_date || isNaN(Date.parse(registration_close_date))) {
+                return res.status(400).json({ error: 'registration_close_date must be a valid date' });
+            }
+            updates.registration_close_date = registration_close_date;
+        }
+
+        if (is_active !== undefined) {
+            if (typeof is_active !== 'boolean') {
+                return res.status(400).json({ error: 'is_active must be a boolean' });
+            }
+            updates.is_active = is_active;
+        }
+
+        // Validate date logic if both dates are provided
+        if (updates.registration_open_date && updates.registration_close_date) {
+            const openDate = new Date(updates.registration_open_date);
+            const closeDate = new Date(updates.registration_close_date);
+            if (openDate >= closeDate) {
+                return res.status(400).json({ error: 'registration_open_date must be before registration_close_date' });
+            }
+        }
+
+        if (Object.keys(updates).length === 0) {
+            return res.status(400).json({ error: 'At least one field must be provided to update' });
+        }
+
+        // Add updated_at timestamp
+        updates.updated_at = new Date().toISOString();
+
+        // Update the program
+        const { data: updatedProgram, error: updateError } = await supabase
+            .from('programs')
+            .update(updates)
+            .eq('id', program_id)
+            .select()
+            .single();
+
+        if (updateError) {
+            console.error('Program update error:', updateError);
+            return res.status(500).json({ error: 'Failed to update program settings' });
+        }
+
+        res.json({
+            message: 'Program settings updated successfully',
+            program: {
+                id: updatedProgram.id,
+                name: updatedProgram.name,
+                max_capacity: updatedProgram.max_capacity,
+                registration_open_date: updatedProgram.registration_open_date,
+                registration_close_date: updatedProgram.registration_close_date,
+                is_active: updatedProgram.is_active,
+                updated_at: updatedProgram.updated_at
+            }
+        });
+    } catch (error) {
+        console.error('Update program settings error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/admin/registration/programs/{program_id}/capacity - Get program capacity information
+app.get('/api/admin/registration/programs/:program_id/capacity', authenticateAdmin, async (req, res) => {
+    const { program_id } = req.params;
+
+    try {
+        // Validate program_id (UUID format)
+        if (!program_id || !program_id.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
+            return res.status(400).json({ error: 'Valid program ID is required' });
+        }
+
+        // Check if program exists and get capacity info
+        const { data: program, error: programError } = await supabase
+            .from('programs')
+            .select('id, name, max_capacity')
+            .eq('id', program_id)
+            .single();
+
+        if (programError) {
+            if (programError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Program not found' });
+            }
+            console.error('Program fetch error:', programError);
+            return res.status(500).json({ error: 'Failed to fetch program' });
+        }
+
+        // Count active registrations for this program
+        const { count: currentRegistrations, error: countError } = await supabase
+            .from('program_registrations')
+            .select('*', { count: 'exact', head: true })
+            .eq('program_id', program_id)
+            .in('status', ['confirmed', 'pending', 'ReadyForPayment', 'Complete']);
+
+        if (countError) {
+            console.error('Registration count error:', countError);
+            return res.status(500).json({ error: 'Failed to count registrations' });
+        }
+
+        // Calculate available spots
+        const maxCapacity = program.max_capacity;
+        const availableSpots = maxCapacity !== null ? Math.max(0, maxCapacity - (currentRegistrations || 0)) : null;
+
+        res.json({
+            program_id: program.id,
+            program_name: program.name,
+            current_registrations: currentRegistrations || 0,
+            max_capacity: maxCapacity,
+            available_spots: availableSpots,
+            is_full: maxCapacity !== null && (currentRegistrations || 0) >= maxCapacity,
+            capacity_utilization: maxCapacity !== null ? Math.round(((currentRegistrations || 0) / maxCapacity) * 100) : null
+        });
+    } catch (error) {
+        console.error('Get program capacity error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // Report Endpoints
 // GET /api/reports/roster - Generate roster reports with multi-format support
 app.get('/api/reports/roster', authenticateUser, async (req, res) => {
