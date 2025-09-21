@@ -25,6 +25,7 @@ import {
   X
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 
 interface Venue {
   id: string
@@ -91,6 +92,8 @@ const cardHoverVariants = {
 } as const
 
 export default function VenueListManagement() {
+  const navigate = useNavigate()
+
   const [venues, setVenues] = useState<Venue[]>([])
   const [filteredVenues, setFilteredVenues] = useState<Venue[]>([])
   const [loading, setLoading] = useState(true)
@@ -230,18 +233,18 @@ export default function VenueListManagement() {
   }
 
   const handleViewDetails = (venue: Venue) => {
-    // TODO: Navigate to venue details page
+    // TODO: Navigate to venue details page when implemented
     console.log('View details for venue:', venue.id)
+    // For now, navigate to edit page as placeholder
+    navigate(`/dashboard/venues/${venue.id}/edit`)
   }
 
   const handleEditVenue = (venue: Venue) => {
-    // TODO: Navigate to venue edit page
-    console.log('Edit venue:', venue.id)
+    navigate(`/dashboard/venues/${venue.id}/edit`)
   }
 
   const handleCreateVenue = () => {
-    // TODO: Navigate to venue creation page
-    console.log('Create new venue')
+    navigate('/dashboard/venues/new')
   }
 
   useEffect(() => {
