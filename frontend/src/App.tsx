@@ -29,6 +29,7 @@ import FormEditor from './components/FormEditor'
 import VenueListManagement from './components/VenueListManagement'
 import VenueCreatePage from './components/VenueCreatePage'
 import VenueEditPage from './components/VenueEditPage'
+import VenueDetailPage from './components/VenueDetailPage'
 import { AuthProvider } from './contexts/AuthContext'
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
           <Route path="forms/:formId" element={<FormEditor />} />
           <Route path="venues" element={<VenueListManagement />} />
           <Route path="venues/new" element={<VenueCreatePage />} />
+          <Route path="venues/:venueId" element={<VenueDetailPage />} />
           <Route path="venues/:venueId/edit" element={<VenueEditPage />} />
         </Route>
         <Route path="/teams" element={<Layout />}>

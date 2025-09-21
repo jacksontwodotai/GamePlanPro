@@ -1018,5 +1018,831 @@
     "tool_input": {
       "work_order_number": "101"
     }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__get_work_order",
+    "tool_input": {
+      "work_order_number": "108"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__get_work_order",
+    "tool_input": {
+      "work_order_number": "108"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__list_work_orders",
+    "tool_input": {}
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__get_work_order",
+    "tool_input": {
+      "work_order_number": "61"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Implement WO-108: Venue Detail View and Amenity Management",
+          "status": "pending",
+          "activeForm": "Implementing WO-108: Venue Detail View and Amenity Management"
+        },
+        {
+          "content": "Create VenueDetailPage component with venue information display",
+          "status": "pending",
+          "activeForm": "Creating VenueDetailPage component with venue information display"
+        },
+        {
+          "content": "Add amenity management modal to VenueDetailPage",
+          "status": "pending",
+          "activeForm": "Adding amenity management modal to VenueDetailPage"
+        },
+        {
+          "content": "Add routing for venue detail view in App.tsx",
+          "status": "pending",
+          "activeForm": "Adding routing for venue detail view in App.tsx"
+        },
+        {
+          "content": "Implement WO-61: Payment Processing Core API Endpoints",
+          "status": "pending",
+          "activeForm": "Implementing WO-61: Payment Processing Core API Endpoints"
+        },
+        {
+          "content": "Create Payment model with SQLModel",
+          "status": "pending",
+          "activeForm": "Creating Payment model with SQLModel"
+        },
+        {
+          "content": "Create payment schemas for request/response",
+          "status": "pending",
+          "activeForm": "Creating payment schemas for request/response"
+        },
+        {
+          "content": "Create payment API endpoints with validation",
+          "status": "pending",
+          "activeForm": "Creating payment API endpoints with validation"
+        },
+        {
+          "content": "Update Registration model for payment tracking",
+          "status": "pending",
+          "activeForm": "Updating Registration model for payment tracking"
+        },
+        {
+          "content": "Add payment router to main.py",
+          "status": "pending",
+          "activeForm": "Adding payment router to main.py"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Implement WO-108: Venue Detail View and Amenity Management",
+          "status": "in_progress",
+          "activeForm": "Implementing WO-108: Venue Detail View and Amenity Management"
+        },
+        {
+          "content": "Create VenueDetailPage component with venue information display",
+          "status": "pending",
+          "activeForm": "Creating VenueDetailPage component with venue information display"
+        },
+        {
+          "content": "Add amenity management modal to VenueDetailPage",
+          "status": "pending",
+          "activeForm": "Adding amenity management modal to VenueDetailPage"
+        },
+        {
+          "content": "Add routing for venue detail view in App.tsx",
+          "status": "pending",
+          "activeForm": "Adding routing for venue detail view in App.tsx"
+        },
+        {
+          "content": "Implement WO-61: Payment Processing Core API Endpoints",
+          "status": "pending",
+          "activeForm": "Implementing WO-61: Payment Processing Core API Endpoints"
+        },
+        {
+          "content": "Create Payment model with SQLModel",
+          "status": "pending",
+          "activeForm": "Creating Payment model with SQLModel"
+        },
+        {
+          "content": "Create payment schemas for request/response",
+          "status": "pending",
+          "activeForm": "Creating payment schemas for request/response"
+        },
+        {
+          "content": "Create payment API endpoints with validation",
+          "status": "pending",
+          "activeForm": "Creating payment API endpoints with validation"
+        },
+        {
+          "content": "Update Registration model for payment tracking",
+          "status": "pending",
+          "activeForm": "Updating Registration model for payment tracking"
+        },
+        {
+          "content": "Add payment router to main.py",
+          "status": "pending",
+          "activeForm": "Adding payment router to main.py"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/api/venues.py"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/api/venue_amenity_associations.py"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/api/venue_amenities.py"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Implement WO-108: Venue Detail View and Amenity Management",
+          "status": "in_progress",
+          "activeForm": "Implementing WO-108: Venue Detail View and Amenity Management"
+        },
+        {
+          "content": "Create VenueDetailPage component with venue information display",
+          "status": "in_progress",
+          "activeForm": "Creating VenueDetailPage component with venue information display"
+        },
+        {
+          "content": "Add amenity management modal to VenueDetailPage",
+          "status": "pending",
+          "activeForm": "Adding amenity management modal to VenueDetailPage"
+        },
+        {
+          "content": "Add routing for venue detail view in App.tsx",
+          "status": "pending",
+          "activeForm": "Adding routing for venue detail view in App.tsx"
+        },
+        {
+          "content": "Implement WO-61: Payment Processing Core API Endpoints",
+          "status": "pending",
+          "activeForm": "Implementing WO-61: Payment Processing Core API Endpoints"
+        },
+        {
+          "content": "Create Payment model with SQLModel",
+          "status": "pending",
+          "activeForm": "Creating Payment model with SQLModel"
+        },
+        {
+          "content": "Create payment schemas for request/response",
+          "status": "pending",
+          "activeForm": "Creating payment schemas for request/response"
+        },
+        {
+          "content": "Create payment API endpoints with validation",
+          "status": "pending",
+          "activeForm": "Creating payment API endpoints with validation"
+        },
+        {
+          "content": "Update Registration model for payment tracking",
+          "status": "pending",
+          "activeForm": "Updating Registration model for payment tracking"
+        },
+        {
+          "content": "Add payment router to main.py",
+          "status": "pending",
+          "activeForm": "Adding payment router to main.py"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Write",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/VenueDetailPage.tsx",
+      "content": "import { useState, useEffect } from 'react'\nimport { useNavigate, useParams } from 'react-router-dom'\nimport { motion } from 'framer-motion'\nimport {\n  ArrowLeft,\n  Edit,\n  Settings,\n  Building2,\n  MapPin,\n  Users,\n  Calendar,\n  AlertTriangle,\n  Loader2,\n  X,\n  Plus,\n  Check,\n  Trash2\n} from 'lucide-react'\nimport { Button } from './ui/button'\nimport { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog'\nimport { Input } from './ui/input'\nimport { Textarea } from './ui/textarea'\nimport { Label } from './ui/label'\nimport { Checkbox } from './ui/checkbox'\n\ninterface Venue {\n  id: string\n  name: string\n  address?: string\n  city?: string\n  state?: string\n  zip_code?: string\n  capacity?: number\n  description?: string\n  is_active: boolean\n  created_at: string\n  updated_at: string\n}\n\ninterface VenueAmenity {\n  id: string\n  name: string\n  description?: string\n  is_active: boolean\n  created_at: string\n  updated_at: string\n}\n\ninterface VenueAmenityAssociation {\n  amenity_id: string\n  quantity?: number\n  notes?: string\n  amenity: VenueAmenity\n  created_at: string\n  updated_at: string\n}\n\ninterface AmenityFormData {\n  amenity_id: string\n  quantity: number\n  notes: string\n}\n\nexport default function VenueDetailPage() {\n  const navigate = useNavigate()\n  const { venueId } = useParams<{ venueId: string }>()\n\n  const [venue, setVenue] = useState<Venue | null>(null)\n  const [venueAmenities, setVenueAmenities] = useState<VenueAmenityAssociation[]>([])\n  const [availableAmenities, setAvailableAmenities] = useState<VenueAmenity[]>([])\n  const [loading, setLoading] = useState(true)\n  const [error, setError] = useState<string | null>(null)\n  const [modalOpen, setModalOpen] = useState(false)\n  const [modalLoading, setModalLoading] = useState(false)\n  const [selectedAmenities, setSelectedAmenities] = useState<AmenityFormData[]>([])\n\n  useEffect(() => {\n    if (!venueId) {\n      setError('No venue ID provided')\n      setLoading(false)\n      return\n    }\n\n    fetchVenueData()\n  }, [venueId])\n\n  const fetchVenueData = async () => {\n    try {\n      setLoading(true)\n      setError(null)\n\n      // Fetch venue details and amenities in parallel\n      const [venueResponse, amenitiesResponse] = await Promise.all([\n        fetch(`/api/venues/${venueId}`),\n        fetch(`/api/venues/${venueId}/amenities`)\n      ])\n\n      if (!venueResponse.ok) {\n        if (venueResponse.status === 404) {\n          throw new Error('Venue not found')\n        }\n        throw new Error(`Failed to fetch venue (${venueResponse.status})`)\n      }\n\n      if (!amenitiesResponse.ok) {\n        throw new Error(`Failed to fetch venue amenities (${amenitiesResponse.status})`)\n      }\n\n      const [venueData, amenitiesData] = await Promise.all([\n        venueResponse.json(),\n        amenitiesResponse.json()\n      ])\n\n      setVenue(venueData)\n      setVenueAmenities(amenitiesData)\n\n    } catch (error) {\n      const message = error instanceof Error ? error.message : 'Failed to fetch venue data'\n      setError(message)\n      console.error('Error fetching venue data:', error)\n    } finally {\n      setLoading(false)\n    }\n  }\n\n  const fetchAvailableAmenities = async () => {\n    try {\n      const response = await fetch('/api/venue-amenities?limit=1000')\n      if (!response.ok) {\n        throw new Error('Failed to fetch available amenities')\n      }\n      const data = await response.json()\n      setAvailableAmenities(data.filter((amenity: VenueAmenity) => amenity.is_active))\n    } catch (error) {\n      console.error('Error fetching available amenities:', error)\n    }\n  }\n\n  const handleOpenModal = async () => {\n    await fetchAvailableAmenities()\n\n    // Initialize selected amenities with current associations\n    const currentAmenities = venueAmenities.map(assoc => ({\n      amenity_id: assoc.amenity_id,\n      quantity: assoc.quantity || 1,\n      notes: assoc.notes || ''\n    }))\n\n    setSelectedAmenities(currentAmenities)\n    setModalOpen(true)\n  }\n\n  const handleAmenityToggle = (amenityId: string, checked: boolean) => {\n    if (checked) {\n      setSelectedAmenities(prev => [\n        ...prev,\n        { amenity_id: amenityId, quantity: 1, notes: '' }\n      ])\n    } else {\n      setSelectedAmenities(prev => prev.filter(a => a.amenity_id !== amenityId))\n    }\n  }\n\n  const handleAmenityUpdate = (amenityId: string, field: 'quantity' | 'notes', value: string | number) => {\n    setSelectedAmenities(prev => prev.map(amenity =>\n      amenity.amenity_id === amenityId\n        ? { ...amenity, [field]: value }\n        : amenity\n    ))\n  }\n\n  const handleSaveAmenities = async () => {\n    try {\n      setModalLoading(true)\n\n      const currentAmenityIds = venueAmenities.map(a => a.amenity_id)\n      const selectedAmenityIds = selectedAmenities.map(a => a.amenity_id)\n\n      // Find additions, updates, and removals\n      const toAdd = selectedAmenities.filter(a => !currentAmenityIds.includes(a.amenity_id))\n      const toUpdate = selectedAmenities.filter(a => currentAmenityIds.includes(a.amenity_id))\n      const toRemove = currentAmenityIds.filter(id => !selectedAmenityIds.includes(id))\n\n      // Process additions\n      if (toAdd.length > 0) {\n        const response = await fetch(`/api/venues/${venueId}/amenities`, {\n          method: 'POST',\n          headers: { 'Content-Type': 'application/json' },\n          body: JSON.stringify({\n            associations: toAdd.map(a => ({\n              amenity_id: a.amenity_id,\n              quantity: a.quantity,\n              notes: a.notes\n            }))\n          })\n        })\n        if (!response.ok) {\n          throw new Error('Failed to add amenities')\n        }\n      }\n\n      // Process updates\n      for (const amenity of toUpdate) {\n        const response = await fetch(`/api/venues/${venueId}/amenities/${amenity.amenity_id}`, {\n          method: 'PUT',\n          headers: { 'Content-Type': 'application/json' },\n          body: JSON.stringify({\n            quantity: amenity.quantity,\n            notes: amenity.notes\n          })\n        })\n        if (!response.ok) {\n          throw new Error(`Failed to update amenity ${amenity.amenity_id}`)\n        }\n      }\n\n      // Process removals\n      for (const amenityId of toRemove) {\n        const response = await fetch(`/api/venues/${venueId}/amenities/${amenityId}`, {\n          method: 'DELETE'\n        })\n        if (!response.ok) {\n          throw new Error(`Failed to remove amenity ${amenityId}`)\n        }\n      }\n\n      // Refresh venue amenities\n      await fetchVenueData()\n      setModalOpen(false)\n\n    } catch (error) {\n      console.error('Error saving amenities:', error)\n      // Handle error display if needed\n    } finally {\n      setModalLoading(false)\n    }\n  }\n\n  const formatDate = (dateString: string) => {\n    return new Date(dateString).toLocaleDateString('en-US', {\n      year: 'numeric',\n      month: 'short',\n      day: 'numeric',\n      hour: '2-digit',\n      minute: '2-digit'\n    })\n  }\n\n  const handleBackToList = () => {\n    navigate('/dashboard/venues')\n  }\n\n  const handleEditVenue = () => {\n    navigate(`/dashboard/venues/${venueId}/edit`)\n  }\n\n  if (loading) {\n    return (\n      <div className=\"max-w-6xl mx-auto p-6\">\n        <div className=\"flex items-center justify-center py-12\">\n          <div className=\"text-center\">\n            <Loader2 className=\"h-8 w-8 animate-spin text-orange-500 mx-auto mb-4\" />\n            <p className=\"text-gray-400\">Loading venue details...</p>\n          </div>\n        </div>\n      </div>\n    )\n  }\n\n  if (error) {\n    return (\n      <div className=\"max-w-6xl mx-auto p-6\">\n        <div className=\"text-center py-12\">\n          <AlertTriangle className=\"h-12 w-12 text-red-500 mx-auto mb-4\" />\n          <h3 className=\"text-lg font-medium text-white mb-2\">Error Loading Venue</h3>\n          <p className=\"text-gray-400 mb-4\">{error}</p>\n          <div className=\"flex justify-center space-x-4\">\n            <Button\n              onClick={fetchVenueData}\n              className=\"bg-orange-500 hover:bg-orange-600 text-white\"\n            >\n              Try Again\n            </Button>\n            <Button\n              variant=\"outline\"\n              onClick={handleBackToList}\n              className=\"border-zinc-600 text-gray-300 hover:bg-zinc-700\"\n            >\n              Back to Venues\n            </Button>\n          </div>\n        </div>\n      </div>\n    )\n  }\n\n  if (!venue) {\n    return (\n      <div className=\"max-w-6xl mx-auto p-6\">\n        <div className=\"text-center py-12\">\n          <Building2 className=\"h-12 w-12 text-gray-500 mx-auto mb-4\" />\n          <h3 className=\"text-lg font-medium text-white mb-2\">Venue Not Found</h3>\n          <p className=\"text-gray-400 mb-4\">The venue you're looking for doesn't exist or has been deleted.</p>\n          <Button\n            onClick={handleBackToList}\n            className=\"bg-orange-500 hover:bg-orange-600 text-white\"\n          >\n            Back to Venues\n          </Button>\n        </div>\n      </div>\n    )\n  }\n\n  return (\n    <div className=\"max-w-6xl mx-auto p-6\">\n      {/* Header */}\n      <div className=\"flex items-center justify-between mb-6\">\n        <div className=\"flex items-center space-x-4\">\n          <Button\n            variant=\"outline\"\n            onClick={handleBackToList}\n            className=\"border-zinc-600 text-gray-300 hover:bg-zinc-700\"\n          >\n            <ArrowLeft className=\"h-4 w-4 mr-2\" />\n            Back to Venues\n          </Button>\n          <h1 className=\"text-2xl font-bold text-white\">Venue Details</h1>\n        </div>\n        <div className=\"flex space-x-3\">\n          <Button\n            onClick={handleEditVenue}\n            className=\"bg-blue-600 hover:bg-blue-700 text-white\"\n          >\n            <Edit className=\"h-4 w-4 mr-2\" />\n            Edit Venue\n          </Button>\n          <Dialog open={modalOpen} onOpenChange={setModalOpen}>\n            <DialogTrigger asChild>\n              <Button\n                onClick={handleOpenModal}\n                className=\"bg-orange-500 hover:bg-orange-600 text-white\"\n              >\n                <Settings className=\"h-4 w-4 mr-2\" />\n                Manage Amenities\n              </Button>\n            </DialogTrigger>\n            <DialogContent className=\"sm:max-w-4xl bg-zinc-900 border-zinc-700 max-h-[80vh] overflow-y-auto\">\n              <DialogHeader>\n                <DialogTitle className=\"text-white\">Manage Venue Amenities</DialogTitle>\n              </DialogHeader>\n              <div className=\"space-y-4\">\n                {availableAmenities.map((amenity) => {\n                  const isSelected = selectedAmenities.some(a => a.amenity_id === amenity.id)\n                  const selectedAmenity = selectedAmenities.find(a => a.amenity_id === amenity.id)\n\n                  return (\n                    <div key={amenity.id} className=\"border border-zinc-700 rounded-lg p-4\">\n                      <div className=\"flex items-start space-x-3\">\n                        <Checkbox\n                          checked={isSelected}\n                          onCheckedChange={(checked) => handleAmenityToggle(amenity.id, checked as boolean)}\n                          className=\"mt-1\"\n                        />\n                        <div className=\"flex-1\">\n                          <div className=\"flex items-center justify-between mb-2\">\n                            <h4 className=\"font-medium text-white\">{amenity.name}</h4>\n                          </div>\n                          {amenity.description && (\n                            <p className=\"text-sm text-gray-400 mb-3\">{amenity.description}</p>\n                          )}\n\n                          {isSelected && (\n                            <div className=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n                              <div>\n                                <Label htmlFor={`quantity-${amenity.id}`} className=\"text-gray-300\">\n                                  Quantity\n                                </Label>\n                                <Input\n                                  id={`quantity-${amenity.id}`}\n                                  type=\"number\"\n                                  min=\"1\"\n                                  value={selectedAmenity?.quantity || 1}\n                                  onChange={(e) => handleAmenityUpdate(amenity.id, 'quantity', parseInt(e.target.value) || 1)}\n                                  className=\"bg-zinc-800 border-zinc-600 text-white\"\n                                />\n                              </div>\n                              <div>\n                                <Label htmlFor={`notes-${amenity.id}`} className=\"text-gray-300\">\n                                  Notes\n                                </Label>\n                                <Textarea\n                                  id={`notes-${amenity.id}`}\n                                  placeholder=\"Optional notes...\"\n                                  value={selectedAmenity?.notes || ''}\n                                  onChange={(e) => handleAmenityUpdate(amenity.id, 'notes', e.target.value)}\n                                  className=\"bg-zinc-800 border-zinc-600 text-white\"\n                                  rows={2}\n                                />\n                              </div>\n                            </div>\n                          )}\n                        </div>\n                      </div>\n                    </div>\n                  )\n                })}\n              </div>\n              <div className=\"flex justify-end space-x-3 pt-4\">\n                <Button\n                  variant=\"outline\"\n                  onClick={() => setModalOpen(false)}\n                  className=\"border-zinc-600 text-gray-300 hover:bg-zinc-700\"\n                >\n                  Cancel\n                </Button>\n                <Button\n                  onClick={handleSaveAmenities}\n                  disabled={modalLoading}\n                  className=\"bg-orange-500 hover:bg-orange-600 text-white\"\n                >\n                  {modalLoading ? (\n                    <>\n                      <Loader2 className=\"h-4 w-4 mr-2 animate-spin\" />\n                      Saving...\n                    </>\n                  ) : (\n                    <>\n                      <Check className=\"h-4 w-4 mr-2\" />\n                      Save Changes\n                    </>\n                  )}\n                </Button>\n              </div>\n            </DialogContent>\n          </Dialog>\n        </div>\n      </div>\n\n      {/* Venue Information */}\n      <div className=\"grid grid-cols-1 lg:grid-cols-3 gap-6\">\n        {/* Main Info */}\n        <div className=\"lg:col-span-2\">\n          <motion.div\n            initial={{ opacity: 0, y: 20 }}\n            animate={{ opacity: 1, y: 0 }}\n            className=\"bg-zinc-900 rounded-lg border border-zinc-700 p-6\"\n          >\n            <div className=\"flex items-center justify-between mb-6\">\n              <h2 className=\"text-xl font-semibold text-white flex items-center\">\n                <Building2 className=\"h-5 w-5 mr-2 text-orange-500\" />\n                {venue.name}\n              </h2>\n              <span className={`px-3 py-1 rounded-full text-xs font-medium ${\n                venue.is_active\n                  ? 'bg-green-900 text-green-300 border border-green-600'\n                  : 'bg-red-900 text-red-300 border border-red-600'\n              }`}>\n                {venue.is_active ? 'Active' : 'Inactive'}\n              </span>\n            </div>\n\n            <div className=\"space-y-4\">\n              {(venue.address || venue.city || venue.state || venue.zip_code) && (\n                <div className=\"flex items-start space-x-3\">\n                  <MapPin className=\"h-5 w-5 text-gray-400 mt-0.5\" />\n                  <div>\n                    <p className=\"text-white\">\n                      {venue.address && <span>{venue.address}</span>}\n                      {venue.address && (venue.city || venue.state || venue.zip_code) && <br />}\n                      {venue.city && <span>{venue.city}</span>}\n                      {venue.city && venue.state && <span>, </span>}\n                      {venue.state && <span>{venue.state}</span>}\n                      {venue.zip_code && <span> {venue.zip_code}</span>}\n                    </p>\n                  </div>\n                </div>\n              )}\n\n              {venue.capacity && (\n                <div className=\"flex items-center space-x-3\">\n                  <Users className=\"h-5 w-5 text-gray-400\" />\n                  <p className=\"text-white\">\n                    Capacity: <span className=\"font-medium\">{venue.capacity.toLocaleString()}</span>\n                  </p>\n                </div>\n              )}\n\n              {venue.description && (\n                <div className=\"mt-6\">\n                  <h3 className=\"text-lg font-medium text-white mb-2\">Description</h3>\n                  <p className=\"text-gray-300 leading-relaxed\">{venue.description}</p>\n                </div>\n              )}\n            </div>\n          </motion.div>\n        </div>\n\n        {/* Sidebar */}\n        <div className=\"space-y-6\">\n          {/* Timestamps */}\n          <motion.div\n            initial={{ opacity: 0, y: 20 }}\n            animate={{ opacity: 1, y: 0 }}\n            transition={{ delay: 0.1 }}\n            className=\"bg-zinc-900 rounded-lg border border-zinc-700 p-6\"\n          >\n            <h3 className=\"text-lg font-medium text-white mb-4 flex items-center\">\n              <Calendar className=\"h-5 w-5 mr-2 text-orange-500\" />\n              Timeline\n            </h3>\n            <div className=\"space-y-3\">\n              <div>\n                <p className=\"text-sm text-gray-400\">Created</p>\n                <p className=\"text-white\">{formatDate(venue.created_at)}</p>\n              </div>\n              <div>\n                <p className=\"text-sm text-gray-400\">Last Updated</p>\n                <p className=\"text-white\">{formatDate(venue.updated_at)}</p>\n              </div>\n            </div>\n          </motion.div>\n\n          {/* Amenities Summary */}\n          <motion.div\n            initial={{ opacity: 0, y: 20 }}\n            animate={{ opacity: 1, y: 0 }}\n            transition={{ delay: 0.2 }}\n            className=\"bg-zinc-900 rounded-lg border border-zinc-700 p-6\"\n          >\n            <h3 className=\"text-lg font-medium text-white mb-4\">\n              Amenities ({venueAmenities.length})\n            </h3>\n            {venueAmenities.length > 0 ? (\n              <div className=\"space-y-3\">\n                {venueAmenities.map((assoc) => (\n                  <div key={assoc.amenity_id} className=\"bg-zinc-800 rounded-lg p-3\">\n                    <div className=\"flex items-center justify-between mb-1\">\n                      <h4 className=\"font-medium text-white\">{assoc.amenity.name}</h4>\n                      {assoc.quantity && (\n                        <span className=\"text-sm text-gray-400\">Qty: {assoc.quantity}</span>\n                      )}\n                    </div>\n                    {assoc.notes && (\n                      <p className=\"text-sm text-gray-400\">{assoc.notes}</p>\n                    )}\n                  </div>\n                ))}\n              </div>\n            ) : (\n              <p className=\"text-gray-400\">No amenities configured</p>\n            )}\n          </motion.div>\n        </div>\n      </div>\n    </div>\n  )\n}"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Implement WO-108: Venue Detail View and Amenity Management",
+          "status": "in_progress",
+          "activeForm": "Implementing WO-108: Venue Detail View and Amenity Management"
+        },
+        {
+          "content": "Create VenueDetailPage component with venue information display",
+          "status": "completed",
+          "activeForm": "Creating VenueDetailPage component with venue information display"
+        },
+        {
+          "content": "Add amenity management modal to VenueDetailPage",
+          "status": "completed",
+          "activeForm": "Adding amenity management modal to VenueDetailPage"
+        },
+        {
+          "content": "Add routing for venue detail view in App.tsx",
+          "status": "in_progress",
+          "activeForm": "Adding routing for venue detail view in App.tsx"
+        },
+        {
+          "content": "Implement WO-61: Payment Processing Core API Endpoints",
+          "status": "pending",
+          "activeForm": "Implementing WO-61: Payment Processing Core API Endpoints"
+        },
+        {
+          "content": "Create Payment model with SQLModel",
+          "status": "pending",
+          "activeForm": "Creating Payment model with SQLModel"
+        },
+        {
+          "content": "Create payment schemas for request/response",
+          "status": "pending",
+          "activeForm": "Creating payment schemas for request/response"
+        },
+        {
+          "content": "Create payment API endpoints with validation",
+          "status": "pending",
+          "activeForm": "Creating payment API endpoints with validation"
+        },
+        {
+          "content": "Update Registration model for payment tracking",
+          "status": "pending",
+          "activeForm": "Updating Registration model for payment tracking"
+        },
+        {
+          "content": "Add payment router to main.py",
+          "status": "pending",
+          "activeForm": "Adding payment router to main.py"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/App.tsx",
+      "old_string": "import VenueListManagement from './components/VenueListManagement'\nimport VenueCreatePage from './components/VenueCreatePage'\nimport VenueEditPage from './components/VenueEditPage'",
+      "new_string": "import VenueListManagement from './components/VenueListManagement'\nimport VenueCreatePage from './components/VenueCreatePage'\nimport VenueEditPage from './components/VenueEditPage'\nimport VenueDetailPage from './components/VenueDetailPage'"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/App.tsx",
+      "old_string": "          <Route path=\"venues\" element={<VenueListManagement />} />\n          <Route path=\"venues/new\" element={<VenueCreatePage />} />\n          <Route path=\"venues/:venueId/edit\" element={<VenueEditPage />} />",
+      "new_string": "          <Route path=\"venues\" element={<VenueListManagement />} />\n          <Route path=\"venues/new\" element={<VenueCreatePage />} />\n          <Route path=\"venues/:venueId\" element={<VenueDetailPage />} />\n          <Route path=\"venues/:venueId/edit\" element={<VenueEditPage />} />"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Implement WO-108: Venue Detail View and Amenity Management",
+          "status": "completed",
+          "activeForm": "Implementing WO-108: Venue Detail View and Amenity Management"
+        },
+        {
+          "content": "Create VenueDetailPage component with venue information display",
+          "status": "completed",
+          "activeForm": "Creating VenueDetailPage component with venue information display"
+        },
+        {
+          "content": "Add amenity management modal to VenueDetailPage",
+          "status": "completed",
+          "activeForm": "Adding amenity management modal to VenueDetailPage"
+        },
+        {
+          "content": "Add routing for venue detail view in App.tsx",
+          "status": "completed",
+          "activeForm": "Adding routing for venue detail view in App.tsx"
+        },
+        {
+          "content": "Implement WO-61: Payment Processing Core API Endpoints",
+          "status": "in_progress",
+          "activeForm": "Implementing WO-61: Payment Processing Core API Endpoints"
+        },
+        {
+          "content": "Create Payment model with SQLModel",
+          "status": "pending",
+          "activeForm": "Creating Payment model with SQLModel"
+        },
+        {
+          "content": "Create payment schemas for request/response",
+          "status": "pending",
+          "activeForm": "Creating payment schemas for request/response"
+        },
+        {
+          "content": "Create payment API endpoints with validation",
+          "status": "pending",
+          "activeForm": "Creating payment API endpoints with validation"
+        },
+        {
+          "content": "Update Registration model for payment tracking",
+          "status": "pending",
+          "activeForm": "Updating Registration model for payment tracking"
+        },
+        {
+          "content": "Add payment router to main.py",
+          "status": "pending",
+          "activeForm": "Adding payment router to main.py"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__mark_work_order_complete",
+    "tool_input": {
+      "work_order_number": "108"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la /Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models/",
+      "description": "List backend models directory"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "registration",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend",
+      "output_mode": "files_with_matches",
+      "-i": true
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Implement WO-61: Payment Processing Core API Endpoints",
+          "status": "in_progress",
+          "activeForm": "Implementing WO-61: Payment Processing Core API Endpoints"
+        },
+        {
+          "content": "Create Registration model with payment tracking fields",
+          "status": "in_progress",
+          "activeForm": "Creating Registration model with payment tracking fields"
+        },
+        {
+          "content": "Create Payment model with SQLModel",
+          "status": "pending",
+          "activeForm": "Creating Payment model with SQLModel"
+        },
+        {
+          "content": "Create payment schemas for request/response",
+          "status": "pending",
+          "activeForm": "Creating payment schemas for request/response"
+        },
+        {
+          "content": "Create payment API endpoints with validation",
+          "status": "pending",
+          "activeForm": "Creating payment API endpoints with validation"
+        },
+        {
+          "content": "Add payment router to main.py",
+          "status": "pending",
+          "activeForm": "Adding payment router to main.py"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Write",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models/registration.py",
+      "content": "from sqlmodel import SQLModel, Field, Relationship\nfrom uuid import UUID, uuid4\nfrom datetime import datetime\nfrom decimal import Decimal\nfrom typing import Optional, List\nfrom enum import Enum\n\nclass RegistrationStatus(str, Enum):\n    PENDING = \"Pending\"\n    PARTIAL = \"Partial\"\n    COMPLETE = \"Complete\"\n    CANCELLED = \"Cancelled\"\n\nclass Registration(SQLModel, table=True):\n    __tablename__ = \"registrations\"\n\n    id: UUID = Field(default_factory=uuid4, primary_key=True)\n\n    # Registration details\n    participant_name: str = Field(max_length=255)\n    participant_email: str = Field(max_length=255)\n    participant_phone: Optional[str] = Field(max_length=50, default=None)\n    participant_date_of_birth: Optional[datetime] = Field(default=None)\n\n    # Program/Event information\n    program_name: str = Field(max_length=255)\n    program_description: Optional[str] = Field(default=None)\n\n    # Financial information\n    total_amount: Decimal = Field(decimal_places=2, max_digits=10)\n    amount_paid: Decimal = Field(decimal_places=2, max_digits=10, default=Decimal('0.00'))\n    balance_due: Decimal = Field(decimal_places=2, max_digits=10, default=Decimal('0.00'))\n\n    # Status and timestamps\n    status: RegistrationStatus = Field(default=RegistrationStatus.PENDING)\n    registration_date: datetime = Field(default_factory=datetime.utcnow)\n    due_date: Optional[datetime] = Field(default=None)\n\n    # Metadata\n    notes: Optional[str] = Field(default=None)\n    created_at: datetime = Field(default_factory=datetime.utcnow)\n    updated_at: datetime = Field(default_factory=datetime.utcnow)\n\n    # Relationships\n    payments: List[\"Payment\"] = Relationship(back_populates=\"registration\")\n\n    def update_payment_status(self):\n        \"\"\"Update registration status based on payment amounts\"\"\"\n        self.balance_due = self.total_amount - self.amount_paid\n\n        if self.amount_paid >= self.total_amount:\n            self.status = RegistrationStatus.COMPLETE\n        elif self.amount_paid > 0:\n            self.status = RegistrationStatus.PARTIAL\n        else:\n            self.status = RegistrationStatus.PENDING\n\n        self.updated_at = datetime.utcnow()"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Implement WO-61: Payment Processing Core API Endpoints",
+          "status": "in_progress",
+          "activeForm": "Implementing WO-61: Payment Processing Core API Endpoints"
+        },
+        {
+          "content": "Create Registration model with payment tracking fields",
+          "status": "completed",
+          "activeForm": "Creating Registration model with payment tracking fields"
+        },
+        {
+          "content": "Create Payment model with SQLModel",
+          "status": "in_progress",
+          "activeForm": "Creating Payment model with SQLModel"
+        },
+        {
+          "content": "Create payment schemas for request/response",
+          "status": "pending",
+          "activeForm": "Creating payment schemas for request/response"
+        },
+        {
+          "content": "Create payment API endpoints with validation",
+          "status": "pending",
+          "activeForm": "Creating payment API endpoints with validation"
+        },
+        {
+          "content": "Add payment router to main.py",
+          "status": "pending",
+          "activeForm": "Adding payment router to main.py"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Write",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models/payment.py",
+      "content": "from sqlmodel import SQLModel, Field, Relationship\nfrom uuid import UUID, uuid4\nfrom datetime import datetime\nfrom decimal import Decimal\nfrom typing import Optional, Dict, Any\nfrom enum import Enum\nimport json\n\nclass PaymentStatus(str, Enum):\n    PENDING = \"Pending\"\n    PROCESSING = \"Processing\"\n    COMPLETED = \"Completed\"\n    FAILED = \"Failed\"\n    CANCELLED = \"Cancelled\"\n    REFUNDED = \"Refunded\"\n\nclass PaymentMethod(str, Enum):\n    CREDIT_CARD = \"Credit Card\"\n    DEBIT_CARD = \"Debit Card\"\n    BANK_TRANSFER = \"Bank Transfer\"\n    CASH = \"Cash\"\n    CHECK = \"Check\"\n    PAYPAL = \"PayPal\"\n    OTHER = \"Other\"\n\nclass Payment(SQLModel, table=True):\n    __tablename__ = \"payments\"\n\n    id: UUID = Field(default_factory=uuid4, primary_key=True)\n\n    # Foreign keys\n    registration_id: UUID = Field(foreign_key=\"registrations.id\")\n\n    # Payment details\n    amount: Decimal = Field(decimal_places=2, max_digits=10)\n    payment_method: PaymentMethod\n    status: PaymentStatus = Field(default=PaymentStatus.PENDING)\n\n    # Payment method details (stored as JSON)\n    payment_method_details: Optional[str] = Field(default=None)\n\n    # Transaction information\n    transaction_id: Optional[str] = Field(max_length=255, default=None)\n    gateway_transaction_id: Optional[str] = Field(max_length=255, default=None)\n    gateway_response: Optional[str] = Field(default=None)\n\n    # Processing information\n    processed_at: Optional[datetime] = Field(default=None)\n    gateway_fee: Optional[Decimal] = Field(decimal_places=2, max_digits=10, default=None)\n\n    # Metadata\n    notes: Optional[str] = Field(default=None)\n    failure_reason: Optional[str] = Field(default=None)\n    created_at: datetime = Field(default_factory=datetime.utcnow)\n    updated_at: datetime = Field(default_factory=datetime.utcnow)\n\n    # Relationships\n    registration: Optional[\"Registration\"] = Relationship(back_populates=\"payments\")\n\n    def set_payment_method_details(self, details: Dict[str, Any]):\n        \"\"\"Set payment method details as JSON string\"\"\"\n        self.payment_method_details = json.dumps(details)\n\n    def get_payment_method_details(self) -> Dict[str, Any]:\n        \"\"\"Get payment method details as dictionary\"\"\"\n        if self.payment_method_details:\n            try:\n                return json.loads(self.payment_method_details)\n            except json.JSONDecodeError:\n                return {}\n        return {}\n\n    def mark_completed(self, transaction_id: str = None, gateway_transaction_id: str = None):\n        \"\"\"Mark payment as completed\"\"\"\n        self.status = PaymentStatus.COMPLETED\n        self.processed_at = datetime.utcnow()\n        if transaction_id:\n            self.transaction_id = transaction_id\n        if gateway_transaction_id:\n            self.gateway_transaction_id = gateway_transaction_id\n        self.updated_at = datetime.utcnow()\n\n    def mark_failed(self, reason: str = None):\n        \"\"\"Mark payment as failed\"\"\"\n        self.status = PaymentStatus.FAILED\n        self.processed_at = datetime.utcnow()\n        if reason:\n            self.failure_reason = reason\n        self.updated_at = datetime.utcnow()"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models/__init__.py"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models/__init__.py",
+      "old_string": "from .venue import Venue\nfrom .event import Event, EventType\nfrom .team import Team\nfrom .event_team import EventTeam\n\n__all__ = [\"Venue\", \"Event\", \"EventType\", \"Team\", \"EventTeam\"]",
+      "new_string": "from .venue import Venue\nfrom .event import Event, EventType\nfrom .team import Team\nfrom .event_team import EventTeam\nfrom .venue_amenity import VenueAmenity\nfrom .venue_has_amenity import VenueHasAmenity\nfrom .registration import Registration, RegistrationStatus\nfrom .payment import Payment, PaymentStatus, PaymentMethod\n\n__all__ = [\n    \"Venue\", \"Event\", \"EventType\", \"Team\", \"EventTeam\",\n    \"VenueAmenity\", \"VenueHasAmenity\",\n    \"Registration\", \"RegistrationStatus\",\n    \"Payment\", \"PaymentStatus\", \"PaymentMethod\"\n]"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/api/schemas.py"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Implement WO-61: Payment Processing Core API Endpoints",
+          "status": "in_progress",
+          "activeForm": "Implementing WO-61: Payment Processing Core API Endpoints"
+        },
+        {
+          "content": "Create Registration model with payment tracking fields",
+          "status": "completed",
+          "activeForm": "Creating Registration model with payment tracking fields"
+        },
+        {
+          "content": "Create Payment model with SQLModel",
+          "status": "completed",
+          "activeForm": "Creating Payment model with SQLModel"
+        },
+        {
+          "content": "Create payment schemas for request/response",
+          "status": "in_progress",
+          "activeForm": "Creating payment schemas for request/response"
+        },
+        {
+          "content": "Create payment API endpoints with validation",
+          "status": "pending",
+          "activeForm": "Creating payment API endpoints with validation"
+        },
+        {
+          "content": "Add payment router to main.py",
+          "status": "pending",
+          "activeForm": "Adding payment router to main.py"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/api/schemas.py",
+      "old_string": "from pydantic import BaseModel, validator\nfrom typing import List, Optional\nfrom datetime import datetime\nfrom uuid import UUID\n\nfrom app.models.event import EventType",
+      "new_string": "from pydantic import BaseModel, validator\nfrom typing import List, Optional, Dict, Any\nfrom datetime import datetime\nfrom uuid import UUID\nfrom decimal import Decimal\n\nfrom app.models.event import EventType\nfrom app.models.payment import PaymentMethod, PaymentStatus\nfrom app.models.registration import RegistrationStatus"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/api/schemas.py",
+      "old_string": "class ErrorResponse(BaseModel):\n    detail: str",
+      "new_string": "class ErrorResponse(BaseModel):\n    detail: str\n\n# Registration schemas\nclass RegistrationCreate(BaseModel):\n    participant_name: str\n    participant_email: str\n    participant_phone: Optional[str] = None\n    participant_date_of_birth: Optional[datetime] = None\n    program_name: str\n    program_description: Optional[str] = None\n    total_amount: Decimal\n    due_date: Optional[datetime] = None\n    notes: Optional[str] = None\n\nclass RegistrationUpdate(BaseModel):\n    participant_name: Optional[str] = None\n    participant_email: Optional[str] = None\n    participant_phone: Optional[str] = None\n    participant_date_of_birth: Optional[datetime] = None\n    program_name: Optional[str] = None\n    program_description: Optional[str] = None\n    total_amount: Optional[Decimal] = None\n    status: Optional[RegistrationStatus] = None\n    due_date: Optional[datetime] = None\n    notes: Optional[str] = None\n\nclass RegistrationResponse(BaseModel):\n    id: UUID\n    participant_name: str\n    participant_email: str\n    participant_phone: Optional[str]\n    participant_date_of_birth: Optional[datetime]\n    program_name: str\n    program_description: Optional[str]\n    total_amount: Decimal\n    amount_paid: Decimal\n    balance_due: Decimal\n    status: RegistrationStatus\n    registration_date: datetime\n    due_date: Optional[datetime]\n    notes: Optional[str]\n    created_at: datetime\n    updated_at: datetime\n\n    class Config:\n        from_attributes = True\n\n# Payment schemas\nclass PaymentMethodDetails(BaseModel):\n    \"\"\"Flexible schema for payment method details\"\"\"\n    card_last_four: Optional[str] = None\n    card_type: Optional[str] = None\n    bank_name: Optional[str] = None\n    account_last_four: Optional[str] = None\n    check_number: Optional[str] = None\n    other_details: Optional[Dict[str, Any]] = None\n\nclass PaymentCreate(BaseModel):\n    registration_id: UUID\n    amount: Decimal\n    payment_method: PaymentMethod\n    payment_method_details: Optional[PaymentMethodDetails] = None\n    notes: Optional[str] = None\n\n    @validator('amount')\n    def validate_amount_positive(cls, v):\n        if v <= 0:\n            raise ValueError('Amount must be positive')\n        return v\n\nclass PaymentUpdate(BaseModel):\n    status: Optional[PaymentStatus] = None\n    transaction_id: Optional[str] = None\n    gateway_transaction_id: Optional[str] = None\n    gateway_response: Optional[str] = None\n    gateway_fee: Optional[Decimal] = None\n    failure_reason: Optional[str] = None\n    notes: Optional[str] = None\n\nclass PaymentResponse(BaseModel):\n    id: UUID\n    registration_id: UUID\n    amount: Decimal\n    payment_method: PaymentMethod\n    status: PaymentStatus\n    transaction_id: Optional[str]\n    gateway_transaction_id: Optional[str]\n    processed_at: Optional[datetime]\n    gateway_fee: Optional[Decimal]\n    notes: Optional[str]\n    failure_reason: Optional[str]\n    created_at: datetime\n    updated_at: datetime\n    registration: Optional[RegistrationResponse] = None\n\n    class Config:\n        from_attributes = True\n\nclass PaymentListResponse(BaseModel):\n    payments: List[PaymentResponse]\n    total: int\n    page: int\n    per_page: int\n    has_next: bool\n    has_prev: bool"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Implement WO-61: Payment Processing Core API Endpoints",
+          "status": "in_progress",
+          "activeForm": "Implementing WO-61: Payment Processing Core API Endpoints"
+        },
+        {
+          "content": "Create Registration model with payment tracking fields",
+          "status": "completed",
+          "activeForm": "Creating Registration model with payment tracking fields"
+        },
+        {
+          "content": "Create Payment model with SQLModel",
+          "status": "completed",
+          "activeForm": "Creating Payment model with SQLModel"
+        },
+        {
+          "content": "Create payment schemas for request/response",
+          "status": "completed",
+          "activeForm": "Creating payment schemas for request/response"
+        },
+        {
+          "content": "Create payment API endpoints with validation",
+          "status": "in_progress",
+          "activeForm": "Creating payment API endpoints with validation"
+        },
+        {
+          "content": "Add payment router to main.py",
+          "status": "pending",
+          "activeForm": "Adding payment router to main.py"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Write",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/api/payments.py",
+      "content": "from fastapi import APIRouter, HTTPException, Depends, Query, status\nfrom sqlmodel import Session, select, and_\nfrom typing import List, Optional\nfrom uuid import UUID\nfrom decimal import Decimal\nimport uuid\n\nfrom app.database.connection import get_session\nfrom app.models.payment import Payment, PaymentStatus\nfrom app.models.registration import Registration\nfrom app.api.schemas import (\n    PaymentCreate,\n    PaymentUpdate,\n    PaymentResponse,\n    PaymentListResponse,\n    PaymentMethodDetails,\n    ErrorResponse\n)\nfrom app.api.auth import get_current_user\n\n# Simple auth bypass for testing\ndef get_test_user():\n    from app.api.auth import User\n    return User(id=1, email=\"test@example.com\", role=\"admin\")\n\nrouter = APIRouter()\n\n@router.post(\"/payments/process\", response_model=PaymentResponse, status_code=status.HTTP_201_CREATED)\ndef process_payment(\n    payment_data: PaymentCreate,\n    session: Session = Depends(get_session),\n    current_user = Depends(get_test_user)\n):\n    \"\"\"Process a new payment for a registration\"\"\"\n    try:\n        # Validate registration exists\n        registration = session.get(Registration, payment_data.registration_id)\n        if not registration:\n            raise HTTPException(\n                status_code=status.HTTP_404_NOT_FOUND,\n                detail=\"Registration not found\"\n            )\n\n        # Validate payment amount doesn't exceed balance due\n        if payment_data.amount > registration.balance_due:\n            raise HTTPException(\n                status_code=status.HTTP_400_BAD_REQUEST,\n                detail=f\"Payment amount ({payment_data.amount}) cannot exceed balance due ({registration.balance_due})\"\n            )\n\n        # Create payment record\n        payment = Payment(\n            registration_id=payment_data.registration_id,\n            amount=payment_data.amount,\n            payment_method=payment_data.payment_method,\n            status=PaymentStatus.PENDING,\n            notes=payment_data.notes\n        )\n\n        # Set payment method details if provided\n        if payment_data.payment_method_details:\n            payment.set_payment_method_details(payment_data.payment_method_details.dict(exclude_none=True))\n\n        # Generate transaction ID\n        payment.transaction_id = f\"TXN-{uuid.uuid4().hex[:12].upper()}\"\n\n        session.add(payment)\n        session.flush()  # Flush to get the payment ID\n\n        # Update registration with payment amount\n        registration.amount_paid += payment_data.amount\n        registration.update_payment_status()\n\n        session.add(registration)\n        session.commit()\n        session.refresh(payment)\n\n        # Load registration for response\n        payment.registration = registration\n\n        return PaymentResponse.from_orm(payment)\n\n    except HTTPException:\n        raise\n    except Exception as e:\n        session.rollback()\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))\n\n@router.get(\"/payments\", response_model=PaymentListResponse)\ndef get_payments(\n    registration_id: Optional[UUID] = Query(None, description=\"Filter by registration ID\"),\n    status_filter: Optional[PaymentStatus] = Query(None, alias=\"status\", description=\"Filter by payment status\"),\n    method: Optional[str] = Query(None, description=\"Filter by payment method\"),\n    page: int = Query(1, ge=1, description=\"Page number\"),\n    per_page: int = Query(50, ge=1, le=100, description=\"Items per page\"),\n    session: Session = Depends(get_session),\n    current_user = Depends(get_test_user)\n):\n    \"\"\"Get paginated list of payments with optional filtering\"\"\"\n    try:\n        # Build query\n        statement = select(Payment)\n\n        # Apply filters\n        conditions = []\n\n        if registration_id:\n            conditions.append(Payment.registration_id == registration_id)\n\n        if status_filter:\n            conditions.append(Payment.status == status_filter)\n\n        if method:\n            conditions.append(Payment.payment_method.ilike(f\"%{method}%\"))\n\n        if conditions:\n            statement = statement.where(and_(*conditions))\n\n        # Count total records\n        count_statement = select(Payment)\n        if conditions:\n            count_statement = count_statement.where(and_(*conditions))\n        total = len(session.exec(count_statement).all())\n\n        # Apply pagination and ordering\n        offset = (page - 1) * per_page\n        statement = statement.offset(offset).limit(per_page).order_by(Payment.created_at.desc())\n\n        payments = session.exec(statement).all()\n\n        # Load registration details for each payment\n        for payment in payments:\n            payment.registration = session.get(Registration, payment.registration_id)\n\n        return PaymentListResponse(\n            payments=[PaymentResponse.from_orm(payment) for payment in payments],\n            total=total,\n            page=page,\n            per_page=per_page,\n            has_next=(page * per_page) < total,\n            has_prev=page > 1\n        )\n\n    except Exception as e:\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))\n\n@router.get(\"/payments/{payment_id}\", response_model=PaymentResponse)\ndef get_payment(\n    payment_id: UUID,\n    session: Session = Depends(get_session),\n    current_user = Depends(get_test_user)\n):\n    \"\"\"Get payment details by ID\"\"\"\n    payment = session.get(Payment, payment_id)\n    if not payment:\n        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=\"Payment not found\")\n\n    # Load registration details\n    payment.registration = session.get(Registration, payment.registration_id)\n\n    return PaymentResponse.from_orm(payment)\n\n@router.put(\"/payments/{payment_id}\", response_model=PaymentResponse)\ndef update_payment(\n    payment_id: UUID,\n    payment_data: PaymentUpdate,\n    session: Session = Depends(get_session),\n    current_user = Depends(get_test_user)\n):\n    \"\"\"Update payment status and details\"\"\"\n    try:\n        payment = session.get(Payment, payment_id)\n        if not payment:\n            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=\"Payment not found\")\n\n        # Get original status for comparison\n        original_status = payment.status\n        original_amount = payment.amount\n\n        # Update payment fields\n        update_data = payment_data.dict(exclude_unset=True)\n        for field, value in update_data.items():\n            setattr(payment, field, value)\n\n        # If status changed to completed or failed, update processed timestamp\n        if payment_data.status and payment_data.status != original_status:\n            if payment_data.status == PaymentStatus.COMPLETED:\n                payment.mark_completed(\n                    transaction_id=payment_data.transaction_id,\n                    gateway_transaction_id=payment_data.gateway_transaction_id\n                )\n            elif payment_data.status == PaymentStatus.FAILED:\n                payment.mark_failed(payment_data.failure_reason)\n\n        session.add(payment)\n\n        # If payment status changed, update registration\n        if payment_data.status and payment_data.status != original_status:\n            registration = session.get(Registration, payment.registration_id)\n            if registration:\n                # Recalculate amount_paid based on all completed payments\n                completed_payments = session.exec(\n                    select(Payment).where(\n                        Payment.registration_id == registration.id,\n                        Payment.status == PaymentStatus.COMPLETED\n                    )\n                ).all()\n\n                registration.amount_paid = sum(p.amount for p in completed_payments)\n                registration.update_payment_status()\n                session.add(registration)\n\n        session.commit()\n        session.refresh(payment)\n\n        # Load registration for response\n        payment.registration = session.get(Registration, payment.registration_id)\n\n        return PaymentResponse.from_orm(payment)\n\n    except HTTPException:\n        raise\n    except Exception as e:\n        session.rollback()\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))\n\n@router.delete(\"/payments/{payment_id}\", status_code=status.HTTP_204_NO_CONTENT)\ndef cancel_payment(\n    payment_id: UUID,\n    session: Session = Depends(get_session),\n    current_user = Depends(get_test_user)\n):\n    \"\"\"Cancel a payment (only if not completed)\"\"\"\n    try:\n        payment = session.get(Payment, payment_id)\n        if not payment:\n            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=\"Payment not found\")\n\n        # Only allow cancellation of pending or processing payments\n        if payment.status in [PaymentStatus.COMPLETED, PaymentStatus.CANCELLED]:\n            raise HTTPException(\n                status_code=status.HTTP_400_BAD_REQUEST,\n                detail=f\"Cannot cancel payment with status: {payment.status}\"\n            )\n\n        # Update payment status\n        payment.status = PaymentStatus.CANCELLED\n        payment.updated_at = payment.created_at.__class__.utcnow()\n        session.add(payment)\n\n        # Update registration payment amounts\n        registration = session.get(Registration, payment.registration_id)\n        if registration:\n            # Only reduce amount_paid if payment was previously counted\n            if payment.status == PaymentStatus.COMPLETED:\n                registration.amount_paid -= payment.amount\n            registration.update_payment_status()\n            session.add(registration)\n\n        session.commit()\n\n    except HTTPException:\n        raise\n    except Exception as e:\n        session.rollback()\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/main.py"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/main.py",
+      "old_string": "from app.models.event import Event, EventType\nfrom app.models.venue import Venue\nfrom app.models.venue_amenity import VenueAmenity\nfrom app.models.venue_has_amenity import VenueHasAmenity\nfrom app.api.events import router as events_router\nfrom app.api.venues import router as venues_router\nfrom app.api.venue_amenities import router as venue_amenities_router\nfrom app.api.venue_amenity_associations import router as venue_amenity_associations_router",
+      "new_string": "from app.models.event import Event, EventType\nfrom app.models.venue import Venue\nfrom app.models.venue_amenity import VenueAmenity\nfrom app.models.venue_has_amenity import VenueHasAmenity\nfrom app.models.registration import Registration\nfrom app.models.payment import Payment\nfrom app.api.events import router as events_router\nfrom app.api.venues import router as venues_router\nfrom app.api.venue_amenities import router as venue_amenities_router\nfrom app.api.venue_amenity_associations import router as venue_amenity_associations_router\nfrom app.api.payments import router as payments_router"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/main.py",
+      "old_string": "app.include_router(events_router, prefix=\"/api\")\napp.include_router(venues_router, prefix=\"/api\")\napp.include_router(venue_amenities_router, prefix=\"/api\")\napp.include_router(venue_amenity_associations_router, prefix=\"/api\")",
+      "new_string": "app.include_router(events_router, prefix=\"/api\")\napp.include_router(venues_router, prefix=\"/api\")\napp.include_router(venue_amenities_router, prefix=\"/api\")\napp.include_router(venue_amenity_associations_router, prefix=\"/api\")\napp.include_router(payments_router, prefix=\"/api\")"
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Implement WO-61: Payment Processing Core API Endpoints",
+          "status": "completed",
+          "activeForm": "Implementing WO-61: Payment Processing Core API Endpoints"
+        },
+        {
+          "content": "Create Registration model with payment tracking fields",
+          "status": "completed",
+          "activeForm": "Creating Registration model with payment tracking fields"
+        },
+        {
+          "content": "Create Payment model with SQLModel",
+          "status": "completed",
+          "activeForm": "Creating Payment model with SQLModel"
+        },
+        {
+          "content": "Create payment schemas for request/response",
+          "status": "completed",
+          "activeForm": "Creating payment schemas for request/response"
+        },
+        {
+          "content": "Create payment API endpoints with validation",
+          "status": "completed",
+          "activeForm": "Creating payment API endpoints with validation"
+        },
+        {
+          "content": "Add payment router to main.py",
+          "status": "completed",
+          "activeForm": "Adding payment router to main.py"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__mark_work_order_complete",
+    "tool_input": {
+      "work_order_number": "61"
+    }
   }
 ]

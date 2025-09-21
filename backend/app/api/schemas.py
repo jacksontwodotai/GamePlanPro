@@ -1,9 +1,12 @@
 from pydantic import BaseModel, validator
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from datetime import datetime
 from uuid import UUID
+from decimal import Decimal
 
 from app.models.event import EventType
+from app.models.payment import PaymentMethod, PaymentStatus
+from app.models.registration import RegistrationStatus
 
 class EventCreate(BaseModel):
     name: str
@@ -141,3 +144,107 @@ class VenueAmenityAssociationListCreate(BaseModel):
 
 class ErrorResponse(BaseModel):
     detail: str
+
+# Registration schemas
+class RegistrationCreate(BaseModel):
+    participant_name: str
+    participant_email: str
+    participant_phone: Optional[str] = None
+    participant_date_of_birth: Optional[datetime] = None
+    program_name: str
+    program_description: Optional[str] = None
+    total_amount: Decimal
+    due_date: Optional[datetime] = None
+    notes: Optional[str] = None
+
+class RegistrationUpdate(BaseModel):
+    participant_name: Optional[str] = None
+    participant_email: Optional[str] = None
+    participant_phone: Optional[str] = None
+    participant_date_of_birth: Optional[datetime] = None
+    program_name: Optional[str] = None
+    program_description: Optional[str] = None
+    total_amount: Optional[Decimal] = None
+    status: Optional[RegistrationStatus] = None
+    due_date: Optional[datetime] = None
+    notes: Optional[str] = None
+
+class RegistrationResponse(BaseModel):
+    id: UUID
+    participant_name: str
+    participant_email: str
+    participant_phone: Optional[str]
+    participant_date_of_birth: Optional[datetime]
+    program_name: str
+    program_description: Optional[str]
+    total_amount: Decimal
+    amount_paid: Decimal
+    balance_due: Decimal
+    status: RegistrationStatus
+    registration_date: datetime
+    due_date: Optional[datetime]
+    notes: Optional[str]
+    created_at: datetime
+    updated_at: datetime
+
+    class Config:
+        from_attributes = True
+
+# Payment schemas
+class PaymentMethodDetails(BaseModel):
+    """Flexible schema for payment method details"""
+    card_last_four: Optional[str] = None
+    card_type: Optional[str] = None
+    bank_name: Optional[str] = None
+    account_last_four: Optional[str] = None
+    check_number: Optional[str] = None
+    other_details: Optional[Dict[str, Any]] = None
+
+class PaymentCreate(BaseModel):
+    registration_id: UUID
+    amount: Decimal
+    payment_method: PaymentMethod
+    payment_method_details: Optional[PaymentMethodDetails] = None
+    notes: Optional[str] = None
+
+    @validator('amount')
+    def validate_amount_positive(cls, v):
+        if v <= 0:
+            raise ValueError('Amount must be positive')
+        return v
+
+class PaymentUpdate(BaseModel):
+    status: Optional[PaymentStatus] = None
+    transaction_id: Optional[str] = None
+    gateway_transaction_id: Optional[str] = None
+    gateway_response: Optional[str] = None
+    gateway_fee: Optional[Decimal] = None
+    failure_reason: Optional[str] = None
+    notes: Optional[str] = None
+
+class PaymentResponse(BaseModel):
+    id: UUID
+    registration_id: UUID
+    amount: Decimal
+    payment_method: PaymentMethod
+    status: PaymentStatus
+    transaction_id: Optional[str]
+    gateway_transaction_id: Optional[str]
+    processed_at: Optional[datetime]
+    gateway_fee: Optional[Decimal]
+    notes: Optional[str]
+    failure_reason: Optional[str]
+    created_at: datetime
+    updated_at: datetime
+    registration: Optional[RegistrationResponse] = None
+
+    class Config:
+        from_attributes = True
+
+class PaymentListResponse(BaseModel):
+    payments: List[PaymentResponse]
+    total: int
+    page: int
+    per_page: int
+    has_next: bool
+    has_prev: bool
