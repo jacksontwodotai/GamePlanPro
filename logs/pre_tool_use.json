@@ -885,5 +885,380 @@
     "tool_input": {
       "work_order_number": "071"
     }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__get_work_order",
+    "tool_input": {
+      "work_order_number": "077"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing payment and registration data structures",
+          "status": "in_progress",
+          "activeForm": "Analyzing existing payment and registration data structures"
+        },
+        {
+          "content": "Review current Stripe integration for refund capabilities",
+          "status": "pending",
+          "activeForm": "Reviewing current Stripe integration for refund capabilities"
+        },
+        {
+          "content": "Design refund validation and business logic",
+          "status": "pending",
+          "activeForm": "Designing refund validation and business logic"
+        },
+        {
+          "content": "Implement POST /api/payments/{payment_id}/refund endpoint",
+          "status": "pending",
+          "activeForm": "Implementing POST /api/payments/{payment_id}/refund endpoint"
+        },
+        {
+          "content": "Add Stripe refund processing integration",
+          "status": "pending",
+          "activeForm": "Adding Stripe refund processing integration"
+        },
+        {
+          "content": "Update registration balance calculations",
+          "status": "pending",
+          "activeForm": "Updating registration balance calculations"
+        },
+        {
+          "content": "Add comprehensive error handling and validation",
+          "status": "pending",
+          "activeForm": "Adding comprehensive error handling and validation"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__supabase__execute_sql",
+    "tool_input": {
+      "query": "SELECT column_name, data_type, is_nullable \nFROM information_schema.columns \nWHERE table_name = 'payments' \nORDER BY ordinal_position;"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__supabase__execute_sql",
+    "tool_input": {
+      "query": "SELECT column_name, data_type, is_nullable \nFROM information_schema.columns \nWHERE table_name = 'program_registrations' \nORDER BY ordinal_position;"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "refund|stripe\\.refunds",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "output_mode": "content",
+      "-C": 3,
+      "-n": true
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__supabase__execute_sql",
+    "tool_input": {
+      "query": "SELECT id, amount, payment_method, status, stripe_payment_intent_id, program_registration_id \nFROM payments \nWHERE stripe_payment_intent_id IS NOT NULL \nLIMIT 3;"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__supabase__execute_sql",
+    "tool_input": {
+      "query": "SELECT id, amount, payment_method, status, payment_method_details, program_registration_id \nFROM payments \nWHERE payment_method = 'stripe' \nLIMIT 2;"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "stripe_payment_intent_id",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "output_mode": "content",
+      "-C": 2,
+      "-n": true
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing payment and registration data structures",
+          "status": "completed",
+          "activeForm": "Analyzing existing payment and registration data structures"
+        },
+        {
+          "content": "Review current Stripe integration for refund capabilities",
+          "status": "completed",
+          "activeForm": "Reviewing current Stripe integration for refund capabilities"
+        },
+        {
+          "content": "Add refund-specific database fields to payments table",
+          "status": "in_progress",
+          "activeForm": "Adding refund-specific database fields to payments table"
+        },
+        {
+          "content": "Implement POST /api/payments/{payment_id}/refund endpoint",
+          "status": "pending",
+          "activeForm": "Implementing POST /api/payments/{payment_id}/refund endpoint"
+        },
+        {
+          "content": "Add Stripe refund processing integration",
+          "status": "pending",
+          "activeForm": "Adding Stripe refund processing integration"
+        },
+        {
+          "content": "Update registration balance calculations",
+          "status": "pending",
+          "activeForm": "Updating registration balance calculations"
+        },
+        {
+          "content": "Add comprehensive error handling and validation",
+          "status": "pending",
+          "activeForm": "Adding comprehensive error handling and validation"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__supabase__apply_migration",
+    "tool_input": {
+      "name": "add_refund_support_to_payments",
+      "query": "-- Add refund-specific fields to payments table\nALTER TABLE payments \nADD COLUMN IF NOT EXISTS refund_reason TEXT,\nADD COLUMN IF NOT EXISTS original_payment_id INTEGER REFERENCES payments(id),\nADD COLUMN IF NOT EXISTS refunded_amount NUMERIC DEFAULT 0,\nADD COLUMN IF NOT EXISTS stripe_refund_id VARCHAR(255);\n\n-- Create index for refund lookups\nCREATE INDEX IF NOT EXISTS idx_payments_original_payment_id ON payments(original_payment_id);\nCREATE INDEX IF NOT EXISTS idx_payments_stripe_refund_id ON payments(stripe_refund_id);\n\n-- Add comments\nCOMMENT ON COLUMN payments.refund_reason IS 'Reason provided for the refund';\nCOMMENT ON COLUMN payments.original_payment_id IS 'References the original payment being refunded';\nCOMMENT ON COLUMN payments.refunded_amount IS 'Total amount refunded for this payment';\nCOMMENT ON COLUMN payments.stripe_refund_id IS 'Stripe refund ID for gateway tracking';"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing payment and registration data structures",
+          "status": "completed",
+          "activeForm": "Analyzing existing payment and registration data structures"
+        },
+        {
+          "content": "Review current Stripe integration for refund capabilities",
+          "status": "completed",
+          "activeForm": "Reviewing current Stripe integration for refund capabilities"
+        },
+        {
+          "content": "Add refund-specific database fields to payments table",
+          "status": "completed",
+          "activeForm": "Adding refund-specific database fields to payments table"
+        },
+        {
+          "content": "Implement POST /api/payments/{payment_id}/refund endpoint",
+          "status": "in_progress",
+          "activeForm": "Implementing POST /api/payments/{payment_id}/refund endpoint"
+        },
+        {
+          "content": "Add Stripe refund processing integration",
+          "status": "pending",
+          "activeForm": "Adding Stripe refund processing integration"
+        },
+        {
+          "content": "Update registration balance calculations",
+          "status": "pending",
+          "activeForm": "Updating registration balance calculations"
+        },
+        {
+          "content": "Add comprehensive error handling and validation",
+          "status": "pending",
+          "activeForm": "Adding comprehensive error handling and validation"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "// GET /api/payments/",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "offset": 5325,
+      "limit": 15
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "offset": 5355,
+      "limit": 20
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "offset": 5380,
+      "limit": 15
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "offset": 5400,
+      "limit": 15
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/server.js",
+      "old_string": "});\n\n// TEST ENDPOINTS WITHOUT AUTHENTICATION (FOR TESTING ONLY)",
+      "new_string": "});\n\n// POST /api/payments/{payment_id}/refund - Process payment refund\napp.post('/api/payments/:payment_id/refund', paymentLimiter, authenticateUser, async (req, res) => {\n    const { payment_id } = req.params;\n    const { amount, reason } = req.body;\n    const requestId = `ref_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;\n\n    console.log(`[${requestId}] Processing refund for payment ${payment_id}`);\n\n    // Validate required fields\n    if (!reason || !reason.trim()) {\n        return res.status(400).json({\n            error: 'Refund reason is required',\n            request_id: requestId\n        });\n    }\n\n    if (amount !== undefined && (typeof amount !== 'number' || amount <= 0)) {\n        return res.status(400).json({\n            error: 'Refund amount must be a positive number',\n            request_id: requestId\n        });\n    }\n\n    try {\n        // Get original payment details with full information\n        const { data: originalPayment, error: paymentError } = await supabase\n            .from('payments')\n            .select(`\n                *,\n                program_registrations (\n                    id,\n                    status,\n                    amount_paid,\n                    total_amount_due,\n                    programs (\n                        id,\n                        name,\n                        base_fee\n                    ),\n                    players (\n                        id,\n                        first_name,\n                        last_name,\n                        email\n                    )\n                )\n            `)\n            .eq('id', payment_id)\n            .single();\n\n        if (paymentError || !originalPayment) {\n            console.warn(`[${requestId}] Payment not found: ${payment_id}`);\n            return res.status(404).json({\n                error: 'Payment not found',\n                request_id: requestId\n            });\n        }\n\n        // Validate payment is eligible for refund\n        if (originalPayment.status !== 'completed') {\n            return res.status(400).json({\n                error: 'Only completed payments can be refunded',\n                current_status: originalPayment.status,\n                request_id: requestId\n            });\n        }\n\n        // Check if this is already a refund\n        if (originalPayment.original_payment_id) {\n            return res.status(400).json({\n                error: 'Cannot refund a refund transaction',\n                request_id: requestId\n            });\n        }\n\n        // Calculate refund amount\n        const originalAmount = parseFloat(originalPayment.amount);\n        const alreadyRefunded = parseFloat(originalPayment.refunded_amount || 0);\n        const availableForRefund = originalAmount - alreadyRefunded;\n\n        let refundAmount;\n        if (amount === undefined) {\n            // Full refund\n            refundAmount = availableForRefund;\n        } else {\n            // Partial refund\n            refundAmount = parseFloat(amount);\n        }\n\n        // Validate refund amount\n        if (refundAmount > availableForRefund) {\n            return res.status(400).json({\n                error: 'Refund amount exceeds available refundable amount',\n                original_amount: originalAmount,\n                already_refunded: alreadyRefunded,\n                available_for_refund: availableForRefund,\n                requested_refund: refundAmount,\n                request_id: requestId\n            });\n        }\n\n        if (refundAmount <= 0) {\n            return res.status(400).json({\n                error: 'No amount available for refund',\n                original_amount: originalAmount,\n                already_refunded: alreadyRefunded,\n                request_id: requestId\n            });\n        }\n\n        // Security: Verify user has access to this payment\n        const registration = originalPayment.program_registrations;\n        if (!registration) {\n            return res.status(404).json({\n                error: 'Payment not associated with a registration',\n                request_id: requestId\n            });\n        }\n\n        // TODO: Add proper authorization check (admin or payment owner)\n        // For now, we'll assume the authenticated user has permission\n\n        console.log(`[${requestId}] Processing ${refundAmount} refund for original payment ${originalAmount}`);\n\n        // Process refund through payment gateway\n        let gatewayRefund;\n        let stripeRefundId = null;\n\n        if (originalPayment.payment_method === 'stripe' && originalPayment.stripe_payment_intent_id) {\n            try {\n                console.log(`[${requestId}] Processing Stripe refund for payment intent: ${originalPayment.stripe_payment_intent_id}`);\n\n                // Create refund through Stripe\n                gatewayRefund = await stripe.refunds.create({\n                    payment_intent: originalPayment.stripe_payment_intent_id,\n                    amount: Math.round(refundAmount * 100), // Convert to cents\n                    reason: 'requested_by_customer', // Stripe-specific reason\n                    metadata: {\n                        original_payment_id: payment_id,\n                        program_registration_id: registration.id,\n                        refund_reason: reason,\n                        request_id: requestId,\n                        processed_by: req.user.id.toString()\n                    }\n                });\n\n                stripeRefundId = gatewayRefund.id;\n                console.log(`[${requestId}] Stripe refund created: ${stripeRefundId}`);\n\n            } catch (stripeError) {\n                console.error(`[${requestId}] Stripe refund failed:`, stripeError);\n                const errorInfo = handlePaymentError(stripeError, 'refund_processing');\n\n                return res.status(500).json({\n                    error: 'Payment gateway refund failed',\n                    gateway_error: errorInfo.user_message,\n                    request_id: requestId,\n                    should_retry: errorInfo.should_retry\n                });\n            }\n        } else {\n            console.warn(`[${requestId}] Non-Stripe payment method: ${originalPayment.payment_method}`);\n            // For non-Stripe payments, we'll record the refund but note that manual processing may be required\n        }\n\n        // Create refund payment record\n        const refundPaymentData = {\n            amount: -refundAmount, // Negative amount for refund\n            payment_method: originalPayment.payment_method,\n            payment_method_details: {\n                ...originalPayment.payment_method_details,\n                refund_details: {\n                    original_payment_id: payment_id,\n                    refund_reason: reason,\n                    gateway_refund_id: stripeRefundId,\n                    gateway_refund_status: gatewayRefund?.status || 'manual_processing_required',\n                    processed_by: req.user.id,\n                    request_id: requestId\n                }\n            },\n            status: 'completed', // Refund is immediately completed\n            program_registration_id: registration.id,\n            registration_id: originalPayment.registration_id, // Maintain backward compatibility\n            transaction_id: stripeRefundId || `manual_refund_${requestId}`,\n            stripe_refund_id: stripeRefundId,\n            original_payment_id: parseInt(payment_id),\n            refund_reason: reason,\n            processed_at: new Date().toISOString(),\n            created_at: new Date().toISOString(),\n            updated_at: new Date().toISOString()\n        };\n\n        console.log(`[${requestId}] Creating refund payment record`);\n\n        // Begin transaction for data consistency\n        const { data: refundPayment, error: refundError } = await supabase\n            .from('payments')\n            .insert(refundPaymentData)\n            .select(`\n                *,\n                program_registrations (\n                    id,\n                    status,\n                    amount_paid,\n                    total_amount_due,\n                    programs (name),\n                    players (first_name, last_name, email)\n                )\n            `)\n            .single();\n\n        if (refundError) {\n            console.error(`[${requestId}] Failed to create refund payment record:`, refundError);\n            return res.status(500).json({\n                error: 'Failed to record refund in database',\n                request_id: requestId\n            });\n        }\n\n        // Update original payment's refunded amount\n        const newRefundedAmount = alreadyRefunded + refundAmount;\n        const { error: updateOriginalError } = await supabase\n            .from('payments')\n            .update({\n                refunded_amount: newRefundedAmount,\n                updated_at: new Date().toISOString()\n            })\n            .eq('id', payment_id);\n\n        if (updateOriginalError) {\n            console.error(`[${requestId}] Failed to update original payment refunded amount:`, updateOriginalError);\n            // Continue - refund was processed, this is just bookkeeping\n        }\n\n        // Update registration's amount_paid\n        const currentAmountPaid = parseFloat(registration.amount_paid || 0);\n        const newAmountPaid = Math.max(0, currentAmountPaid - refundAmount);\n        const totalAmountDue = parseFloat(registration.total_amount_due || registration.programs?.base_fee || 0);\n        const newBalanceDue = totalAmountDue - newAmountPaid;\n\n        const { error: registrationUpdateError } = await supabase\n            .from('program_registrations')\n            .update({\n                amount_paid: newAmountPaid,\n                updated_at: new Date().toISOString(),\n                // Update status if balance is now due\n                ...(newBalanceDue > 0 && registration.status === 'confirmed' && {\n                    status: 'pending_payment'\n                })\n            })\n            .eq('id', registration.id);\n\n        if (registrationUpdateError) {\n            console.error(`[${requestId}] Failed to update registration amounts:`, registrationUpdateError);\n            // Continue - refund was processed\n        }\n\n        console.log(`[${requestId}] Refund processed successfully. Amount: ${refundAmount}, New balance due: ${newBalanceDue}`);\n\n        // Prepare response\n        const response = {\n            success: true,\n            refund: {\n                ...refundPayment,\n                amount: Math.abs(refundPayment.amount), // Return positive amount for clarity\n                type: 'refund'\n            },\n            original_payment: {\n                id: originalPayment.id,\n                amount: originalAmount,\n                total_refunded: newRefundedAmount,\n                remaining_refundable: originalAmount - newRefundedAmount\n            },\n            registration_update: {\n                previous_amount_paid: currentAmountPaid,\n                new_amount_paid: newAmountPaid,\n                new_balance_due: newBalanceDue,\n                status_updated: newBalanceDue > 0 && registration.status === 'confirmed'\n            },\n            gateway_details: gatewayRefund ? {\n                gateway: 'stripe',\n                refund_id: stripeRefundId,\n                status: gatewayRefund.status\n            } : {\n                gateway: 'manual',\n                note: 'Manual processing may be required for non-Stripe payments'\n            },\n            request_id: requestId\n        };\n\n        res.json(response);\n\n    } catch (error) {\n        console.error(`[${requestId}] Refund processing error:`, error);\n\n        return res.status(500).json({\n            error: 'Internal server error during refund processing',\n            request_id: requestId,\n            ...(process.env.NODE_ENV === 'development' && { debug_info: error.message })\n        });\n    }\n});\n\n// TEST ENDPOINTS WITHOUT AUTHENTICATION (FOR TESTING ONLY)"
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing payment and registration data structures",
+          "status": "completed",
+          "activeForm": "Analyzing existing payment and registration data structures"
+        },
+        {
+          "content": "Review current Stripe integration for refund capabilities",
+          "status": "completed",
+          "activeForm": "Reviewing current Stripe integration for refund capabilities"
+        },
+        {
+          "content": "Add refund-specific database fields to payments table",
+          "status": "completed",
+          "activeForm": "Adding refund-specific database fields to payments table"
+        },
+        {
+          "content": "Implement POST /api/payments/{payment_id}/refund endpoint",
+          "status": "completed",
+          "activeForm": "Implementing POST /api/payments/{payment_id}/refund endpoint"
+        },
+        {
+          "content": "Add Stripe refund processing integration",
+          "status": "completed",
+          "activeForm": "Adding Stripe refund processing integration"
+        },
+        {
+          "content": "Update registration balance calculations",
+          "status": "completed",
+          "activeForm": "Updating registration balance calculations"
+        },
+        {
+          "content": "Add comprehensive error handling and validation",
+          "status": "completed",
+          "activeForm": "Adding comprehensive error handling and validation"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "ca041a38-f6a1-4526-8281-80555a8819d3",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/ca041a38-f6a1-4526-8281-80555a8819d3.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__mark_work_order_complete",
+    "tool_input": {
+      "work_order_number": "077"
+    }
   }
 ]

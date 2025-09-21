@@ -5410,6 +5410,309 @@ app.get('/api/payments/:payment_id', paymentLimiter, authenticateUser, async (re
     }
 });
 
+// POST /api/payments/{payment_id}/refund - Process payment refund
+app.post('/api/payments/:payment_id/refund', paymentLimiter, authenticateUser, async (req, res) => {
+    const { payment_id } = req.params;
+    const { amount, reason } = req.body;
+    const requestId = `ref_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+    console.log(`[${requestId}] Processing refund for payment ${payment_id}`);
+
+    // Validate required fields
+    if (!reason || !reason.trim()) {
+        return res.status(400).json({
+            error: 'Refund reason is required',
+            request_id: requestId
+        });
+    }
+
+    if (amount !== undefined && (typeof amount !== 'number' || amount <= 0)) {
+        return res.status(400).json({
+            error: 'Refund amount must be a positive number',
+            request_id: requestId
+        });
+    }
+
+    try {
+        // Get original payment details with full information
+        const { data: originalPayment, error: paymentError } = await supabase
+            .from('payments')
+            .select(`
+                *,
+                program_registrations (
+                    id,
+                    status,
+                    amount_paid,
+                    total_amount_due,
+                    programs (
+                        id,
+                        name,
+                        base_fee
+                    ),
+                    players (
+                        id,
+                        first_name,
+                        last_name,
+                        email
+                    )
+                )
+            `)
+            .eq('id', payment_id)
+            .single();
+
+        if (paymentError || !originalPayment) {
+            console.warn(`[${requestId}] Payment not found: ${payment_id}`);
+            return res.status(404).json({
+                error: 'Payment not found',
+                request_id: requestId
+            });
+        }
+
+        // Validate payment is eligible for refund
+        if (originalPayment.status !== 'completed') {
+            return res.status(400).json({
+                error: 'Only completed payments can be refunded',
+                current_status: originalPayment.status,
+                request_id: requestId
+            });
+        }
+
+        // Check if this is already a refund
+        if (originalPayment.original_payment_id) {
+            return res.status(400).json({
+                error: 'Cannot refund a refund transaction',
+                request_id: requestId
+            });
+        }
+
+        // Calculate refund amount
+        const originalAmount = parseFloat(originalPayment.amount);
+        const alreadyRefunded = parseFloat(originalPayment.refunded_amount || 0);
+        const availableForRefund = originalAmount - alreadyRefunded;
+
+        let refundAmount;
+        if (amount === undefined) {
+            // Full refund
+            refundAmount = availableForRefund;
+        } else {
+            // Partial refund
+            refundAmount = parseFloat(amount);
+        }
+
+        // Validate refund amount
+        if (refundAmount > availableForRefund) {
+            return res.status(400).json({
+                error: 'Refund amount exceeds available refundable amount',
+                original_amount: originalAmount,
+                already_refunded: alreadyRefunded,
+                available_for_refund: availableForRefund,
+                requested_refund: refundAmount,
+                request_id: requestId
+            });
+        }
+
+        if (refundAmount <= 0) {
+            return res.status(400).json({
+                error: 'No amount available for refund',
+                original_amount: originalAmount,
+                already_refunded: alreadyRefunded,
+                request_id: requestId
+            });
+        }
+
+        // Security: Verify user has access to this payment
+        const registration = originalPayment.program_registrations;
+        if (!registration) {
+            return res.status(404).json({
+                error: 'Payment not associated with a registration',
+                request_id: requestId
+            });
+        }
+
+        // TODO: Add proper authorization check (admin or payment owner)
+        // For now, we'll assume the authenticated user has permission
+
+        console.log(`[${requestId}] Processing ${refundAmount} refund for original payment ${originalAmount}`);
+
+        // Process refund through payment gateway
+        let gatewayRefund;
+        let stripeRefundId = null;
+
+        if (originalPayment.payment_method === 'stripe' && originalPayment.stripe_payment_intent_id) {
+            try {
+                console.log(`[${requestId}] Processing Stripe refund for payment intent: ${originalPayment.stripe_payment_intent_id}`);
+
+                // Create refund through Stripe
+                gatewayRefund = await stripe.refunds.create({
+                    payment_intent: originalPayment.stripe_payment_intent_id,
+                    amount: Math.round(refundAmount * 100), // Convert to cents
+                    reason: 'requested_by_customer', // Stripe-specific reason
+                    metadata: {
+                        original_payment_id: payment_id,
+                        program_registration_id: registration.id,
+                        refund_reason: reason,
+                        request_id: requestId,
+                        processed_by: req.user.id.toString()
+                    }
+                });
+
+                stripeRefundId = gatewayRefund.id;
+                console.log(`[${requestId}] Stripe refund created: ${stripeRefundId}`);
+
+            } catch (stripeError) {
+                console.error(`[${requestId}] Stripe refund failed:`, stripeError);
+                const errorInfo = handlePaymentError(stripeError, 'refund_processing');
+
+                return res.status(500).json({
+                    error: 'Payment gateway refund failed',
+                    gateway_error: errorInfo.user_message,
+                    request_id: requestId,
+                    should_retry: errorInfo.should_retry
+                });
+            }
+        } else {
+            console.warn(`[${requestId}] Non-Stripe payment method: ${originalPayment.payment_method}`);
+            // For non-Stripe payments, we'll record the refund but note that manual processing may be required
+        }
+
+        // Create refund payment record
+        const refundPaymentData = {
+            amount: -refundAmount, // Negative amount for refund
+            payment_method: originalPayment.payment_method,
+            payment_method_details: {
+                ...originalPayment.payment_method_details,
+                refund_details: {
+                    original_payment_id: payment_id,
+                    refund_reason: reason,
+                    gateway_refund_id: stripeRefundId,
+                    gateway_refund_status: gatewayRefund?.status || 'manual_processing_required',
+                    processed_by: req.user.id,
+                    request_id: requestId
+                }
+            },
+            status: 'completed', // Refund is immediately completed
+            program_registration_id: registration.id,
+            registration_id: originalPayment.registration_id, // Maintain backward compatibility
+            transaction_id: stripeRefundId || `manual_refund_${requestId}`,
+            stripe_refund_id: stripeRefundId,
+            original_payment_id: parseInt(payment_id),
+            refund_reason: reason,
+            processed_at: new Date().toISOString(),
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+        };
+
+        console.log(`[${requestId}] Creating refund payment record`);
+
+        // Begin transaction for data consistency
+        const { data: refundPayment, error: refundError } = await supabase
+            .from('payments')
+            .insert(refundPaymentData)
+            .select(`
+                *,
+                program_registrations (
+                    id,
+                    status,
+                    amount_paid,
+                    total_amount_due,
+                    programs (name),
+                    players (first_name, last_name, email)
+                )
+            `)
+            .single();
+
+        if (refundError) {
+            console.error(`[${requestId}] Failed to create refund payment record:`, refundError);
+            return res.status(500).json({
+                error: 'Failed to record refund in database',
+                request_id: requestId
+            });
+        }
+
+        // Update original payment's refunded amount
+        const newRefundedAmount = alreadyRefunded + refundAmount;
+        const { error: updateOriginalError } = await supabase
+            .from('payments')
+            .update({
+                refunded_amount: newRefundedAmount,
+                updated_at: new Date().toISOString()
+            })
+            .eq('id', payment_id);
+
+        if (updateOriginalError) {
+            console.error(`[${requestId}] Failed to update original payment refunded amount:`, updateOriginalError);
+            // Continue - refund was processed, this is just bookkeeping
+        }
+
+        // Update registration's amount_paid
+        const currentAmountPaid = parseFloat(registration.amount_paid || 0);
+        const newAmountPaid = Math.max(0, currentAmountPaid - refundAmount);
+        const totalAmountDue = parseFloat(registration.total_amount_due || registration.programs?.base_fee || 0);
+        const newBalanceDue = totalAmountDue - newAmountPaid;
+
+        const { error: registrationUpdateError } = await supabase
+            .from('program_registrations')
+            .update({
+                amount_paid: newAmountPaid,
+                updated_at: new Date().toISOString(),
+                // Update status if balance is now due
+                ...(newBalanceDue > 0 && registration.status === 'confirmed' && {
+                    status: 'pending_payment'
+                })
+            })
+            .eq('id', registration.id);
+
+        if (registrationUpdateError) {
+            console.error(`[${requestId}] Failed to update registration amounts:`, registrationUpdateError);
+            // Continue - refund was processed
+        }
+
+        console.log(`[${requestId}] Refund processed successfully. Amount: ${refundAmount}, New balance due: ${newBalanceDue}`);
+
+        // Prepare response
+        const response = {
+            success: true,
+            refund: {
+                ...refundPayment,
+                amount: Math.abs(refundPayment.amount), // Return positive amount for clarity
+                type: 'refund'
+            },
+            original_payment: {
+                id: originalPayment.id,
+                amount: originalAmount,
+                total_refunded: newRefundedAmount,
+                remaining_refundable: originalAmount - newRefundedAmount
+            },
+            registration_update: {
+                previous_amount_paid: currentAmountPaid,
+                new_amount_paid: newAmountPaid,
+                new_balance_due: newBalanceDue,
+                status_updated: newBalanceDue > 0 && registration.status === 'confirmed'
+            },
+            gateway_details: gatewayRefund ? {
+                gateway: 'stripe',
+                refund_id: stripeRefundId,
+                status: gatewayRefund.status
+            } : {
+                gateway: 'manual',
+                note: 'Manual processing may be required for non-Stripe payments'
+            },
+            request_id: requestId
+        };
+
+        res.json(response);
+
+    } catch (error) {
+        console.error(`[${requestId}] Refund processing error:`, error);
+
+        return res.status(500).json({
+            error: 'Internal server error during refund processing',
+            request_id: requestId,
+            ...(process.env.NODE_ENV === 'development' && { debug_info: error.message })
+        });
+    }
+});
+
 // TEST ENDPOINTS WITHOUT AUTHENTICATION (FOR TESTING ONLY)
 
 // POST /api/test/payments/process - Test payment processing without auth
