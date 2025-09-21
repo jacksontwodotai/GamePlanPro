@@ -114,5 +114,30 @@ class VenueAmenityResponse(BaseModel):
     class Config:
         from_attributes = True
 
+class VenueAmenityAssociationCreate(BaseModel):
+    amenity_id: UUID
+    quantity: Optional[int] = None
+    notes: Optional[str] = None
+
+class VenueAmenityAssociationUpdate(BaseModel):
+    quantity: Optional[int] = None
+    notes: Optional[str] = None
+
+class VenueAmenityAssociationResponse(BaseModel):
+    id: UUID
+    venue_id: UUID
+    amenity_id: UUID
+    quantity: Optional[int]
+    notes: Optional[str]
+    created_at: datetime
+    updated_at: datetime
+    amenity: Optional[VenueAmenityResponse] = None
+
+    class Config:
+        from_attributes = True
+
+class VenueAmenityAssociationListCreate(BaseModel):
+    associations: List[VenueAmenityAssociationCreate]
+
 class ErrorResponse(BaseModel):
     detail: str

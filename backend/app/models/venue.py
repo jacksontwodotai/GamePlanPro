@@ -7,6 +7,7 @@ from sqlalchemy.dialects.postgresql import UUID
 
 if TYPE_CHECKING:
     from .event import Event
+    from .venue_has_amenity import VenueHasAmenity
 
 class Venue(SQLModel, table=True):
     __tablename__ = "venues"
@@ -63,6 +64,9 @@ class Venue(SQLModel, table=True):
 
     # Relationship to events
     events: List["Event"] = Relationship(back_populates="venue")
+
+    # Relationship to amenities
+    amenities: List["VenueHasAmenity"] = Relationship(back_populates="venue")
 
     __table_args__ = (
         Index('ix_venues_name', 'name'),

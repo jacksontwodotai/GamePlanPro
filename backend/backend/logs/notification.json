@@ -5,5 +5,12 @@
     "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend",
     "hook_event_name": "Notification",
     "message": "Claude is waiting for your input"
+  },
+  {
+    "session_id": "e50f0c64-7bce-41a9-8b94-5faf3a08c052",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/e50f0c64-7bce-41a9-8b94-5faf3a08c052.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend",
+    "hook_event_name": "Notification",
+    "message": "Claude is waiting for your input"
   }
 ]
