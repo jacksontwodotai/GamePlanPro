@@ -112,8 +112,7 @@ app.use(helmet({
             manifestSrc: ["'self'"],
             baseUri: ["'self'"],
             formAction: ["'self'"],
-            frameAncestors: ["'none'"],
-            upgradeInsecureRequests: process.env.NODE_ENV === 'production' ? [] : false
+            frameAncestors: ["'none'"]
         }
     },
     crossOriginEmbedderPolicy: false, // Required for Stripe
@@ -2262,45 +2261,267 @@ app.delete('/api/structure/age-groups/:age_group_id', async (req, res) => {
     }
 });
 
-// GET /api/venues - Get all venues
-app.get('/api/venues', async (req, res) => {
+// ===================== VENUE MANAGEMENT ENDPOINTS =====================
+
+// POST /api/venues - Create new venue
+app.post('/api/venues', authenticateAdmin, async (req, res) => {
     try {
+        const { name, address, city, state, zip_code, capacity, description, is_active } = req.body;
+
+        // Validate required fields
+        if (!name || !name.trim()) {
+            return res.status(400).json({ error: 'Venue name is required' });
+        }
+
+        // Validate capacity if provided
+        if (capacity !== undefined && capacity !== null) {
+            if (!Number.isInteger(capacity) || capacity < 0) {
+                return res.status(400).json({ error: 'Capacity must be a non-negative integer' });
+            }
+        }
+
+        const venueData = {
+            name: name.trim(),
+            address: address?.trim() || null,
+            city: city?.trim() || null,
+            state: state?.trim() || null,
+            zip_code: zip_code?.trim() || null,
+            capacity: capacity || null,
+            description: description?.trim() || null,
+            is_active: is_active !== undefined ? is_active : true
+        };
+
         const { data, error } = await supabase
             .from('venues')
-            .select('*')
-            .order('name', { ascending: true });
+            .insert([venueData])
+            .select()
+            .single();
 
         if (error) {
-            console.error('Supabase error:', error);
+            console.error('Create venue error:', error);
+            return res.status(500).json({ error: 'Failed to create venue' });
+        }
+
+        res.status(201).json(data);
+    } catch (error) {
+        console.error('Create venue error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/venues - Get all venues with pagination and filtering
+app.get('/api/venues', async (req, res) => {
+    try {
+        const { page = 1, limit = 10, city, is_active } = req.query;
+        const pageNum = parseInt(page);
+        const limitNum = parseInt(limit);
+
+        // Validate pagination parameters
+        if (pageNum < 1 || limitNum < 1 || limitNum > 100) {
+            return res.status(400).json({ error: 'Invalid pagination parameters' });
+        }
+
+        let query = supabase
+            .from('venues')
+            .select('*', { count: 'exact' });
+
+        // Apply filters
+        if (city) {
+            query = query.ilike('city', `%${city}%`);
+        }
+        if (is_active !== undefined) {
+            query = query.eq('is_active', is_active === 'true');
+        }
+
+        // Apply pagination
+        const from = (pageNum - 1) * limitNum;
+        const to = from + limitNum - 1;
+
+        query = query
+            .order('name', { ascending: true })
+            .range(from, to);
+
+        const { data, error, count } = await query;
+
+        if (error) {
+            console.error('Fetch venues error:', error);
             return res.status(500).json({ error: 'Failed to fetch venues' });
         }
 
-        res.json(data || []);
+        res.json({
+            venues: data || [],
+            pagination: {
+                page: pageNum,
+                limit: limitNum,
+                total: count || 0,
+                pages: Math.ceil((count || 0) / limitNum)
+            }
+        });
     } catch (error) {
         console.error('Fetch venues error:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
 
+// GET /api/venues/{venue_id} - Get specific venue
+app.get('/api/venues/:venue_id', async (req, res) => {
+    try {
+        const { venue_id } = req.params;
+
+        if (!venue_id) {
+            return res.status(400).json({ error: 'Venue ID is required' });
+        }
+
+        const { data, error } = await supabase
+            .from('venues')
+            .select('*')
+            .eq('id', venue_id)
+            .single();
+
+        if (error) {
+            if (error.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Venue not found' });
+            }
+            console.error('Fetch venue error:', error);
+            return res.status(500).json({ error: 'Failed to fetch venue' });
+        }
+
+        res.json(data);
+    } catch (error) {
+        console.error('Fetch venue error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// PUT /api/venues/{venue_id} - Update venue
+app.put('/api/venues/:venue_id', authenticateAdmin, async (req, res) => {
+    try {
+        const { venue_id } = req.params;
+        const { name, address, city, state, zip_code, capacity, description, is_active } = req.body;
+
+        if (!venue_id) {
+            return res.status(400).json({ error: 'Venue ID is required' });
+        }
+
+        // Build update object with only provided fields
+        const updateData = {};
+
+        if (name !== undefined) {
+            if (!name || !name.trim()) {
+                return res.status(400).json({ error: 'Venue name cannot be empty' });
+            }
+            updateData.name = name.trim();
+        }
+
+        if (address !== undefined) updateData.address = address?.trim() || null;
+        if (city !== undefined) updateData.city = city?.trim() || null;
+        if (state !== undefined) updateData.state = state?.trim() || null;
+        if (zip_code !== undefined) updateData.zip_code = zip_code?.trim() || null;
+        if (description !== undefined) updateData.description = description?.trim() || null;
+        if (is_active !== undefined) updateData.is_active = is_active;
+
+        if (capacity !== undefined) {
+            if (capacity !== null && (!Number.isInteger(capacity) || capacity < 0)) {
+                return res.status(400).json({ error: 'Capacity must be a non-negative integer' });
+            }
+            updateData.capacity = capacity;
+        }
+
+        updateData.updated_at = new Date().toISOString();
+
+        const { data, error } = await supabase
+            .from('venues')
+            .update(updateData)
+            .eq('id', venue_id)
+            .select()
+            .single();
+
+        if (error) {
+            if (error.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Venue not found' });
+            }
+            console.error('Update venue error:', error);
+            return res.status(500).json({ error: 'Failed to update venue' });
+        }
+
+        res.json(data);
+    } catch (error) {
+        console.error('Update venue error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// DELETE /api/venues/{venue_id} - Delete venue
+app.delete('/api/venues/:venue_id', authenticateAdmin, async (req, res) => {
+    try {
+        const { venue_id } = req.params;
+
+        if (!venue_id) {
+            return res.status(400).json({ error: 'Venue ID is required' });
+        }
+
+        // Check if venue has associated events
+        const { data: events, error: eventsError } = await supabase
+            .from('events')
+            .select('id')
+            .eq('venue_id', venue_id)
+            .limit(1);
+
+        if (eventsError) {
+            console.error('Check events error:', eventsError);
+            return res.status(500).json({ error: 'Failed to check venue dependencies' });
+        }
+
+        if (events && events.length > 0) {
+            return res.status(400).json({
+                error: 'Cannot delete venue with associated events. Please remove or reassign events first.'
+            });
+        }
+
+        // Delete venue
+        const { error } = await supabase
+            .from('venues')
+            .delete()
+            .eq('id', venue_id);
+
+        if (error) {
+            console.error('Delete venue error:', error);
+            return res.status(500).json({ error: 'Failed to delete venue' });
+        }
+
+        res.status(204).send();
+    } catch (error) {
+        console.error('Delete venue error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// ===================== EVENT MANAGEMENT ENDPOINTS =====================
+
 // POST /api/events - Create new event
-app.post('/api/events', async (req, res) => {
+app.post('/api/events', authenticateAdmin, async (req, res) => {
     try {
         const {
-            title,
+            name,        // Work order uses 'name', but our table uses 'title'
+            title,       // Support both for backward compatibility
             description,
             event_type,
             start_time,
             end_time,
             venue_id,
-            team_ids,
+            created_by_user_id,
             is_recurring,
-            recurrence_rule
+            recurrence_rule,
+            team_ids     // Optional for backward compatibility
         } = req.body;
 
+        // Use name or title (name takes precedence per work order)
+        const eventTitle = name || title;
+
         // Validate required fields
-        if (!title || !event_type || !start_time || !end_time || !venue_id || !team_ids || team_ids.length === 0) {
+        if (!eventTitle || !event_type || !start_time || !end_time) {
             return res.status(400).json({
-                error: 'Missing required fields: title, event_type, start_time, end_time, venue_id, team_ids'
+                error: 'Missing required fields: name, event_type, start_time, end_time'
             });
         }
 
@@ -2314,10 +2535,31 @@ app.post('/api/events', async (req, res) => {
         // Validate time logic
         const startDate = new Date(start_time);
         const endDate = new Date(end_time);
+        if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+            return res.status(400).json({
+                error: 'Invalid date format for start_time or end_time'
+            });
+        }
         if (endDate <= startDate) {
             return res.status(400).json({
                 error: 'End time must be after start time'
             });
+        }
+
+        // Validate venue exists if provided
+        if (venue_id) {
+            const { data: venue, error: venueError } = await supabase
+                .from('venues')
+                .select('id')
+                .eq('id', venue_id)
+                .single();
+
+            if (venueError && venueError.code === 'PGRST116') {
+                return res.status(400).json({ error: 'Venue not found' });
+            } else if (venueError) {
+                console.error('Venue validation error:', venueError);
+                return res.status(500).json({ error: 'Failed to validate venue' });
+            }
         }
 
         // Validate recurring event
@@ -2328,145 +2570,127 @@ app.post('/api/events', async (req, res) => {
         }
 
         // Insert the event
-        const { data: eventData, error: eventError } = await supabase
+        const eventData = {
+            title: eventTitle,
+            description: description || null,
+            event_type,
+            start_time,
+            end_time,
+            venue_id: venue_id || null,
+            created_by_user_id: created_by_user_id || null,
+            is_recurring: is_recurring || false,
+            recurrence_rule: recurrence_rule || null,
+            status: 'scheduled'
+        };
+
+        const { data: newEvent, error: eventError } = await supabase
             .from('events')
-            .insert([{
-                title,
-                description: description || null,
-                event_type,
-                start_time,
-                end_time,
-                venue_id,
-                is_recurring: is_recurring || false,
-                recurrence_rule: recurrence_rule || null,
-                status: 'scheduled'
-            }])
+            .insert([eventData])
             .select()
             .single();
 
         if (eventError) {
-            console.error('Supabase error:', eventError);
+            console.error('Create event error:', eventError);
             return res.status(500).json({ error: 'Failed to create event' });
         }
 
-        // Insert team relationships
-        const teamRelationships = team_ids.map(teamId => ({
-            event_id: eventData.id,
-            team_id: parseInt(teamId)
-        }));
+        // Insert team relationships if provided (for backward compatibility)
+        if (team_ids && Array.isArray(team_ids) && team_ids.length > 0) {
+            const teamRelationships = team_ids.map(teamId => ({
+                event_id: newEvent.id,
+                team_id: parseInt(teamId)
+            }));
 
-        const { error: teamError } = await supabase
-            .from('event_teams')
-            .insert(teamRelationships);
+            const { error: teamError } = await supabase
+                .from('event_teams')
+                .insert(teamRelationships);
 
-        if (teamError) {
-            console.error('Supabase team relationship error:', teamError);
-            // Clean up the event if team relationships failed
-            await supabase.from('events').delete().eq('id', eventData.id);
-            return res.status(500).json({ error: 'Failed to create event team relationships' });
+            if (teamError) {
+                console.error('Team relationship error:', teamError);
+                // Clean up the event if team relationships failed
+                await supabase.from('events').delete().eq('id', newEvent.id);
+                return res.status(500).json({ error: 'Failed to create event team relationships' });
+            }
         }
 
-        res.status(201).json({
-            message: 'Event created successfully',
-            event: { ...eventData, team_ids }
-        });
+        res.status(201).json(newEvent);
     } catch (error) {
         console.error('Create event error:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
 
-// GET /api/events - Get all events with optional filtering
+// GET /api/events - Get all events with filtering and pagination per work order requirements
 app.get('/api/events', async (req, res) => {
     try {
         const {
-            team_ids,
-            venue_id,
             event_type,
-            start_date,
-            end_date,
+            start_date_after,
+            end_date_before,
+            venue_id,
+            team_id,
             page = 1,
-            limit = 50
+            limit = 10
         } = req.query;
+
+        const pageNum = parseInt(page);
+        const limitNum = parseInt(limit);
+
+        // Validate pagination parameters
+        if (pageNum < 1 || limitNum < 1 || limitNum > 100) {
+            return res.status(400).json({ error: 'Invalid pagination parameters' });
+        }
 
         let query = supabase
             .from('events')
             .select(`
                 *,
-                venues(name, address),
+                venues(id, name, address, city, state),
                 event_teams(team_id, teams(id, name))
-            `)
+            `, { count: 'exact' })
             .order('start_time', { ascending: true });
 
-        // Apply filters
-        if (team_ids) {
-            const teamIdsArray = Array.isArray(team_ids) ? team_ids : [team_ids];
-            // Filter events that have any of the specified teams
-            query = query.in('event_teams.team_id', teamIdsArray);
+        // Apply filters per work order specification
+        if (event_type) {
+            query = query.eq('event_type', event_type);
+        }
+
+        if (start_date_after) {
+            query = query.gte('start_time', start_date_after);
+        }
+
+        if (end_date_before) {
+            query = query.lte('end_time', end_date_before);
         }
 
         if (venue_id) {
             query = query.eq('venue_id', venue_id);
         }
 
-        if (event_type) {
-            query = query.eq('event_type', event_type);
-        }
-
-        if (start_date) {
-            query = query.gte('start_time', start_date);
-        }
-
-        if (end_date) {
-            query = query.lte('start_time', end_date);
+        if (team_id) {
+            // Filter events that have the specified team
+            query = query.eq('event_teams.team_id', parseInt(team_id));
         }
 
         // Apply pagination
-        const offset = (parseInt(page) - 1) * parseInt(limit);
-        query = query.range(offset, offset + parseInt(limit) - 1);
+        const from = (pageNum - 1) * limitNum;
+        const to = from + limitNum - 1;
+        query = query.range(from, to);
 
-        const { data, error } = await query;
-
-        // Get count separately for pagination
-        let countQuery = supabase
-            .from('events')
-            .select('id', { count: 'exact', head: true });
-
-        if (team_ids) {
-            const teamIdsArray = Array.isArray(team_ids) ? team_ids : [team_ids];
-            countQuery = countQuery.in('event_teams.team_id', teamIdsArray);
-        }
-
-        if (venue_id) {
-            countQuery = countQuery.eq('venue_id', venue_id);
-        }
-
-        if (event_type) {
-            countQuery = countQuery.eq('event_type', event_type);
-        }
-
-        if (start_date) {
-            countQuery = countQuery.gte('start_time', start_date);
-        }
-
-        if (end_date) {
-            countQuery = countQuery.lte('start_time', end_date);
-        }
-
-        const { count } = await countQuery;
+        const { data, error, count } = await query;
 
         if (error) {
-            console.error('Supabase error:', error);
+            console.error('Fetch events error:', error);
             return res.status(500).json({ error: 'Failed to fetch events' });
         }
 
         res.json({
             events: data || [],
             pagination: {
-                page: parseInt(page),
-                limit: parseInt(limit),
+                page: pageNum,
+                limit: limitNum,
                 total: count || 0,
-                totalPages: Math.ceil((count || 0) / parseInt(limit))
+                pages: Math.ceil((count || 0) / limitNum)
             }
         });
     } catch (error) {
@@ -2475,22 +2699,30 @@ app.get('/api/events', async (req, res) => {
     }
 });
 
-// GET /api/events/{id} - Get single event
-app.get('/api/events/:id', async (req, res) => {
+// GET /api/events/{event_id} - Get single event with venue details
+app.get('/api/events/:event_id', async (req, res) => {
     try {
-        const { id } = req.params;
+        const { event_id } = req.params;
+
+        if (!event_id) {
+            return res.status(400).json({ error: 'Event ID is required' });
+        }
 
         const { data, error } = await supabase
             .from('events')
-            .select('*')
-            .eq('id', id)
+            .select(`
+                *,
+                venues(id, name, address, city, state, zip_code, capacity, description, is_active),
+                event_teams(team_id, teams(id, name))
+            `)
+            .eq('id', event_id)
             .single();
 
         if (error) {
-            console.error('Supabase error:', error);
             if (error.code === 'PGRST116') {
                 return res.status(404).json({ error: 'Event not found' });
             }
+            console.error('Fetch event error:', error);
             return res.status(500).json({ error: 'Failed to fetch event' });
         }
 
@@ -2501,22 +2733,27 @@ app.get('/api/events/:id', async (req, res) => {
     }
 });
 
-// PUT /api/events/{id} - Update event
-app.put('/api/events/:id', async (req, res) => {
+// PUT /api/events/{event_id} - Update event
+app.put('/api/events/:event_id', authenticateAdmin, async (req, res) => {
     try {
-        const { id } = req.params;
+        const { event_id } = req.params;
         const {
+            name,
             title,
             description,
             event_type,
             start_time,
             end_time,
             venue_id,
-            team_ids,
+            created_by_user_id,
             is_recurring,
             recurrence_rule,
             status
         } = req.body;
+
+        if (!event_id) {
+            return res.status(400).json({ error: 'Event ID is required' });
+        }
 
         // Validate event type if provided
         if (event_type && !['game', 'practice', 'tournament'].includes(event_type)) {
@@ -2536,10 +2773,31 @@ app.put('/api/events/:id', async (req, res) => {
         if (start_time && end_time) {
             const startDate = new Date(start_time);
             const endDate = new Date(end_time);
+            if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+                return res.status(400).json({
+                    error: 'Invalid date format for start_time or end_time'
+                });
+            }
             if (endDate <= startDate) {
                 return res.status(400).json({
                     error: 'End time must be after start time'
                 });
+            }
+        }
+
+        // Validate venue exists if provided
+        if (venue_id) {
+            const { data: venue, error: venueError } = await supabase
+                .from('venues')
+                .select('id')
+                .eq('id', venue_id)
+                .single();
+
+            if (venueError && venueError.code === 'PGRST116') {
+                return res.status(400).json({ error: 'Venue not found' });
+            } else if (venueError) {
+                console.error('Venue validation error:', venueError);
+                return res.status(500).json({ error: 'Failed to validate venue' });
             }
         }
 
@@ -2551,14 +2809,18 @@ app.put('/api/events/:id', async (req, res) => {
         }
 
         // Build update object with only provided fields
-        const updateData = {};
-        if (title !== undefined) updateData.title = title;
+        const updateData = { updated_at: new Date().toISOString() };
+
+        // Support both name and title (name takes precedence per work order)
+        const eventTitle = name || title;
+        if (eventTitle !== undefined) updateData.title = eventTitle;
+
         if (description !== undefined) updateData.description = description;
         if (event_type !== undefined) updateData.event_type = event_type;
         if (start_time !== undefined) updateData.start_time = start_time;
         if (end_time !== undefined) updateData.end_time = end_time;
         if (venue_id !== undefined) updateData.venue_id = venue_id;
-        if (team_ids !== undefined) updateData.team_ids = team_ids;
+        if (created_by_user_id !== undefined) updateData.created_by_user_id = created_by_user_id;
         if (is_recurring !== undefined) updateData.is_recurring = is_recurring;
         if (recurrence_rule !== undefined) updateData.recurrence_rule = recurrence_rule;
         if (status !== undefined) updateData.status = status;
@@ -2567,48 +2829,46 @@ app.put('/api/events/:id', async (req, res) => {
         const { data, error } = await supabase
             .from('events')
             .update(updateData)
-            .eq('id', id)
+            .eq('id', event_id)
             .select()
             .single();
 
         if (error) {
-            console.error('Supabase error:', error);
             if (error.code === 'PGRST116') {
                 return res.status(404).json({ error: 'Event not found' });
             }
+            console.error('Update event error:', error);
             return res.status(500).json({ error: 'Failed to update event' });
         }
 
-        res.json({
-            message: 'Event updated successfully',
-            event: data
-        });
+        res.json(data);
     } catch (error) {
         console.error('Update event error:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
 
-// DELETE /api/events/{id} - Delete event
-app.delete('/api/events/:id', async (req, res) => {
+// DELETE /api/events/{event_id} - Delete event
+app.delete('/api/events/:event_id', authenticateAdmin, async (req, res) => {
     try {
-        const { id } = req.params;
+        const { event_id } = req.params;
 
-        // Delete the event
+        if (!event_id) {
+            return res.status(400).json({ error: 'Event ID is required' });
+        }
+
+        // Delete the event (cascade will handle event_teams relationships)
         const { error } = await supabase
             .from('events')
             .delete()
-            .eq('id', id);
+            .eq('id', event_id);
 
         if (error) {
-            console.error('Supabase error:', error);
-            if (error.code === 'PGRST116') {
-                return res.status(404).json({ error: 'Event not found' });
-            }
+            console.error('Delete event error:', error);
             return res.status(500).json({ error: 'Failed to delete event' });
         }
 
-        res.status(200).json({ message: 'Event deleted successfully' });
+        res.status(204).send();
     } catch (error) {
         console.error('Delete event error:', error);
         res.status(500).json({ error: 'Internal server error' });
@@ -6618,6 +6878,991 @@ app.get('/api/admin/registration/programs/:program_id/capacity', authenticateAdm
         });
     } catch (error) {
         console.error('Get program capacity error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Admin Waitlist Management Endpoints
+
+// POST /api/admin/registration/programs/{program_id}/waitlist - Add player to waitlist
+app.post('/api/admin/registration/programs/:program_id/waitlist', authenticateAdmin, async (req, res) => {
+    const { program_id } = req.params;
+    const { player_id } = req.body;
+
+    try {
+        // Validate program_id (UUID format)
+        if (!program_id || !program_id.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
+            return res.status(400).json({ error: 'Valid program ID is required' });
+        }
+
+        // Validate player_id
+        if (!player_id || !Number.isInteger(player_id)) {
+            return res.status(400).json({ error: 'Valid player ID is required' });
+        }
+
+        // Check if program exists
+        const { data: program, error: programError } = await supabase
+            .from('programs')
+            .select('id, name')
+            .eq('id', program_id)
+            .single();
+
+        if (programError) {
+            if (programError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Program not found' });
+            }
+            console.error('Program fetch error:', programError);
+            return res.status(500).json({ error: 'Failed to fetch program' });
+        }
+
+        // Check if player exists
+        const { data: player, error: playerError } = await supabase
+            .from('players')
+            .select('id, first_name, last_name')
+            .eq('id', player_id)
+            .single();
+
+        if (playerError) {
+            if (playerError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Player not found' });
+            }
+            console.error('Player fetch error:', playerError);
+            return res.status(500).json({ error: 'Failed to fetch player' });
+        }
+
+        // Check if player is already on waitlist for this program
+        const { data: existingEntry, error: checkError } = await supabase
+            .from('waitlist_entries')
+            .select('id')
+            .eq('program_id', program_id)
+            .eq('player_id', player_id)
+            .single();
+
+        if (checkError && checkError.code !== 'PGRST116') {
+            console.error('Waitlist check error:', checkError);
+            return res.status(500).json({ error: 'Failed to check existing waitlist entry' });
+        }
+
+        if (existingEntry) {
+            return res.status(409).json({ error: 'Player is already on waitlist for this program' });
+        }
+
+        // Create waitlist entry
+        const { data: waitlistEntry, error: createError } = await supabase
+            .from('waitlist_entries')
+            .insert({
+                program_id,
+                player_id,
+                status: 'Active',
+                waitlist_date: new Date().toISOString()
+            })
+            .select(`
+                id,
+                program_id,
+                player_id,
+                status,
+                waitlist_date,
+                offer_expiration_date,
+                position_in_queue,
+                notes,
+                created_at,
+                updated_at
+            `)
+            .single();
+
+        if (createError) {
+            console.error('Waitlist entry creation error:', createError);
+            return res.status(500).json({ error: 'Failed to create waitlist entry' });
+        }
+
+        res.status(201).json({
+            message: 'Player added to waitlist successfully',
+            waitlist_entry: {
+                ...waitlistEntry,
+                program_name: program.name,
+                player_name: `${player.first_name} ${player.last_name}`
+            }
+        });
+    } catch (error) {
+        console.error('Add to waitlist error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/admin/registration/programs/{program_id}/waitlist - Get waitlist entries
+app.get('/api/admin/registration/programs/:program_id/waitlist', authenticateAdmin, async (req, res) => {
+    const { program_id } = req.params;
+    const { status, page = 1, limit = 20 } = req.query;
+
+    try {
+        // Validate program_id (UUID format)
+        if (!program_id || !program_id.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
+            return res.status(400).json({ error: 'Valid program ID is required' });
+        }
+
+        // Validate pagination parameters
+        const pageNum = Math.max(1, parseInt(page));
+        const limitNum = Math.min(100, Math.max(1, parseInt(limit)));
+        const offset = (pageNum - 1) * limitNum;
+
+        // Check if program exists
+        const { data: program, error: programError } = await supabase
+            .from('programs')
+            .select('id, name')
+            .eq('id', program_id)
+            .single();
+
+        if (programError) {
+            if (programError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Program not found' });
+            }
+            console.error('Program fetch error:', programError);
+            return res.status(500).json({ error: 'Failed to fetch program' });
+        }
+
+        // Build query with optional status filter
+        let query = supabase
+            .from('waitlist_entries')
+            .select(`
+                id,
+                program_id,
+                player_id,
+                status,
+                waitlist_date,
+                offer_expiration_date,
+                position_in_queue,
+                notes,
+                created_at,
+                updated_at,
+                players!waitlist_entries_player_id_fkey (
+                    id,
+                    first_name,
+                    last_name,
+                    email
+                )
+            `)
+            .eq('program_id', program_id)
+            .order('waitlist_date', { ascending: true });
+
+        if (status && status !== 'all') {
+            query = query.eq('status', status);
+        }
+
+        // Get total count for pagination
+        const { count: totalCount, error: countError } = await supabase
+            .from('waitlist_entries')
+            .select('*', { count: 'exact', head: true })
+            .eq('program_id', program_id)
+            .eq(status && status !== 'all' ? 'status' : 'id', status && status !== 'all' ? status : query);
+
+        if (countError) {
+            console.error('Waitlist count error:', countError);
+        }
+
+        // Apply pagination
+        const { data: waitlistEntries, error: fetchError } = await query
+            .range(offset, offset + limitNum - 1);
+
+        if (fetchError) {
+            console.error('Waitlist entries fetch error:', fetchError);
+            return res.status(500).json({ error: 'Failed to fetch waitlist entries' });
+        }
+
+        // Transform the data
+        const transformedEntries = waitlistEntries.map(entry => ({
+            id: entry.id,
+            program_id: entry.program_id,
+            player_id: entry.player_id,
+            status: entry.status,
+            waitlist_date: entry.waitlist_date,
+            offer_expiration_date: entry.offer_expiration_date,
+            position_in_queue: entry.position_in_queue,
+            notes: entry.notes,
+            created_at: entry.created_at,
+            updated_at: entry.updated_at,
+            player: {
+                id: entry.players.id,
+                first_name: entry.players.first_name,
+                last_name: entry.players.last_name,
+                full_name: `${entry.players.first_name} ${entry.players.last_name}`,
+                email: entry.players.email
+            }
+        }));
+
+        res.json({
+            program_id: program.id,
+            program_name: program.name,
+            waitlist_entries: transformedEntries,
+            pagination: {
+                page: pageNum,
+                limit: limitNum,
+                total: totalCount || 0,
+                total_pages: Math.ceil((totalCount || 0) / limitNum)
+            }
+        });
+    } catch (error) {
+        console.error('Get waitlist entries error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// PUT /api/admin/registration/waitlist/{waitlist_entry_id}/offer - Offer spot to waitlisted player
+app.put('/api/admin/registration/waitlist/:waitlist_entry_id/offer', authenticateAdmin, async (req, res) => {
+    const { waitlist_entry_id } = req.params;
+    const { offer_expiration_hours = 48 } = req.body;
+
+    try {
+        // Validate waitlist_entry_id (UUID format)
+        if (!waitlist_entry_id || !waitlist_entry_id.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
+            return res.status(400).json({ error: 'Valid waitlist entry ID is required' });
+        }
+
+        // Validate expiration hours
+        const expirationHours = Math.max(1, Math.min(168, parseInt(offer_expiration_hours))); // 1-168 hours (1 week max)
+
+        // Check if waitlist entry exists and is in Active status
+        const { data: waitlistEntry, error: fetchError } = await supabase
+            .from('waitlist_entries')
+            .select(`
+                id,
+                program_id,
+                player_id,
+                status,
+                waitlist_date,
+                players!waitlist_entries_player_id_fkey (
+                    first_name,
+                    last_name
+                ),
+                programs!waitlist_entries_program_id_fkey (
+                    name
+                )
+            `)
+            .eq('id', waitlist_entry_id)
+            .single();
+
+        if (fetchError) {
+            if (fetchError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Waitlist entry not found' });
+            }
+            console.error('Waitlist entry fetch error:', fetchError);
+            return res.status(500).json({ error: 'Failed to fetch waitlist entry' });
+        }
+
+        if (waitlistEntry.status !== 'Active') {
+            return res.status(400).json({
+                error: 'Can only offer spots to waitlist entries with Active status',
+                current_status: waitlistEntry.status
+            });
+        }
+
+        // Calculate expiration date
+        const offerExpirationDate = new Date();
+        offerExpirationDate.setHours(offerExpirationDate.getHours() + expirationHours);
+
+        // Update waitlist entry status to 'Offered'
+        const { data: updatedEntry, error: updateError } = await supabase
+            .from('waitlist_entries')
+            .update({
+                status: 'Offered',
+                offer_expiration_date: offerExpirationDate.toISOString(),
+                updated_at: new Date().toISOString()
+            })
+            .eq('id', waitlist_entry_id)
+            .select()
+            .single();
+
+        if (updateError) {
+            console.error('Waitlist entry update error:', updateError);
+            return res.status(500).json({ error: 'Failed to update waitlist entry' });
+        }
+
+        res.json({
+            message: 'Spot offered to waitlisted player successfully',
+            waitlist_entry: {
+                ...updatedEntry,
+                player_name: `${waitlistEntry.players.first_name} ${waitlistEntry.players.last_name}`,
+                program_name: waitlistEntry.programs.name
+            }
+        });
+    } catch (error) {
+        console.error('Offer waitlist spot error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// PUT /api/admin/registration/waitlist/{waitlist_entry_id}/status - Update waitlist entry status
+app.put('/api/admin/registration/waitlist/:waitlist_entry_id/status', authenticateAdmin, async (req, res) => {
+    const { waitlist_entry_id } = req.params;
+    const { status, notes } = req.body;
+
+    try {
+        // Validate waitlist_entry_id (UUID format)
+        if (!waitlist_entry_id || !waitlist_entry_id.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
+            return res.status(400).json({ error: 'Valid waitlist entry ID is required' });
+        }
+
+        // Validate status
+        const validStatuses = ['Active', 'Offered', 'Accepted', 'Declined', 'Expired'];
+        if (!status || !validStatuses.includes(status)) {
+            return res.status(400).json({
+                error: 'Valid status is required',
+                valid_statuses: validStatuses
+            });
+        }
+
+        // Check if waitlist entry exists
+        const { data: waitlistEntry, error: fetchError } = await supabase
+            .from('waitlist_entries')
+            .select(`
+                id,
+                program_id,
+                player_id,
+                status,
+                waitlist_date,
+                players!waitlist_entries_player_id_fkey (
+                    first_name,
+                    last_name
+                ),
+                programs!waitlist_entries_program_id_fkey (
+                    name
+                )
+            `)
+            .eq('id', waitlist_entry_id)
+            .single();
+
+        if (fetchError) {
+            if (fetchError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Waitlist entry not found' });
+            }
+            console.error('Waitlist entry fetch error:', fetchError);
+            return res.status(500).json({ error: 'Failed to fetch waitlist entry' });
+        }
+
+        // Prepare update data
+        const updateData = {
+            status,
+            updated_at: new Date().toISOString()
+        };
+
+        if (notes !== undefined) {
+            updateData.notes = notes;
+        }
+
+        // If status is changing to 'Accepted', create a program registration
+        let registrationCreated = false;
+        if (status === 'Accepted' && waitlistEntry.status !== 'Accepted') {
+            try {
+                const { data: newRegistration, error: regError } = await supabase
+                    .from('program_registrations')
+                    .insert({
+                        program_id: waitlistEntry.program_id,
+                        player_id: waitlistEntry.player_id,
+                        status: 'confirmed',
+                        registration_date: new Date().toISOString().split('T')[0],
+                        total_amount_due: 0 // Will be updated based on program fees
+                    })
+                    .select()
+                    .single();
+
+                if (regError) {
+                    console.error('Registration creation error:', regError);
+                    return res.status(500).json({ error: 'Failed to create registration from waitlist acceptance' });
+                }
+                registrationCreated = true;
+            } catch (regCreateError) {
+                console.error('Registration creation error:', regCreateError);
+                return res.status(500).json({ error: 'Failed to create registration from waitlist acceptance' });
+            }
+        }
+
+        // Update waitlist entry status
+        const { data: updatedEntry, error: updateError } = await supabase
+            .from('waitlist_entries')
+            .update(updateData)
+            .eq('id', waitlist_entry_id)
+            .select()
+            .single();
+
+        if (updateError) {
+            console.error('Waitlist entry update error:', updateError);
+            return res.status(500).json({ error: 'Failed to update waitlist entry' });
+        }
+
+        const response = {
+            message: 'Waitlist entry status updated successfully',
+            waitlist_entry: {
+                ...updatedEntry,
+                player_name: `${waitlistEntry.players.first_name} ${waitlistEntry.players.last_name}`,
+                program_name: waitlistEntry.programs.name
+            }
+        };
+
+        if (registrationCreated) {
+            response.message += ' and registration created';
+            response.registration_created = true;
+        }
+
+        res.json(response);
+    } catch (error) {
+        console.error('Update waitlist entry status error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// DELETE /api/admin/registration/waitlist/{waitlist_entry_id} - Remove waitlist entry
+app.delete('/api/admin/registration/waitlist/:waitlist_entry_id', authenticateAdmin, async (req, res) => {
+    const { waitlist_entry_id } = req.params;
+
+    try {
+        // Validate waitlist_entry_id (UUID format)
+        if (!waitlist_entry_id || !waitlist_entry_id.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
+            return res.status(400).json({ error: 'Valid waitlist entry ID is required' });
+        }
+
+        // Check if waitlist entry exists
+        const { data: waitlistEntry, error: fetchError } = await supabase
+            .from('waitlist_entries')
+            .select(`
+                id,
+                program_id,
+                player_id,
+                status,
+                players!waitlist_entries_player_id_fkey (
+                    first_name,
+                    last_name
+                ),
+                programs!waitlist_entries_program_id_fkey (
+                    name
+                )
+            `)
+            .eq('id', waitlist_entry_id)
+            .single();
+
+        if (fetchError) {
+            if (fetchError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Waitlist entry not found' });
+            }
+            console.error('Waitlist entry fetch error:', fetchError);
+            return res.status(500).json({ error: 'Failed to fetch waitlist entry' });
+        }
+
+        // Delete the waitlist entry
+        const { error: deleteError } = await supabase
+            .from('waitlist_entries')
+            .delete()
+            .eq('id', waitlist_entry_id);
+
+        if (deleteError) {
+            console.error('Waitlist entry deletion error:', deleteError);
+            return res.status(500).json({ error: 'Failed to delete waitlist entry' });
+        }
+
+        res.status(204).send(); // No content response
+    } catch (error) {
+        console.error('Delete waitlist entry error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Admin Notification Template Management Endpoints
+
+// POST /api/admin/registration/notification-templates - Create notification template
+app.post('/api/admin/registration/notification-templates', authenticateAdmin, async (req, res) => {
+    const { name, type, subject, body, placeholders } = req.body;
+
+    try {
+        // Validate required fields
+        if (!name || typeof name !== 'string' || name.trim().length === 0) {
+            return res.status(400).json({ error: 'Template name is required' });
+        }
+
+        if (!type || !['email', 'sms', 'push', 'in_app'].includes(type)) {
+            return res.status(400).json({
+                error: 'Valid type is required',
+                valid_types: ['email', 'sms', 'push', 'in_app']
+            });
+        }
+
+        if (!body || typeof body !== 'string' || body.trim().length === 0) {
+            return res.status(400).json({ error: 'Template body is required' });
+        }
+
+        // For email templates, subject is required
+        if (type === 'email' && (!subject || typeof subject !== 'string' || subject.trim().length === 0)) {
+            return res.status(400).json({ error: 'Subject is required for email templates' });
+        }
+
+        // Validate placeholders if provided
+        let validatedPlaceholders = {};
+        if (placeholders) {
+            if (typeof placeholders !== 'object' || Array.isArray(placeholders)) {
+                return res.status(400).json({ error: 'Placeholders must be an object' });
+            }
+            validatedPlaceholders = placeholders;
+        }
+
+        // Check if template name already exists
+        const { data: existingTemplate, error: checkError } = await supabase
+            .from('notification_templates')
+            .select('id')
+            .eq('name', name.trim())
+            .single();
+
+        if (checkError && checkError.code !== 'PGRST116') {
+            console.error('Template name check error:', checkError);
+            return res.status(500).json({ error: 'Failed to check template name' });
+        }
+
+        if (existingTemplate) {
+            return res.status(409).json({ error: 'Template name already exists' });
+        }
+
+        // Create notification template
+        const { data: template, error: createError } = await supabase
+            .from('notification_templates')
+            .insert({
+                name: name.trim(),
+                type,
+                subject: type === 'email' ? subject.trim() : null,
+                body: body.trim(),
+                placeholders: validatedPlaceholders,
+                created_by: req.user.id,
+                is_active: true
+            })
+            .select()
+            .single();
+
+        if (createError) {
+            console.error('Template creation error:', createError);
+            return res.status(500).json({ error: 'Failed to create notification template' });
+        }
+
+        res.status(201).json({
+            message: 'Notification template created successfully',
+            template
+        });
+    } catch (error) {
+        console.error('Create notification template error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/admin/registration/notification-templates - List notification templates
+app.get('/api/admin/registration/notification-templates', authenticateAdmin, async (req, res) => {
+    const { type, is_active, page = 1, limit = 20 } = req.query;
+
+    try {
+        // Validate pagination parameters
+        const pageNum = Math.max(1, parseInt(page));
+        const limitNum = Math.min(100, Math.max(1, parseInt(limit)));
+        const offset = (pageNum - 1) * limitNum;
+
+        // Build query with optional filters
+        let query = supabase
+            .from('notification_templates')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        if (type && type !== 'all') {
+            query = query.eq('type', type);
+        }
+
+        if (is_active !== undefined && is_active !== 'all') {
+            const activeFilter = is_active === 'true' || is_active === true;
+            query = query.eq('is_active', activeFilter);
+        }
+
+        // Get total count for pagination
+        let countQuery = supabase
+            .from('notification_templates')
+            .select('*', { count: 'exact', head: true });
+
+        if (type && type !== 'all') {
+            countQuery = countQuery.eq('type', type);
+        }
+
+        if (is_active !== undefined && is_active !== 'all') {
+            const activeFilter = is_active === 'true' || is_active === true;
+            countQuery = countQuery.eq('is_active', activeFilter);
+        }
+
+        const { count: totalCount, error: countError } = await countQuery;
+
+        if (countError) {
+            console.error('Template count error:', countError);
+        }
+
+        // Apply pagination
+        const { data: templates, error: fetchError } = await query
+            .range(offset, offset + limitNum - 1);
+
+        if (fetchError) {
+            console.error('Templates fetch error:', fetchError);
+            return res.status(500).json({ error: 'Failed to fetch notification templates' });
+        }
+
+        res.json({
+            templates,
+            pagination: {
+                page: pageNum,
+                limit: limitNum,
+                total: totalCount || 0,
+                total_pages: Math.ceil((totalCount || 0) / limitNum)
+            }
+        });
+    } catch (error) {
+        console.error('Get notification templates error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /api/admin/registration/notification-templates/{template_id} - Get specific template
+app.get('/api/admin/registration/notification-templates/:template_id', authenticateAdmin, async (req, res) => {
+    const { template_id } = req.params;
+
+    try {
+        // Validate template_id (UUID format)
+        if (!template_id || !template_id.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
+            return res.status(400).json({ error: 'Valid template ID is required' });
+        }
+
+        // Fetch the template
+        const { data: template, error: fetchError } = await supabase
+            .from('notification_templates')
+            .select('*')
+            .eq('id', template_id)
+            .single();
+
+        if (fetchError) {
+            if (fetchError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Notification template not found' });
+            }
+            console.error('Template fetch error:', fetchError);
+            return res.status(500).json({ error: 'Failed to fetch notification template' });
+        }
+
+        res.json({ template });
+    } catch (error) {
+        console.error('Get notification template error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// PUT /api/admin/registration/notification-templates/{template_id} - Update template
+app.put('/api/admin/registration/notification-templates/:template_id', authenticateAdmin, async (req, res) => {
+    const { template_id } = req.params;
+    const { name, type, subject, body, placeholders, is_active } = req.body;
+
+    try {
+        // Validate template_id (UUID format)
+        if (!template_id || !template_id.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
+            return res.status(400).json({ error: 'Valid template ID is required' });
+        }
+
+        // Check if template exists
+        const { data: existingTemplate, error: fetchError } = await supabase
+            .from('notification_templates')
+            .select('*')
+            .eq('id', template_id)
+            .single();
+
+        if (fetchError) {
+            if (fetchError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Notification template not found' });
+            }
+            console.error('Template fetch error:', fetchError);
+            return res.status(500).json({ error: 'Failed to fetch notification template' });
+        }
+
+        // Prepare update data
+        const updates = {
+            updated_at: new Date().toISOString()
+        };
+
+        // Validate and update fields
+        if (name !== undefined) {
+            if (typeof name !== 'string' || name.trim().length === 0) {
+                return res.status(400).json({ error: 'Template name must be a non-empty string' });
+            }
+
+            // Check if new name conflicts with existing template
+            if (name.trim() !== existingTemplate.name) {
+                const { data: nameCheck, error: nameError } = await supabase
+                    .from('notification_templates')
+                    .select('id')
+                    .eq('name', name.trim())
+                    .single();
+
+                if (nameError && nameError.code !== 'PGRST116') {
+                    console.error('Template name check error:', nameError);
+                    return res.status(500).json({ error: 'Failed to check template name' });
+                }
+
+                if (nameCheck) {
+                    return res.status(409).json({ error: 'Template name already exists' });
+                }
+            }
+
+            updates.name = name.trim();
+        }
+
+        if (type !== undefined) {
+            if (!['email', 'sms', 'push', 'in_app'].includes(type)) {
+                return res.status(400).json({
+                    error: 'Valid type is required',
+                    valid_types: ['email', 'sms', 'push', 'in_app']
+                });
+            }
+            updates.type = type;
+        }
+
+        if (body !== undefined) {
+            if (typeof body !== 'string' || body.trim().length === 0) {
+                return res.status(400).json({ error: 'Template body must be a non-empty string' });
+            }
+            updates.body = body.trim();
+        }
+
+        // Handle subject field
+        const finalType = type || existingTemplate.type;
+        if (subject !== undefined) {
+            if (finalType === 'email') {
+                if (typeof subject !== 'string' || subject.trim().length === 0) {
+                    return res.status(400).json({ error: 'Subject is required for email templates' });
+                }
+                updates.subject = subject.trim();
+            } else {
+                updates.subject = null;
+            }
+        } else if (finalType === 'email' && !existingTemplate.subject) {
+            return res.status(400).json({ error: 'Subject is required for email templates' });
+        }
+
+        if (placeholders !== undefined) {
+            if (placeholders !== null && (typeof placeholders !== 'object' || Array.isArray(placeholders))) {
+                return res.status(400).json({ error: 'Placeholders must be an object or null' });
+            }
+            updates.placeholders = placeholders || {};
+        }
+
+        if (is_active !== undefined) {
+            if (typeof is_active !== 'boolean') {
+                return res.status(400).json({ error: 'is_active must be a boolean' });
+            }
+            updates.is_active = is_active;
+        }
+
+        // Update the template
+        const { data: updatedTemplate, error: updateError } = await supabase
+            .from('notification_templates')
+            .update(updates)
+            .eq('id', template_id)
+            .select()
+            .single();
+
+        if (updateError) {
+            console.error('Template update error:', updateError);
+            return res.status(500).json({ error: 'Failed to update notification template' });
+        }
+
+        res.json({
+            message: 'Notification template updated successfully',
+            template: updatedTemplate
+        });
+    } catch (error) {
+        console.error('Update notification template error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// DELETE /api/admin/registration/notification-templates/{template_id} - Delete template
+app.delete('/api/admin/registration/notification-templates/:template_id', authenticateAdmin, async (req, res) => {
+    const { template_id } = req.params;
+
+    try {
+        // Validate template_id (UUID format)
+        if (!template_id || !template_id.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
+            return res.status(400).json({ error: 'Valid template ID is required' });
+        }
+
+        // Check if template exists
+        const { data: template, error: fetchError } = await supabase
+            .from('notification_templates')
+            .select('id, name')
+            .eq('id', template_id)
+            .single();
+
+        if (fetchError) {
+            if (fetchError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Notification template not found' });
+            }
+            console.error('Template fetch error:', fetchError);
+            return res.status(500).json({ error: 'Failed to fetch notification template' });
+        }
+
+        // Delete the template
+        const { error: deleteError } = await supabase
+            .from('notification_templates')
+            .delete()
+            .eq('id', template_id);
+
+        if (deleteError) {
+            console.error('Template deletion error:', deleteError);
+            return res.status(500).json({ error: 'Failed to delete notification template' });
+        }
+
+        res.status(204).send(); // No content response
+    } catch (error) {
+        console.error('Delete notification template error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// POST /api/admin/registration/send-notification - Send notification using template
+app.post('/api/admin/registration/send-notification', authenticateAdmin, async (req, res) => {
+    const { template_id, recipient_type, recipient_id, placeholders = {} } = req.body;
+
+    try {
+        // Validate required fields
+        if (!template_id || !template_id.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
+            return res.status(400).json({ error: 'Valid template ID is required' });
+        }
+
+        if (!recipient_type || !['player', 'user', 'email'].includes(recipient_type)) {
+            return res.status(400).json({
+                error: 'Valid recipient type is required',
+                valid_types: ['player', 'user', 'email']
+            });
+        }
+
+        if (!recipient_id) {
+            return res.status(400).json({ error: 'Recipient ID is required' });
+        }
+
+        if (typeof placeholders !== 'object' || Array.isArray(placeholders)) {
+            return res.status(400).json({ error: 'Placeholders must be an object' });
+        }
+
+        // Fetch the template
+        const { data: template, error: templateError } = await supabase
+            .from('notification_templates')
+            .select('*')
+            .eq('id', template_id)
+            .eq('is_active', true)
+            .single();
+
+        if (templateError) {
+            if (templateError.code === 'PGRST116') {
+                return res.status(404).json({ error: 'Active notification template not found' });
+            }
+            console.error('Template fetch error:', templateError);
+            return res.status(500).json({ error: 'Failed to fetch notification template' });
+        }
+
+        // Get recipient information
+        let recipientEmail = null;
+        let recipientName = null;
+
+        if (recipient_type === 'player') {
+            const { data: player, error: playerError } = await supabase
+                .from('players')
+                .select('email, first_name, last_name, player_email')
+                .eq('id', recipient_id)
+                .single();
+
+            if (playerError) {
+                if (playerError.code === 'PGRST116') {
+                    return res.status(404).json({ error: 'Player not found' });
+                }
+                console.error('Player fetch error:', playerError);
+                return res.status(500).json({ error: 'Failed to fetch player information' });
+            }
+
+            recipientEmail = player.player_email || player.email;
+            recipientName = `${player.first_name} ${player.last_name}`;
+        } else if (recipient_type === 'user') {
+            const { data: user, error: userError } = await supabase
+                .from('users')
+                .select('email, first_name, last_name')
+                .eq('id', recipient_id)
+                .single();
+
+            if (userError) {
+                if (userError.code === 'PGRST116') {
+                    return res.status(404).json({ error: 'User not found' });
+                }
+                console.error('User fetch error:', userError);
+                return res.status(500).json({ error: 'Failed to fetch user information' });
+            }
+
+            recipientEmail = user.email;
+            recipientName = `${user.first_name} ${user.last_name}`;
+        } else if (recipient_type === 'email') {
+            recipientEmail = recipient_id;
+            recipientName = 'Recipient';
+        }
+
+        if (!recipientEmail) {
+            return res.status(400).json({ error: 'Recipient email not found or invalid' });
+        }
+
+        // Substitute placeholders in template content
+        const substituePlaceholders = (text, placeholderValues) => {
+            if (!text) return text;
+
+            let substituted = text;
+
+            // Built-in placeholders
+            const builtInPlaceholders = {
+                '{recipient_name}': recipientName || 'Recipient',
+                '{recipient_email}': recipientEmail,
+                '{current_date}': new Date().toLocaleDateString(),
+                '{current_time}': new Date().toLocaleTimeString()
+            };
+
+            // Apply built-in placeholders
+            Object.entries(builtInPlaceholders).forEach(([placeholder, value]) => {
+                substituted = substituted.replace(new RegExp(placeholder.replace(/[{}]/g, '\\$&'), 'g'), value);
+            });
+
+            // Apply custom placeholders
+            Object.entries(placeholderValues).forEach(([key, value]) => {
+                const placeholder = `{${key}}`;
+                substituted = substituted.replace(new RegExp(placeholder.replace(/[{}]/g, '\\$&'), 'g'), value || '');
+            });
+
+            return substituted;
+        };
+
+        const processedSubject = template.subject ? substituePlaceholders(template.subject, placeholders) : null;
+        const processedBody = substituePlaceholders(template.body, placeholders);
+
+        // Since email/SMS service integration is out of scope, simulate sending
+        const notificationResult = {
+            template_id: template.id,
+            template_name: template.name,
+            type: template.type,
+            recipient: {
+                type: recipient_type,
+                id: recipient_id,
+                email: recipientEmail,
+                name: recipientName
+            },
+            processed_content: {
+                subject: processedSubject,
+                body: processedBody
+            },
+            status: 'simulated', // Would be 'sent', 'failed', etc. with real integration
+            sent_at: new Date().toISOString(),
+            message: 'Notification sending simulated (email/SMS service integration not implemented)'
+        };
+
+        res.json({
+            message: 'Notification processed successfully',
+            result: notificationResult
+        });
+    } catch (error) {
+        console.error('Send notification error:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
