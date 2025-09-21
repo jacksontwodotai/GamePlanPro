@@ -2530,5 +2530,23 @@
       "interrupted": false,
       "isImage": false
     }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd /Users/jacksontumbidge/Projects/GamePlanPro/backend && ls -la",
+      "description": "Check backend directory structure"
+    },
+    "tool_response": {
+      "stdout": "total 72\ndrwxr-xr-x@ 14 jacksontumbidge  staff   448 21 Sep 20:19 .\ndrwxr-xr-x@ 16 jacksontumbidge  staff   512 21 Sep 16:29 ..\ndrwxr-xr-x@  6 jacksontumbidge  staff   192 21 Sep 16:45 alembic\n-rw-r--r--@  1 jacksontumbidge  staff  4928 21 Sep 16:45 alembic.ini\n-rw-r--r--@  1 jacksontumbidge  staff  4543 21 Sep 16:56 API_README.md\ndrwxr-xr-x@  6 jacksontumbidge  staff   192 21 Sep 16:53 app\ndrwxr-xr-x@  3 jacksontumbidge  staff    96 21 Sep 16:46 backend\n-rw-r--r--@  1 jacksontumbidge  staff  7363 21 Sep 20:11 EVENT_TEAM_ASSOCIATION_IMPLEMENTATION.md\ndrwxr-xr-x@  7 jacksontumbidge  staff   224 21 Sep 16:51 logs\n-rw-r--r--@  1 jacksontumbidge  staff  1089 21 Sep 20:19 main.py\ndrwxr-xr-x@  2 jacksontumbidge  staff    64 21 Sep 16:43 migrations\n-rw-r--r--@  1 jacksontumbidge  staff   141 19 Sep 10:47 requirements.txt\n-rw-r--r--@  1 jacksontumbidge  staff  2572 21 Sep 16:56 test_api.py\ndrwxr-xr-x@  2 jacksontumbidge  staff    64 21 Sep 16:43 tests",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
   }
 ]

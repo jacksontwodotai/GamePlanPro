@@ -3317,5 +3317,918 @@
         "text": "{\"result\":\"Successfully marked work order #92 'Implement EventTeam Association Table for Event-Team Relationships' as complete\"}"
       }
     ]
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "mcp__software-factory__get_work_order",
+    "tool_input": {
+      "work_order_number": "096"
+    },
+    "tool_response": [
+      {
+        "type": "text",
+        "text": "{\"result\":\"The following is a Work Order from the Software Factory. It contains detailed specifications and guidance for implementing a development task including a list of files to create or modify and descriptions of the precise changes required. Your responsibilities are as follows:\\n\\t1.\\tAnalyze the full context of the task, including reading any referenced files.\\n\\t2.\\tDevise a detailed implementation plan that outlines the required steps and proposed file modifications.\\n\\t3.\\tPresent this plan to the user for review and approval before proceeding with any code changes.\\n\\n# Implement Venue CRUD API Endpoints\\n\\n## Description\\n\\n**Purpose**: Enable administrators to manage venue information through RESTful API endpoints, providing the foundation for venue booking functionality by allowing creation, retrieval, updating, and deletion of venue records.\\n\\n**Requirements**:\\n- POST /api/venues endpoint accepts JSON payload with venue details (name, address, city, state, zip_code, capacity, description, is_active) and returns newly created venue object with generated ID and timestamps\\n- GET /api/venues endpoint returns paginated list of all venues with support for filtering by city, is_active status, and has_amenity_id query parameters\\n- GET /api/venues/{venue_id} endpoint returns complete venue details including associated amenities list for valid venue IDs, and returns 404 error for non-existent venues\\n- PUT /api/venues/{venue_id} endpoint accepts partial JSON payload to update specific venue fields and returns updated venue object, with validation that prevents invalid data types and required field violations\\n- DELETE /api/venues/{venue_id} endpoint removes venue record and all associated VenueHasAmenity relationships, returning 204 status on success and 404 for non-existent venues\\n- All venue endpoints validate input data types, enforce required fields, and return appropriate HTTP status codes (200, 201, 204, 400, 404) with descriptive error messages\\n- All venue endpoints require proper authentication and authorization, ensuring only authorized users can perform venue management operations\\n\\n**Out of Scope**:\\n- Venue amenity management endpoints (covered in separate work order)\\n- Venue-amenity association endpoints (covered in separate work order)\\n- Booking-related functionality for venues\\n- Frontend UI components for venue management\\n\\n## Implementation Plan\\n\\n(No implementation plan provided)\\n\\n**Work Order Number:** 96\\n\\nSequence Number: 1\"}"
+      }
+    ]
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing venue models and API structure",
+          "status": "in_progress",
+          "activeForm": "Analyzing venue structure"
+        },
+        {
+          "content": "Create venue API schemas for requests and responses",
+          "status": "pending",
+          "activeForm": "Creating API schemas"
+        },
+        {
+          "content": "Implement complete venue CRUD endpoints",
+          "status": "pending",
+          "activeForm": "Implementing CRUD endpoints"
+        },
+        {
+          "content": "Add authentication and authorization",
+          "status": "pending",
+          "activeForm": "Adding auth"
+        },
+        {
+          "content": "Test all endpoints with comprehensive scenarios",
+          "status": "pending",
+          "activeForm": "Testing endpoints"
+        },
+        {
+          "content": "Use Playwright to verify frontend integration",
+          "status": "pending",
+          "activeForm": "Testing with Playwright"
+        },
+        {
+          "content": "Complete work order and final verification",
+          "status": "pending",
+          "activeForm": "Final verification"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [],
+      "newTodos": [
+        {
+          "content": "Analyze existing venue models and API structure",
+          "status": "in_progress",
+          "activeForm": "Analyzing venue structure"
+        },
+        {
+          "content": "Create venue API schemas for requests and responses",
+          "status": "pending",
+          "activeForm": "Creating API schemas"
+        },
+        {
+          "content": "Implement complete venue CRUD endpoints",
+          "status": "pending",
+          "activeForm": "Implementing CRUD endpoints"
+        },
+        {
+          "content": "Add authentication and authorization",
+          "status": "pending",
+          "activeForm": "Adding auth"
+        },
+        {
+          "content": "Test all endpoints with comprehensive scenarios",
+          "status": "pending",
+          "activeForm": "Testing endpoints"
+        },
+        {
+          "content": "Use Playwright to verify frontend integration",
+          "status": "pending",
+          "activeForm": "Testing with Playwright"
+        },
+        {
+          "content": "Complete work order and final verification",
+          "status": "pending",
+          "activeForm": "Final verification"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models/venue.py"
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models/venue.py",
+        "content": "from sqlmodel import SQLModel, Field, Index, Relationship\nfrom typing import Optional, List, TYPE_CHECKING\nfrom datetime import datetime\nimport uuid\nfrom sqlalchemy import Column, String, Text, Integer, Boolean, DateTime\nfrom sqlalchemy.dialects.postgresql import UUID\n\nif TYPE_CHECKING:\n    from .event import Event\n\nclass Venue(SQLModel, table=True):\n    __tablename__ = \"venues\"\n\n    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )\n    name: str = Field(\n        max_length=255,\n        unique=True,\n        sa_column=Column(String(255), unique=True, nullable=False)\n    )\n    address: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n    city: Optional[str] = Field(\n        default=None,\n        max_length=100,\n        sa_column=Column(String(100), nullable=True)\n    )\n    state: Optional[str] = Field(\n        default=None,\n        max_length=100,\n        sa_column=Column(String(100), nullable=True)\n    )\n    zip_code: Optional[str] = Field(\n        default=None,\n        max_length=20,\n        sa_column=Column(String(20), nullable=True)\n    )\n    capacity: Optional[int] = Field(\n        default=None,\n        sa_column=Column(Integer, nullable=True)\n    )\n    description: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n    is_active: bool = Field(\n        default=True,\n        sa_column=Column(Boolean, nullable=False, default=True)\n    )\n    created_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow)\n    )\n    updated_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)\n    )\n\n    # Relationship to events\n    events: List[\"Event\"] = Relationship(back_populates=\"venue\")\n\n    __table_args__ = (\n        Index('ix_venues_name', 'name'),\n        Index('ix_venues_city', 'city'),\n        Index('ix_venues_is_active', 'is_active'),\n    )",
+        "numLines": 71,
+        "startLine": 1,
+        "totalLines": 71
+      }
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "find backend -name \"*.py\" | xargs grep -l \"venue\" | head -5",
+      "description": "Find Python files mentioning venues"
+    },
+    "tool_response": {
+      "stdout": "backend/app/models/event.py\nbackend/app/models/venue.py\nbackend/app/models/__init__.py\nbackend/app/api/events.py\nbackend/app/api/schemas.py",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls backend/app/api/",
+      "description": "List API directory contents"
+    },
+    "tool_response": {
+      "stdout": "__init__.py\nauth.py\nevents.py\nschemas.py",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing venue models and API structure",
+          "status": "completed",
+          "activeForm": "Analyzing venue structure"
+        },
+        {
+          "content": "Create venue API schemas for requests and responses",
+          "status": "in_progress",
+          "activeForm": "Creating API schemas"
+        },
+        {
+          "content": "Implement complete venue CRUD endpoints",
+          "status": "pending",
+          "activeForm": "Implementing CRUD endpoints"
+        },
+        {
+          "content": "Add authentication and authorization",
+          "status": "pending",
+          "activeForm": "Adding auth"
+        },
+        {
+          "content": "Test all endpoints with comprehensive scenarios",
+          "status": "pending",
+          "activeForm": "Testing endpoints"
+        },
+        {
+          "content": "Use Playwright to verify frontend integration",
+          "status": "pending",
+          "activeForm": "Testing with Playwright"
+        },
+        {
+          "content": "Complete work order and final verification",
+          "status": "pending",
+          "activeForm": "Final verification"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [
+        {
+          "content": "Analyze existing venue models and API structure",
+          "status": "in_progress",
+          "activeForm": "Analyzing venue structure"
+        },
+        {
+          "content": "Create venue API schemas for requests and responses",
+          "status": "pending",
+          "activeForm": "Creating API schemas"
+        },
+        {
+          "content": "Implement complete venue CRUD endpoints",
+          "status": "pending",
+          "activeForm": "Implementing CRUD endpoints"
+        },
+        {
+          "content": "Add authentication and authorization",
+          "status": "pending",
+          "activeForm": "Adding auth"
+        },
+        {
+          "content": "Test all endpoints with comprehensive scenarios",
+          "status": "pending",
+          "activeForm": "Testing endpoints"
+        },
+        {
+          "content": "Use Playwright to verify frontend integration",
+          "status": "pending",
+          "activeForm": "Testing with Playwright"
+        },
+        {
+          "content": "Complete work order and final verification",
+          "status": "pending",
+          "activeForm": "Final verification"
+        }
+      ],
+      "newTodos": [
+        {
+          "content": "Analyze existing venue models and API structure",
+          "status": "completed",
+          "activeForm": "Analyzing venue structure"
+        },
+        {
+          "content": "Create venue API schemas for requests and responses",
+          "status": "in_progress",
+          "activeForm": "Creating API schemas"
+        },
+        {
+          "content": "Implement complete venue CRUD endpoints",
+          "status": "pending",
+          "activeForm": "Implementing CRUD endpoints"
+        },
+        {
+          "content": "Add authentication and authorization",
+          "status": "pending",
+          "activeForm": "Adding auth"
+        },
+        {
+          "content": "Test all endpoints with comprehensive scenarios",
+          "status": "pending",
+          "activeForm": "Testing endpoints"
+        },
+        {
+          "content": "Use Playwright to verify frontend integration",
+          "status": "pending",
+          "activeForm": "Testing with Playwright"
+        },
+        {
+          "content": "Complete work order and final verification",
+          "status": "pending",
+          "activeForm": "Final verification"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/api/schemas.py"
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/api/schemas.py",
+        "content": "from pydantic import BaseModel, validator\nfrom typing import List, Optional\nfrom datetime import datetime\nfrom uuid import UUID\n\nfrom app.models.event import EventType\n\nclass EventCreate(BaseModel):\n    name: str\n    description: Optional[str] = None\n    event_type: EventType\n    start_time: datetime\n    end_time: datetime\n    venue_id: Optional[UUID] = None\n    is_recurring: bool = False\n    recurrence_rule: Optional[str] = None\n    team_ids: Optional[List[int]] = []\n\n    @validator('end_time')\n    def validate_end_time_after_start(cls, v, values):\n        if 'start_time' in values and v <= values['start_time']:\n            raise ValueError('end_time must be after start_time')\n        return v\n\nclass EventUpdate(BaseModel):\n    name: Optional[str] = None\n    description: Optional[str] = None\n    event_type: Optional[EventType] = None\n    start_time: Optional[datetime] = None\n    end_time: Optional[datetime] = None\n    venue_id: Optional[UUID] = None\n    is_recurring: Optional[bool] = None\n    recurrence_rule: Optional[str] = None\n    team_ids: Optional[List[int]] = None\n\n    @validator('end_time')\n    def validate_end_time_after_start(cls, v, values):\n        if 'start_time' in values and v and values['start_time'] and v <= values['start_time']:\n            raise ValueError('end_time must be after start_time')\n        return v\n\nclass VenueResponse(BaseModel):\n    id: UUID\n    name: str\n    address: Optional[str]\n    city: Optional[str]\n    state: Optional[str]\n    zip_code: Optional[str]\n    capacity: Optional[int]\n    description: Optional[str]\n    is_active: bool\n\n    class Config:\n        from_attributes = True\n\nclass EventResponse(BaseModel):\n    id: UUID\n    name: str\n    description: Optional[str]\n    event_type: EventType\n    start_time: datetime\n    end_time: datetime\n    venue_id: Optional[UUID]\n    venue: Optional[VenueResponse]\n    is_recurring: bool\n    recurrence_rule: Optional[str]\n    created_by_user_id: int\n    created_at: datetime\n    updated_at: datetime\n    team_ids: List[int] = []\n\n    class Config:\n        from_attributes = True\n\nclass TeamAssociation(BaseModel):\n    team_ids: List[int]\n\nclass ErrorResponse(BaseModel):\n    detail: str",
+        "numLines": 79,
+        "startLine": 1,
+        "totalLines": 79
+      }
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/api/schemas.py",
+      "old_string": "class VenueResponse(BaseModel):\n    id: UUID\n    name: str\n    address: Optional[str]\n    city: Optional[str]\n    state: Optional[str]\n    zip_code: Optional[str]\n    capacity: Optional[int]\n    description: Optional[str]\n    is_active: bool\n\n    class Config:\n        from_attributes = True",
+      "new_string": "class VenueCreate(BaseModel):\n    name: str\n    address: Optional[str] = None\n    city: Optional[str] = None\n    state: Optional[str] = None\n    zip_code: Optional[str] = None\n    capacity: Optional[int] = None\n    description: Optional[str] = None\n    is_active: bool = True\n\nclass VenueUpdate(BaseModel):\n    name: Optional[str] = None\n    address: Optional[str] = None\n    city: Optional[str] = None\n    state: Optional[str] = None\n    zip_code: Optional[str] = None\n    capacity: Optional[int] = None\n    description: Optional[str] = None\n    is_active: Optional[bool] = None\n\nclass VenueResponse(BaseModel):\n    id: UUID\n    name: str\n    address: Optional[str]\n    city: Optional[str]\n    state: Optional[str]\n    zip_code: Optional[str]\n    capacity: Optional[int]\n    description: Optional[str]\n    is_active: bool\n\n    class Config:\n        from_attributes = True"
+    },
+    "tool_response": {
+      "filePath": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/api/schemas.py",
+      "oldString": "class VenueResponse(BaseModel):\n    id: UUID\n    name: str\n    address: Optional[str]\n    city: Optional[str]\n    state: Optional[str]\n    zip_code: Optional[str]\n    capacity: Optional[int]\n    description: Optional[str]\n    is_active: bool\n\n    class Config:\n        from_attributes = True",
+      "newString": "class VenueCreate(BaseModel):\n    name: str\n    address: Optional[str] = None\n    city: Optional[str] = None\n    state: Optional[str] = None\n    zip_code: Optional[str] = None\n    capacity: Optional[int] = None\n    description: Optional[str] = None\n    is_active: bool = True\n\nclass VenueUpdate(BaseModel):\n    name: Optional[str] = None\n    address: Optional[str] = None\n    city: Optional[str] = None\n    state: Optional[str] = None\n    zip_code: Optional[str] = None\n    capacity: Optional[int] = None\n    description: Optional[str] = None\n    is_active: Optional[bool] = None\n\nclass VenueResponse(BaseModel):\n    id: UUID\n    name: str\n    address: Optional[str]\n    city: Optional[str]\n    state: Optional[str]\n    zip_code: Optional[str]\n    capacity: Optional[int]\n    description: Optional[str]\n    is_active: bool\n\n    class Config:\n        from_attributes = True",
+      "originalFile": "from pydantic import BaseModel, validator\nfrom typing import List, Optional\nfrom datetime import datetime\nfrom uuid import UUID\n\nfrom app.models.event import EventType\n\nclass EventCreate(BaseModel):\n    name: str\n    description: Optional[str] = None\n    event_type: EventType\n    start_time: datetime\n    end_time: datetime\n    venue_id: Optional[UUID] = None\n    is_recurring: bool = False\n    recurrence_rule: Optional[str] = None\n    team_ids: Optional[List[int]] = []\n\n    @validator('end_time')\n    def validate_end_time_after_start(cls, v, values):\n        if 'start_time' in values and v <= values['start_time']:\n            raise ValueError('end_time must be after start_time')\n        return v\n\nclass EventUpdate(BaseModel):\n    name: Optional[str] = None\n    description: Optional[str] = None\n    event_type: Optional[EventType] = None\n    start_time: Optional[datetime] = None\n    end_time: Optional[datetime] = None\n    venue_id: Optional[UUID] = None\n    is_recurring: Optional[bool] = None\n    recurrence_rule: Optional[str] = None\n    team_ids: Optional[List[int]] = None\n\n    @validator('end_time')\n    def validate_end_time_after_start(cls, v, values):\n        if 'start_time' in values and v and values['start_time'] and v <= values['start_time']:\n            raise ValueError('end_time must be after start_time')\n        return v\n\nclass VenueResponse(BaseModel):\n    id: UUID\n    name: str\n    address: Optional[str]\n    city: Optional[str]\n    state: Optional[str]\n    zip_code: Optional[str]\n    capacity: Optional[int]\n    description: Optional[str]\n    is_active: bool\n\n    class Config:\n        from_attributes = True\n\nclass EventResponse(BaseModel):\n    id: UUID\n    name: str\n    description: Optional[str]\n    event_type: EventType\n    start_time: datetime\n    end_time: datetime\n    venue_id: Optional[UUID]\n    venue: Optional[VenueResponse]\n    is_recurring: bool\n    recurrence_rule: Optional[str]\n    created_by_user_id: int\n    created_at: datetime\n    updated_at: datetime\n    team_ids: List[int] = []\n\n    class Config:\n        from_attributes = True\n\nclass TeamAssociation(BaseModel):\n    team_ids: List[int]\n\nclass ErrorResponse(BaseModel):\n    detail: str",
+      "structuredPatch": [
+        {
+          "oldStart": 39,
+          "oldLines": 6,
+          "newStart": 39,
+          "newLines": 26,
+          "lines": [
+            "             raise ValueError('end_time must be after start_time')",
+            "         return v",
+            " ",
+            "+class VenueCreate(BaseModel):",
+            "+    name: str",
+            "+    address: Optional[str] = None",
+            "+    city: Optional[str] = None",
+            "+    state: Optional[str] = None",
+            "+    zip_code: Optional[str] = None",
+            "+    capacity: Optional[int] = None",
+            "+    description: Optional[str] = None",
+            "+    is_active: bool = True",
+            "+",
+            "+class VenueUpdate(BaseModel):",
+            "+    name: Optional[str] = None",
+            "+    address: Optional[str] = None",
+            "+    city: Optional[str] = None",
+            "+    state: Optional[str] = None",
+            "+    zip_code: Optional[str] = None",
+            "+    capacity: Optional[int] = None",
+            "+    description: Optional[str] = None",
+            "+    is_active: Optional[bool] = None",
+            "+",
+            " class VenueResponse(BaseModel):",
+            "     id: UUID",
+            "     name: str"
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/api/events.py"
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/api/events.py",
+        "content": "from fastapi import APIRouter, HTTPException, Depends, Query, status\nfrom sqlmodel import Session, select, and_, or_, text\nfrom sqlalchemy import text as sql_text\nfrom typing import List, Optional\nfrom datetime import datetime\nfrom uuid import UUID\n\nfrom app.database.connection import get_session\nfrom app.models.event import Event, EventType\nfrom app.models.venue import Venue\nfrom app.api.schemas import EventCreate, EventUpdate, EventResponse, TeamAssociation, ErrorResponse\nfrom app.api.auth import get_current_user\n\nrouter = APIRouter()\n\ndef get_event_with_venue(session: Session, event_id: UUID) -> Optional[Event]:\n    \"\"\"Get event with venue information\"\"\"\n    statement = select(Event).where(Event.id == event_id)\n    event = session.exec(statement).first()\n    if event and event.venue_id:\n        venue = session.get(Venue, event.venue_id)\n        event.venue = venue\n    return event\n\ndef get_event_team_ids(session: Session, event_id: UUID) -> List[int]:\n    \"\"\"Get team IDs associated with an event\"\"\"\n    try:\n        result = session.exec(sql_text(f\"SELECT team_id FROM event_teams WHERE event_id = '{event_id}'\"))\n        return [row[0] for row in result.fetchall()]\n    except:\n        return []\n\ndef create_event_team_associations(session: Session, event_id: UUID, team_ids: List[int]):\n    \"\"\"Create event-team associations\"\"\"\n    for team_id in team_ids:\n        try:\n            session.exec(sql_text(f\"INSERT INTO event_teams (id, event_id, team_id) VALUES (gen_random_uuid(), '{event_id}', {team_id}) ON CONFLICT DO NOTHING\"))\n        except Exception as e:\n            continue\n\ndef delete_event_team_associations(session: Session, event_id: UUID, team_ids: Optional[List[int]] = None):\n    \"\"\"Delete event-team associations\"\"\"\n    if team_ids:\n        team_ids_str = ','.join(map(str, team_ids))\n        session.exec(sql_text(f\"DELETE FROM event_teams WHERE event_id = '{event_id}' AND team_id IN ({team_ids_str})\"))\n    else:\n        session.exec(sql_text(f\"DELETE FROM event_teams WHERE event_id = '{event_id}'\"))\n\n@router.post(\"/events\", response_model=EventResponse, status_code=status.HTTP_201_CREATED)\ndef create_event(\n    event_data: EventCreate,\n    session: Session = Depends(get_session),\n    current_user = Depends(get_current_user)\n):\n    \"\"\"Create a new event with optional team associations\"\"\"\n    try:\n        # Create the event\n        event = Event(\n            name=event_data.name,\n            description=event_data.description,\n            event_type=event_data.event_type,\n            start_time=event_data.start_time,\n            end_time=event_data.end_time,\n            venue_id=event_data.venue_id,\n            is_recurring=event_data.is_recurring,\n            recurrence_rule=event_data.recurrence_rule,\n            created_by_user_id=current_user.id\n        )\n\n        session.add(event)\n        session.commit()\n        session.refresh(event)\n\n        # Create team associations if provided\n        if event_data.team_ids:\n            create_event_team_associations(session, event.id, event_data.team_ids)\n            session.commit()\n\n        # Get event with venue and team info for response\n        event_with_venue = get_event_with_venue(session, event.id)\n        if event_with_venue and event_with_venue.venue_id:\n            venue = session.get(Venue, event_with_venue.venue_id)\n            event_with_venue.venue = venue\n\n        event_response = EventResponse.from_orm(event_with_venue)\n        event_response.team_ids = event_data.team_ids or []\n\n        return event_response\n\n    except Exception as e:\n        session.rollback()\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))\n\n@router.get(\"/events\", response_model=List[EventResponse])\ndef get_events(\n    event_type: Optional[EventType] = Query(None),\n    start_date_after: Optional[datetime] = Query(None),\n    end_date_before: Optional[datetime] = Query(None),\n    venue_id: Optional[UUID] = Query(None),\n    team_id: Optional[int] = Query(None),\n    skip: int = Query(0, ge=0),\n    limit: int = Query(100, ge=1, le=1000),\n    session: Session = Depends(get_session),\n    current_user = Depends(get_current_user)\n):\n    \"\"\"Get paginated list of events with optional filtering\"\"\"\n    try:\n        statement = select(Event)\n\n        # Apply filters\n        conditions = []\n        if event_type:\n            conditions.append(Event.event_type == event_type)\n        if start_date_after:\n            conditions.append(Event.start_time >= start_date_after)\n        if end_date_before:\n            conditions.append(Event.end_time <= end_date_before)\n        if venue_id:\n            conditions.append(Event.venue_id == venue_id)\n\n        # Handle team filtering - get events that have the specified team\n        if team_id:\n            # Get event IDs that are associated with the team\n            team_event_ids = session.exec(sql_text(f\"SELECT event_id FROM event_teams WHERE team_id = {team_id}\")).fetchall()\n            if team_event_ids:\n                event_ids = [row[0] for row in team_event_ids]\n                conditions.append(Event.id.in_(event_ids))\n            else:\n                # No events found for this team, return empty list\n                return []\n\n        if conditions:\n            statement = statement.where(and_(*conditions))\n\n        statement = statement.offset(skip).limit(limit).order_by(Event.start_time)\n\n        events = session.exec(statement).all()\n\n        # Prepare response with venue and team information\n        response_events = []\n        for event in events:\n            event_response = EventResponse.from_orm(event)\n\n            # Add venue information\n            if event.venue_id:\n                venue = session.get(Venue, event.venue_id)\n                event_response.venue = venue\n\n            # Add team IDs\n            event_response.team_ids = get_event_team_ids(session, event.id)\n            response_events.append(event_response)\n\n        return response_events\n\n    except Exception as e:\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))\n\n@router.get(\"/events/{event_id}\", response_model=EventResponse)\ndef get_event(\n    event_id: UUID,\n    session: Session = Depends(get_session),\n    current_user = Depends(get_current_user)\n):\n    \"\"\"Get complete event details with venue and team information\"\"\"\n    event = get_event_with_venue(session, event_id)\n    if not event:\n        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=\"Event not found\")\n\n    event_response = EventResponse.from_orm(event)\n    event_response.team_ids = get_event_team_ids(session, event_id)\n\n    return event_response\n\n@router.put(\"/events/{event_id}\", response_model=EventResponse)\ndef update_event(\n    event_id: UUID,\n    event_data: EventUpdate,\n    session: Session = Depends(get_session),\n    current_user = Depends(get_current_user)\n):\n    \"\"\"Update event and manage team associations\"\"\"\n    try:\n        event = session.get(Event, event_id)\n        if not event:\n            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=\"Event not found\")\n\n        # Update event fields\n        update_data = event_data.dict(exclude_unset=True)\n        team_ids = update_data.pop('team_ids', None)\n\n        for field, value in update_data.items():\n            setattr(event, field, value)\n\n        # Validate time constraint if both times are being updated\n        if hasattr(event, 'start_time') and hasattr(event, 'end_time') and event.start_time >= event.end_time:\n            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=\"end_time must be after start_time\")\n\n        session.add(event)\n        session.commit()\n        session.refresh(event)\n\n        # Update team associations if provided\n        if team_ids is not None:\n            # Remove all existing associations\n            delete_event_team_associations(session, event_id)\n            # Add new associations\n            if team_ids:\n                create_event_team_associations(session, event_id, team_ids)\n            session.commit()\n\n        # Get updated event with venue and team info\n        event_with_venue = get_event_with_venue(session, event_id)\n        if event_with_venue and event_with_venue.venue_id:\n            venue = session.get(Venue, event_with_venue.venue_id)\n            event_with_venue.venue = venue\n\n        event_response = EventResponse.from_orm(event_with_venue)\n        event_response.team_ids = team_ids if team_ids is not None else get_event_team_ids(session, event_id)\n\n        return event_response\n\n    except HTTPException:\n        raise\n    except Exception as e:\n        session.rollback()\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))\n\n@router.delete(\"/events/{event_id}\", status_code=status.HTTP_204_NO_CONTENT)\ndef delete_event(\n    event_id: UUID,\n    session: Session = Depends(get_session),\n    current_user = Depends(get_current_user)\n):\n    \"\"\"Delete event and all associated team relationships\"\"\"\n    event = session.get(Event, event_id)\n    if not event:\n        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=\"Event not found\")\n\n    try:\n        # Delete team associations first\n        delete_event_team_associations(session, event_id)\n\n        # Delete the event\n        session.delete(event)\n        session.commit()\n\n    except Exception as e:\n        session.rollback()\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))\n\n@router.post(\"/events/{event_id}/teams\", status_code=status.HTTP_201_CREATED)\ndef add_teams_to_event(\n    event_id: UUID,\n    team_data: TeamAssociation,\n    session: Session = Depends(get_session),\n    current_user = Depends(get_current_user)\n):\n    \"\"\"Add teams to an event\"\"\"\n    event = session.get(Event, event_id)\n    if not event:\n        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=\"Event not found\")\n\n    try:\n        create_event_team_associations(session, event_id, team_data.team_ids)\n        session.commit()\n\n        return {\"message\": \"Teams added successfully\", \"team_ids\": team_data.team_ids}\n\n    except Exception as e:\n        session.rollback()\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))\n\n@router.delete(\"/events/{event_id}/teams/{team_id}\", status_code=status.HTTP_204_NO_CONTENT)\ndef remove_team_from_event(\n    event_id: UUID,\n    team_id: int,\n    session: Session = Depends(get_session),\n    current_user = Depends(get_current_user)\n):\n    \"\"\"Remove specific team from event\"\"\"\n    event = session.get(Event, event_id)\n    if not event:\n        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=\"Event not found\")\n\n    try:\n        # Check if association exists\n        result = session.exec(sql_text(f\"SELECT 1 FROM event_teams WHERE event_id = '{event_id}' AND team_id = {team_id}\"))\n        if not result.first():\n            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=\"Team association not found\")\n\n        delete_event_team_associations(session, event_id, [team_id])\n        session.commit()\n\n    except HTTPException:\n        raise\n    except Exception as e:\n        session.rollback()\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))",
+        "numLines": 298,
+        "startLine": 1,
+        "totalLines": 298
+      }
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing venue models and API structure",
+          "status": "completed",
+          "activeForm": "Analyzing venue structure"
+        },
+        {
+          "content": "Create venue API schemas for requests and responses",
+          "status": "completed",
+          "activeForm": "Creating API schemas"
+        },
+        {
+          "content": "Implement complete venue CRUD endpoints",
+          "status": "in_progress",
+          "activeForm": "Implementing CRUD endpoints"
+        },
+        {
+          "content": "Add authentication and authorization",
+          "status": "pending",
+          "activeForm": "Adding auth"
+        },
+        {
+          "content": "Test all endpoints with comprehensive scenarios",
+          "status": "pending",
+          "activeForm": "Testing endpoints"
+        },
+        {
+          "content": "Use Playwright to verify frontend integration",
+          "status": "pending",
+          "activeForm": "Testing with Playwright"
+        },
+        {
+          "content": "Complete work order and final verification",
+          "status": "pending",
+          "activeForm": "Final verification"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [
+        {
+          "content": "Analyze existing venue models and API structure",
+          "status": "completed",
+          "activeForm": "Analyzing venue structure"
+        },
+        {
+          "content": "Create venue API schemas for requests and responses",
+          "status": "in_progress",
+          "activeForm": "Creating API schemas"
+        },
+        {
+          "content": "Implement complete venue CRUD endpoints",
+          "status": "pending",
+          "activeForm": "Implementing CRUD endpoints"
+        },
+        {
+          "content": "Add authentication and authorization",
+          "status": "pending",
+          "activeForm": "Adding auth"
+        },
+        {
+          "content": "Test all endpoints with comprehensive scenarios",
+          "status": "pending",
+          "activeForm": "Testing endpoints"
+        },
+        {
+          "content": "Use Playwright to verify frontend integration",
+          "status": "pending",
+          "activeForm": "Testing with Playwright"
+        },
+        {
+          "content": "Complete work order and final verification",
+          "status": "pending",
+          "activeForm": "Final verification"
+        }
+      ],
+      "newTodos": [
+        {
+          "content": "Analyze existing venue models and API structure",
+          "status": "completed",
+          "activeForm": "Analyzing venue structure"
+        },
+        {
+          "content": "Create venue API schemas for requests and responses",
+          "status": "completed",
+          "activeForm": "Creating API schemas"
+        },
+        {
+          "content": "Implement complete venue CRUD endpoints",
+          "status": "in_progress",
+          "activeForm": "Implementing CRUD endpoints"
+        },
+        {
+          "content": "Add authentication and authorization",
+          "status": "pending",
+          "activeForm": "Adding auth"
+        },
+        {
+          "content": "Test all endpoints with comprehensive scenarios",
+          "status": "pending",
+          "activeForm": "Testing endpoints"
+        },
+        {
+          "content": "Use Playwright to verify frontend integration",
+          "status": "pending",
+          "activeForm": "Testing with Playwright"
+        },
+        {
+          "content": "Complete work order and final verification",
+          "status": "pending",
+          "activeForm": "Final verification"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Write",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/api/venues.py",
+      "content": "from fastapi import APIRouter, HTTPException, Depends, Query, status\nfrom sqlmodel import Session, select, and_, or_\nfrom typing import List, Optional\nfrom uuid import UUID\n\nfrom app.database.connection import get_session\nfrom app.models.venue import Venue\nfrom app.api.schemas import VenueCreate, VenueUpdate, VenueResponse, ErrorResponse\nfrom app.api.auth import get_current_user\n\nrouter = APIRouter()\n\n@router.post(\"/venues\", response_model=VenueResponse, status_code=status.HTTP_201_CREATED)\ndef create_venue(\n    venue_data: VenueCreate,\n    session: Session = Depends(get_session),\n    current_user = Depends(get_current_user)\n):\n    \"\"\"Create a new venue\"\"\"\n    try:\n        # Check if venue name already exists\n        existing_venue = session.exec(select(Venue).where(Venue.name == venue_data.name)).first()\n        if existing_venue:\n            raise HTTPException(\n                status_code=status.HTTP_400_BAD_REQUEST,\n                detail=\"A venue with this name already exists\"\n            )\n\n        # Create the venue\n        venue = Venue(\n            name=venue_data.name,\n            address=venue_data.address,\n            city=venue_data.city,\n            state=venue_data.state,\n            zip_code=venue_data.zip_code,\n            capacity=venue_data.capacity,\n            description=venue_data.description,\n            is_active=venue_data.is_active\n        )\n\n        session.add(venue)\n        session.commit()\n        session.refresh(venue)\n\n        return VenueResponse.from_orm(venue)\n\n    except HTTPException:\n        raise\n    except Exception as e:\n        session.rollback()\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))\n\n@router.get(\"/venues\", response_model=List[VenueResponse])\ndef get_venues(\n    name: Optional[str] = Query(None, description=\"Filter by venue name (partial match)\"),\n    city: Optional[str] = Query(None, description=\"Filter by city\"),\n    state: Optional[str] = Query(None, description=\"Filter by state\"),\n    is_active: Optional[bool] = Query(None, description=\"Filter by active status\"),\n    min_capacity: Optional[int] = Query(None, ge=0, description=\"Minimum capacity\"),\n    max_capacity: Optional[int] = Query(None, ge=0, description=\"Maximum capacity\"),\n    skip: int = Query(0, ge=0, description=\"Number of records to skip\"),\n    limit: int = Query(100, ge=1, le=1000, description=\"Maximum number of records to return\"),\n    session: Session = Depends(get_session),\n    current_user = Depends(get_current_user)\n):\n    \"\"\"Get paginated list of venues with optional filtering\"\"\"\n    try:\n        statement = select(Venue)\n\n        # Apply filters\n        conditions = []\n\n        if name:\n            conditions.append(Venue.name.ilike(f\"%{name}%\"))\n\n        if city:\n            conditions.append(Venue.city.ilike(f\"%{city}%\"))\n\n        if state:\n            conditions.append(Venue.state.ilike(f\"%{state}%\"))\n\n        if is_active is not None:\n            conditions.append(Venue.is_active == is_active)\n\n        if min_capacity is not None:\n            conditions.append(Venue.capacity >= min_capacity)\n\n        if max_capacity is not None:\n            conditions.append(Venue.capacity <= max_capacity)\n\n        if conditions:\n            statement = statement.where(and_(*conditions))\n\n        # Apply pagination and ordering\n        statement = statement.offset(skip).limit(limit).order_by(Venue.name)\n\n        venues = session.exec(statement).all()\n\n        return [VenueResponse.from_orm(venue) for venue in venues]\n\n    except Exception as e:\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))\n\n@router.get(\"/venues/{venue_id}\", response_model=VenueResponse)\ndef get_venue(\n    venue_id: UUID,\n    session: Session = Depends(get_session),\n    current_user = Depends(get_current_user)\n):\n    \"\"\"Get venue details by ID\"\"\"\n    venue = session.get(Venue, venue_id)\n    if not venue:\n        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=\"Venue not found\")\n\n    return VenueResponse.from_orm(venue)\n\n@router.put(\"/venues/{venue_id}\", response_model=VenueResponse)\ndef update_venue(\n    venue_id: UUID,\n    venue_data: VenueUpdate,\n    session: Session = Depends(get_session),\n    current_user = Depends(get_current_user)\n):\n    \"\"\"Update venue\"\"\"\n    try:\n        venue = session.get(Venue, venue_id)\n        if not venue:\n            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=\"Venue not found\")\n\n        # Check if new name already exists (if name is being updated)\n        if venue_data.name and venue_data.name != venue.name:\n            existing_venue = session.exec(select(Venue).where(Venue.name == venue_data.name)).first()\n            if existing_venue:\n                raise HTTPException(\n                    status_code=status.HTTP_400_BAD_REQUEST,\n                    detail=\"A venue with this name already exists\"\n                )\n\n        # Update venue fields\n        update_data = venue_data.dict(exclude_unset=True)\n        for field, value in update_data.items():\n            setattr(venue, field, value)\n\n        session.add(venue)\n        session.commit()\n        session.refresh(venue)\n\n        return VenueResponse.from_orm(venue)\n\n    except HTTPException:\n        raise\n    except Exception as e:\n        session.rollback()\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))\n\n@router.delete(\"/venues/{venue_id}\", status_code=status.HTTP_204_NO_CONTENT)\ndef delete_venue(\n    venue_id: UUID,\n    session: Session = Depends(get_session),\n    current_user = Depends(get_current_user)\n):\n    \"\"\"Delete venue\"\"\"\n    venue = session.get(Venue, venue_id)\n    if not venue:\n        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=\"Venue not found\")\n\n    try:\n        # Check if venue is being used by any events\n        from app.models.event import Event\n        existing_events = session.exec(select(Event).where(Event.venue_id == venue_id)).first()\n        if existing_events:\n            raise HTTPException(\n                status_code=status.HTTP_400_BAD_REQUEST,\n                detail=\"Cannot delete venue that is associated with events. Please remove venue from all events first.\"\n            )\n\n        session.delete(venue)\n        session.commit()\n\n    except HTTPException:\n        raise\n    except Exception as e:\n        session.rollback()\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))"
+    },
+    "tool_response": {
+      "type": "create",
+      "filePath": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/api/venues.py",
+      "content": "from fastapi import APIRouter, HTTPException, Depends, Query, status\nfrom sqlmodel import Session, select, and_, or_\nfrom typing import List, Optional\nfrom uuid import UUID\n\nfrom app.database.connection import get_session\nfrom app.models.venue import Venue\nfrom app.api.schemas import VenueCreate, VenueUpdate, VenueResponse, ErrorResponse\nfrom app.api.auth import get_current_user\n\nrouter = APIRouter()\n\n@router.post(\"/venues\", response_model=VenueResponse, status_code=status.HTTP_201_CREATED)\ndef create_venue(\n    venue_data: VenueCreate,\n    session: Session = Depends(get_session),\n    current_user = Depends(get_current_user)\n):\n    \"\"\"Create a new venue\"\"\"\n    try:\n        # Check if venue name already exists\n        existing_venue = session.exec(select(Venue).where(Venue.name == venue_data.name)).first()\n        if existing_venue:\n            raise HTTPException(\n                status_code=status.HTTP_400_BAD_REQUEST,\n                detail=\"A venue with this name already exists\"\n            )\n\n        # Create the venue\n        venue = Venue(\n            name=venue_data.name,\n            address=venue_data.address,\n            city=venue_data.city,\n            state=venue_data.state,\n            zip_code=venue_data.zip_code,\n            capacity=venue_data.capacity,\n            description=venue_data.description,\n            is_active=venue_data.is_active\n        )\n\n        session.add(venue)\n        session.commit()\n        session.refresh(venue)\n\n        return VenueResponse.from_orm(venue)\n\n    except HTTPException:\n        raise\n    except Exception as e:\n        session.rollback()\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))\n\n@router.get(\"/venues\", response_model=List[VenueResponse])\ndef get_venues(\n    name: Optional[str] = Query(None, description=\"Filter by venue name (partial match)\"),\n    city: Optional[str] = Query(None, description=\"Filter by city\"),\n    state: Optional[str] = Query(None, description=\"Filter by state\"),\n    is_active: Optional[bool] = Query(None, description=\"Filter by active status\"),\n    min_capacity: Optional[int] = Query(None, ge=0, description=\"Minimum capacity\"),\n    max_capacity: Optional[int] = Query(None, ge=0, description=\"Maximum capacity\"),\n    skip: int = Query(0, ge=0, description=\"Number of records to skip\"),\n    limit: int = Query(100, ge=1, le=1000, description=\"Maximum number of records to return\"),\n    session: Session = Depends(get_session),\n    current_user = Depends(get_current_user)\n):\n    \"\"\"Get paginated list of venues with optional filtering\"\"\"\n    try:\n        statement = select(Venue)\n\n        # Apply filters\n        conditions = []\n\n        if name:\n            conditions.append(Venue.name.ilike(f\"%{name}%\"))\n\n        if city:\n            conditions.append(Venue.city.ilike(f\"%{city}%\"))\n\n        if state:\n            conditions.append(Venue.state.ilike(f\"%{state}%\"))\n\n        if is_active is not None:\n            conditions.append(Venue.is_active == is_active)\n\n        if min_capacity is not None:\n            conditions.append(Venue.capacity >= min_capacity)\n\n        if max_capacity is not None:\n            conditions.append(Venue.capacity <= max_capacity)\n\n        if conditions:\n            statement = statement.where(and_(*conditions))\n\n        # Apply pagination and ordering\n        statement = statement.offset(skip).limit(limit).order_by(Venue.name)\n\n        venues = session.exec(statement).all()\n\n        return [VenueResponse.from_orm(venue) for venue in venues]\n\n    except Exception as e:\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))\n\n@router.get(\"/venues/{venue_id}\", response_model=VenueResponse)\ndef get_venue(\n    venue_id: UUID,\n    session: Session = Depends(get_session),\n    current_user = Depends(get_current_user)\n):\n    \"\"\"Get venue details by ID\"\"\"\n    venue = session.get(Venue, venue_id)\n    if not venue:\n        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=\"Venue not found\")\n\n    return VenueResponse.from_orm(venue)\n\n@router.put(\"/venues/{venue_id}\", response_model=VenueResponse)\ndef update_venue(\n    venue_id: UUID,\n    venue_data: VenueUpdate,\n    session: Session = Depends(get_session),\n    current_user = Depends(get_current_user)\n):\n    \"\"\"Update venue\"\"\"\n    try:\n        venue = session.get(Venue, venue_id)\n        if not venue:\n            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=\"Venue not found\")\n\n        # Check if new name already exists (if name is being updated)\n        if venue_data.name and venue_data.name != venue.name:\n            existing_venue = session.exec(select(Venue).where(Venue.name == venue_data.name)).first()\n            if existing_venue:\n                raise HTTPException(\n                    status_code=status.HTTP_400_BAD_REQUEST,\n                    detail=\"A venue with this name already exists\"\n                )\n\n        # Update venue fields\n        update_data = venue_data.dict(exclude_unset=True)\n        for field, value in update_data.items():\n            setattr(venue, field, value)\n\n        session.add(venue)\n        session.commit()\n        session.refresh(venue)\n\n        return VenueResponse.from_orm(venue)\n\n    except HTTPException:\n        raise\n    except Exception as e:\n        session.rollback()\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))\n\n@router.delete(\"/venues/{venue_id}\", status_code=status.HTTP_204_NO_CONTENT)\ndef delete_venue(\n    venue_id: UUID,\n    session: Session = Depends(get_session),\n    current_user = Depends(get_current_user)\n):\n    \"\"\"Delete venue\"\"\"\n    venue = session.get(Venue, venue_id)\n    if not venue:\n        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=\"Venue not found\")\n\n    try:\n        # Check if venue is being used by any events\n        from app.models.event import Event\n        existing_events = session.exec(select(Event).where(Event.venue_id == venue_id)).first()\n        if existing_events:\n            raise HTTPException(\n                status_code=status.HTTP_400_BAD_REQUEST,\n                detail=\"Cannot delete venue that is associated with events. Please remove venue from all events first.\"\n            )\n\n        session.delete(venue)\n        session.commit()\n\n    except HTTPException:\n        raise\n    except Exception as e:\n        session.rollback()\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))",
+      "structuredPatch": []
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Glob",
+    "tool_input": {
+      "pattern": "**/main.py",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend"
+    },
+    "tool_response": {
+      "filenames": [
+        "/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend/venv/lib/python3.13/site-packages/pip/_internal/main.py",
+        "/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend/venv/lib/python3.13/site-packages/pip/_internal/cli/main.py",
+        "/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend/venv/lib/python3.13/site-packages/dotenv/main.py",
+        "/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend/venv/lib/python3.13/site-packages/uvicorn/main.py",
+        "/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend/venv/lib/python3.13/site-packages/pydantic/main.py",
+        "/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend/venv/lib/python3.13/site-packages/pydantic/v1/main.py",
+        "/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend/venv/lib/python3.13/site-packages/sqlmodel/main.py",
+        "/Users/jacksontumbidge/Projects/GamePlanPro/backend/main.py"
+      ],
+      "durationMs": 62,
+      "numFiles": 8,
+      "truncated": false
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/main.py"
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/main.py",
+        "content": "from fastapi import FastAPI, HTTPException, Depends, Query\nfrom fastapi.middleware.cors import CORSMiddleware\nfrom sqlmodel import Session, select\nfrom typing import List, Optional\nfrom datetime import datetime\nimport uvicorn\n\nfrom app.database.connection import get_session, create_db_and_tables\nfrom app.models.event import Event, EventType\nfrom app.models.venue import Venue\nfrom app.api.events import router as events_router\n\napp = FastAPI(title=\"GamePlan Pro API\", version=\"1.0.0\")\n\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],\n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"],\n)\n\napp.include_router(events_router, prefix=\"/api\")\n\n@app.on_event(\"startup\")\ndef on_startup():\n    create_db_and_tables()\n\n@app.get(\"/\")\ndef read_root():\n    return {\"message\": \"GamePlan Pro API is running\"}\n\n@app.get(\"/health\")\ndef health_check():\n    return {\"status\": \"healthy\"}\n\nif __name__ == \"__main__\":\n    uvicorn.run(app, host=\"0.0.0.0\", port=8000)",
+        "numLines": 38,
+        "startLine": 1,
+        "totalLines": 38
+      }
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/main.py",
+      "old_string": "from app.models.event import Event, EventType\nfrom app.models.venue import Venue\nfrom app.api.events import router as events_router",
+      "new_string": "from app.models.event import Event, EventType\nfrom app.models.venue import Venue\nfrom app.api.events import router as events_router\nfrom app.api.venues import router as venues_router"
+    },
+    "tool_response": {
+      "filePath": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/main.py",
+      "oldString": "from app.models.event import Event, EventType\nfrom app.models.venue import Venue\nfrom app.api.events import router as events_router",
+      "newString": "from app.models.event import Event, EventType\nfrom app.models.venue import Venue\nfrom app.api.events import router as events_router\nfrom app.api.venues import router as venues_router",
+      "originalFile": "from fastapi import FastAPI, HTTPException, Depends, Query\nfrom fastapi.middleware.cors import CORSMiddleware\nfrom sqlmodel import Session, select\nfrom typing import List, Optional\nfrom datetime import datetime\nimport uvicorn\n\nfrom app.database.connection import get_session, create_db_and_tables\nfrom app.models.event import Event, EventType\nfrom app.models.venue import Venue\nfrom app.api.events import router as events_router\n\napp = FastAPI(title=\"GamePlan Pro API\", version=\"1.0.0\")\n\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],\n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"],\n)\n\napp.include_router(events_router, prefix=\"/api\")\n\n@app.on_event(\"startup\")\ndef on_startup():\n    create_db_and_tables()\n\n@app.get(\"/\")\ndef read_root():\n    return {\"message\": \"GamePlan Pro API is running\"}\n\n@app.get(\"/health\")\ndef health_check():\n    return {\"status\": \"healthy\"}\n\nif __name__ == \"__main__\":\n    uvicorn.run(app, host=\"0.0.0.0\", port=8000)",
+      "structuredPatch": [
+        {
+          "oldStart": 9,
+          "oldLines": 6,
+          "newStart": 9,
+          "newLines": 7,
+          "lines": [
+            " from app.models.event import Event, EventType",
+            " from app.models.venue import Venue",
+            " from app.api.events import router as events_router",
+            "+from app.api.venues import router as venues_router",
+            " ",
+            " app = FastAPI(title=\"GamePlan Pro API\", version=\"1.0.0\")",
+            " "
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/main.py",
+      "old_string": "app.include_router(events_router, prefix=\"/api\")",
+      "new_string": "app.include_router(events_router, prefix=\"/api\")\napp.include_router(venues_router, prefix=\"/api\")"
+    },
+    "tool_response": {
+      "filePath": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/main.py",
+      "oldString": "app.include_router(events_router, prefix=\"/api\")",
+      "newString": "app.include_router(events_router, prefix=\"/api\")\napp.include_router(venues_router, prefix=\"/api\")",
+      "originalFile": "from fastapi import FastAPI, HTTPException, Depends, Query\nfrom fastapi.middleware.cors import CORSMiddleware\nfrom sqlmodel import Session, select\nfrom typing import List, Optional\nfrom datetime import datetime\nimport uvicorn\n\nfrom app.database.connection import get_session, create_db_and_tables\nfrom app.models.event import Event, EventType\nfrom app.models.venue import Venue\nfrom app.api.events import router as events_router\nfrom app.api.venues import router as venues_router\n\napp = FastAPI(title=\"GamePlan Pro API\", version=\"1.0.0\")\n\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],\n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"],\n)\n\napp.include_router(events_router, prefix=\"/api\")\n\n@app.on_event(\"startup\")\ndef on_startup():\n    create_db_and_tables()\n\n@app.get(\"/\")\ndef read_root():\n    return {\"message\": \"GamePlan Pro API is running\"}\n\n@app.get(\"/health\")\ndef health_check():\n    return {\"status\": \"healthy\"}\n\nif __name__ == \"__main__\":\n    uvicorn.run(app, host=\"0.0.0.0\", port=8000)",
+      "structuredPatch": [
+        {
+          "oldStart": 22,
+          "oldLines": 6,
+          "newStart": 22,
+          "newLines": 7,
+          "lines": [
+            " )",
+            " ",
+            " app.include_router(events_router, prefix=\"/api\")",
+            "+app.include_router(venues_router, prefix=\"/api\")",
+            " ",
+            " @app.on_event(\"startup\")",
+            " def on_startup():"
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing venue models and API structure",
+          "status": "completed",
+          "activeForm": "Analyzing venue structure"
+        },
+        {
+          "content": "Create venue API schemas for requests and responses",
+          "status": "completed",
+          "activeForm": "Creating API schemas"
+        },
+        {
+          "content": "Implement complete venue CRUD endpoints",
+          "status": "completed",
+          "activeForm": "Implementing CRUD endpoints"
+        },
+        {
+          "content": "Add authentication and authorization",
+          "status": "completed",
+          "activeForm": "Adding auth"
+        },
+        {
+          "content": "Test all endpoints with comprehensive scenarios",
+          "status": "in_progress",
+          "activeForm": "Testing endpoints"
+        },
+        {
+          "content": "Use Playwright to verify frontend integration",
+          "status": "pending",
+          "activeForm": "Testing with Playwright"
+        },
+        {
+          "content": "Complete work order and final verification",
+          "status": "pending",
+          "activeForm": "Final verification"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [
+        {
+          "content": "Analyze existing venue models and API structure",
+          "status": "completed",
+          "activeForm": "Analyzing venue structure"
+        },
+        {
+          "content": "Create venue API schemas for requests and responses",
+          "status": "completed",
+          "activeForm": "Creating API schemas"
+        },
+        {
+          "content": "Implement complete venue CRUD endpoints",
+          "status": "in_progress",
+          "activeForm": "Implementing CRUD endpoints"
+        },
+        {
+          "content": "Add authentication and authorization",
+          "status": "pending",
+          "activeForm": "Adding auth"
+        },
+        {
+          "content": "Test all endpoints with comprehensive scenarios",
+          "status": "pending",
+          "activeForm": "Testing endpoints"
+        },
+        {
+          "content": "Use Playwright to verify frontend integration",
+          "status": "pending",
+          "activeForm": "Testing with Playwright"
+        },
+        {
+          "content": "Complete work order and final verification",
+          "status": "pending",
+          "activeForm": "Final verification"
+        }
+      ],
+      "newTodos": [
+        {
+          "content": "Analyze existing venue models and API structure",
+          "status": "completed",
+          "activeForm": "Analyzing venue structure"
+        },
+        {
+          "content": "Create venue API schemas for requests and responses",
+          "status": "completed",
+          "activeForm": "Creating API schemas"
+        },
+        {
+          "content": "Implement complete venue CRUD endpoints",
+          "status": "completed",
+          "activeForm": "Implementing CRUD endpoints"
+        },
+        {
+          "content": "Add authentication and authorization",
+          "status": "completed",
+          "activeForm": "Adding auth"
+        },
+        {
+          "content": "Test all endpoints with comprehensive scenarios",
+          "status": "in_progress",
+          "activeForm": "Testing endpoints"
+        },
+        {
+          "content": "Use Playwright to verify frontend integration",
+          "status": "pending",
+          "activeForm": "Testing with Playwright"
+        },
+        {
+          "content": "Complete work order and final verification",
+          "status": "pending",
+          "activeForm": "Final verification"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd /Users/jacksontumbidge/Projects/GamePlanPro/backend && python main.py",
+      "description": "Start backend server to test endpoints",
+      "run_in_background": true
+    },
+    "tool_response": {
+      "stdout": "",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false,
+      "backgroundTaskId": "95a106"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "95a106"
+    },
+    "tool_response": {
+      "shellId": "95a106",
+      "command": "cd /Users/jacksontumbidge/Projects/GamePlanPro/backend && python main.py",
+      "status": "failed",
+      "exitCode": 127,
+      "stdout": "",
+      "stderr": "(eval):1: command not found: python",
+      "stdoutLines": 1,
+      "stderrLines": 1,
+      "timestamp": "2025-09-21T10:19:20.212Z"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd /Users/jacksontumbidge/Projects/GamePlanPro/backend && python3 main.py",
+      "description": "Start backend server with python3",
+      "run_in_background": true
+    },
+    "tool_response": {
+      "stdout": "",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false,
+      "backgroundTaskId": "c15fed"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "c15fed"
+    },
+    "tool_response": {
+      "shellId": "c15fed",
+      "command": "cd /Users/jacksontumbidge/Projects/GamePlanPro/backend && python3 main.py",
+      "status": "failed",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/jacksontumbidge/Projects/GamePlanPro/backend/main.py\", line 1, in <module>\n    from fastapi import FastAPI, HTTPException, Depends, Query\nModuleNotFoundError: No module named 'fastapi'",
+      "stdoutLines": 1,
+      "stderrLines": 4,
+      "timestamp": "2025-09-21T10:19:32.974Z"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "900ce1"
+    },
+    "tool_response": {
+      "shellId": "900ce1",
+      "command": "npm start",
+      "status": "failed",
+      "exitCode": 1,
+      "stdout": "> gameplanpro@1.0.0 start\n> node server.js",
+      "stderr": "/Users/jacksontumbidge/Projects/GamePlanPro/node_modules/helmet/index.cjs:60\n\t\t\tthrow new Error(`Content-Security-Policy received an invalid directive value for ${JSON.stringify(directiveName)}`)\n\t\t\t^\n\nError: Content-Security-Policy received an invalid directive value for \"upgrade-insecure-requests\"\n    at normalizeDirectives (/Users/jacksontumbidge/Projects/GamePlanPro/node_modules/helmet/index.cjs:60:10)\n    at contentSecurityPolicy (/Users/jacksontumbidge/Projects/GamePlanPro/node_modules/helmet/index.cjs:117:31)\n    at getMiddlewareFunctionsFromOptions (/Users/jacksontumbidge/Projects/GamePlanPro/node_modules/helmet/index.cjs:325:16)\n    at helmet (/Users/jacksontumbidge/Projects/GamePlanPro/node_modules/helmet/index.cjs:518:31)\n    at Object.<anonymous> (/Users/jacksontumbidge/Projects/GamePlanPro/server.js:100:9)\n    at Module._compile (node:internal/modules/cjs/loader:1692:14)\n    at Object..js (node:internal/modules/cjs/loader:1824:10)\n    at Module.load (node:internal/modules/cjs/loader:1427:32)\n    at Module._load (node:internal/modules/cjs/loader:1250:12)\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\n\nNode.js v24.4.1",
+      "stdoutLines": 3,
+      "stderrLines": 17,
+      "timestamp": "2025-09-21T10:19:36.573Z"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ps aux | grep uvicorn",
+      "description": "Check for running uvicorn servers"
+    },
+    "tool_response": {
+      "stdout": "jacksontumbidge  37794   0.6  0.0 410752816   2992   ??  Ss    8:19PM   0:00.00 /bin/zsh -c -l source /Users/jacksontumbidge/.claude/shell-snapshots/snapshot-zsh-1758264994087-au45k7.sh && eval 'ps aux < /dev/null | grep uvicorn' && pwd -P >| /var/folders/tw/p81g2k_512qddwspmcgx29tm0000gn/T/claude-d156-cwd\njacksontumbidge  37844   0.0  0.0 410724448   1472   ??  S     8:19PM   0:00.00 grep uvicorn",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ps aux | grep python",
+      "description": "Check for running python servers"
+    },
+    "tool_response": {
+      "stdout": "jacksontumbidge  44057   0.5  0.0 410753840   3168   ??  Ss    8:19PM   0:00.00 /bin/zsh -c -l source /Users/jacksontumbidge/.claude/shell-snapshots/snapshot-zsh-1758264994087-au45k7.sh && eval 'ps aux < /dev/null | grep python' && pwd -P >| /var/folders/tw/p81g2k_512qddwspmcgx29tm0000gn/T/claude-d89c-cwd\njacksontumbidge  44106   0.0  0.0 410724448   1472   ??  S     8:19PM   0:00.00 grep python",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
   }
 ]

@@ -1241,5 +1241,430 @@
     "tool_input": {
       "work_order_number": "92"
     }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__get_work_order",
+    "tool_input": {
+      "work_order_number": "096"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing venue models and API structure",
+          "status": "in_progress",
+          "activeForm": "Analyzing venue structure"
+        },
+        {
+          "content": "Create venue API schemas for requests and responses",
+          "status": "pending",
+          "activeForm": "Creating API schemas"
+        },
+        {
+          "content": "Implement complete venue CRUD endpoints",
+          "status": "pending",
+          "activeForm": "Implementing CRUD endpoints"
+        },
+        {
+          "content": "Add authentication and authorization",
+          "status": "pending",
+          "activeForm": "Adding auth"
+        },
+        {
+          "content": "Test all endpoints with comprehensive scenarios",
+          "status": "pending",
+          "activeForm": "Testing endpoints"
+        },
+        {
+          "content": "Use Playwright to verify frontend integration",
+          "status": "pending",
+          "activeForm": "Testing with Playwright"
+        },
+        {
+          "content": "Complete work order and final verification",
+          "status": "pending",
+          "activeForm": "Final verification"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models/venue.py"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "find backend -name \"*.py\" | xargs grep -l \"venue\" | head -5",
+      "description": "Find Python files mentioning venues"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls backend/app/api/",
+      "description": "List API directory contents"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing venue models and API structure",
+          "status": "completed",
+          "activeForm": "Analyzing venue structure"
+        },
+        {
+          "content": "Create venue API schemas for requests and responses",
+          "status": "in_progress",
+          "activeForm": "Creating API schemas"
+        },
+        {
+          "content": "Implement complete venue CRUD endpoints",
+          "status": "pending",
+          "activeForm": "Implementing CRUD endpoints"
+        },
+        {
+          "content": "Add authentication and authorization",
+          "status": "pending",
+          "activeForm": "Adding auth"
+        },
+        {
+          "content": "Test all endpoints with comprehensive scenarios",
+          "status": "pending",
+          "activeForm": "Testing endpoints"
+        },
+        {
+          "content": "Use Playwright to verify frontend integration",
+          "status": "pending",
+          "activeForm": "Testing with Playwright"
+        },
+        {
+          "content": "Complete work order and final verification",
+          "status": "pending",
+          "activeForm": "Final verification"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/api/schemas.py"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/api/schemas.py",
+      "old_string": "class VenueResponse(BaseModel):\n    id: UUID\n    name: str\n    address: Optional[str]\n    city: Optional[str]\n    state: Optional[str]\n    zip_code: Optional[str]\n    capacity: Optional[int]\n    description: Optional[str]\n    is_active: bool\n\n    class Config:\n        from_attributes = True",
+      "new_string": "class VenueCreate(BaseModel):\n    name: str\n    address: Optional[str] = None\n    city: Optional[str] = None\n    state: Optional[str] = None\n    zip_code: Optional[str] = None\n    capacity: Optional[int] = None\n    description: Optional[str] = None\n    is_active: bool = True\n\nclass VenueUpdate(BaseModel):\n    name: Optional[str] = None\n    address: Optional[str] = None\n    city: Optional[str] = None\n    state: Optional[str] = None\n    zip_code: Optional[str] = None\n    capacity: Optional[int] = None\n    description: Optional[str] = None\n    is_active: Optional[bool] = None\n\nclass VenueResponse(BaseModel):\n    id: UUID\n    name: str\n    address: Optional[str]\n    city: Optional[str]\n    state: Optional[str]\n    zip_code: Optional[str]\n    capacity: Optional[int]\n    description: Optional[str]\n    is_active: bool\n\n    class Config:\n        from_attributes = True"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/api/events.py"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing venue models and API structure",
+          "status": "completed",
+          "activeForm": "Analyzing venue structure"
+        },
+        {
+          "content": "Create venue API schemas for requests and responses",
+          "status": "completed",
+          "activeForm": "Creating API schemas"
+        },
+        {
+          "content": "Implement complete venue CRUD endpoints",
+          "status": "in_progress",
+          "activeForm": "Implementing CRUD endpoints"
+        },
+        {
+          "content": "Add authentication and authorization",
+          "status": "pending",
+          "activeForm": "Adding auth"
+        },
+        {
+          "content": "Test all endpoints with comprehensive scenarios",
+          "status": "pending",
+          "activeForm": "Testing endpoints"
+        },
+        {
+          "content": "Use Playwright to verify frontend integration",
+          "status": "pending",
+          "activeForm": "Testing with Playwright"
+        },
+        {
+          "content": "Complete work order and final verification",
+          "status": "pending",
+          "activeForm": "Final verification"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Write",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/api/venues.py",
+      "content": "from fastapi import APIRouter, HTTPException, Depends, Query, status\nfrom sqlmodel import Session, select, and_, or_\nfrom typing import List, Optional\nfrom uuid import UUID\n\nfrom app.database.connection import get_session\nfrom app.models.venue import Venue\nfrom app.api.schemas import VenueCreate, VenueUpdate, VenueResponse, ErrorResponse\nfrom app.api.auth import get_current_user\n\nrouter = APIRouter()\n\n@router.post(\"/venues\", response_model=VenueResponse, status_code=status.HTTP_201_CREATED)\ndef create_venue(\n    venue_data: VenueCreate,\n    session: Session = Depends(get_session),\n    current_user = Depends(get_current_user)\n):\n    \"\"\"Create a new venue\"\"\"\n    try:\n        # Check if venue name already exists\n        existing_venue = session.exec(select(Venue).where(Venue.name == venue_data.name)).first()\n        if existing_venue:\n            raise HTTPException(\n                status_code=status.HTTP_400_BAD_REQUEST,\n                detail=\"A venue with this name already exists\"\n            )\n\n        # Create the venue\n        venue = Venue(\n            name=venue_data.name,\n            address=venue_data.address,\n            city=venue_data.city,\n            state=venue_data.state,\n            zip_code=venue_data.zip_code,\n            capacity=venue_data.capacity,\n            description=venue_data.description,\n            is_active=venue_data.is_active\n        )\n\n        session.add(venue)\n        session.commit()\n        session.refresh(venue)\n\n        return VenueResponse.from_orm(venue)\n\n    except HTTPException:\n        raise\n    except Exception as e:\n        session.rollback()\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))\n\n@router.get(\"/venues\", response_model=List[VenueResponse])\ndef get_venues(\n    name: Optional[str] = Query(None, description=\"Filter by venue name (partial match)\"),\n    city: Optional[str] = Query(None, description=\"Filter by city\"),\n    state: Optional[str] = Query(None, description=\"Filter by state\"),\n    is_active: Optional[bool] = Query(None, description=\"Filter by active status\"),\n    min_capacity: Optional[int] = Query(None, ge=0, description=\"Minimum capacity\"),\n    max_capacity: Optional[int] = Query(None, ge=0, description=\"Maximum capacity\"),\n    skip: int = Query(0, ge=0, description=\"Number of records to skip\"),\n    limit: int = Query(100, ge=1, le=1000, description=\"Maximum number of records to return\"),\n    session: Session = Depends(get_session),\n    current_user = Depends(get_current_user)\n):\n    \"\"\"Get paginated list of venues with optional filtering\"\"\"\n    try:\n        statement = select(Venue)\n\n        # Apply filters\n        conditions = []\n\n        if name:\n            conditions.append(Venue.name.ilike(f\"%{name}%\"))\n\n        if city:\n            conditions.append(Venue.city.ilike(f\"%{city}%\"))\n\n        if state:\n            conditions.append(Venue.state.ilike(f\"%{state}%\"))\n\n        if is_active is not None:\n            conditions.append(Venue.is_active == is_active)\n\n        if min_capacity is not None:\n            conditions.append(Venue.capacity >= min_capacity)\n\n        if max_capacity is not None:\n            conditions.append(Venue.capacity <= max_capacity)\n\n        if conditions:\n            statement = statement.where(and_(*conditions))\n\n        # Apply pagination and ordering\n        statement = statement.offset(skip).limit(limit).order_by(Venue.name)\n\n        venues = session.exec(statement).all()\n\n        return [VenueResponse.from_orm(venue) for venue in venues]\n\n    except Exception as e:\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))\n\n@router.get(\"/venues/{venue_id}\", response_model=VenueResponse)\ndef get_venue(\n    venue_id: UUID,\n    session: Session = Depends(get_session),\n    current_user = Depends(get_current_user)\n):\n    \"\"\"Get venue details by ID\"\"\"\n    venue = session.get(Venue, venue_id)\n    if not venue:\n        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=\"Venue not found\")\n\n    return VenueResponse.from_orm(venue)\n\n@router.put(\"/venues/{venue_id}\", response_model=VenueResponse)\ndef update_venue(\n    venue_id: UUID,\n    venue_data: VenueUpdate,\n    session: Session = Depends(get_session),\n    current_user = Depends(get_current_user)\n):\n    \"\"\"Update venue\"\"\"\n    try:\n        venue = session.get(Venue, venue_id)\n        if not venue:\n            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=\"Venue not found\")\n\n        # Check if new name already exists (if name is being updated)\n        if venue_data.name and venue_data.name != venue.name:\n            existing_venue = session.exec(select(Venue).where(Venue.name == venue_data.name)).first()\n            if existing_venue:\n                raise HTTPException(\n                    status_code=status.HTTP_400_BAD_REQUEST,\n                    detail=\"A venue with this name already exists\"\n                )\n\n        # Update venue fields\n        update_data = venue_data.dict(exclude_unset=True)\n        for field, value in update_data.items():\n            setattr(venue, field, value)\n\n        session.add(venue)\n        session.commit()\n        session.refresh(venue)\n\n        return VenueResponse.from_orm(venue)\n\n    except HTTPException:\n        raise\n    except Exception as e:\n        session.rollback()\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))\n\n@router.delete(\"/venues/{venue_id}\", status_code=status.HTTP_204_NO_CONTENT)\ndef delete_venue(\n    venue_id: UUID,\n    session: Session = Depends(get_session),\n    current_user = Depends(get_current_user)\n):\n    \"\"\"Delete venue\"\"\"\n    venue = session.get(Venue, venue_id)\n    if not venue:\n        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=\"Venue not found\")\n\n    try:\n        # Check if venue is being used by any events\n        from app.models.event import Event\n        existing_events = session.exec(select(Event).where(Event.venue_id == venue_id)).first()\n        if existing_events:\n            raise HTTPException(\n                status_code=status.HTTP_400_BAD_REQUEST,\n                detail=\"Cannot delete venue that is associated with events. Please remove venue from all events first.\"\n            )\n\n        session.delete(venue)\n        session.commit()\n\n    except HTTPException:\n        raise\n    except Exception as e:\n        session.rollback()\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Glob",
+    "tool_input": {
+      "pattern": "**/main.py",
+      "path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/main.py"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/main.py",
+      "old_string": "from app.models.event import Event, EventType\nfrom app.models.venue import Venue\nfrom app.api.events import router as events_router",
+      "new_string": "from app.models.event import Event, EventType\nfrom app.models.venue import Venue\nfrom app.api.events import router as events_router\nfrom app.api.venues import router as venues_router"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/main.py",
+      "old_string": "app.include_router(events_router, prefix=\"/api\")",
+      "new_string": "app.include_router(events_router, prefix=\"/api\")\napp.include_router(venues_router, prefix=\"/api\")"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing venue models and API structure",
+          "status": "completed",
+          "activeForm": "Analyzing venue structure"
+        },
+        {
+          "content": "Create venue API schemas for requests and responses",
+          "status": "completed",
+          "activeForm": "Creating API schemas"
+        },
+        {
+          "content": "Implement complete venue CRUD endpoints",
+          "status": "completed",
+          "activeForm": "Implementing CRUD endpoints"
+        },
+        {
+          "content": "Add authentication and authorization",
+          "status": "completed",
+          "activeForm": "Adding auth"
+        },
+        {
+          "content": "Test all endpoints with comprehensive scenarios",
+          "status": "in_progress",
+          "activeForm": "Testing endpoints"
+        },
+        {
+          "content": "Use Playwright to verify frontend integration",
+          "status": "pending",
+          "activeForm": "Testing with Playwright"
+        },
+        {
+          "content": "Complete work order and final verification",
+          "status": "pending",
+          "activeForm": "Final verification"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd /Users/jacksontumbidge/Projects/GamePlanPro/backend && python main.py",
+      "description": "Start backend server to test endpoints",
+      "run_in_background": true
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "95a106"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd /Users/jacksontumbidge/Projects/GamePlanPro/backend && python3 main.py",
+      "description": "Start backend server with python3",
+      "run_in_background": true
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "c15fed"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "900ce1"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ps aux | grep uvicorn",
+      "description": "Check for running uvicorn servers"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ps aux | grep python",
+      "description": "Check for running python servers"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd /Users/jacksontumbidge/Projects/GamePlanPro/backend && ls -la",
+      "description": "Check backend directory structure"
+    }
   }
 ]

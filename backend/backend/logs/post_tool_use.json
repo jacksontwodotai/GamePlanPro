@@ -1,0 +1,83 @@
+[
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd /Users/jacksontumbidge/Projects/GamePlanPro/backend/backend && ls -la",
+      "description": "Check backend subdirectory"
+    },
+    "tool_response": {
+      "stdout": "total 0\ndrwxr-xr-x@  3 jacksontumbidge  staff   96 21 Sep 16:46 .\ndrwxr-xr-x@ 14 jacksontumbidge  staff  448 21 Sep 20:19 ..\ndrwxr-xr-x@  7 jacksontumbidge  staff  224 21 Sep 16:46 venv",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd /Users/jacksontumbidge/Projects/GamePlanPro/backend && source backend/venv/bin/activate && python main.py",
+      "description": "Start backend server with virtual environment",
+      "run_in_background": true
+    },
+    "tool_response": {
+      "stdout": "",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false,
+      "backgroundTaskId": "54b58e"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "BashOutput",
+    "tool_input": {
+      "bash_id": "54b58e"
+    },
+    "tool_response": {
+      "shellId": "54b58e",
+      "command": "cd /Users/jacksontumbidge/Projects/GamePlanPro/backend && source backend/venv/bin/activate && python main.py",
+      "status": "failed",
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/Users/jacksontumbidge/Projects/GamePlanPro/backend/main.py\", line 8, in <module>\n    from app.database.connection import get_session, create_db_and_tables\n  File \"/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/database/connection.py\", line 10, in <module>\n    engine: Engine = create_engine(\n                     ~~~~~~~~~~~~~^\n        DATABASE_URL,\n        ^^^^^^^^^^^^^\n        echo=os.getenv(\"DATABASE_ECHO\", \"False\").lower() == \"true\"\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"<string>\", line 2, in create_engine\n  File \"/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend/venv/lib/python3.13/site-packages/sqlalchemy/util/deprecations.py\", line 281, in warned\n    return fn(*args, **kwargs)  # type: ignore[no-any-return]\n  File \"/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend/venv/lib/python3.13/site-packages/sqlalchemy/engine/create.py\", line 617, in create_engine\n    dbapi = dbapi_meth(**dbapi_args)\n  File \"/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend/venv/lib/python3.13/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py\", line 696, in import_dbapi\n    import psycopg2\nModuleNotFoundError: No module named 'psycopg2'",
+      "stdoutLines": 1,
+      "stderrLines": 20,
+      "timestamp": "2025-09-21T10:20:00.795Z"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/backend",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/requirements.txt"
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/requirements.txt",
+        "content": "fastapi==0.104.1\nsqlmodel==0.0.14\nalembic==1.12.1\npsycopg2-binary==2.9.9\npython-dotenv==1.0.0\nuvicorn==0.24.0\npydantic==2.5.0\nasyncpg==0.29.0",
+        "numLines": 8,
+        "startLine": 1,
+        "totalLines": 8
+      }
+    }
+  }
+]

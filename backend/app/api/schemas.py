@@ -39,6 +39,26 @@ class EventUpdate(BaseModel):
             raise ValueError('end_time must be after start_time')
         return v
 
+class VenueCreate(BaseModel):
+    name: str
+    address: Optional[str] = None
+    city: Optional[str] = None
+    state: Optional[str] = None
+    zip_code: Optional[str] = None
+    capacity: Optional[int] = None
+    description: Optional[str] = None
+    is_active: bool = True
+
+class VenueUpdate(BaseModel):
+    name: Optional[str] = None
+    address: Optional[str] = None
+    city: Optional[str] = None
+    state: Optional[str] = None
+    zip_code: Optional[str] = None
+    capacity: Optional[int] = None
+    description: Optional[str] = None
+    is_active: Optional[bool] = None
+
 class VenueResponse(BaseModel):
     id: UUID
     name: str
