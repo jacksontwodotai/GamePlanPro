@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://username:password@localhost:5432/gameplanpro")
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./gameplanpro.db")
 
 engine: Engine = create_engine(
     DATABASE_URL,

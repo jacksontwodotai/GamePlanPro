@@ -95,5 +95,24 @@ class EventResponse(BaseModel):
 class TeamAssociation(BaseModel):
     team_ids: List[int]
 
+class VenueAmenityCreate(BaseModel):
+    name: str
+    description: Optional[str] = None
+
+class VenueAmenityUpdate(BaseModel):
+    name: Optional[str] = None
+    description: Optional[str] = None
+
+class VenueAmenityResponse(BaseModel):
+    id: UUID
+    name: str
+    description: Optional[str]
+    is_active: bool
+    created_at: datetime
+    updated_at: datetime
+
+    class Config:
+        from_attributes = True
+
 class ErrorResponse(BaseModel):
     detail: str
