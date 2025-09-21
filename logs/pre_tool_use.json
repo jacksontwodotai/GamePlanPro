@@ -575,5 +575,393 @@
     "tool_input": {
       "work_order_number": "089"
     }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__get_work_order",
+    "tool_input": {
+      "work_order_number": "105"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing team-related components and API structure",
+          "status": "in_progress",
+          "activeForm": "Analyzing team components"
+        },
+        {
+          "content": "Create Team Selector component with multi-selection",
+          "status": "pending",
+          "activeForm": "Creating team selector"
+        },
+        {
+          "content": "Add search/filter functionality for teams",
+          "status": "pending",
+          "activeForm": "Adding search functionality"
+        },
+        {
+          "content": "Implement loading states and error handling",
+          "status": "pending",
+          "activeForm": "Adding loading and error handling"
+        },
+        {
+          "content": "Test component functionality and complete work order",
+          "status": "pending",
+          "activeForm": "Testing and completing"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "team",
+      "path": "frontend/src",
+      "glob": "**/*.{ts,tsx}",
+      "output_mode": "files_with_matches"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/TeamListView.tsx"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "team.*api|api.*team",
+      "path": "backend",
+      "glob": "**/*.{ts,tsx}",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "team",
+      "path": "backend",
+      "glob": "**/*.py",
+      "output_mode": "files_with_matches"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/api/schemas.py"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing team-related components and API structure",
+          "status": "completed",
+          "activeForm": "Analyzed team components"
+        },
+        {
+          "content": "Create Team Selector component with multi-selection",
+          "status": "in_progress",
+          "activeForm": "Creating team selector"
+        },
+        {
+          "content": "Add search/filter functionality for teams",
+          "status": "pending",
+          "activeForm": "Adding search functionality"
+        },
+        {
+          "content": "Implement loading states and error handling",
+          "status": "pending",
+          "activeForm": "Adding loading and error handling"
+        },
+        {
+          "content": "Test component functionality and complete work order",
+          "status": "pending",
+          "activeForm": "Testing and completing"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Write",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/TeamSelectorForEvent.tsx",
+      "content": "import { useEffect, useState, useCallback } from 'react'\nimport { Button } from './ui/button'\nimport { Input } from './ui/input'\nimport { Checkbox } from './ui/checkbox'\nimport { Search, Users, Shield, AlertTriangle, Check, X } from 'lucide-react'\nimport { motion, AnimatePresence } from 'framer-motion'\n\ninterface Team {\n  id: number\n  name: string\n  organization: string\n  division?: string\n  age_group?: string\n  skill_level?: string\n  created_at: string\n}\n\ninterface TeamSelectorForEventProps {\n  selectedTeamIds: number[]\n  onTeamsChange: (teamIds: number[]) => void\n  disabled?: boolean\n  className?: string\n}\n\nconst containerVariants = {\n  hidden: { opacity: 0 },\n  visible: {\n    opacity: 1,\n    transition: {\n      staggerChildren: 0.05,\n      delayChildren: 0.1\n    }\n  }\n} as const\n\nconst itemVariants = {\n  hidden: { y: 10, opacity: 0 },\n  visible: {\n    y: 0,\n    opacity: 1,\n    transition: {\n      type: \"spring\" as const,\n      stiffness: 300,\n      damping: 20\n    }\n  }\n} as const\n\nexport default function TeamSelectorForEvent({\n  selectedTeamIds,\n  onTeamsChange,\n  disabled = false,\n  className = ''\n}: TeamSelectorForEventProps) {\n  const [teams, setTeams] = useState<Team[]>([])\n  const [filteredTeams, setFilteredTeams] = useState<Team[]>([])\n  const [loading, setLoading] = useState(true)\n  const [error, setError] = useState<string | null>(null)\n  const [searchTerm, setSearchTerm] = useState('')\n\n  useEffect(() => {\n    fetchTeams()\n  }, [])\n\n  useEffect(() => {\n    const filtered = teams.filter(team =>\n      team.name.toLowerCase().includes(searchTerm.toLowerCase()) ||\n      team.organization.toLowerCase().includes(searchTerm.toLowerCase()) ||\n      team.division?.toLowerCase().includes(searchTerm.toLowerCase()) ||\n      team.age_group?.toLowerCase().includes(searchTerm.toLowerCase())\n    )\n    setFilteredTeams(filtered)\n  }, [teams, searchTerm])\n\n  const fetchTeams = async () => {\n    try {\n      setLoading(true)\n      setError(null)\n      const response = await fetch('/api/teams')\n      if (!response.ok) {\n        throw new Error('Failed to fetch teams')\n      }\n      const data = await response.json()\n      const teamsArray = data.teams || data\n      setTeams(teamsArray)\n    } catch (err) {\n      const errorMessage = err instanceof Error ? err.message : 'Failed to load teams'\n      setError(errorMessage)\n      console.error('Fetch teams error:', err)\n    } finally {\n      setLoading(false)\n    }\n  }\n\n  const handleTeamToggle = useCallback((teamId: number) => {\n    if (disabled) return\n\n    const newSelectedIds = selectedTeamIds.includes(teamId)\n      ? selectedTeamIds.filter(id => id !== teamId)\n      : [...selectedTeamIds, teamId]\n\n    onTeamsChange(newSelectedIds)\n  }, [selectedTeamIds, onTeamsChange, disabled])\n\n  const handleSelectAll = useCallback(() => {\n    if (disabled) return\n\n    if (selectedTeamIds.length === filteredTeams.length) {\n      onTeamsChange([])\n    } else {\n      onTeamsChange(filteredTeams.map(team => team.id))\n    }\n  }, [selectedTeamIds, filteredTeams, onTeamsChange, disabled])\n\n  const handleClearSelection = useCallback(() => {\n    if (disabled) return\n    onTeamsChange([])\n  }, [onTeamsChange, disabled])\n\n  if (loading) {\n    return (\n      <div className={`space-y-4 ${className}`}>\n        <div className=\"glass-card p-6\">\n          <div className=\"flex items-center justify-center py-8\">\n            <motion.div\n              animate={{ rotate: 360 }}\n              transition={{ duration: 1, repeat: Infinity, ease: \"linear\" }}\n              className=\"w-8 h-8 border-2 border-gray-200 border-t-blue-600 rounded-full\"\n            />\n            <span className=\"ml-3 text-gray-600\">Loading teams...</span>\n          </div>\n        </div>\n      </div>\n    )\n  }\n\n  if (error) {\n    return (\n      <div className={`space-y-4 ${className}`}>\n        <div className=\"glass-card p-6 border-red-500/20\">\n          <div className=\"flex items-center space-x-2 text-red-600 mb-4\">\n            <AlertTriangle className=\"h-5 w-5\" />\n            <span className=\"font-medium\">Error loading teams</span>\n          </div>\n          <p className=\"text-red-600 mb-4\">{error}</p>\n          <Button\n            onClick={fetchTeams}\n            variant=\"outline\"\n            size=\"sm\"\n            className=\"border-red-300 text-red-600 hover:bg-red-50\"\n          >\n            Try Again\n          </Button>\n        </div>\n      </div>\n    )\n  }\n\n  return (\n    <div className={`space-y-4 ${className}`}>\n      <motion.div\n        initial=\"hidden\"\n        animate=\"visible\"\n        variants={containerVariants}\n        className=\"glass-card glass-card-hover p-6\"\n      >\n        {/* Header */}\n        <motion.div variants={itemVariants} className=\"flex items-center justify-between mb-6\">\n          <div className=\"flex items-center space-x-3\">\n            <div className=\"p-2 rounded-lg bg-blue-100 dark:bg-blue-900/20\">\n              <Users className=\"h-5 w-5 text-blue-600\" />\n            </div>\n            <div>\n              <h3 className=\"text-lg font-semibold text-gray-900 dark:text-white\">\n                Select Teams\n              </h3>\n              <p className=\"text-sm text-gray-600 dark:text-gray-400\">\n                {selectedTeamIds.length} of {filteredTeams.length} teams selected\n              </p>\n            </div>\n          </div>\n\n          {/* Action Buttons */}\n          <div className=\"flex items-center space-x-2\">\n            <Button\n              onClick={handleSelectAll}\n              disabled={disabled || filteredTeams.length === 0}\n              variant=\"outline\"\n              size=\"sm\"\n              className=\"text-xs\"\n            >\n              {selectedTeamIds.length === filteredTeams.length ? (\n                <>\n                  <X className=\"h-3 w-3 mr-1\" />\n                  Deselect All\n                </>\n              ) : (\n                <>\n                  <Check className=\"h-3 w-3 mr-1\" />\n                  Select All\n                </>\n              )}\n            </Button>\n            {selectedTeamIds.length > 0 && (\n              <Button\n                onClick={handleClearSelection}\n                disabled={disabled}\n                variant=\"outline\"\n                size=\"sm\"\n                className=\"text-xs text-red-600 border-red-300 hover:bg-red-50\"\n              >\n                <X className=\"h-3 w-3 mr-1\" />\n                Clear\n              </Button>\n            )}\n          </div>\n        </motion.div>\n\n        {/* Search */}\n        <motion.div variants={itemVariants} className=\"mb-6\">\n          <div className=\"relative\">\n            <Search className=\"absolute left-3 top-3 h-4 w-4 text-gray-400\" />\n            <Input\n              placeholder=\"Search teams by name, organization, division...\"\n              value={searchTerm}\n              onChange={(e) => setSearchTerm(e.target.value)}\n              disabled={disabled}\n              className=\"pl-10 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50\"\n            />\n          </div>\n        </motion.div>\n\n        {/* Teams List */}\n        <div className=\"space-y-2 max-h-80 overflow-y-auto\">\n          <AnimatePresence>\n            {filteredTeams.map((team, index) => (\n              <motion.div\n                key={team.id}\n                variants={itemVariants}\n                initial=\"hidden\"\n                animate=\"visible\"\n                exit={{ opacity: 0, scale: 0.95 }}\n                custom={index}\n                className={`group relative p-4 rounded-lg border transition-all duration-200 ${\n                  selectedTeamIds.includes(team.id)\n                    ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-700 shadow-sm'\n                    : 'bg-white/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/70'\n                } ${\n                  disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'\n                }`}\n                onClick={() => handleTeamToggle(team.id)}\n              >\n                <div className=\"flex items-center space-x-4\">\n                  {/* Checkbox */}\n                  <Checkbox\n                    checked={selectedTeamIds.includes(team.id)}\n                    disabled={disabled}\n                    className=\"data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600\"\n                  />\n\n                  {/* Team Icon */}\n                  <div className={`p-2 rounded-lg transition-colors ${\n                    selectedTeamIds.includes(team.id)\n                      ? 'bg-blue-100 dark:bg-blue-800/30'\n                      : 'bg-gray-100 dark:bg-gray-700 group-hover:bg-gray-200 dark:group-hover:bg-gray-600'\n                  }`}>\n                    <Shield className={`h-4 w-4 ${\n                      selectedTeamIds.includes(team.id)\n                        ? 'text-blue-600'\n                        : 'text-gray-600 dark:text-gray-400'\n                    }`} />\n                  </div>\n\n                  {/* Team Details */}\n                  <div className=\"flex-1 min-w-0\">\n                    <div className=\"flex items-center justify-between\">\n                      <h4 className=\"font-medium text-gray-900 dark:text-white truncate\">\n                        {team.name}\n                      </h4>\n                      {selectedTeamIds.includes(team.id) && (\n                        <motion.div\n                          initial={{ scale: 0 }}\n                          animate={{ scale: 1 }}\n                          className=\"text-blue-600\"\n                        >\n                          <Check className=\"h-4 w-4\" />\n                        </motion.div>\n                      )}\n                    </div>\n                    <p className=\"text-sm text-gray-600 dark:text-gray-400 truncate\">\n                      {team.organization}\n                    </p>\n                    {(team.division || team.age_group) && (\n                      <div className=\"flex items-center space-x-2 mt-1\">\n                        {team.division && (\n                          <span className=\"text-xs px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded\">\n                            {team.division}\n                          </span>\n                        )}\n                        {team.age_group && (\n                          <span className=\"text-xs px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded\">\n                            {team.age_group}\n                          </span>\n                        )}\n                      </div>\n                    )}\n                  </div>\n                </div>\n              </motion.div>\n            ))}\n          </AnimatePresence>\n        </div>\n\n        {/* Empty State */}\n        {filteredTeams.length === 0 && !loading && (\n          <motion.div\n            initial={{ opacity: 0 }}\n            animate={{ opacity: 1 }}\n            className=\"text-center py-8\"\n          >\n            <Users className=\"h-12 w-12 mx-auto text-gray-300 mb-4\" />\n            <h3 className=\"text-lg font-medium text-gray-700 dark:text-gray-300 mb-2\">\n              {searchTerm ? 'No teams found' : 'No teams available'}\n            </h3>\n            <p className=\"text-gray-500\">\n              {searchTerm\n                ? 'Try adjusting your search criteria'\n                : 'Teams will appear here when they are added to the system'\n              }\n            </p>\n          </motion.div>\n        )}\n      </motion.div>\n\n      {/* Selected Teams Summary */}\n      <AnimatePresence>\n        {selectedTeamIds.length > 0 && (\n          <motion.div\n            initial={{ opacity: 0, y: 20 }}\n            animate={{ opacity: 1, y: 0 }}\n            exit={{ opacity: 0, y: -20 }}\n            className=\"glass-card p-4\"\n          >\n            <h4 className=\"text-sm font-medium text-gray-700 dark:text-gray-300 mb-2\">\n              Selected Teams ({selectedTeamIds.length})\n            </h4>\n            <div className=\"flex flex-wrap gap-2\">\n              {selectedTeamIds.map(teamId => {\n                const team = teams.find(t => t.id === teamId)\n                if (!team) return null\n\n                return (\n                  <motion.span\n                    key={teamId}\n                    initial={{ scale: 0 }}\n                    animate={{ scale: 1 }}\n                    exit={{ scale: 0 }}\n                    className=\"inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-300\"\n                  >\n                    {team.name}\n                    {!disabled && (\n                      <button\n                        onClick={(e) => {\n                          e.stopPropagation()\n                          handleTeamToggle(teamId)\n                        }}\n                        className=\"ml-2 text-blue-600 hover:text-blue-800 transition-colors\"\n                      >\n                        <X className=\"h-3 w-3\" />\n                      </button>\n                    )}\n                  </motion.span>\n                )\n              })}\n            </div>\n          </motion.div>\n        )}\n      </AnimatePresence>\n    </div>\n  )\n}"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing team-related components and API structure",
+          "status": "completed",
+          "activeForm": "Analyzed team components"
+        },
+        {
+          "content": "Create Team Selector component with multi-selection",
+          "status": "completed",
+          "activeForm": "Created team selector"
+        },
+        {
+          "content": "Add search/filter functionality for teams",
+          "status": "completed",
+          "activeForm": "Added search functionality"
+        },
+        {
+          "content": "Implement loading states and error handling",
+          "status": "completed",
+          "activeForm": "Added loading and error handling"
+        },
+        {
+          "content": "Test component functionality and complete work order",
+          "status": "in_progress",
+          "activeForm": "Testing and completing"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Glob",
+    "tool_input": {
+      "pattern": "**/ui/checkbox.tsx",
+      "path": "frontend/src"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Glob",
+    "tool_input": {
+      "pattern": "**/ui/*.tsx",
+      "path": "frontend/src"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Write",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/ui/checkbox.tsx",
+      "content": "import { forwardRef } from 'react'\nimport { Check } from 'lucide-react'\n\nexport interface CheckboxProps {\n  checked?: boolean\n  disabled?: boolean\n  onChange?: (checked: boolean) => void\n  className?: string\n  id?: string\n}\n\nconst Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(\n  ({ checked = false, disabled = false, onChange, className = '', id, ...props }, ref) => {\n    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {\n      if (!disabled && onChange) {\n        onChange(event.target.checked)\n      }\n    }\n\n    return (\n      <div className=\"relative inline-flex items-center\">\n        <input\n          ref={ref}\n          type=\"checkbox\"\n          checked={checked}\n          disabled={disabled}\n          onChange={handleChange}\n          id={id}\n          className=\"sr-only\"\n          {...props}\n        />\n        <div\n          className={`\n            w-5 h-5 rounded border-2 transition-all duration-200 flex items-center justify-center cursor-pointer\n            ${checked\n              ? 'bg-blue-600 border-blue-600 text-white'\n              : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 hover:border-blue-400'\n            }\n            ${disabled\n              ? 'opacity-50 cursor-not-allowed'\n              : 'cursor-pointer'\n            }\n            ${className}\n          `}\n          onClick={() => !disabled && onChange && onChange(!checked)}\n        >\n          {checked && (\n            <Check className=\"w-3 h-3\" strokeWidth={3} />\n          )}\n        </div>\n      </div>\n    )\n  }\n)\n\nCheckbox.displayName = 'Checkbox'\n\nexport { Checkbox }"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/TeamSelectorForEvent.tsx",
+      "old_string": "                  {/* Checkbox */}\n                  <Checkbox\n                    checked={selectedTeamIds.includes(team.id)}\n                    disabled={disabled}\n                    className=\"data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600\"\n                  />",
+      "new_string": "                  {/* Checkbox */}\n                  <Checkbox\n                    checked={selectedTeamIds.includes(team.id)}\n                    disabled={disabled}\n                    onChange={() => handleTeamToggle(team.id)}\n                  />"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/EventForm.tsx"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/EventForm.tsx",
+      "old_string": "import { Calendar, Clock, MapPin, Users, AlertTriangle, Repeat, Settings, Plus } from 'lucide-react'\nimport { motion } from 'framer-motion'",
+      "new_string": "import { Calendar, Clock, MapPin, Users, AlertTriangle, Repeat, Settings, Plus } from 'lucide-react'\nimport { motion } from 'framer-motion'\nimport TeamSelectorForEvent from './TeamSelectorForEvent'"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/EventForm.tsx",
+      "old_string": "interface Team {\n  id: string\n  name: string\n  organization: string\n}",
+      "new_string": "interface Team {\n  id: number\n  name: string\n  organization: string\n}"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/EventForm.tsx",
+      "old_string": "  team_ids: string[]",
+      "new_string": "  team_ids: number[]",
+      "replace_all": true
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/EventForm.tsx",
+      "old_string": "  const handleTeamToggle = (teamId: string) => {\n    setFormData(prev => ({\n      ...prev,\n      team_ids: prev.team_ids.includes(teamId)\n        ? prev.team_ids.filter(id => id !== teamId)\n        : [...prev.team_ids, teamId]\n    }))\n  }",
+      "new_string": "  const handleTeamsChange = (teamIds: number[]) => {\n    setFormData(prev => ({\n      ...prev,\n      team_ids: teamIds\n    }))\n  }"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/EventForm.tsx",
+      "old_string": "      {/* Team Selection */}\n      <div className=\"space-y-4 pt-6 border-t border-border\">\n        <h3 className=\"text-lg font-semibold text-foreground flex items-center gap-2\">\n          <Users className=\"w-5 h-5 text-orange-600\" />\n          Teams\n        </h3>\n        <div className=\"space-y-2\">\n          <label className=\"block text-sm font-medium text-foreground\">Select Teams *</label>\n          <div className=\"grid grid-cols-1 md:grid-cols-2 gap-2 max-h-40 overflow-y-auto border border-border rounded-lg p-3\">\n            {teams.map(team => (\n              <label key={team.id} className=\"flex items-center space-x-2 cursor-pointer\">\n                <input\n                  type=\"checkbox\"\n                  checked={formData.team_ids.includes(team.id)}\n                  onChange={() => handleTeamToggle(team.id)}\n                  className=\"rounded border-border focus:ring-orange-500\"\n                />\n                <span className=\"text-sm text-foreground\">{team.name}</span>\n              </label>\n            ))}\n          </div>\n          {formErrors.team_ids && (\n            <p className=\"text-sm text-red-500 mt-1 flex items-center gap-1\">\n              <AlertTriangle className=\"w-4 h-4\" />\n              {formErrors.team_ids}\n            </p>\n          )}\n        </div>\n      </div>",
+      "new_string": "      {/* Team Selection */}\n      <div className=\"space-y-4 pt-6 border-t border-border\">\n        <TeamSelectorForEvent\n          selectedTeamIds={formData.team_ids}\n          onTeamsChange={handleTeamsChange}\n          disabled={loading}\n        />\n        {formErrors.team_ids && (\n          <p className=\"text-sm text-red-500 mt-1 flex items-center gap-1\">\n            <AlertTriangle className=\"w-4 h-4\" />\n            {formErrors.team_ids}\n          </p>\n        )}\n      </div>"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/EventForm.tsx",
+      "old_string": "const EventForm = ({ mode, event, isModal = false, onSubmit, onCancel, loading = false }: EventFormProps) => {\n  const [teams, setTeams] = useState<Team[]>([])\n  const [venues, setVenues] = useState<Venue[]>([])\n  const [formData, setFormData] = useState<EventFormData>({\n    title: '',\n    description: '',\n    event_type: 'practice',\n    start_time: '',\n    end_time: '',\n    venue_id: '',\n    team_ids: [],\n    is_recurring: false,\n    recurrence_rule: ''\n  })\n  const [formErrors, setFormErrors] = useState<Partial<EventFormData>>({})\n\n  // Pre-populate form data when editing\n  useEffect(() => {\n    if (mode === 'edit' && event) {\n      setFormData({\n        title: event.title,\n        description: event.description,\n        event_type: event.event_type,\n        start_time: event.start_time,\n        end_time: event.end_time,\n        venue_id: event.venue_id,\n        team_ids: event.team_ids,\n        is_recurring: event.is_recurring,\n        recurrence_rule: event.recurrence_rule || ''\n      })\n    }\n  }, [mode, event])\n\n  // Fetch teams and venues\n  useEffect(() => {\n    fetchTeams()\n    fetchVenues()\n  }, [])",
+      "new_string": "const EventForm = ({ mode, event, isModal = false, onSubmit, onCancel, loading = false }: EventFormProps) => {\n  const [venues, setVenues] = useState<Venue[]>([])\n  const [formData, setFormData] = useState<EventFormData>({\n    title: '',\n    description: '',\n    event_type: 'practice',\n    start_time: '',\n    end_time: '',\n    venue_id: '',\n    team_ids: [],\n    is_recurring: false,\n    recurrence_rule: ''\n  })\n  const [formErrors, setFormErrors] = useState<Partial<EventFormData>>({})\n\n  // Pre-populate form data when editing\n  useEffect(() => {\n    if (mode === 'edit' && event) {\n      setFormData({\n        title: event.title,\n        description: event.description,\n        event_type: event.event_type,\n        start_time: event.start_time,\n        end_time: event.end_time,\n        venue_id: event.venue_id,\n        team_ids: event.team_ids,\n        is_recurring: event.is_recurring,\n        recurrence_rule: event.recurrence_rule || ''\n      })\n    }\n  }, [mode, event])\n\n  // Fetch venues\n  useEffect(() => {\n    fetchVenues()\n  }, [])"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/EventForm.tsx",
+      "old_string": "  const fetchTeams = async () => {\n    try {\n      const response = await fetch('/api/teams')\n      if (!response.ok) throw new Error('Failed to fetch teams')\n      const data = await response.json()\n      setTeams(data.teams || data)\n    } catch (err) {\n      console.error('Fetch teams error:', err)\n    }\n  }\n\n  const fetchVenues = async () => {",
+      "new_string": "  const fetchVenues = async () => {"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "/Users/jacksontumbidge/Projects/GamePlanPro/frontend/src/components/EventForm.tsx",
+      "old_string": "interface Team {\n  id: number\n  name: string\n  organization: string\n}\n\ninterface Venue {",
+      "new_string": "interface Venue {"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd frontend && npm run typecheck",
+      "description": "Check TypeScript compilation for frontend"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd frontend && npm run",
+      "description": "Check available scripts in frontend"
+    }
   }
 ]

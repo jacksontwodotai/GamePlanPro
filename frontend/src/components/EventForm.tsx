@@ -11,12 +11,7 @@ import {
 } from './ui/dialog'
 import { Calendar, Clock, MapPin, Users, AlertTriangle, Repeat, Settings, Plus } from 'lucide-react'
 import { motion } from 'framer-motion'
-
-interface Team {
-  id: string
-  name: string
-  organization: string
-}
+import TeamSelectorForEvent from './TeamSelectorForEvent'
 
 interface Venue {
   id: string
@@ -32,7 +27,7 @@ interface Event {
   start_time: string
   end_time: string
   venue_id: string
-  team_ids: string[]
+  team_ids: number[]
   is_recurring: boolean
   recurrence_rule?: string
   status?: 'scheduled' | 'completed' | 'cancelled'
@@ -45,7 +40,7 @@ interface EventFormData {
   start_time: string
   end_time: string
   venue_id: string
-  team_ids: string[]
+  team_ids: number[]
   is_recurring: boolean
   recurrence_rule: string
 }
@@ -60,7 +55,6 @@ interface EventFormProps {
 }
 
 const EventForm = ({ mode, event, isModal = false, onSubmit, onCancel, loading = false }: EventFormProps) => {
-  const [teams, setTeams] = useState<Team[]>([])
   const [venues, setVenues] = useState<Venue[]>([])
   const [formData, setFormData] = useState<EventFormData>({
     title: '',
@@ -92,22 +86,10 @@ const EventForm = ({ mode, event, isModal = false, onSubmit, onCancel, loading =
     }
   }, [mode, event])
 
-  // Fetch teams and venues
+  // Fetch venues
   useEffect(() => {
-    fetchTeams()
     fetchVenues()
   }, [])
-
-  const fetchTeams = async () => {
-    try {
-      const response = await fetch('/api/teams')
-      if (!response.ok) throw new Error('Failed to fetch teams')
-      const data = await response.json()
-      setTeams(data.teams || data)
-    } catch (err) {
-      console.error('Fetch teams error:', err)
-    }
-  }
 
   const fetchVenues = async () => {
     try {
@@ -180,12 +162,10 @@ const EventForm = ({ mode, event, isModal = false, onSubmit, onCancel, loading =
     }
   }
 
-  const handleTeamToggle = (teamId: string) => {
+  const handleTeamsChange = (teamIds: number[]) => {
     setFormData(prev => ({
       ...prev,
-      team_ids: prev.team_ids.includes(teamId)
-        ? prev.team_ids.filter(id => id !== teamId)
-        : [...prev.team_ids, teamId]
+      team_ids: teamIds
     }))
   }
 
@@ -364,32 +344,17 @@ const EventForm = ({ mode, event, isModal = false, onSubmit, onCancel, loading =
 
       {/* Team Selection */}
       <div className="space-y-4 pt-6 border-t border-border">
-        <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
-          <Users className="w-5 h-5 text-orange-600" />
-          Teams
-        </h3>
-        <div className="space-y-2">
-          <label className="block text-sm font-medium text-foreground">Select Teams *</label>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-h-40 overflow-y-auto border border-border rounded-lg p-3">
-            {teams.map(team => (
-              <label key={team.id} className="flex items-center space-x-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={formData.team_ids.includes(team.id)}
-                  onChange={() => handleTeamToggle(team.id)}
-                  className="rounded border-border focus:ring-orange-500"
-                />
-                <span className="text-sm text-foreground">{team.name}</span>
-              </label>
-            ))}
-          </div>
-          {formErrors.team_ids && (
-            <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
-              <AlertTriangle className="w-4 h-4" />
-              {formErrors.team_ids}
-            </p>
-          )}
-        </div>
+        <TeamSelectorForEvent
+          selectedTeamIds={formData.team_ids}
+          onTeamsChange={handleTeamsChange}
+          disabled={loading}
+        />
+        {formErrors.team_ids && (
+          <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
+            <AlertTriangle className="w-4 h-4" />
+            {formErrors.team_ids}
+          </p>
+        )}
       </div>
 
       {/* Recurring Event */}
