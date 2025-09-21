@@ -26,6 +26,7 @@ import PaymentHistoryDashboard from './components/PaymentHistoryDashboard'
 import FormManagement from './components/FormManagement'
 import FormBuilderDashboard from './components/FormBuilderDashboard'
 import FormEditor from './components/FormEditor'
+import VenueManagementDashboard from './components/VenueManagementDashboard'
 import VenueListManagement from './components/VenueListManagement'
 import VenueCreatePage from './components/VenueCreatePage'
 import VenueEditPage from './components/VenueEditPage'
@@ -58,7 +59,8 @@ function App() {
           <Route path="forms" element={<FormBuilderDashboard />} />
           <Route path="forms/new" element={<FormEditor />} />
           <Route path="forms/:formId" element={<FormEditor />} />
-          <Route path="venues" element={<VenueListManagement />} />
+          <Route path="venues" element={<VenueManagementDashboard />} />
+          <Route path="venues/list" element={<VenueListManagement />} />
           <Route path="venues/new" element={<VenueCreatePage />} />
           <Route path="venues/:venueId" element={<VenueDetailPage />} />
           <Route path="venues/:venueId/edit" element={<VenueEditPage />} />
