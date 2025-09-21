@@ -1113,5 +1113,89 @@
     "tool_input": {
       "work_order_number": "094"
     }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__get_work_order",
+    "tool_input": {
+      "work_order_number": "089"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze frontend structure and existing components",
+          "status": "in_progress",
+          "activeForm": "Analyzing frontend structure"
+        },
+        {
+          "content": "Create Event Calendar View component with day/week/month views",
+          "status": "pending",
+          "activeForm": "Creating calendar component"
+        },
+        {
+          "content": "Implement API integration for fetching events",
+          "status": "pending",
+          "activeForm": "Implementing API integration"
+        },
+        {
+          "content": "Add calendar navigation and event interaction",
+          "status": "pending",
+          "activeForm": "Adding navigation and interactions"
+        },
+        {
+          "content": "Test calendar functionality and complete work order",
+          "status": "pending",
+          "activeForm": "Testing and completing"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la frontend/",
+      "description": "Explore frontend directory structure"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la",
+      "description": "Check current directory structure"
+    }
+  },
+  {
+    "session_id": "24b51425-0e48-41e1-9cab-e87d844bf762",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/24b51425-0e48-41e1-9cab-e87d844bf762.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd .. && ls -la",
+      "description": "Go to parent directory and check structure"
+    }
   }
 ]

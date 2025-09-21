@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { ChevronLeft, ChevronRight, Plus, Calendar, Clock, MapPin, Users } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Plus, Calendar, Clock, MapPin, Users, AlertCircle, Loader2 } from 'lucide-react'
 import { Button } from './ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { EventSchedulerContext } from '../contexts/EventSchedulerContext'
@@ -15,7 +15,10 @@ const EventCalendarView = () => {
     setViewMode,
     openEventModal,
     openEventDetails,
-    events
+    events,
+    loading,
+    error,
+    refreshEvents
   } = context || {}
 
   const getDaysInMonth = (date: Date) => {
@@ -61,13 +64,17 @@ const EventCalendarView = () => {
   }
 
   const getEventTypeColor = (type: string) => {
-    switch (type) {
+    switch (type.toLowerCase()) {
       case 'game':
         return 'bg-blue-100 text-blue-800 border-blue-200'
       case 'practice':
         return 'bg-green-100 text-green-800 border-green-200'
       case 'tournament':
         return 'bg-purple-100 text-purple-800 border-purple-200'
+      case 'meeting':
+        return 'bg-yellow-100 text-yellow-800 border-yellow-200'
+      case 'other':
+        return 'bg-gray-100 text-gray-800 border-gray-200'
       default:
         return 'bg-gray-100 text-gray-800 border-gray-200'
     }
@@ -106,6 +113,28 @@ const EventCalendarView = () => {
     return (
       <div className="p-8 text-center">
         <p className="text-gray-500">Loading calendar...</p>
+      </div>
+    )
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <div className="p-8 text-center">
+        <Card className="border-red-200 bg-red-50">
+          <CardContent className="pt-6">
+            <AlertCircle className="h-12 w-12 mx-auto mb-4 text-red-500" />
+            <h3 className="text-lg font-semibold text-red-800 mb-2">Error Loading Events</h3>
+            <p className="text-red-600 mb-4">{error}</p>
+            <Button
+              onClick={() => refreshEvents && refreshEvents()}
+              variant="outline"
+              className="border-red-300 text-red-700 hover:bg-red-100"
+            >
+              Try Again
+            </Button>
+          </CardContent>
+        </Card>
       </div>
     )
   }
@@ -186,11 +215,18 @@ const EventCalendarView = () => {
               </div>
             </div>
             <div className="flex items-center space-x-2">
+              {loading && (
+                <div className="flex items-center space-x-2 mr-4">
+                  <Loader2 className="h-4 w-4 animate-spin text-orange-500" />
+                  <span className="text-sm text-gray-600">Loading...</span>
+                </div>
+              )}
               <Button
                 variant={viewMode === 'month' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setViewMode && setViewMode('month')}
                 className={viewMode === 'month' ? 'bg-orange-500 hover:bg-orange-600' : ''}
+                disabled={loading}
               >
                 Month
               </Button>
@@ -199,6 +235,7 @@ const EventCalendarView = () => {
                 size="sm"
                 onClick={() => setViewMode && setViewMode('week')}
                 className={viewMode === 'week' ? 'bg-orange-500 hover:bg-orange-600' : ''}
+                disabled={loading}
               >
                 Week
               </Button>
@@ -207,6 +244,7 @@ const EventCalendarView = () => {
                 size="sm"
                 onClick={() => setViewMode && setViewMode('day')}
                 className={viewMode === 'day' ? 'bg-orange-500 hover:bg-orange-600' : ''}
+                disabled={loading}
               >
                 Day
               </Button>
@@ -214,6 +252,7 @@ const EventCalendarView = () => {
               <Button
                 onClick={() => openEventModal && openEventModal('create')}
                 className="bg-orange-500 hover:bg-orange-600 text-white"
+                disabled={loading}
               >
                 <Plus className="h-4 w-4 mr-2" />
                 New Event
@@ -429,6 +468,14 @@ const EventCalendarView = () => {
               <div className="flex items-center space-x-2">
                 <div className="w-3 h-3 rounded bg-purple-200 border border-purple-300" />
                 <span className="text-zinc-600">Tournament</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 rounded bg-yellow-200 border border-yellow-300" />
+                <span className="text-zinc-600">Meeting</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 rounded bg-gray-200 border border-gray-300" />
+                <span className="text-zinc-600">Other</span>
               </div>
             </div>
             <div className="text-sm text-zinc-500">

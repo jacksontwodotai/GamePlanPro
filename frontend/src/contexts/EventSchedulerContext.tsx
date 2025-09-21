@@ -1,5 +1,6 @@
-import { createContext, useState, useCallback } from 'react'
+import { createContext, useState, useCallback, useEffect } from 'react'
 import type { ReactNode } from 'react'
+import { api, convertApiEventToUIEvent, getDateRangeForView, type ApiEvent } from '../lib/api'
 
 export type ViewMode = 'month' | 'week' | 'day'
 export type ModalMode = 'create' | 'edit' | 'view'
@@ -12,6 +13,7 @@ interface EventFilters {
     start: Date
     end: Date
   }
+  teamId?: number
 }
 
 interface Event {
@@ -19,10 +21,16 @@ interface Event {
   title: string
   date: string
   time: string
+  endTime?: string
   venue: string
   teams: string[]
-  type: 'game' | 'practice' | 'tournament'
+  type: 'practice' | 'game' | 'meeting' | 'tournament' | 'other'
   status: 'scheduled' | 'completed' | 'cancelled'
+  description?: string
+  isRecurring?: boolean
+  recurrenceRule?: string
+  venueDetails?: any
+  teamIds?: number[]
 }
 
 interface EventSchedulerContextType {
@@ -39,11 +47,14 @@ interface EventSchedulerContextType {
   selectedEventId: string | null
   events: Event[]
   setEvents: (events: Event[]) => void
+  loading: boolean
+  error: string | null
   getEventById: (id: string) => Event | null
   openEventModal: (mode: ModalMode, eventId?: string) => void
   closeEventModal: () => void
   openEventDetails: (eventId: string) => void
-  refreshEvents: () => void
+  refreshEvents: () => Promise<void>
+  fetchEventsForCurrentView: () => Promise<void>
 }
 
 export const EventSchedulerContext = createContext<EventSchedulerContextType | null>(null)
@@ -60,48 +71,9 @@ export const EventSchedulerProvider = ({ children }: EventSchedulerProviderProps
   const [modalOpen, setModalOpen] = useState(false)
   const [modalMode, setModalMode] = useState<ModalMode | null>(null)
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null)
-  const [events, setEvents] = useState<Event[]>([
-    {
-      id: '1',
-      title: 'Championship Game',
-      date: '2025-09-20',
-      time: '14:00',
-      venue: 'Main Stadium',
-      teams: ['Team A', 'Team B'],
-      type: 'game',
-      status: 'scheduled'
-    },
-    {
-      id: '2',
-      title: 'Team Practice',
-      date: '2025-09-19',
-      time: '16:00',
-      venue: 'Training Field',
-      teams: ['Team C'],
-      type: 'practice',
-      status: 'scheduled'
-    },
-    {
-      id: '3',
-      title: 'Weekly Training',
-      date: '2025-09-21',
-      time: '10:00',
-      venue: 'Practice Ground',
-      teams: ['Team A'],
-      type: 'practice',
-      status: 'scheduled'
-    },
-    {
-      id: '4',
-      title: 'Tournament Finals',
-      date: '2025-09-22',
-      time: '15:30',
-      venue: 'Championship Arena',
-      teams: ['Team A', 'Team B', 'Team C'],
-      type: 'tournament',
-      status: 'scheduled'
-    }
-  ])
+  const [events, setEvents] = useState<Event[]>([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const openEventModal = useCallback((mode: ModalMode, eventId?: string) => {
     setModalMode(mode)
@@ -123,11 +95,45 @@ export const EventSchedulerProvider = ({ children }: EventSchedulerProviderProps
     openEventModal('view', eventId)
   }, [openEventModal])
 
-  const refreshEvents = useCallback(() => {
-    // Placeholder for refreshing events from API
-    // This will trigger a re-fetch of events in components that use this context
-    console.log('Refreshing events...')
-  }, [])
+  // Fetch events for current view based on date range and filters
+  const fetchEventsForCurrentView = useCallback(async () => {
+    setLoading(true)
+    setError(null)
+
+    try {
+      const dateRange = getDateRangeForView(currentDate, viewMode)
+      const apiFilters = {
+        start_date_after: dateRange.start,
+        end_date_before: dateRange.end,
+        team_id: filters.teamId,
+        limit: 1000 // Get plenty of events for the view
+      }
+
+      const apiEvents = await api.fetchEvents(apiFilters)
+      const uiEvents = apiEvents.map(convertApiEventToUIEvent)
+      setEvents(uiEvents)
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch events'
+      setError(errorMessage)
+      console.error('Error fetching events:', err)
+    } finally {
+      setLoading(false)
+    }
+  }, [currentDate, viewMode, filters])
+
+  const refreshEvents = useCallback(async () => {
+    await fetchEventsForCurrentView()
+  }, [fetchEventsForCurrentView])
+
+  // Auto-fetch events when view changes
+  useEffect(() => {
+    fetchEventsForCurrentView()
+  }, [fetchEventsForCurrentView])
+
+  // Fetch events when date or view mode changes
+  useEffect(() => {
+    fetchEventsForCurrentView()
+  }, [currentDate, viewMode, filters.teamId])
 
   const value: EventSchedulerContextType = {
     currentDate,
@@ -143,11 +149,14 @@ export const EventSchedulerProvider = ({ children }: EventSchedulerProviderProps
     selectedEventId,
     events,
     setEvents,
+    loading,
+    error,
     getEventById,
     openEventModal,
     closeEventModal,
     openEventDetails,
-    refreshEvents
+    refreshEvents,
+    fetchEventsForCurrentView
   }
 
   return (
