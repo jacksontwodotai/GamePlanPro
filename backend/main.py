@@ -12,11 +12,13 @@ from app.models.venue_amenity import VenueAmenity
 from app.models.venue_has_amenity import VenueHasAmenity
 from app.models.registration import Registration
 from app.models.payment import Payment
+from app.models.conflict import Conflict
 from app.api.events import router as events_router
 from app.api.venues import router as venues_router
 from app.api.venue_amenities import router as venue_amenities_router
 from app.api.venue_amenity_associations import router as venue_amenity_associations_router
 from app.api.payments import router as payments_router
+from app.api.scheduling import router as scheduling_router
 
 app = FastAPI(title="GamePlan Pro API", version="1.0.0")
 
@@ -33,6 +35,7 @@ app.include_router(venues_router, prefix="/api")
 app.include_router(venue_amenities_router, prefix="/api")
 app.include_router(venue_amenity_associations_router, prefix="/api")
 app.include_router(payments_router, prefix="/api")
+app.include_router(scheduling_router, prefix="/api")
 
 @app.on_event("startup")
 def on_startup():

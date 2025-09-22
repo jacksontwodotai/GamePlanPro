@@ -6,10 +6,12 @@ from .venue_amenity import VenueAmenity
 from .venue_has_amenity import VenueHasAmenity
 from .registration import Registration, RegistrationStatus
 from .payment import Payment, PaymentStatus, PaymentMethod
+from .conflict import Conflict, ConflictType
 
 __all__ = [
     "Venue", "Event", "EventType", "Team", "EventTeam",
     "VenueAmenity", "VenueHasAmenity",
     "Registration", "RegistrationStatus",
-    "Payment", "PaymentStatus", "PaymentMethod"
+    "Payment", "PaymentStatus", "PaymentMethod",
+    "Conflict", "ConflictType"
 ]

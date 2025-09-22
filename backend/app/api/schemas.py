@@ -7,6 +7,7 @@ from decimal import Decimal
 from app.models.event import EventType
 from app.models.payment import PaymentMethod, PaymentStatus
 from app.models.registration import RegistrationStatus
+from app.models.conflict import ConflictType
 
 class EventCreate(BaseModel):
     name: str
@@ -246,5 +247,75 @@ class PaymentListResponse(BaseModel):
     total: int
     page: int
     per_page: int
+    has_next: bool
+    has_prev: bool
+
+# Conflict Detection Schemas
+class ConflictCheckRequest(BaseModel):
+    """Request schema for checking scheduling conflicts"""
+    event_id: Optional[UUID] = None  # For updating existing events
+    name: str
+    event_type: EventType
+    start_time: datetime
+    end_time: datetime
+    venue_id: Optional[UUID] = None
+    team_ids: List[int] = []
+    is_recurring: bool = False
+    recurrence_rule: Optional[str] = None
+
+    @validator('end_time')
+    def validate_end_time_after_start(cls, v, values):
+        if 'start_time' in values and v <= values['start_time']:
+            raise ValueError('end_time must be after start_time')
+        return v
+
+class ConflictEventInfo(BaseModel):
+    """Information about an event involved in a conflict"""
+    id: UUID
+    name: str
+    event_type: EventType
+    start_time: datetime
+    end_time: datetime
+    venue_id: Optional[UUID] = None
+    venue_name: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
+class ConflictResponse(BaseModel):
+    """Response schema for detected conflicts (14.2)"""
+    id: Optional[UUID] = None  # Only present for persisted conflicts
+    conflict_type: ConflictType
+    description: str
+    resource_type: str  # "venue", "team", etc.
+    resource_id: str
+    resource_name: Optional[str] = None  # Human-readable resource name
+    severity: int
+    primary_event: ConflictEventInfo
+    conflicting_event: ConflictEventInfo
+    is_resolved: bool = False
+    detected_by: str = "system"
+    created_at: Optional[datetime] = None
+
+    class Config:
+        from_attributes = True
+
+class ConflictListQuery(BaseModel):
+    """Query parameters for listing conflicts"""
+    start_date_after: Optional[datetime] = None
+    end_date_before: Optional[datetime] = None
+    venue_id: Optional[UUID] = None
+    team_id: Optional[int] = None
+    conflict_type: Optional[ConflictType] = None
+    is_resolved: Optional[bool] = None
+    limit: int = 100
+    offset: int = 0
+
+class ConflictListResponse(BaseModel):
+    """Response for listing conflicts"""
+    conflicts: List[ConflictResponse]
+    total: int
+    limit: int
+    offset: int
     has_next: bool
     has_prev: bool

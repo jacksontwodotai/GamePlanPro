@@ -30,5 +30,13 @@
     "permission_mode": "bypassPermissions",
     "hook_event_name": "Stop",
     "stop_hook_active": false
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro/backend",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "Stop",
+    "stop_hook_active": false
   }
 ]
