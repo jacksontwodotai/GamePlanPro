@@ -11,7 +11,8 @@ import {
   X,
   Settings,
   Users,
-  Trophy
+  Trophy,
+  Shield
 } from 'lucide-react'
 import { Button } from './ui/button'
 import { Input } from './ui/input'
@@ -26,6 +27,12 @@ import {
   DialogTitle
 } from './ui/dialog'
 import { useApi } from '../hooks/useApi'
+import { api } from '../lib/api'
+import ConflictDisplay from './ConflictDisplay'
+import type {
+  ConflictResponse,
+  ConflictCheckRequest
+} from '../types/conflicts'
 
 interface Venue {
   id: string
@@ -133,6 +140,12 @@ export default function EventFormComponent({
   const [showVenueDropdown, setShowVenueDropdown] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
 
+  // Conflict detection state
+  const [conflictCheckLoading, setConflictCheckLoading] = useState(false)
+  const [detectedConflicts, setDetectedConflicts] = useState<ConflictResponse[]>([])
+  const [showConflictDialog, setShowConflictDialog] = useState(false)
+  const [proceedWithConflicts, setProceedWithConflicts] = useState(false)
+
   // API hooks
   const { data: venuesData, loading: venuesLoading, execute: fetchVenues } = useApi<VenuesResponse>()
   const { data: eventData, loading: eventLoading, execute: fetchEvent } = useApi<Event>()
@@ -237,7 +250,34 @@ export default function EventFormComponent({
     return Object.keys(errors).length === 0
   }
 
-  // Handle form submission
+  // Check for conflicts before submission
+  const checkForConflicts = async (): Promise<ConflictResponse[]> => {
+    const conflictRequest: ConflictCheckRequest = {
+      event_id: mode === 'edit' ? eventId : undefined,
+      name: formData.name.trim(),
+      event_type: formData.event_type as ConflictCheckRequest['event_type'],
+      start_time: new Date(formData.start_time).toISOString(),
+      end_time: new Date(formData.end_time).toISOString(),
+      venue_id: formData.venue_id || undefined,
+      team_ids: [], // Note: EventFormComponent doesn't have team selection, so empty array
+      is_recurring: formData.is_recurring,
+      recurrence_rule: formData.is_recurring ? formData.recurrence_rule : undefined
+    }
+
+    try {
+      setConflictCheckLoading(true)
+      const conflicts = await api.checkConflicts(conflictRequest)
+      return conflicts
+    } catch (error) {
+      console.error('Conflict check error:', error)
+      // If conflict check fails, allow submission to proceed
+      return []
+    } finally {
+      setConflictCheckLoading(false)
+    }
+  }
+
+  // Handle form submission with conflict detection
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -245,6 +285,23 @@ export default function EventFormComponent({
       return
     }
 
+    // If user has already reviewed conflicts and decided to proceed, skip conflict check
+    if (!proceedWithConflicts) {
+      const conflicts = await checkForConflicts()
+
+      if (conflicts.length > 0) {
+        setDetectedConflicts(conflicts)
+        setShowConflictDialog(true)
+        return // Stop here and show conflict dialog
+      }
+    }
+
+    // Proceed with event creation/update
+    await submitEventToAPI()
+  }
+
+  // Actual event submission to API
+  const submitEventToAPI = async () => {
     try {
       const eventPayload = {
         name: formData.name.trim(),
@@ -293,12 +350,30 @@ export default function EventFormComponent({
         setVenueSearch('')
       }
 
+      // Reset conflict state
+      setDetectedConflicts([])
+      setShowConflictDialog(false)
+      setProceedWithConflicts(false)
+
       // Clear success message after 3 seconds
       setTimeout(() => setSuccessMessage(''), 3000)
 
     } catch (error) {
       console.error('Form submission error:', error)
     }
+  }
+
+  // Handle conflict dialog actions
+  const handleConflictProceed = async () => {
+    setProceedWithConflicts(true)
+    setShowConflictDialog(false)
+    await submitEventToAPI()
+  }
+
+  const handleConflictCancel = () => {
+    setShowConflictDialog(false)
+    setDetectedConflicts([])
+    setProceedWithConflicts(false)
   }
 
   // Handle venue selection
@@ -661,10 +736,15 @@ export default function EventFormComponent({
         )}
         <Button
           type="submit"
-          disabled={submitting || eventLoading}
+          disabled={submitting || eventLoading || conflictCheckLoading}
           className={`${getEventTypeColor(formData.event_type)} text-white flex items-center`}
         >
-          {submitting ? (
+          {conflictCheckLoading ? (
+            <>
+              <Shield className="h-4 w-4 mr-2 animate-pulse" />
+              Checking for conflicts...
+            </>
+          ) : submitting ? (
             <>
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
               {mode === 'create' ? 'Creating...' : 'Updating...'}
@@ -691,62 +771,92 @@ export default function EventFormComponent({
 
   if (isModal) {
     return (
-      <Dialog open={true} onOpenChange={onCancel}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <div className="flex items-center justify-center mb-4">
-              <div className={`w-12 h-12 ${getEventTypeColor(formData.event_type)} rounded-full flex items-center justify-center shadow-lg`}>
-                <EventTypeIcon className="w-6 h-6 text-white" />
+      <>
+        <Dialog open={true} onOpenChange={onCancel}>
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <div className="flex items-center justify-center mb-4">
+                <div className={`w-12 h-12 ${getEventTypeColor(formData.event_type)} rounded-full flex items-center justify-center shadow-lg`}>
+                  <EventTypeIcon className="w-6 h-6 text-white" />
+                </div>
               </div>
-            </div>
-            <DialogTitle className="text-center text-2xl font-bold">
-              {mode === 'create' ? 'Create New Event' : 'Edit Event'}
-            </DialogTitle>
-            <DialogDescription className="text-center">
-              {mode === 'create' ? 'Fill in the details to schedule a new event' : 'Update the event information'}
-            </DialogDescription>
-          </DialogHeader>
+              <DialogTitle className="text-center text-2xl font-bold">
+                {mode === 'create' ? 'Create New Event' : 'Edit Event'}
+              </DialogTitle>
+              <DialogDescription className="text-center">
+                {mode === 'create' ? 'Fill in the details to schedule a new event' : 'Update the event information'}
+              </DialogDescription>
+            </DialogHeader>
 
-          {eventLoading ? (
-            <div className="flex items-center justify-center py-8">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-              <span className="ml-2 text-gray-600">Loading event...</span>
-            </div>
-          ) : (
-            formContent
-          )}
-        </DialogContent>
-      </Dialog>
+            {eventLoading ? (
+              <div className="flex items-center justify-center py-8">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                <span className="ml-2 text-gray-600">Loading event...</span>
+              </div>
+            ) : (
+              formContent
+            )}
+          </DialogContent>
+        </Dialog>
+
+        {/* Conflict Detection Dialog */}
+        {showConflictDialog && (
+          <ConflictDisplay
+            conflicts={detectedConflicts}
+            onProceed={handleConflictProceed}
+            onCancel={handleConflictCancel}
+            isLoading={submitting}
+            operationType={mode === 'create' ? 'create' : 'edit'}
+            open={showConflictDialog}
+            onOpenChange={setShowConflictDialog}
+          />
+        )}
+      </>
     )
   }
 
   // Standalone page mode
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <div className="mb-6">
-        <div className="flex items-center space-x-4 mb-4">
-          <div className={`w-12 h-12 ${getEventTypeColor(formData.event_type)} rounded-full flex items-center justify-center shadow-lg`}>
-            <EventTypeIcon className="w-6 h-6 text-white" />
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">
-              {mode === 'create' ? 'Create New Event' : 'Edit Event'}
-            </h1>
-            <p className="text-gray-600">
-              {mode === 'create' ? 'Fill in the details to schedule a new event' : 'Update the event information'}
-            </p>
+    <>
+      <div className="max-w-4xl mx-auto p-6">
+        <div className="mb-6">
+          <div className="flex items-center space-x-4 mb-4">
+            <div className={`w-12 h-12 ${getEventTypeColor(formData.event_type)} rounded-full flex items-center justify-center shadow-lg`}>
+              <EventTypeIcon className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">
+                {mode === 'create' ? 'Create New Event' : 'Edit Event'}
+              </h1>
+              <p className="text-gray-600">
+                {mode === 'create' ? 'Fill in the details to schedule a new event' : 'Update the event information'}
+              </p>
+            </div>
           </div>
         </div>
+
+        {eventLoading ? (
+          <div className="flex items-center justify-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            <span className="ml-2 text-gray-600">Loading event...</span>
+          </div>
+        ) : (
+          formContent
+        )}
       </div>
 
-      {eventLoading ? (
-        <div className="flex items-center justify-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-          <span className="ml-2 text-gray-600">Loading event...</span>
-        </div>
-      ) : (
-        formContent
+      {/* Conflict Detection Dialog */}
+      {showConflictDialog && (
+        <ConflictDisplay
+          conflicts={detectedConflicts}
+          onProceed={handleConflictProceed}
+          onCancel={handleConflictCancel}
+          isLoading={submitting}
+          operationType={mode === 'create' ? 'create' : 'edit'}
+          open={showConflictDialog}
+          onOpenChange={setShowConflictDialog}
+        />
       )}
-    </div>
+    </>
   )
 }

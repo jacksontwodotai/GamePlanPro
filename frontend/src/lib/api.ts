@@ -1,6 +1,9 @@
 // API Configuration and Helper Functions
 const API_BASE_URL = 'http://localhost:8000/api'
 
+// Import conflict detection types
+import type { ConflictCheckRequest, ConflictResponse } from '../types/conflicts'
+
 export interface ApiEvent {
   id: string
   name: string
@@ -135,6 +138,68 @@ export const api = {
       }
     } catch (error) {
       console.error('Error deleting event:', error)
+      throw error
+    }
+  },
+
+  // Conflict Detection API methods
+  async checkConflicts(request: ConflictCheckRequest): Promise<ConflictResponse[]> {
+    try {
+      const response = await fetch(`${API_BASE_URL}/scheduling/conflicts/check`, {
+        method: 'POST',
+        headers: getAuthHeaders(),
+        body: JSON.stringify(request)
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ detail: 'Unknown error' }))
+        throw new Error(errorData.detail || `HTTP error! status: ${response.status}`)
+      }
+
+      return await response.json()
+    } catch (error) {
+      console.error('Error checking conflicts:', error)
+      throw error
+    }
+  },
+
+  async getConflicts(params: {
+    start_date_after?: string
+    end_date_before?: string
+    venue_id?: string
+    team_id?: number
+    limit?: number
+    offset?: number
+  } = {}): Promise<{
+    conflicts: ConflictResponse[]
+    total: number
+    limit: number
+    offset: number
+    has_next: boolean
+    has_prev: boolean
+  }> {
+    try {
+      const queryParams = new URLSearchParams()
+
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          queryParams.append(key, String(value))
+        }
+      })
+
+      const url = `${API_BASE_URL}/scheduling/conflicts${queryParams.toString() ? `?${queryParams.toString()}` : ''}`
+
+      const response = await fetch(url, {
+        headers: getAuthHeaders()
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
+      return await response.json()
+    } catch (error) {
+      console.error('Error fetching conflicts:', error)
       throw error
     }
   }

@@ -32,7 +32,7 @@ class Payment(SQLModel, table=True):
     registration_id: UUID = Field(foreign_key="registrations.id")
 
     # Payment details
-    amount: Decimal = Field(decimal_places=2, max_digits=10)
+    amount: Decimal
     payment_method: PaymentMethod
     status: PaymentStatus = Field(default=PaymentStatus.PENDING)
 
@@ -46,7 +46,7 @@ class Payment(SQLModel, table=True):
 
     # Processing information
     processed_at: Optional[datetime] = Field(default=None)
-    gateway_fee: Optional[Decimal] = Field(decimal_places=2, max_digits=10, default=None)
+    gateway_fee: Optional[Decimal] = Field(default=None)
 
     # Metadata
     notes: Optional[str] = Field(default=None)
