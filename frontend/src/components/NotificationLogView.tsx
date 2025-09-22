@@ -145,7 +145,7 @@ export default function NotificationLogView() {
       queryParams.append('sort_by', sortField)
       queryParams.append('sort_direction', sortDirection)
 
-      const response = await execute(`http://localhost:8000/api/schedule-communication/notifications?${queryParams.toString()}`)
+      const response = await execute(`/api/schedule-communication/notifications?${queryParams.toString()}`)
 
       if (response) {
         setNotifications(response.notifications || [])
@@ -165,7 +165,7 @@ export default function NotificationLogView() {
 
   const fetchEvents = async () => {
     try {
-      const response = await execute('http://localhost:8000/api/events')
+      const response = await execute('/api/events')
       if (response) {
         const events = Array.isArray(response) ? response : []
         setEvents(events.map((event: any) => ({ id: event.id, name: event.name })))
@@ -177,7 +177,7 @@ export default function NotificationLogView() {
 
   const fetchUsers = async () => {
     try {
-      const response = await execute('http://localhost:8000/api/users')
+      const response = await execute('/api/users')
       if (response?.users) {
         setUsers(response.users.map((user: any) => ({
           id: user.id,
@@ -223,7 +223,7 @@ export default function NotificationLogView() {
 
       queryParams.append('export', 'true')
 
-      const response = await execute(`http://localhost:8000/api/schedule-communication/notifications/export?${queryParams.toString()}`)
+      const response = await execute(`/api/schedule-communication/notifications/export?${queryParams.toString()}`)
 
       if (response?.download_url) {
         window.open(response.download_url, '_blank')

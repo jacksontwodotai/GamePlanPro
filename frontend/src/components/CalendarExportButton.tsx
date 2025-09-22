@@ -104,7 +104,7 @@ export default function CalendarExportButton({
 
   const fetchTeams = async () => {
     try {
-      const response = await execute('http://localhost:8000/api/teams')
+      const response = await execute('/api/teams')
       if (response?.teams) {
         setTeams(response.teams)
       }
@@ -144,7 +144,7 @@ export default function CalendarExportButton({
         requestBody.event_ids = selectedEvents
       }
 
-      const response = await execute('http://localhost:8000/api/schedule-communication/export-calendar', {
+      const response = await execute('/api/schedule-communication/export-calendar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(requestBody)

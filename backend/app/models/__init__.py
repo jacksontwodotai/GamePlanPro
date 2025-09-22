@@ -8,6 +8,10 @@ from .registration import Registration, RegistrationStatus
 from .payment import Payment, PaymentStatus, PaymentMethod
 from .conflict import Conflict, ConflictType
 from .conflict_api import ConflictAPI, ConflictType as ConflictTypeAPI
+from .notification import (
+    UserNotificationPreference, SentScheduleNotification,
+    NotificationType, NotificationStatus
+)
 
 __all__ = [
     "Venue", "Event", "EventType", "Team", "EventTeam",
@@ -15,5 +19,7 @@ __all__ = [
     "Registration", "RegistrationStatus",
     "Payment", "PaymentStatus", "PaymentMethod",
     "Conflict", "ConflictType",
-    "ConflictAPI", "ConflictTypeAPI"
+    "ConflictAPI", "ConflictTypeAPI",
+    "UserNotificationPreference", "SentScheduleNotification",
+    "NotificationType", "NotificationStatus"
 ]

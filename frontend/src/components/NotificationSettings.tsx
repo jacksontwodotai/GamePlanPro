@@ -7,6 +7,7 @@ import {
 import { Button } from './ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
 import { useApi } from '../hooks/useApi'
+import { api } from '../lib/api'
 
 interface NotificationPreference {
   id: string
@@ -66,7 +67,7 @@ export default function NotificationSettings({ userId }: NotificationSettingsPro
   const fetchPreferences = async () => {
     setLoading(true)
     try {
-      const response = await execute(`http://localhost:8000/api/users/${userId}/notification-preferences`)
+      const response = await execute(`/api/users/${userId}/notification-preferences`)
       if (response?.preferences) {
         setPreferences(response.preferences)
       }
@@ -80,7 +81,7 @@ export default function NotificationSettings({ userId }: NotificationSettingsPro
 
   const fetchTeams = async () => {
     try {
-      const response = await execute('http://localhost:8000/api/teams')
+      const response = await execute('/api/teams')
       if (response?.teams) {
         setTeams(response.teams)
       }
@@ -102,7 +103,7 @@ export default function NotificationSettings({ userId }: NotificationSettingsPro
   const savePreferences = async () => {
     setSaving(true)
     try {
-      await execute(`http://localhost:8000/api/users/${userId}/notification-preferences`, {
+      await execute(`/api/users/${userId}/notification-preferences`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ preferences })

@@ -111,7 +111,7 @@ export default function ScheduleChangeNotifier({ onBack }: ScheduleChangeNotifie
   const fetchEvents = async () => {
     setLoading(true)
     try {
-      const response = await execute('http://localhost:8000/api/events')
+      const response = await execute('/api/events')
       if (response) {
         setEvents(Array.isArray(response) ? response : [])
       }
@@ -125,7 +125,7 @@ export default function ScheduleChangeNotifier({ onBack }: ScheduleChangeNotifie
 
   const fetchTeams = async () => {
     try {
-      const response = await execute('http://localhost:8000/api/teams')
+      const response = await execute('/api/teams')
       if (response?.teams) {
         setTeams(response.teams)
       }
@@ -136,7 +136,7 @@ export default function ScheduleChangeNotifier({ onBack }: ScheduleChangeNotifie
 
   const fetchUsers = async () => {
     try {
-      const response = await execute('http://localhost:8000/api/users')
+      const response = await execute('/api/users')
       if (response?.users) {
         setUsers(response.users)
       }
@@ -147,7 +147,7 @@ export default function ScheduleChangeNotifier({ onBack }: ScheduleChangeNotifie
 
   const fetchTemplates = async () => {
     try {
-      const response = await execute('http://localhost:8000/api/notification-templates')
+      const response = await execute('/api/notification-templates')
       if (response?.templates) {
         const activeTemplates = response.templates.filter((t: NotificationTemplate) => t.is_active)
         setTemplates(activeTemplates)
@@ -283,7 +283,7 @@ export default function ScheduleChangeNotifier({ onBack }: ScheduleChangeNotifie
 
     setSending(true)
     try {
-      await execute('http://localhost:8000/api/schedule-communication/send-notification', {
+      await execute('/api/schedule-communication/send-notification', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
