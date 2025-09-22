@@ -175,10 +175,6 @@ const paymentLimiter = rateLimit({
     },
     standardHeaders: true,
     legacyHeaders: false,
-    keyGenerator: (req) => {
-        // Use both IP and user ID for authenticated requests
-        return req.user ? `${req.ip}:${req.user.id}` : req.ip;
-    },
     handler: (req, res) => {
         console.warn(`Payment rate limit exceeded for IP: ${req.ip}, User: ${req.user?.id || 'anonymous'}, Path: ${req.path}`);
         res.status(429).json({
@@ -215,6 +211,42 @@ app.use(generalLimiter);
 app.use('/api/auth', authLimiter);
 app.use('/api/login', authLimiter);
 app.use('/api/register', authLimiter);
+
+// Admin authentication middleware
+const authenticateAdmin = async (req, res, next) => {
+    try {
+        const authHeader = req.headers.authorization;
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return res.status(401).json({ error: 'Missing or invalid authorization header' });
+        }
+
+        const token = authHeader.substring(7);
+
+        // Verify the JWT token with Supabase
+        const { data: user, error } = await supabase.auth.getUser(token);
+
+        if (error || !user) {
+            return res.status(401).json({ error: 'Invalid or expired token' });
+        }
+
+        // Check if user has admin role
+        const { data: userProfile, error: profileError } = await supabase
+            .from('users')
+            .select('role')
+            .eq('email', user.user.email)
+            .single();
+
+        if (profileError || !userProfile || userProfile.role !== 'admin') {
+            return res.status(403).json({ error: 'Admin access required' });
+        }
+
+        req.user = user.user;
+        next();
+    } catch (error) {
+        console.error('Admin authentication error:', error);
+        return res.status(401).json({ error: 'Authentication failed' });
+    }
+};
 
 // Input validation middleware for payment endpoints
 const validatePaymentInput = [
@@ -2571,7 +2603,7 @@ app.post('/api/events', authenticateAdmin, async (req, res) => {
 
         // Insert the event
         const eventData = {
-            title: eventTitle,
+            name: eventTitle,
             description: description || null,
             event_type,
             start_time,
@@ -2813,7 +2845,7 @@ app.put('/api/events/:event_id', authenticateAdmin, async (req, res) => {
 
         // Support both name and title (name takes precedence per work order)
         const eventTitle = name || title;
-        if (eventTitle !== undefined) updateData.title = eventTitle;
+        if (eventTitle !== undefined) updateData.name = eventTitle;
 
         if (description !== undefined) updateData.description = description;
         if (event_type !== undefined) updateData.event_type = event_type;
@@ -6683,42 +6715,6 @@ app.get('/api/programs/:program_id/registration-form', authenticateUser, async (
         res.status(500).json({ error: 'Internal server error' });
     }
 });
-
-// Admin authentication middleware
-const authenticateAdmin = async (req, res, next) => {
-    try {
-        const authHeader = req.headers.authorization;
-        if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return res.status(401).json({ error: 'Missing or invalid authorization header' });
-        }
-
-        const token = authHeader.substring(7);
-
-        // Verify the JWT token with Supabase
-        const { data: user, error } = await supabase.auth.getUser(token);
-
-        if (error || !user) {
-            return res.status(401).json({ error: 'Invalid or expired token' });
-        }
-
-        // Check if user has admin role
-        const { data: userProfile, error: profileError } = await supabase
-            .from('users')
-            .select('role')
-            .eq('email', user.user.email)
-            .single();
-
-        if (profileError || !userProfile || userProfile.role !== 'admin') {
-            return res.status(403).json({ error: 'Admin access required' });
-        }
-
-        req.user = user.user;
-        next();
-    } catch (error) {
-        console.error('Admin authentication error:', error);
-        return res.status(401).json({ error: 'Authentication failed' });
-    }
-};
 
 // Admin Program Administration Endpoints
 

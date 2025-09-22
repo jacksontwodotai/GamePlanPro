@@ -18,18 +18,16 @@ import {
 import { useNavigate } from 'react-router-dom'
 
 interface Event {
-  id: number
-  title: string
+  id: string
+  name: string
   description?: string
-  event_type: 'game' | 'practice' | 'tournament' | 'meeting'
-  start_date: string
-  end_date?: string
+  event_type: 'Practice' | 'Game' | 'Meeting' | 'Tournament' | 'Other'
   start_time: string
   end_time?: string
-  location?: string
-  teams?: string[]
+  venue_id?: string
   status: 'scheduled' | 'completed' | 'cancelled'
   created_at: string
+  updated_at: string
 }
 
 const EventListView = () => {
@@ -66,12 +64,14 @@ const EventListView = () => {
 
   const getEventTypeIcon = (type: string) => {
     switch (type) {
-      case 'game':
+      case 'Game':
         return <Trophy className="w-5 h-5" />
-      case 'practice':
+      case 'Practice':
         return <Target className="w-5 h-5" />
-      case 'tournament':
+      case 'Tournament':
         return <Zap className="w-5 h-5" />
+      case 'Meeting':
+        return <Users className="w-5 h-5" />
       default:
         return <Calendar className="w-5 h-5" />
     }
@@ -79,12 +79,14 @@ const EventListView = () => {
 
   const getEventTypeColor = (type: string) => {
     switch (type) {
-      case 'game':
+      case 'Game':
         return 'from-blue-600 to-blue-700'
-      case 'practice':
+      case 'Practice':
         return 'from-green-600 to-green-700'
-      case 'tournament':
+      case 'Tournament':
         return 'from-purple-600 to-purple-700'
+      case 'Meeting':
+        return 'from-orange-600 to-orange-700'
       default:
         return 'from-gray-600 to-gray-700'
     }
@@ -122,17 +124,17 @@ const EventListView = () => {
 
   const filteredEvents = events
     .filter(event => {
-      const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      const matchesSearch = event.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            event.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           event.location?.toLowerCase().includes(searchTerm.toLowerCase())
+                           false
       const matchesType = filterType === 'all' || event.event_type === filterType
       return matchesSearch && matchesType
     })
     .sort((a, b) => {
       if (sortBy === 'date') {
-        return new Date(a.start_date).getTime() - new Date(b.start_date).getTime()
+        return new Date(a.start_time).getTime() - new Date(b.start_time).getTime()
       }
-      return a.title.localeCompare(b.title)
+      return a.name.localeCompare(b.name)
     })
 
   if (loading) {
@@ -204,10 +206,11 @@ const EventListView = () => {
               className="px-3 py-2 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 transition-all duration-200"
             >
               <option value="all">All Types</option>
-              <option value="game">Games</option>
-              <option value="practice">Practices</option>
-              <option value="tournament">Tournaments</option>
-              <option value="meeting">Meetings</option>
+              <option value="Game">Games</option>
+              <option value="Practice">Practices</option>
+              <option value="Tournament">Tournaments</option>
+              <option value="Meeting">Meetings</option>
+              <option value="Other">Other</option>
             </select>
 
             <select
@@ -216,7 +219,7 @@ const EventListView = () => {
               className="px-3 py-2 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 transition-all duration-200"
             >
               <option value="date">Sort by Date</option>
-              <option value="title">Sort by Title</option>
+              <option value="name">Sort by Name</option>
             </select>
           </div>
         </div>
@@ -282,7 +285,7 @@ const EventListView = () => {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3 mb-2">
                         <h3 className="text-xl font-bold text-gray-900 dark:text-white truncate">
-                          {event.title}
+                          {event.name}
                         </h3>
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(event.status)}`}>
                           {event.status.charAt(0).toUpperCase() + event.status.slice(1)}
@@ -301,25 +304,13 @@ const EventListView = () => {
                       <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
                         <div className="flex items-center">
                           <Calendar className="w-4 h-4 mr-1" />
-                          {formatDate(event.start_date)}
+                          {formatDate(event.start_time)}
                         </div>
                         <div className="flex items-center">
                           <Clock className="w-4 h-4 mr-1" />
                           {formatTime(event.start_time)}
                           {event.end_time && ` - ${formatTime(event.end_time)}`}
                         </div>
-                        {event.location && (
-                          <div className="flex items-center">
-                            <MapPin className="w-4 h-4 mr-1" />
-                            {event.location}
-                          </div>
-                        )}
-                        {event.teams && event.teams.length > 0 && (
-                          <div className="flex items-center">
-                            <Users className="w-4 h-4 mr-1" />
-                            {event.teams.length} team{event.teams.length !== 1 ? 's' : ''}
-                          </div>
-                        )}
                       </div>
                     </div>
                   </div>
