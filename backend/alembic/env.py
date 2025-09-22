@@ -24,7 +24,9 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 # Import our models for autogenerate support
-from app.models import Venue, Event
+from app.models.venue import Venue
+from app.models.venue_amenity import VenueAmenity
+from app.models.venue_has_amenity import VenueHasAmenity
 from sqlmodel import SQLModel
 
 # Set target metadata to our SQLModel metadata

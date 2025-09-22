@@ -20,17 +20,14 @@ class EventTeam(SQLModel, table=True):
 
     id: uuid.UUID = Field(
         default_factory=uuid.uuid4,
-        primary_key=True,
         sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     )
 
     event_id: uuid.UUID = Field(
-        foreign_key="events.id",
         sa_column=Column(UUID(as_uuid=True), ForeignKey("events.id", ondelete="CASCADE"), nullable=False)
     )
 
     team_id: int = Field(
-        foreign_key="teams.id",
         sa_column=Column(Integer, ForeignKey("teams.id", ondelete="CASCADE"), nullable=False)
     )
 

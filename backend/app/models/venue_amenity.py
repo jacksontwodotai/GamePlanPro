@@ -11,12 +11,10 @@ class VenueAmenity(SQLModel, table=True):
 
     id: uuid.UUID = Field(
         default_factory=uuid.uuid4,
-        primary_key=True,
         sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     )
     name: str = Field(
         max_length=255,
-        unique=True,
         sa_column=Column(String(255), unique=True, nullable=False)
     )
     description: Optional[str] = Field(

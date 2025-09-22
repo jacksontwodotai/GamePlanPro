@@ -629,5 +629,1012 @@
       "command": "cd frontend && npm run",
       "description": "List available npm scripts"
     }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__list_work_orders",
+    "tool_input": {}
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "mcp__software-factory__get_work_order",
+    "tool_input": {
+      "work_order_number": "98"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing codebase structure and data models",
+          "status": "in_progress",
+          "activeForm": "Analyzing existing codebase structure and data models"
+        },
+        {
+          "content": "Create VenueAmenity SQLModel class with proper validation",
+          "status": "pending",
+          "activeForm": "Creating VenueAmenity SQLModel class with proper validation"
+        },
+        {
+          "content": "Create VenueHasAmenity linking table SQLModel class",
+          "status": "pending",
+          "activeForm": "Creating VenueHasAmenity linking table SQLModel class"
+        },
+        {
+          "content": "Create Alembic migration script for both tables",
+          "status": "pending",
+          "activeForm": "Creating Alembic migration script for both tables"
+        },
+        {
+          "content": "Verify database relationships and constraints",
+          "status": "pending",
+          "activeForm": "Verifying database relationships and constraints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "find . -type f -name \"*.py\" | grep -E \"(model|migration|alembic)\" | head -20",
+      "description": "Find Python files related to models and migrations"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/venue_has_amenity.py"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/venue.py"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "find . -path \"*/migrations/*\" -name \"*.py\" | head -10",
+      "description": "Find migration files"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing codebase structure and data models",
+          "status": "completed",
+          "activeForm": "Analyzing existing codebase structure and data models"
+        },
+        {
+          "content": "Check existing migrations for venue amenity tables",
+          "status": "in_progress",
+          "activeForm": "Checking existing migrations for venue amenity tables"
+        },
+        {
+          "content": "Create VenueAmenity SQLModel class with proper validation",
+          "status": "completed",
+          "activeForm": "Creating VenueAmenity SQLModel class with proper validation"
+        },
+        {
+          "content": "Create VenueHasAmenity linking table SQLModel class",
+          "status": "completed",
+          "activeForm": "Creating VenueHasAmenity linking table SQLModel class"
+        },
+        {
+          "content": "Create Alembic migration script for both tables (if missing)",
+          "status": "pending",
+          "activeForm": "Creating Alembic migration script for both tables (if missing)"
+        },
+        {
+          "content": "Verify database relationships and constraints",
+          "status": "pending",
+          "activeForm": "Verifying database relationships and constraints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "find . -path \"*/migrations/*\" -name \"*.py\" | head -10",
+      "description": "Find migration files"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "find . -name \"alembic*\" -o -name \"*migration*\" | head -10",
+      "description": "Find Alembic and migration related files"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la ./backend/migrations/",
+      "description": "List migration directory contents"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/alembic.ini"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing codebase structure and data models",
+          "status": "completed",
+          "activeForm": "Analyzing existing codebase structure and data models"
+        },
+        {
+          "content": "Check existing migrations for venue amenity tables",
+          "status": "completed",
+          "activeForm": "Checking existing migrations for venue amenity tables"
+        },
+        {
+          "content": "Initialize Alembic migration environment",
+          "status": "in_progress",
+          "activeForm": "Initializing Alembic migration environment"
+        },
+        {
+          "content": "Create VenueAmenity SQLModel class with proper validation",
+          "status": "completed",
+          "activeForm": "Creating VenueAmenity SQLModel class with proper validation"
+        },
+        {
+          "content": "Create VenueHasAmenity linking table SQLModel class",
+          "status": "completed",
+          "activeForm": "Creating VenueHasAmenity linking table SQLModel class"
+        },
+        {
+          "content": "Create Alembic migration script for both tables",
+          "status": "pending",
+          "activeForm": "Creating Alembic migration script for both tables"
+        },
+        {
+          "content": "Verify database relationships and constraints",
+          "status": "pending",
+          "activeForm": "Verifying database relationships and constraints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la ./backend/",
+      "description": "List backend directory contents to find alembic setup"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la ./backend/alembic/",
+      "description": "List alembic directory contents"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la ./backend/alembic/versions/",
+      "description": "List existing migration versions"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/alembic/env.py"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing codebase structure and data models",
+          "status": "completed",
+          "activeForm": "Analyzing existing codebase structure and data models"
+        },
+        {
+          "content": "Check existing migrations for venue amenity tables",
+          "status": "completed",
+          "activeForm": "Checking existing migrations for venue amenity tables"
+        },
+        {
+          "content": "Initialize Alembic migration environment",
+          "status": "completed",
+          "activeForm": "Initializing Alembic migration environment"
+        },
+        {
+          "content": "Update alembic env.py to import venue amenity models",
+          "status": "in_progress",
+          "activeForm": "Updating alembic env.py to import venue amenity models"
+        },
+        {
+          "content": "Create VenueAmenity SQLModel class with proper validation",
+          "status": "completed",
+          "activeForm": "Creating VenueAmenity SQLModel class with proper validation"
+        },
+        {
+          "content": "Create VenueHasAmenity linking table SQLModel class",
+          "status": "completed",
+          "activeForm": "Creating VenueHasAmenity linking table SQLModel class"
+        },
+        {
+          "content": "Create Alembic migration script for both tables",
+          "status": "pending",
+          "activeForm": "Creating Alembic migration script for both tables"
+        },
+        {
+          "content": "Verify database relationships and constraints",
+          "status": "pending",
+          "activeForm": "Verifying database relationships and constraints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/alembic/env.py",
+      "old_string": "# Import our models for autogenerate support\nfrom app.models import Venue, Event\nfrom sqlmodel import SQLModel",
+      "new_string": "# Import our models for autogenerate support\nfrom app.models import Venue, Event, VenueAmenity, VenueHasAmenity, Team, EventTeam, Registration, Payment\nfrom sqlmodel import SQLModel"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing codebase structure and data models",
+          "status": "completed",
+          "activeForm": "Analyzing existing codebase structure and data models"
+        },
+        {
+          "content": "Check existing migrations for venue amenity tables",
+          "status": "completed",
+          "activeForm": "Checking existing migrations for venue amenity tables"
+        },
+        {
+          "content": "Initialize Alembic migration environment",
+          "status": "completed",
+          "activeForm": "Initializing Alembic migration environment"
+        },
+        {
+          "content": "Update alembic env.py to import venue amenity models",
+          "status": "completed",
+          "activeForm": "Updating alembic env.py to import venue amenity models"
+        },
+        {
+          "content": "Create VenueAmenity SQLModel class with proper validation",
+          "status": "completed",
+          "activeForm": "Creating VenueAmenity SQLModel class with proper validation"
+        },
+        {
+          "content": "Create VenueHasAmenity linking table SQLModel class",
+          "status": "completed",
+          "activeForm": "Creating VenueHasAmenity linking table SQLModel class"
+        },
+        {
+          "content": "Create Alembic migration script for both tables",
+          "status": "in_progress",
+          "activeForm": "Creating Alembic migration script for both tables"
+        },
+        {
+          "content": "Verify database relationships and constraints",
+          "status": "pending",
+          "activeForm": "Verifying database relationships and constraints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd ./backend && alembic revision --autogenerate -m \"Initial migration: Create venue amenity data models\"",
+      "description": "Create initial Alembic migration for venue amenity models"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/venue.py",
+      "limit": 20
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/venue.py",
+      "old_string": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )",
+      "new_string": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/venue_amenity.py",
+      "old_string": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )",
+      "new_string": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/venue_has_amenity.py",
+      "old_string": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )",
+      "new_string": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/event.py",
+      "limit": 20
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "id: uuid.UUID = Field",
+      "path": "./backend/app/models/event.py",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/event.py",
+      "offset": 24,
+      "limit": 10
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/event.py",
+      "old_string": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )",
+      "new_string": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "primary_key=True.*sa_column.*primary_key=True",
+      "path": "./backend/app/models/",
+      "output_mode": "files_with_matches"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "primary_key=True,\\s*\\n.*sa_column.*primary_key=True",
+      "path": "./backend/app/models/",
+      "output_mode": "files_with_matches",
+      "multiline": true
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/team.py",
+      "limit": 30
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/team.py",
+      "old_string": "    id: int = Field(\n        primary_key=True,\n        sa_column=Column(Integer, primary_key=True, autoincrement=True)\n    )",
+      "new_string": "    id: int = Field(\n        sa_column=Column(Integer, primary_key=True, autoincrement=True)\n    )"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/event_team.py",
+      "limit": 30
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/event_team.py",
+      "old_string": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )",
+      "new_string": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "primary_key=True",
+      "path": "./backend/app/models/",
+      "output_mode": "files_with_matches"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "primary_key=True,\\s*sa_column.*primary_key=True",
+      "path": "./backend/app/models/registration.py",
+      "output_mode": "content",
+      "multiline": true
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd ./backend && alembic revision --autogenerate -m \"Initial migration: Create venue amenity data models\"",
+      "description": "Create initial Alembic migration for venue amenity models"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/venue.py",
+      "old_string": "    name: str = Field(\n        max_length=255,\n        unique=True,\n        sa_column=Column(String(255), unique=True, nullable=False)\n    )",
+      "new_string": "    name: str = Field(\n        max_length=255,\n        sa_column=Column(String(255), unique=True, nullable=False)\n    )"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/venue_amenity.py",
+      "old_string": "    name: str = Field(\n        max_length=255,\n        unique=True,\n        sa_column=Column(String(255), unique=True, nullable=False)\n    )",
+      "new_string": "    name: str = Field(\n        max_length=255,\n        sa_column=Column(String(255), unique=True, nullable=False)\n    )"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "unique=True.*sa_column.*unique=True",
+      "path": "./backend/app/models/",
+      "output_mode": "files_with_matches"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "unique=True,\\s*\\n.*sa_column.*unique=True",
+      "path": "./backend/app/models/",
+      "output_mode": "files_with_matches",
+      "multiline": true
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/team.py",
+      "offset": 24,
+      "limit": 10
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/team.py",
+      "old_string": "    name: str = Field(\n        max_length=255,\n        unique=True,\n        sa_column=Column(Text, nullable=False, unique=True)\n    )",
+      "new_string": "    name: str = Field(\n        max_length=255,\n        sa_column=Column(Text, nullable=False, unique=True)\n    )"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd ./backend && alembic revision --autogenerate -m \"Initial migration: Create venue amenity data models\"",
+      "description": "Create initial Alembic migration for venue amenity models"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/event.py",
+      "offset": 44,
+      "limit": 10
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "foreign_key=.*sa_column.*ForeignKey",
+      "path": "./backend/app/models/",
+      "output_mode": "files_with_matches",
+      "multiline": true
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/event.py",
+      "old_string": "    venue_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"venues.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\", ondelete=\"SET NULL\"), nullable=True)\n    )",
+      "new_string": "    venue_id: Optional[uuid.UUID] = Field(\n        default=None,\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\", ondelete=\"SET NULL\"), nullable=True)\n    )"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/event.py",
+      "old_string": "    created_by_user_id: int = Field(\n        foreign_key=\"users.id\",\n        sa_column=Column(Integer, ForeignKey(\"users.id\"), nullable=False)\n    )",
+      "new_string": "    created_by_user_id: int = Field(\n        sa_column=Column(Integer, ForeignKey(\"users.id\"), nullable=False)\n    )"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/venue_has_amenity.py",
+      "old_string": "    venue_id: uuid.UUID = Field(\n        foreign_key=\"venues.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\"), nullable=False)\n    )",
+      "new_string": "    venue_id: uuid.UUID = Field(\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\"), nullable=False)\n    )"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/venue_has_amenity.py",
+      "old_string": "    amenity_id: uuid.UUID = Field(\n        foreign_key=\"venue_amenities.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venue_amenities.id\"), nullable=False)\n    )",
+      "new_string": "    amenity_id: uuid.UUID = Field(\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venue_amenities.id\"), nullable=False)\n    )"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/event_team.py",
+      "offset": 26,
+      "limit": 15
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/event_team.py",
+      "old_string": "    event_id: uuid.UUID = Field(\n        foreign_key=\"events.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"events.id\", ondelete=\"CASCADE\"), nullable=False)\n    )",
+      "new_string": "    event_id: uuid.UUID = Field(\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"events.id\", ondelete=\"CASCADE\"), nullable=False)\n    )"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/event_team.py",
+      "old_string": "    team_id: int = Field(\n        foreign_key=\"teams.id\",\n        sa_column=Column(Integer, ForeignKey(\"teams.id\", ondelete=\"CASCADE\"), nullable=False)\n    )",
+      "new_string": "    team_id: int = Field(\n        sa_column=Column(Integer, ForeignKey(\"teams.id\", ondelete=\"CASCADE\"), nullable=False)\n    )"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "foreign_key=",
+      "path": "./backend/app/models/team.py",
+      "output_mode": "content",
+      "-n": true
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/team.py",
+      "offset": 60,
+      "limit": 20
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "MultiEdit",
+    "tool_input": {
+      "file_path": "./backend/app/models/team.py",
+      "edits": [
+        {
+          "old_string": "    division_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"divisions.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"divisions.id\"), nullable=True)\n    )",
+          "new_string": "    division_id: Optional[uuid.UUID] = Field(\n        default=None,\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"divisions.id\"), nullable=True)\n    )"
+        },
+        {
+          "old_string": "    age_group_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"age_groups.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"age_groups.id\"), nullable=True)\n    )",
+          "new_string": "    age_group_id: Optional[uuid.UUID] = Field(\n        default=None,\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"age_groups.id\"), nullable=True)\n    )"
+        },
+        {
+          "old_string": "    skill_level_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"skill_levels.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"skill_levels.id\"), nullable=True)\n    )",
+          "new_string": "    skill_level_id: Optional[uuid.UUID] = Field(\n        default=None,\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"skill_levels.id\"), nullable=True)\n    )"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd ./backend && alembic revision --autogenerate -m \"Initial migration: Create venue amenity data models\"",
+      "description": "Create initial Alembic migration for venue amenity models"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/team.py",
+      "offset": 52,
+      "limit": 10
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/team.py",
+      "old_string": "    # UUID field for external references (existing in database)\n    uuid: Optional[uuid.UUID] = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), nullable=True, default=uuid.uuid4)\n    )",
+      "new_string": "    # UUID field for external references (existing in database)\n    external_uuid: Optional[uuid.UUID] = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), nullable=True, default=uuid.uuid4)\n    )"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd ./backend && alembic revision --autogenerate -m \"Initial migration: Create venue amenity data models\"",
+      "description": "Create initial Alembic migration for venue amenity models"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/alembic/env.py",
+      "old_string": "# Import our models for autogenerate support\nfrom app.models import Venue, Event, VenueAmenity, VenueHasAmenity, Team, EventTeam, Registration, Payment\nfrom sqlmodel import SQLModel",
+      "new_string": "# Import our models for autogenerate support\nfrom app.models import Venue, VenueAmenity, VenueHasAmenity\nfrom sqlmodel import SQLModel"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd ./backend && alembic revision --autogenerate -m \"Initial migration: Create venue amenity data models\"",
+      "description": "Create initial Alembic migration for venue amenity models"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/alembic/env.py",
+      "old_string": "# Import our models for autogenerate support\nfrom app.models import Venue, VenueAmenity, VenueHasAmenity\nfrom sqlmodel import SQLModel",
+      "new_string": "# Import our models for autogenerate support\nfrom app.models.venue import Venue\nfrom app.models.venue_amenity import VenueAmenity\nfrom app.models.venue_has_amenity import VenueHasAmenity\nfrom sqlmodel import SQLModel"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd ./backend && alembic revision --autogenerate -m \"Initial migration: Create venue amenity data models\"",
+      "description": "Create initial Alembic migration for venue amenity models"
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PreToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "cd ./backend && alembic revision -m \"Create venue amenity data models\"",
+      "description": "Create manual Alembic migration for venue amenity models"
+    }
   }
 ]

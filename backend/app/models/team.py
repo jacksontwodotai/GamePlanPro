@@ -18,13 +18,11 @@ class Team(SQLModel, table=True):
     __tablename__ = "teams"
 
     id: int = Field(
-        primary_key=True,
         sa_column=Column(Integer, primary_key=True, autoincrement=True)
     )
 
     name: str = Field(
         max_length=255,
-        unique=True,
         sa_column=Column(Text, nullable=False, unique=True)
     )
 
@@ -53,7 +51,7 @@ class Team(SQLModel, table=True):
     )
 
     # UUID field for external references (existing in database)
-    uuid: Optional[uuid.UUID] = Field(
+    external_uuid: Optional[uuid.UUID] = Field(
         default_factory=uuid.uuid4,
         sa_column=Column(UUID(as_uuid=True), nullable=True, default=uuid.uuid4)
     )
@@ -61,19 +59,16 @@ class Team(SQLModel, table=True):
     # Foreign key relationships to lookup tables
     division_id: Optional[uuid.UUID] = Field(
         default=None,
-        foreign_key="divisions.id",
         sa_column=Column(UUID(as_uuid=True), ForeignKey("divisions.id"), nullable=True)
     )
 
     age_group_id: Optional[uuid.UUID] = Field(
         default=None,
-        foreign_key="age_groups.id",
         sa_column=Column(UUID(as_uuid=True), ForeignKey("age_groups.id"), nullable=True)
     )
 
     skill_level_id: Optional[uuid.UUID] = Field(
         default=None,
-        foreign_key="skill_levels.id",
         sa_column=Column(UUID(as_uuid=True), ForeignKey("skill_levels.id"), nullable=True)
     )
 

@@ -13483,5 +13483,2068 @@
         }
       ]
     }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "mcp__software-factory__list_work_orders",
+    "tool_input": {},
+    "tool_response": [
+      {
+        "type": "text",
+        "text": "{\"result\":[\"Work Order #98: Implement Venue Amenity Data Models for Booking Management (Sequence: 1)\",\"Work Order #106: Implement Conflict Detection API Endpoints with Comprehensive Validation (Sequence: 2)\",\"Work Order #102: Implement Conflict Detection Integration in Event Creation Form (Sequence: 3)\",\"Work Order #107: Build Conflict Display Modal Component (Sequence: 4)\",\"Work Order #111: Create Conflict Report View with Filtering and Pagination (Sequence: 5)\",\"Work Order #115: Implement Conflict Detection Dashboard Component (Sequence: 6)\",\"Work Order #103: Implement Conflict API Model for Scheduling Conflict Detection (Sequence: 7)\",\"Work Order #113: Implement Schedule Communication UI Components (Sequence: 8)\",\"Work Order #112: Implement Schedule Communication Data Models (Sequence: 9)\"]}"
+      }
+    ]
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "mcp__software-factory__get_work_order",
+    "tool_input": {
+      "work_order_number": "98"
+    },
+    "tool_response": [
+      {
+        "type": "text",
+        "text": "{\"result\":\"The following is a Work Order from the Software Factory. It contains detailed specifications and guidance for implementing a development task including a list of files to create or modify and descriptions of the precise changes required. Your responsibilities are as follows:\\n\\t1.\\tAnalyze the full context of the task, including reading any referenced files.\\n\\t2.\\tDevise a detailed implementation plan that outlines the required steps and proposed file modifications.\\n\\t3.\\tPresent this plan to the user for review and approval before proceeding with any code changes.\\n\\n# Implement Venue Amenity Data Models for Booking Management\\n\\n## Description\\n\\n**Purpose**: This work order implements the data model foundation for venue amenity management, enabling the system to store and associate amenities with venues to support comprehensive venue booking and conflict detection capabilities.\\n\\n**Requirements**:\\n- Create VenueAmenity table with id (UUID primary key), name (VARCHAR(255) unique, not null), description (TEXT), created_at and updated_at timestamps with proper constraints and defaults\\n- Create VenueHasAmenity linking table with id (UUID primary key), venue_id (foreign key to Venue.id), amenity_id (foreign key to VenueAmenity.id), quantity (INTEGER), notes (TEXT), and created_at timestamp with proper constraints\\n- Implement SQLModel classes for both VenueAmenity and VenueHasAmenity tables with proper Pydantic validation and ORM relationships\\n- Create Alembic migration scripts that successfully create both tables with all specified constraints, indexes, and foreign key relationships\\n- Establish proper database relationships where VenueHasAmenity correctly references both Venue and VenueAmenity tables with cascade behavior defined\\n- Validate that the data models support storing amenity types (e.g., 'Restrooms', 'Parking', 'Scoreboard') with quantities and optional notes for each venue-amenity association\\n\\n**Out of Scope**:\\n- API endpoints for managing venue amenities\\n- User interface components for venue amenity management\\n- Business logic for venue booking conflict detection\\n- Modifications to existing Venue or Event tables\\n- Seed data or initial amenity records\\n\\n## Implementation Plan\\n\\n(No implementation plan provided)\\n\\n**Work Order Number:** 98\\n\\nSequence Number: 1\"}"
+      }
+    ]
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing codebase structure and data models",
+          "status": "in_progress",
+          "activeForm": "Analyzing existing codebase structure and data models"
+        },
+        {
+          "content": "Create VenueAmenity SQLModel class with proper validation",
+          "status": "pending",
+          "activeForm": "Creating VenueAmenity SQLModel class with proper validation"
+        },
+        {
+          "content": "Create VenueHasAmenity linking table SQLModel class",
+          "status": "pending",
+          "activeForm": "Creating VenueHasAmenity linking table SQLModel class"
+        },
+        {
+          "content": "Create Alembic migration script for both tables",
+          "status": "pending",
+          "activeForm": "Creating Alembic migration script for both tables"
+        },
+        {
+          "content": "Verify database relationships and constraints",
+          "status": "pending",
+          "activeForm": "Verifying database relationships and constraints"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [],
+      "newTodos": [
+        {
+          "content": "Analyze existing codebase structure and data models",
+          "status": "in_progress",
+          "activeForm": "Analyzing existing codebase structure and data models"
+        },
+        {
+          "content": "Create VenueAmenity SQLModel class with proper validation",
+          "status": "pending",
+          "activeForm": "Creating VenueAmenity SQLModel class with proper validation"
+        },
+        {
+          "content": "Create VenueHasAmenity linking table SQLModel class",
+          "status": "pending",
+          "activeForm": "Creating VenueHasAmenity linking table SQLModel class"
+        },
+        {
+          "content": "Create Alembic migration script for both tables",
+          "status": "pending",
+          "activeForm": "Creating Alembic migration script for both tables"
+        },
+        {
+          "content": "Verify database relationships and constraints",
+          "status": "pending",
+          "activeForm": "Verifying database relationships and constraints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "find . -type f -name \"*.py\" | grep -E \"(model|migration|alembic)\" | head -20",
+      "description": "Find Python files related to models and migrations"
+    },
+    "tool_response": {
+      "stdout": "./backend/app/models/registration.py\n./backend/app/models/event.py\n./backend/app/models/venue_amenity.py\n./backend/app/models/venue.py\n./backend/app/models/venue_has_amenity.py\n./backend/app/models/event_team.py\n./backend/app/models/__init__.py\n./backend/app/models/team.py\n./backend/app/models/payment.py\n./backend/backend/venv/lib/python3.13/site-packages/pip/_internal/models/link.py\n./backend/backend/venv/lib/python3.13/site-packages/pip/_internal/models/selection_prefs.py\n./backend/backend/venv/lib/python3.13/site-packages/pip/_internal/models/direct_url.py\n./backend/backend/venv/lib/python3.13/site-packages/pip/_internal/models/index.py\n./backend/backend/venv/lib/python3.13/site-packages/pip/_internal/models/target_python.py\n./backend/backend/venv/lib/python3.13/site-packages/pip/_internal/models/__init__.py\n./backend/backend/venv/lib/python3.13/site-packages/pip/_internal/models/search_scope.py\n./backend/backend/venv/lib/python3.13/site-packages/pip/_internal/models/candidate.py\n./backend/backend/venv/lib/python3.13/site-packages/pip/_internal/models/format_control.py\n./backend/backend/venv/lib/python3.13/site-packages/pip/_internal/models/installation_report.py\n./backend/backend/venv/lib/python3.13/site-packages/pip/_internal/models/scheme.py",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/venue.py"
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "./backend/app/models/venue.py",
+        "content": "from sqlmodel import SQLModel, Field, Index, Relationship\nfrom typing import Optional, List, TYPE_CHECKING\nfrom datetime import datetime\nimport uuid\nfrom sqlalchemy import Column, String, Text, Integer, Boolean, DateTime\nfrom sqlalchemy.dialects.postgresql import UUID\n\nif TYPE_CHECKING:\n    from .event import Event\n    from .venue_has_amenity import VenueHasAmenity\n\nclass Venue(SQLModel, table=True):\n    __tablename__ = \"venues\"\n\n    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )\n    name: str = Field(\n        max_length=255,\n        unique=True,\n        sa_column=Column(String(255), unique=True, nullable=False)\n    )\n    address: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n    city: Optional[str] = Field(\n        default=None,\n        max_length=100,\n        sa_column=Column(String(100), nullable=True)\n    )\n    state: Optional[str] = Field(\n        default=None,\n        max_length=100,\n        sa_column=Column(String(100), nullable=True)\n    )\n    zip_code: Optional[str] = Field(\n        default=None,\n        max_length=20,\n        sa_column=Column(String(20), nullable=True)\n    )\n    capacity: Optional[int] = Field(\n        default=None,\n        sa_column=Column(Integer, nullable=True)\n    )\n    description: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n    is_active: bool = Field(\n        default=True,\n        sa_column=Column(Boolean, nullable=False, default=True)\n    )\n    created_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow)\n    )\n    updated_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)\n    )\n\n    # Relationship to events\n    events: List[\"Event\"] = Relationship(back_populates=\"venue\")\n\n    # Relationship to amenities\n    amenities: List[\"VenueHasAmenity\"] = Relationship(back_populates=\"venue\")\n\n    __table_args__ = (\n        Index('ix_venues_name', 'name'),\n        Index('ix_venues_city', 'city'),\n        Index('ix_venues_is_active', 'is_active'),\n    )",
+        "numLines": 75,
+        "startLine": 1,
+        "totalLines": 75
+      }
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/venue_has_amenity.py"
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "./backend/app/models/venue_has_amenity.py",
+        "content": "from sqlmodel import SQLModel, Field, Index, Relationship\nfrom typing import Optional, TYPE_CHECKING\nfrom datetime import datetime\nimport uuid\nfrom sqlalchemy import Column, Text, Integer, DateTime, ForeignKey\nfrom sqlalchemy.dialects.postgresql import UUID\n\nif TYPE_CHECKING:\n    from .venue import Venue\n    from .venue_amenity import VenueAmenity\n\n\nclass VenueHasAmenity(SQLModel, table=True):\n    __tablename__ = \"venue_has_amenities\"\n\n    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )\n    venue_id: uuid.UUID = Field(\n        foreign_key=\"venues.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\"), nullable=False)\n    )\n    amenity_id: uuid.UUID = Field(\n        foreign_key=\"venue_amenities.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venue_amenities.id\"), nullable=False)\n    )\n    quantity: Optional[int] = Field(\n        default=None,\n        sa_column=Column(Integer, nullable=True)\n    )\n    notes: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n    created_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow)\n    )\n    updated_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)\n    )\n\n    # Relationships\n    venue: Optional[\"Venue\"] = Relationship(back_populates=\"amenities\")\n    amenity: Optional[\"VenueAmenity\"] = Relationship()\n\n    __table_args__ = (\n        Index('ix_venue_has_amenities_venue_id', 'venue_id'),\n        Index('ix_venue_has_amenities_amenity_id', 'amenity_id'),\n        Index('ix_venue_has_amenities_unique', 'venue_id', 'amenity_id', unique=True),\n    )",
+        "numLines": 54,
+        "startLine": 1,
+        "totalLines": 54
+      }
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "find . -path \"*/migrations/*\" -name \"*.py\" | head -10",
+      "description": "Find migration files"
+    },
+    "tool_response": {
+      "stdout": "",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing codebase structure and data models",
+          "status": "completed",
+          "activeForm": "Analyzing existing codebase structure and data models"
+        },
+        {
+          "content": "Check existing migrations for venue amenity tables",
+          "status": "in_progress",
+          "activeForm": "Checking existing migrations for venue amenity tables"
+        },
+        {
+          "content": "Create VenueAmenity SQLModel class with proper validation",
+          "status": "completed",
+          "activeForm": "Creating VenueAmenity SQLModel class with proper validation"
+        },
+        {
+          "content": "Create VenueHasAmenity linking table SQLModel class",
+          "status": "completed",
+          "activeForm": "Creating VenueHasAmenity linking table SQLModel class"
+        },
+        {
+          "content": "Create Alembic migration script for both tables (if missing)",
+          "status": "pending",
+          "activeForm": "Creating Alembic migration script for both tables (if missing)"
+        },
+        {
+          "content": "Verify database relationships and constraints",
+          "status": "pending",
+          "activeForm": "Verifying database relationships and constraints"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [
+        {
+          "content": "Analyze existing codebase structure and data models",
+          "status": "in_progress",
+          "activeForm": "Analyzing existing codebase structure and data models"
+        },
+        {
+          "content": "Create VenueAmenity SQLModel class with proper validation",
+          "status": "pending",
+          "activeForm": "Creating VenueAmenity SQLModel class with proper validation"
+        },
+        {
+          "content": "Create VenueHasAmenity linking table SQLModel class",
+          "status": "pending",
+          "activeForm": "Creating VenueHasAmenity linking table SQLModel class"
+        },
+        {
+          "content": "Create Alembic migration script for both tables",
+          "status": "pending",
+          "activeForm": "Creating Alembic migration script for both tables"
+        },
+        {
+          "content": "Verify database relationships and constraints",
+          "status": "pending",
+          "activeForm": "Verifying database relationships and constraints"
+        }
+      ],
+      "newTodos": [
+        {
+          "content": "Analyze existing codebase structure and data models",
+          "status": "completed",
+          "activeForm": "Analyzing existing codebase structure and data models"
+        },
+        {
+          "content": "Check existing migrations for venue amenity tables",
+          "status": "in_progress",
+          "activeForm": "Checking existing migrations for venue amenity tables"
+        },
+        {
+          "content": "Create VenueAmenity SQLModel class with proper validation",
+          "status": "completed",
+          "activeForm": "Creating VenueAmenity SQLModel class with proper validation"
+        },
+        {
+          "content": "Create VenueHasAmenity linking table SQLModel class",
+          "status": "completed",
+          "activeForm": "Creating VenueHasAmenity linking table SQLModel class"
+        },
+        {
+          "content": "Create Alembic migration script for both tables (if missing)",
+          "status": "pending",
+          "activeForm": "Creating Alembic migration script for both tables (if missing)"
+        },
+        {
+          "content": "Verify database relationships and constraints",
+          "status": "pending",
+          "activeForm": "Verifying database relationships and constraints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "find . -path \"*/migrations/*\" -name \"*.py\" | head -10",
+      "description": "Find migration files"
+    },
+    "tool_response": {
+      "stdout": "",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "find . -name \"alembic*\" -o -name \"*migration*\" | head -10",
+      "description": "Find Alembic and migration related files"
+    },
+    "tool_response": {
+      "stdout": "./backend/migrations\n./backend/alembic.ini\n./backend/backend/venv/bin/alembic\n./backend/backend/venv/lib/python3.13/site-packages/sqlalchemy/dialects/type_migration_guidelines.txt\n./backend/backend/venv/lib/python3.13/site-packages/alembic\n./backend/backend/venv/lib/python3.13/site-packages/alembic/runtime/__pycache__/migration.cpython-313.pyc\n./backend/backend/venv/lib/python3.13/site-packages/alembic/runtime/migration.py\n./backend/backend/venv/lib/python3.13/site-packages/alembic/__pycache__/migration.cpython-313.pyc\n./backend/backend/venv/lib/python3.13/site-packages/alembic/templates/pyproject_async/alembic.ini.mako\n./backend/backend/venv/lib/python3.13/site-packages/alembic/templates/async/alembic.ini.mako",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la ./backend/migrations/",
+      "description": "List migration directory contents"
+    },
+    "tool_response": {
+      "stdout": "total 0\ndrwxr-xr-x@  2 jacksontumbidge  staff   64 21 Sep 16:43 .\ndrwxr-xr-x@ 17 jacksontumbidge  staff  544 22 Sep 08:50 ..",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/alembic.ini"
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "./backend/alembic.ini",
+        "content": "# A generic, single database configuration.\n\n[alembic]\n# path to migration scripts.\n# this is typically a path given in POSIX (e.g. forward slashes)\n# format, relative to the token %(here)s which refers to the location of this\n# ini file\nscript_location = %(here)s/alembic\n\n# template used to generate migration file names; The default value is %%(rev)s_%%(slug)s\n# Uncomment the line below if you want the files to be prepended with date and time\n# see https://alembic.sqlalchemy.org/en/latest/tutorial.html#editing-the-ini-file\n# for all available tokens\n# file_template = %%(year)d_%%(month).2d_%%(day).2d_%%(hour).2d%%(minute).2d-%%(rev)s_%%(slug)s\n\n# sys.path path, will be prepended to sys.path if present.\n# defaults to the current working directory.  for multiple paths, the path separator\n# is defined by \"path_separator\" below.\nprepend_sys_path = .\n\n\n# timezone to use when rendering the date within the migration file\n# as well as the filename.\n# If specified, requires the python>=3.9 or backports.zoneinfo library and tzdata library.\n# Any required deps can installed by adding `alembic[tz]` to the pip requirements\n# string value is passed to ZoneInfo()\n# leave blank for localtime\n# timezone =\n\n# max length of characters to apply to the \"slug\" field\n# truncate_slug_length = 40\n\n# set to 'true' to run the environment during\n# the 'revision' command, regardless of autogenerate\n# revision_environment = false\n\n# set to 'true' to allow .pyc and .pyo files without\n# a source .py file to be detected as revisions in the\n# versions/ directory\n# sourceless = false\n\n# version location specification; This defaults\n# to <script_location>/versions.  When using multiple version\n# directories, initial revisions must be specified with --version-path.\n# The path separator used here should be the separator specified by \"path_separator\"\n# below.\n# version_locations = %(here)s/bar:%(here)s/bat:%(here)s/alembic/versions\n\n# path_separator; This indicates what character is used to split lists of file\n# paths, including version_locations and prepend_sys_path within configparser\n# files such as alembic.ini.\n# The default rendered in new alembic.ini files is \"os\", which uses os.pathsep\n# to provide os-dependent path splitting.\n#\n# Note that in order to support legacy alembic.ini files, this default does NOT\n# take place if path_separator is not present in alembic.ini.  If this\n# option is omitted entirely, fallback logic is as follows:\n#\n# 1. Parsing of the version_locations option falls back to using the legacy\n#    \"version_path_separator\" key, which if absent then falls back to the legacy\n#    behavior of splitting on spaces and/or commas.\n# 2. Parsing of the prepend_sys_path option falls back to the legacy\n#    behavior of splitting on spaces, commas, or colons.\n#\n# Valid values for path_separator are:\n#\n# path_separator = :\n# path_separator = ;\n# path_separator = space\n# path_separator = newline\n#\n# Use os.pathsep. Default configuration used for new projects.\npath_separator = os\n\n# set to 'true' to search source files recursively\n# in each \"version_locations\" directory\n# new in Alembic version 1.10\n# recursive_version_locations = false\n\n# the output encoding used when revision files\n# are written from script.py.mako\n# output_encoding = utf-8\n\n# database URL.  This is consumed by the user-maintained env.py script only.\n# other means of configuring database URLs may be customized within the env.py\n# file.\n# sqlalchemy.url = driver://user:pass@localhost/dbname\n# Database URL will be set in env.py from environment variables\n\n\n[post_write_hooks]\n# post_write_hooks defines scripts or Python functions that are run\n# on newly generated revision scripts.  See the documentation for further\n# detail and examples\n\n# format using \"black\" - use the console_scripts runner, against the \"black\" entrypoint\n# hooks = black\n# black.type = console_scripts\n# black.entrypoint = black\n# black.options = -l 79 REVISION_SCRIPT_FILENAME\n\n# lint with attempts to fix using \"ruff\" - use the module runner, against the \"ruff\" module\n# hooks = ruff\n# ruff.type = module\n# ruff.module = ruff\n# ruff.options = check --fix REVISION_SCRIPT_FILENAME\n\n# Alternatively, use the exec runner to execute a binary found on your PATH\n# hooks = ruff\n# ruff.type = exec\n# ruff.executable = ruff\n# ruff.options = check --fix REVISION_SCRIPT_FILENAME\n\n# Logging configuration.  This is also consumed by the user-maintained\n# env.py script only.\n[loggers]\nkeys = root,sqlalchemy,alembic\n\n[handlers]\nkeys = console\n\n[formatters]\nkeys = generic\n\n[logger_root]\nlevel = WARNING\nhandlers = console\nqualname =\n\n[logger_sqlalchemy]\nlevel = WARNING\nhandlers =\nqualname = sqlalchemy.engine\n\n[logger_alembic]\nlevel = INFO\nhandlers =\nqualname = alembic\n\n[handler_console]\nclass = StreamHandler\nargs = (sys.stderr,)\nlevel = NOTSET\nformatter = generic\n\n[formatter_generic]\nformat = %(levelname)-5.5s [%(name)s] %(message)s\ndatefmt = %H:%M:%S\n",
+        "numLines": 149,
+        "startLine": 1,
+        "totalLines": 149
+      }
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing codebase structure and data models",
+          "status": "completed",
+          "activeForm": "Analyzing existing codebase structure and data models"
+        },
+        {
+          "content": "Check existing migrations for venue amenity tables",
+          "status": "completed",
+          "activeForm": "Checking existing migrations for venue amenity tables"
+        },
+        {
+          "content": "Initialize Alembic migration environment",
+          "status": "in_progress",
+          "activeForm": "Initializing Alembic migration environment"
+        },
+        {
+          "content": "Create VenueAmenity SQLModel class with proper validation",
+          "status": "completed",
+          "activeForm": "Creating VenueAmenity SQLModel class with proper validation"
+        },
+        {
+          "content": "Create VenueHasAmenity linking table SQLModel class",
+          "status": "completed",
+          "activeForm": "Creating VenueHasAmenity linking table SQLModel class"
+        },
+        {
+          "content": "Create Alembic migration script for both tables",
+          "status": "pending",
+          "activeForm": "Creating Alembic migration script for both tables"
+        },
+        {
+          "content": "Verify database relationships and constraints",
+          "status": "pending",
+          "activeForm": "Verifying database relationships and constraints"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [
+        {
+          "content": "Analyze existing codebase structure and data models",
+          "status": "completed",
+          "activeForm": "Analyzing existing codebase structure and data models"
+        },
+        {
+          "content": "Check existing migrations for venue amenity tables",
+          "status": "in_progress",
+          "activeForm": "Checking existing migrations for venue amenity tables"
+        },
+        {
+          "content": "Create VenueAmenity SQLModel class with proper validation",
+          "status": "completed",
+          "activeForm": "Creating VenueAmenity SQLModel class with proper validation"
+        },
+        {
+          "content": "Create VenueHasAmenity linking table SQLModel class",
+          "status": "completed",
+          "activeForm": "Creating VenueHasAmenity linking table SQLModel class"
+        },
+        {
+          "content": "Create Alembic migration script for both tables (if missing)",
+          "status": "pending",
+          "activeForm": "Creating Alembic migration script for both tables (if missing)"
+        },
+        {
+          "content": "Verify database relationships and constraints",
+          "status": "pending",
+          "activeForm": "Verifying database relationships and constraints"
+        }
+      ],
+      "newTodos": [
+        {
+          "content": "Analyze existing codebase structure and data models",
+          "status": "completed",
+          "activeForm": "Analyzing existing codebase structure and data models"
+        },
+        {
+          "content": "Check existing migrations for venue amenity tables",
+          "status": "completed",
+          "activeForm": "Checking existing migrations for venue amenity tables"
+        },
+        {
+          "content": "Initialize Alembic migration environment",
+          "status": "in_progress",
+          "activeForm": "Initializing Alembic migration environment"
+        },
+        {
+          "content": "Create VenueAmenity SQLModel class with proper validation",
+          "status": "completed",
+          "activeForm": "Creating VenueAmenity SQLModel class with proper validation"
+        },
+        {
+          "content": "Create VenueHasAmenity linking table SQLModel class",
+          "status": "completed",
+          "activeForm": "Creating VenueHasAmenity linking table SQLModel class"
+        },
+        {
+          "content": "Create Alembic migration script for both tables",
+          "status": "pending",
+          "activeForm": "Creating Alembic migration script for both tables"
+        },
+        {
+          "content": "Verify database relationships and constraints",
+          "status": "pending",
+          "activeForm": "Verifying database relationships and constraints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la ./backend/",
+      "description": "List backend directory contents to find alembic setup"
+    },
+    "tool_response": {
+      "stdout": "total 144\ndrwxr-xr-x@ 17 jacksontumbidge  staff    544 22 Sep 08:50 .\ndrwxr-xr-x@ 16 jacksontumbidge  staff    512 21 Sep 16:29 ..\ndrwxr-xr-x@  6 jacksontumbidge  staff    192 21 Sep 16:45 alembic\n-rw-r--r--@  1 jacksontumbidge  staff   4928 21 Sep 16:45 alembic.ini\n-rw-r--r--@  1 jacksontumbidge  staff   4543 21 Sep 16:56 API_README.md\ndrwxr-xr-x@  7 jacksontumbidge  staff    224 21 Sep 20:19 app\ndrwxr-xr-x@  4 jacksontumbidge  staff    128 21 Sep 20:19 backend\n-rw-r--r--@  1 jacksontumbidge  staff   7363 21 Sep 20:11 EVENT_TEAM_ASSOCIATION_IMPLEMENTATION.md\ndrwxr-xr-x@  7 jacksontumbidge  staff    224 21 Sep 16:51 logs\n-rw-r--r--@  1 jacksontumbidge  staff   1677 22 Sep 08:50 main.py\ndrwxr-xr-x@  2 jacksontumbidge  staff     64 21 Sep 16:43 migrations\n-rw-r--r--@  1 jacksontumbidge  staff    141 19 Sep 10:47 requirements.txt\n-rw-r--r--@  1 jacksontumbidge  staff   2572 21 Sep 16:56 test_api.py\n-rw-r--r--@  1 jacksontumbidge  staff  10936 22 Sep 08:24 test_venue_amenities_api.py\n-rw-r--r--@  1 jacksontumbidge  staff  12375 22 Sep 08:30 test_venue_amenity_associations_api.py\n-rw-r--r--@  1 jacksontumbidge  staff   6992 21 Sep 20:21 test_venues_api.py\ndrwxr-xr-x@  2 jacksontumbidge  staff     64 21 Sep 16:43 tests",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la ./backend/alembic/",
+      "description": "List alembic directory contents"
+    },
+    "tool_response": {
+      "stdout": "total 24\ndrwxr-xr-x@  6 jacksontumbidge  staff   192 21 Sep 16:45 .\ndrwxr-xr-x@ 17 jacksontumbidge  staff   544 22 Sep 08:50 ..\n-rw-r--r--@  1 jacksontumbidge  staff  2428 21 Sep 16:45 env.py\n-rw-r--r--@  1 jacksontumbidge  staff    38 21 Sep 16:44 README\n-rw-r--r--@  1 jacksontumbidge  staff   704 21 Sep 16:44 script.py.mako\ndrwxr-xr-x@  2 jacksontumbidge  staff    64 21 Sep 16:44 versions",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Bash",
+    "tool_input": {
+      "command": "ls -la ./backend/alembic/versions/",
+      "description": "List existing migration versions"
+    },
+    "tool_response": {
+      "stdout": "total 0\ndrwxr-xr-x@ 2 jacksontumbidge  staff   64 21 Sep 16:44 .\ndrwxr-xr-x@ 6 jacksontumbidge  staff  192 21 Sep 16:45 ..",
+      "stderr": "",
+      "interrupted": false,
+      "isImage": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/alembic/env.py"
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "./backend/alembic/env.py",
+        "content": "from logging.config import fileConfig\nimport os\nfrom dotenv import load_dotenv\n\nfrom sqlalchemy import engine_from_config\nfrom sqlalchemy import pool\n\nfrom alembic import context\n\n# Load environment variables\nload_dotenv()\n\n# this is the Alembic Config object, which provides\n# access to the values within the .ini file in use.\nconfig = context.config\n\n# Set the database URL from environment variable\ndatabase_url = os.getenv(\"DATABASE_URL\", \"postgresql://username:password@localhost:5432/gameplanpro\")\nconfig.set_main_option(\"sqlalchemy.url\", database_url)\n\n# Interpret the config file for Python logging.\n# This line sets up loggers basically.\nif config.config_file_name is not None:\n    fileConfig(config.config_file_name)\n\n# Import our models for autogenerate support\nfrom app.models import Venue, Event\nfrom sqlmodel import SQLModel\n\n# Set target metadata to our SQLModel metadata\ntarget_metadata = SQLModel.metadata\n\n# other values from the config, defined by the needs of env.py,\n# can be acquired:\n# my_important_option = config.get_main_option(\"my_important_option\")\n# ... etc.\n\n\ndef run_migrations_offline() -> None:\n    \"\"\"Run migrations in 'offline' mode.\n\n    This configures the context with just a URL\n    and not an Engine, though an Engine is acceptable\n    here as well.  By skipping the Engine creation\n    we don't even need a DBAPI to be available.\n\n    Calls to context.execute() here emit the given string to the\n    script output.\n\n    \"\"\"\n    url = config.get_main_option(\"sqlalchemy.url\")\n    context.configure(\n        url=url,\n        target_metadata=target_metadata,\n        literal_binds=True,\n        dialect_opts={\"paramstyle\": \"named\"},\n    )\n\n    with context.begin_transaction():\n        context.run_migrations()\n\n\ndef run_migrations_online() -> None:\n    \"\"\"Run migrations in 'online' mode.\n\n    In this scenario we need to create an Engine\n    and associate a connection with the context.\n\n    \"\"\"\n    connectable = engine_from_config(\n        config.get_section(config.config_ini_section, {}),\n        prefix=\"sqlalchemy.\",\n        poolclass=pool.NullPool,\n    )\n\n    with connectable.connect() as connection:\n        context.configure(\n            connection=connection, target_metadata=target_metadata\n        )\n\n        with context.begin_transaction():\n            context.run_migrations()\n\n\nif context.is_offline_mode():\n    run_migrations_offline()\nelse:\n    run_migrations_online()\n",
+        "numLines": 89,
+        "startLine": 1,
+        "totalLines": 89
+      }
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing codebase structure and data models",
+          "status": "completed",
+          "activeForm": "Analyzing existing codebase structure and data models"
+        },
+        {
+          "content": "Check existing migrations for venue amenity tables",
+          "status": "completed",
+          "activeForm": "Checking existing migrations for venue amenity tables"
+        },
+        {
+          "content": "Initialize Alembic migration environment",
+          "status": "completed",
+          "activeForm": "Initializing Alembic migration environment"
+        },
+        {
+          "content": "Update alembic env.py to import venue amenity models",
+          "status": "in_progress",
+          "activeForm": "Updating alembic env.py to import venue amenity models"
+        },
+        {
+          "content": "Create VenueAmenity SQLModel class with proper validation",
+          "status": "completed",
+          "activeForm": "Creating VenueAmenity SQLModel class with proper validation"
+        },
+        {
+          "content": "Create VenueHasAmenity linking table SQLModel class",
+          "status": "completed",
+          "activeForm": "Creating VenueHasAmenity linking table SQLModel class"
+        },
+        {
+          "content": "Create Alembic migration script for both tables",
+          "status": "pending",
+          "activeForm": "Creating Alembic migration script for both tables"
+        },
+        {
+          "content": "Verify database relationships and constraints",
+          "status": "pending",
+          "activeForm": "Verifying database relationships and constraints"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [
+        {
+          "content": "Analyze existing codebase structure and data models",
+          "status": "completed",
+          "activeForm": "Analyzing existing codebase structure and data models"
+        },
+        {
+          "content": "Check existing migrations for venue amenity tables",
+          "status": "completed",
+          "activeForm": "Checking existing migrations for venue amenity tables"
+        },
+        {
+          "content": "Initialize Alembic migration environment",
+          "status": "in_progress",
+          "activeForm": "Initializing Alembic migration environment"
+        },
+        {
+          "content": "Create VenueAmenity SQLModel class with proper validation",
+          "status": "completed",
+          "activeForm": "Creating VenueAmenity SQLModel class with proper validation"
+        },
+        {
+          "content": "Create VenueHasAmenity linking table SQLModel class",
+          "status": "completed",
+          "activeForm": "Creating VenueHasAmenity linking table SQLModel class"
+        },
+        {
+          "content": "Create Alembic migration script for both tables",
+          "status": "pending",
+          "activeForm": "Creating Alembic migration script for both tables"
+        },
+        {
+          "content": "Verify database relationships and constraints",
+          "status": "pending",
+          "activeForm": "Verifying database relationships and constraints"
+        }
+      ],
+      "newTodos": [
+        {
+          "content": "Analyze existing codebase structure and data models",
+          "status": "completed",
+          "activeForm": "Analyzing existing codebase structure and data models"
+        },
+        {
+          "content": "Check existing migrations for venue amenity tables",
+          "status": "completed",
+          "activeForm": "Checking existing migrations for venue amenity tables"
+        },
+        {
+          "content": "Initialize Alembic migration environment",
+          "status": "completed",
+          "activeForm": "Initializing Alembic migration environment"
+        },
+        {
+          "content": "Update alembic env.py to import venue amenity models",
+          "status": "in_progress",
+          "activeForm": "Updating alembic env.py to import venue amenity models"
+        },
+        {
+          "content": "Create VenueAmenity SQLModel class with proper validation",
+          "status": "completed",
+          "activeForm": "Creating VenueAmenity SQLModel class with proper validation"
+        },
+        {
+          "content": "Create VenueHasAmenity linking table SQLModel class",
+          "status": "completed",
+          "activeForm": "Creating VenueHasAmenity linking table SQLModel class"
+        },
+        {
+          "content": "Create Alembic migration script for both tables",
+          "status": "pending",
+          "activeForm": "Creating Alembic migration script for both tables"
+        },
+        {
+          "content": "Verify database relationships and constraints",
+          "status": "pending",
+          "activeForm": "Verifying database relationships and constraints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/alembic/env.py",
+      "old_string": "# Import our models for autogenerate support\nfrom app.models import Venue, Event\nfrom sqlmodel import SQLModel",
+      "new_string": "# Import our models for autogenerate support\nfrom app.models import Venue, Event, VenueAmenity, VenueHasAmenity, Team, EventTeam, Registration, Payment\nfrom sqlmodel import SQLModel"
+    },
+    "tool_response": {
+      "filePath": "./backend/alembic/env.py",
+      "oldString": "# Import our models for autogenerate support\nfrom app.models import Venue, Event\nfrom sqlmodel import SQLModel",
+      "newString": "# Import our models for autogenerate support\nfrom app.models import Venue, Event, VenueAmenity, VenueHasAmenity, Team, EventTeam, Registration, Payment\nfrom sqlmodel import SQLModel",
+      "originalFile": "from logging.config import fileConfig\nimport os\nfrom dotenv import load_dotenv\n\nfrom sqlalchemy import engine_from_config\nfrom sqlalchemy import pool\n\nfrom alembic import context\n\n# Load environment variables\nload_dotenv()\n\n# this is the Alembic Config object, which provides\n# access to the values within the .ini file in use.\nconfig = context.config\n\n# Set the database URL from environment variable\ndatabase_url = os.getenv(\"DATABASE_URL\", \"postgresql://username:password@localhost:5432/gameplanpro\")\nconfig.set_main_option(\"sqlalchemy.url\", database_url)\n\n# Interpret the config file for Python logging.\n# This line sets up loggers basically.\nif config.config_file_name is not None:\n    fileConfig(config.config_file_name)\n\n# Import our models for autogenerate support\nfrom app.models import Venue, Event\nfrom sqlmodel import SQLModel\n\n# Set target metadata to our SQLModel metadata\ntarget_metadata = SQLModel.metadata\n\n# other values from the config, defined by the needs of env.py,\n# can be acquired:\n# my_important_option = config.get_main_option(\"my_important_option\")\n# ... etc.\n\n\ndef run_migrations_offline() -> None:\n    \"\"\"Run migrations in 'offline' mode.\n\n    This configures the context with just a URL\n    and not an Engine, though an Engine is acceptable\n    here as well.  By skipping the Engine creation\n    we don't even need a DBAPI to be available.\n\n    Calls to context.execute() here emit the given string to the\n    script output.\n\n    \"\"\"\n    url = config.get_main_option(\"sqlalchemy.url\")\n    context.configure(\n        url=url,\n        target_metadata=target_metadata,\n        literal_binds=True,\n        dialect_opts={\"paramstyle\": \"named\"},\n    )\n\n    with context.begin_transaction():\n        context.run_migrations()\n\n\ndef run_migrations_online() -> None:\n    \"\"\"Run migrations in 'online' mode.\n\n    In this scenario we need to create an Engine\n    and associate a connection with the context.\n\n    \"\"\"\n    connectable = engine_from_config(\n        config.get_section(config.config_ini_section, {}),\n        prefix=\"sqlalchemy.\",\n        poolclass=pool.NullPool,\n    )\n\n    with connectable.connect() as connection:\n        context.configure(\n            connection=connection, target_metadata=target_metadata\n        )\n\n        with context.begin_transaction():\n            context.run_migrations()\n\n\nif context.is_offline_mode():\n    run_migrations_offline()\nelse:\n    run_migrations_online()\n",
+      "structuredPatch": [
+        {
+          "oldStart": 24,
+          "oldLines": 7,
+          "newStart": 24,
+          "newLines": 7,
+          "lines": [
+            "     fileConfig(config.config_file_name)",
+            " ",
+            " # Import our models for autogenerate support",
+            "-from app.models import Venue, Event",
+            "+from app.models import Venue, Event, VenueAmenity, VenueHasAmenity, Team, EventTeam, Registration, Payment",
+            " from sqlmodel import SQLModel",
+            " ",
+            " # Set target metadata to our SQLModel metadata"
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "TodoWrite",
+    "tool_input": {
+      "todos": [
+        {
+          "content": "Analyze existing codebase structure and data models",
+          "status": "completed",
+          "activeForm": "Analyzing existing codebase structure and data models"
+        },
+        {
+          "content": "Check existing migrations for venue amenity tables",
+          "status": "completed",
+          "activeForm": "Checking existing migrations for venue amenity tables"
+        },
+        {
+          "content": "Initialize Alembic migration environment",
+          "status": "completed",
+          "activeForm": "Initializing Alembic migration environment"
+        },
+        {
+          "content": "Update alembic env.py to import venue amenity models",
+          "status": "completed",
+          "activeForm": "Updating alembic env.py to import venue amenity models"
+        },
+        {
+          "content": "Create VenueAmenity SQLModel class with proper validation",
+          "status": "completed",
+          "activeForm": "Creating VenueAmenity SQLModel class with proper validation"
+        },
+        {
+          "content": "Create VenueHasAmenity linking table SQLModel class",
+          "status": "completed",
+          "activeForm": "Creating VenueHasAmenity linking table SQLModel class"
+        },
+        {
+          "content": "Create Alembic migration script for both tables",
+          "status": "in_progress",
+          "activeForm": "Creating Alembic migration script for both tables"
+        },
+        {
+          "content": "Verify database relationships and constraints",
+          "status": "pending",
+          "activeForm": "Verifying database relationships and constraints"
+        }
+      ]
+    },
+    "tool_response": {
+      "oldTodos": [
+        {
+          "content": "Analyze existing codebase structure and data models",
+          "status": "completed",
+          "activeForm": "Analyzing existing codebase structure and data models"
+        },
+        {
+          "content": "Check existing migrations for venue amenity tables",
+          "status": "completed",
+          "activeForm": "Checking existing migrations for venue amenity tables"
+        },
+        {
+          "content": "Initialize Alembic migration environment",
+          "status": "completed",
+          "activeForm": "Initializing Alembic migration environment"
+        },
+        {
+          "content": "Update alembic env.py to import venue amenity models",
+          "status": "in_progress",
+          "activeForm": "Updating alembic env.py to import venue amenity models"
+        },
+        {
+          "content": "Create VenueAmenity SQLModel class with proper validation",
+          "status": "completed",
+          "activeForm": "Creating VenueAmenity SQLModel class with proper validation"
+        },
+        {
+          "content": "Create VenueHasAmenity linking table SQLModel class",
+          "status": "completed",
+          "activeForm": "Creating VenueHasAmenity linking table SQLModel class"
+        },
+        {
+          "content": "Create Alembic migration script for both tables",
+          "status": "pending",
+          "activeForm": "Creating Alembic migration script for both tables"
+        },
+        {
+          "content": "Verify database relationships and constraints",
+          "status": "pending",
+          "activeForm": "Verifying database relationships and constraints"
+        }
+      ],
+      "newTodos": [
+        {
+          "content": "Analyze existing codebase structure and data models",
+          "status": "completed",
+          "activeForm": "Analyzing existing codebase structure and data models"
+        },
+        {
+          "content": "Check existing migrations for venue amenity tables",
+          "status": "completed",
+          "activeForm": "Checking existing migrations for venue amenity tables"
+        },
+        {
+          "content": "Initialize Alembic migration environment",
+          "status": "completed",
+          "activeForm": "Initializing Alembic migration environment"
+        },
+        {
+          "content": "Update alembic env.py to import venue amenity models",
+          "status": "completed",
+          "activeForm": "Updating alembic env.py to import venue amenity models"
+        },
+        {
+          "content": "Create VenueAmenity SQLModel class with proper validation",
+          "status": "completed",
+          "activeForm": "Creating VenueAmenity SQLModel class with proper validation"
+        },
+        {
+          "content": "Create VenueHasAmenity linking table SQLModel class",
+          "status": "completed",
+          "activeForm": "Creating VenueHasAmenity linking table SQLModel class"
+        },
+        {
+          "content": "Create Alembic migration script for both tables",
+          "status": "in_progress",
+          "activeForm": "Creating Alembic migration script for both tables"
+        },
+        {
+          "content": "Verify database relationships and constraints",
+          "status": "pending",
+          "activeForm": "Verifying database relationships and constraints"
+        }
+      ]
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/venue.py",
+      "limit": 20
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "./backend/app/models/venue.py",
+        "content": "from sqlmodel import SQLModel, Field, Index, Relationship\nfrom typing import Optional, List, TYPE_CHECKING\nfrom datetime import datetime\nimport uuid\nfrom sqlalchemy import Column, String, Text, Integer, Boolean, DateTime\nfrom sqlalchemy.dialects.postgresql import UUID\n\nif TYPE_CHECKING:\n    from .event import Event\n    from .venue_has_amenity import VenueHasAmenity\n\nclass Venue(SQLModel, table=True):\n    __tablename__ = \"venues\"\n\n    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )\n    name: str = Field(",
+        "numLines": 20,
+        "startLine": 1,
+        "totalLines": 75
+      }
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/venue.py",
+      "old_string": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )",
+      "new_string": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )"
+    },
+    "tool_response": {
+      "filePath": "./backend/app/models/venue.py",
+      "oldString": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )",
+      "newString": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )",
+      "originalFile": "from sqlmodel import SQLModel, Field, Index, Relationship\nfrom typing import Optional, List, TYPE_CHECKING\nfrom datetime import datetime\nimport uuid\nfrom sqlalchemy import Column, String, Text, Integer, Boolean, DateTime\nfrom sqlalchemy.dialects.postgresql import UUID\n\nif TYPE_CHECKING:\n    from .event import Event\n    from .venue_has_amenity import VenueHasAmenity\n\nclass Venue(SQLModel, table=True):\n    __tablename__ = \"venues\"\n\n    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )\n    name: str = Field(\n        max_length=255,\n        unique=True,\n        sa_column=Column(String(255), unique=True, nullable=False)\n    )\n    address: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n    city: Optional[str] = Field(\n        default=None,\n        max_length=100,\n        sa_column=Column(String(100), nullable=True)\n    )\n    state: Optional[str] = Field(\n        default=None,\n        max_length=100,\n        sa_column=Column(String(100), nullable=True)\n    )\n    zip_code: Optional[str] = Field(\n        default=None,\n        max_length=20,\n        sa_column=Column(String(20), nullable=True)\n    )\n    capacity: Optional[int] = Field(\n        default=None,\n        sa_column=Column(Integer, nullable=True)\n    )\n    description: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n    is_active: bool = Field(\n        default=True,\n        sa_column=Column(Boolean, nullable=False, default=True)\n    )\n    created_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow)\n    )\n    updated_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)\n    )\n\n    # Relationship to events\n    events: List[\"Event\"] = Relationship(back_populates=\"venue\")\n\n    # Relationship to amenities\n    amenities: List[\"VenueHasAmenity\"] = Relationship(back_populates=\"venue\")\n\n    __table_args__ = (\n        Index('ix_venues_name', 'name'),\n        Index('ix_venues_city', 'city'),\n        Index('ix_venues_is_active', 'is_active'),\n    )",
+      "structuredPatch": [
+        {
+          "oldStart": 14,
+          "oldLines": 7,
+          "newStart": 14,
+          "newLines": 6,
+          "lines": [
+            " ",
+            "     id: uuid.UUID = Field(",
+            "         default_factory=uuid.uuid4,",
+            "-        primary_key=True,",
+            "         sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)",
+            "     )",
+            "     name: str = Field("
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/venue_amenity.py",
+      "old_string": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )",
+      "new_string": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )"
+    },
+    "tool_response": {
+      "filePath": "./backend/app/models/venue_amenity.py",
+      "oldString": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )",
+      "newString": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )",
+      "originalFile": "from sqlmodel import SQLModel, Field, Index\nfrom typing import Optional\nfrom datetime import datetime\nimport uuid\nfrom sqlalchemy import Column, String, Text, DateTime, Boolean\nfrom sqlalchemy.dialects.postgresql import UUID\n\n\nclass VenueAmenity(SQLModel, table=True):\n    __tablename__ = \"venue_amenities\"\n\n    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )\n    name: str = Field(\n        max_length=255,\n        unique=True,\n        sa_column=Column(String(255), unique=True, nullable=False)\n    )\n    description: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n    is_active: bool = Field(\n        default=True,\n        sa_column=Column(Boolean, nullable=False, default=True)\n    )\n    created_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow)\n    )\n    updated_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)\n    )\n\n    __table_args__ = (\n        Index('ix_venue_amenities_name', 'name'),\n        Index('ix_venue_amenities_is_active', 'is_active'),\n    )",
+      "structuredPatch": [
+        {
+          "oldStart": 11,
+          "oldLines": 7,
+          "newStart": 11,
+          "newLines": 6,
+          "lines": [
+            " ",
+            "     id: uuid.UUID = Field(",
+            "         default_factory=uuid.uuid4,",
+            "-        primary_key=True,",
+            "         sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)",
+            "     )",
+            "     name: str = Field("
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/venue_has_amenity.py",
+      "old_string": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )",
+      "new_string": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )"
+    },
+    "tool_response": {
+      "filePath": "./backend/app/models/venue_has_amenity.py",
+      "oldString": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )",
+      "newString": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )",
+      "originalFile": "from sqlmodel import SQLModel, Field, Index, Relationship\nfrom typing import Optional, TYPE_CHECKING\nfrom datetime import datetime\nimport uuid\nfrom sqlalchemy import Column, Text, Integer, DateTime, ForeignKey\nfrom sqlalchemy.dialects.postgresql import UUID\n\nif TYPE_CHECKING:\n    from .venue import Venue\n    from .venue_amenity import VenueAmenity\n\n\nclass VenueHasAmenity(SQLModel, table=True):\n    __tablename__ = \"venue_has_amenities\"\n\n    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )\n    venue_id: uuid.UUID = Field(\n        foreign_key=\"venues.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\"), nullable=False)\n    )\n    amenity_id: uuid.UUID = Field(\n        foreign_key=\"venue_amenities.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venue_amenities.id\"), nullable=False)\n    )\n    quantity: Optional[int] = Field(\n        default=None,\n        sa_column=Column(Integer, nullable=True)\n    )\n    notes: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n    created_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow)\n    )\n    updated_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)\n    )\n\n    # Relationships\n    venue: Optional[\"Venue\"] = Relationship(back_populates=\"amenities\")\n    amenity: Optional[\"VenueAmenity\"] = Relationship()\n\n    __table_args__ = (\n        Index('ix_venue_has_amenities_venue_id', 'venue_id'),\n        Index('ix_venue_has_amenities_amenity_id', 'amenity_id'),\n        Index('ix_venue_has_amenities_unique', 'venue_id', 'amenity_id', unique=True),\n    )",
+      "structuredPatch": [
+        {
+          "oldStart": 15,
+          "oldLines": 7,
+          "newStart": 15,
+          "newLines": 6,
+          "lines": [
+            " ",
+            "     id: uuid.UUID = Field(",
+            "         default_factory=uuid.uuid4,",
+            "-        primary_key=True,",
+            "         sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)",
+            "     )",
+            "     venue_id: uuid.UUID = Field("
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/event.py",
+      "limit": 20
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "./backend/app/models/event.py",
+        "content": "from sqlmodel import SQLModel, Field, Relationship, Index\nfrom typing import Optional, List, TYPE_CHECKING\nfrom datetime import datetime\nimport uuid\nfrom enum import Enum\nfrom sqlalchemy import Column, String, Text, DateTime, Boolean, Integer, ForeignKey, CheckConstraint\nfrom sqlalchemy.dialects.postgresql import UUID\nfrom pydantic import validator\n\nif TYPE_CHECKING:\n    from .event_team import EventTeam\n    from .venue import Venue\n\nclass EventType(str, Enum):\n    PRACTICE = \"Practice\"\n    GAME = \"Game\"\n    MEETING = \"Meeting\"\n    TOURNAMENT = \"Tournament\"\n    OTHER = \"Other\"\n",
+        "numLines": 20,
+        "startLine": 1,
+        "totalLines": 92
+      }
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "id: uuid.UUID = Field",
+      "path": "./backend/app/models/event.py",
+      "output_mode": "content",
+      "-n": true
+    },
+    "tool_response": {
+      "mode": "content",
+      "numFiles": 0,
+      "filenames": [],
+      "content": "24:    id: uuid.UUID = Field(",
+      "numLines": 1
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/event.py",
+      "offset": 24,
+      "limit": 10
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "./backend/app/models/event.py",
+        "content": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )\n    name: str = Field(\n        max_length=255,\n        sa_column=Column(String(255), nullable=False)\n    )\n    description: Optional[str] = Field(",
+        "numLines": 10,
+        "startLine": 24,
+        "totalLines": 92
+      }
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/event.py",
+      "old_string": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )",
+      "new_string": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )"
+    },
+    "tool_response": {
+      "filePath": "./backend/app/models/event.py",
+      "oldString": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )",
+      "newString": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )",
+      "originalFile": "from sqlmodel import SQLModel, Field, Relationship, Index\nfrom typing import Optional, List, TYPE_CHECKING\nfrom datetime import datetime\nimport uuid\nfrom enum import Enum\nfrom sqlalchemy import Column, String, Text, DateTime, Boolean, Integer, ForeignKey, CheckConstraint\nfrom sqlalchemy.dialects.postgresql import UUID\nfrom pydantic import validator\n\nif TYPE_CHECKING:\n    from .event_team import EventTeam\n    from .venue import Venue\n\nclass EventType(str, Enum):\n    PRACTICE = \"Practice\"\n    GAME = \"Game\"\n    MEETING = \"Meeting\"\n    TOURNAMENT = \"Tournament\"\n    OTHER = \"Other\"\n\nclass Event(SQLModel, table=True):\n    __tablename__ = \"events\"\n\n    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )\n    name: str = Field(\n        max_length=255,\n        sa_column=Column(String(255), nullable=False)\n    )\n    description: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n    event_type: EventType = Field(\n        sa_column=Column(String(50), nullable=False)\n    )\n    start_time: datetime = Field(\n        sa_column=Column(DateTime, nullable=False)\n    )\n    end_time: datetime = Field(\n        sa_column=Column(DateTime, nullable=False)\n    )\n    venue_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"venues.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\", ondelete=\"SET NULL\"), nullable=True)\n    )\n    created_by_user_id: int = Field(\n        foreign_key=\"users.id\",\n        sa_column=Column(Integer, ForeignKey(\"users.id\"), nullable=False)\n    )\n    is_recurring: bool = Field(\n        default=False,\n        sa_column=Column(Boolean, nullable=False, default=False)\n    )\n    recurrence_rule: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n    created_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow)\n    )\n    updated_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)\n    )\n\n    # Relationship to venue\n    venue: Optional[\"Venue\"] = Relationship(back_populates=\"events\")\n\n    # Relationship to event teams (many-to-many through EventTeam)\n    event_teams: List[\"EventTeam\"] = Relationship(back_populates=\"event\")\n\n    @validator('end_time')\n    def validate_end_time_after_start(cls, v, values):\n        if 'start_time' in values and v <= values['start_time']:\n            raise ValueError('end_time must be after start_time')\n        return v\n\n    __table_args__ = (\n        CheckConstraint('start_time < end_time', name='check_start_before_end'),\n        Index('ix_events_start_time', 'start_time'),\n        Index('ix_events_end_time', 'end_time'),\n        Index('ix_events_event_type', 'event_type'),\n        Index('ix_events_venue_id', 'venue_id'),\n        Index('ix_events_created_by_user_id', 'created_by_user_id'),\n        Index('ix_events_is_recurring', 'is_recurring'),\n    )",
+      "structuredPatch": [
+        {
+          "oldStart": 23,
+          "oldLines": 7,
+          "newStart": 23,
+          "newLines": 6,
+          "lines": [
+            " ",
+            "     id: uuid.UUID = Field(",
+            "         default_factory=uuid.uuid4,",
+            "-        primary_key=True,",
+            "         sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)",
+            "     )",
+            "     name: str = Field("
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "primary_key=True.*sa_column.*primary_key=True",
+      "path": "./backend/app/models/",
+      "output_mode": "files_with_matches"
+    },
+    "tool_response": {
+      "mode": "files_with_matches",
+      "filenames": [],
+      "numFiles": 0
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "primary_key=True,\\s*\\n.*sa_column.*primary_key=True",
+      "path": "./backend/app/models/",
+      "output_mode": "files_with_matches",
+      "multiline": true
+    },
+    "tool_response": {
+      "mode": "files_with_matches",
+      "filenames": [
+        "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models/team.py",
+        "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models/event_team.py"
+      ],
+      "numFiles": 2
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/team.py",
+      "limit": 30
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "./backend/app/models/team.py",
+        "content": "from sqlmodel import SQLModel, Field, Relationship, Index\nfrom typing import Optional, List, TYPE_CHECKING\nfrom datetime import datetime\nimport uuid\nfrom sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey\nfrom sqlalchemy.dialects.postgresql import UUID\n\nif TYPE_CHECKING:\n    from .event_team import EventTeam\n\nclass Team(SQLModel, table=True):\n    \"\"\"\n    Team model representing sports teams in the system.\n\n    Teams can be associated with multiple events through the EventTeam\n    association table, enabling many-to-many relationships.\n    \"\"\"\n    __tablename__ = \"teams\"\n\n    id: int = Field(\n        primary_key=True,\n        sa_column=Column(Integer, primary_key=True, autoincrement=True)\n    )\n\n    name: str = Field(\n        max_length=255,\n        unique=True,\n        sa_column=Column(Text, nullable=False, unique=True)\n    )\n",
+        "numLines": 30,
+        "startLine": 1,
+        "totalLines": 103
+      }
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/team.py",
+      "old_string": "    id: int = Field(\n        primary_key=True,\n        sa_column=Column(Integer, primary_key=True, autoincrement=True)\n    )",
+      "new_string": "    id: int = Field(\n        sa_column=Column(Integer, primary_key=True, autoincrement=True)\n    )"
+    },
+    "tool_response": {
+      "filePath": "./backend/app/models/team.py",
+      "oldString": "    id: int = Field(\n        primary_key=True,\n        sa_column=Column(Integer, primary_key=True, autoincrement=True)\n    )",
+      "newString": "    id: int = Field(\n        sa_column=Column(Integer, primary_key=True, autoincrement=True)\n    )",
+      "originalFile": "from sqlmodel import SQLModel, Field, Relationship, Index\nfrom typing import Optional, List, TYPE_CHECKING\nfrom datetime import datetime\nimport uuid\nfrom sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey\nfrom sqlalchemy.dialects.postgresql import UUID\n\nif TYPE_CHECKING:\n    from .event_team import EventTeam\n\nclass Team(SQLModel, table=True):\n    \"\"\"\n    Team model representing sports teams in the system.\n\n    Teams can be associated with multiple events through the EventTeam\n    association table, enabling many-to-many relationships.\n    \"\"\"\n    __tablename__ = \"teams\"\n\n    id: int = Field(\n        primary_key=True,\n        sa_column=Column(Integer, primary_key=True, autoincrement=True)\n    )\n\n    name: str = Field(\n        max_length=255,\n        unique=True,\n        sa_column=Column(Text, nullable=False, unique=True)\n    )\n\n    organization: str = Field(\n        sa_column=Column(Text, nullable=False)\n    )\n\n    division: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n\n    age_group: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n\n    skill_level: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n\n    description: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n\n    # UUID field for external references (existing in database)\n    uuid: Optional[uuid.UUID] = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), nullable=True, default=uuid.uuid4)\n    )\n\n    # Foreign key relationships to lookup tables\n    division_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"divisions.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"divisions.id\"), nullable=True)\n    )\n\n    age_group_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"age_groups.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"age_groups.id\"), nullable=True)\n    )\n\n    skill_level_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"skill_levels.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"skill_levels.id\"), nullable=True)\n    )\n\n    created_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow)\n    )\n\n    updated_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)\n    )\n\n    # Relationships\n    event_teams: List[\"EventTeam\"] = Relationship(back_populates=\"team\")\n\n    __table_args__ = (\n        Index('ix_teams_name', 'name'),\n        Index('ix_teams_organization', 'organization'),\n        Index('ix_teams_division_id', 'division_id'),\n        Index('ix_teams_age_group_id', 'age_group_id'),\n        Index('ix_teams_skill_level_id', 'skill_level_id'),\n        Index('ix_teams_created_at', 'created_at'),\n    )\n\n    def __repr__(self) -> str:\n        return f\"Team(id={self.id}, name='{self.name}', organization='{self.organization}')\"",
+      "structuredPatch": [
+        {
+          "oldStart": 18,
+          "oldLines": 7,
+          "newStart": 18,
+          "newLines": 6,
+          "lines": [
+            "     __tablename__ = \"teams\"",
+            " ",
+            "     id: int = Field(",
+            "-        primary_key=True,",
+            "         sa_column=Column(Integer, primary_key=True, autoincrement=True)",
+            "     )",
+            " "
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/event_team.py",
+      "limit": 30
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "./backend/app/models/event_team.py",
+        "content": "from sqlmodel import SQLModel, Field, Relationship, Index\nfrom typing import Optional, TYPE_CHECKING\nfrom datetime import datetime\nimport uuid\nfrom sqlalchemy import Column, Integer, ForeignKey, DateTime\nfrom sqlalchemy.dialects.postgresql import UUID\n\nif TYPE_CHECKING:\n    from .event import Event\n    from .team import Team\n\nclass EventTeam(SQLModel, table=True):\n    \"\"\"\n    Association table for many-to-many relationship between Events and Teams.\n\n    This table tracks which teams are participating in scheduled events,\n    enabling queries for events by team and teams by event.\n    \"\"\"\n    __tablename__ = \"event_teams\"\n\n    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )\n\n    event_id: uuid.UUID = Field(\n        foreign_key=\"events.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"events.id\", ondelete=\"CASCADE\"), nullable=False)\n    )",
+        "numLines": 30,
+        "startLine": 1,
+        "totalLines": 58
+      }
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/event_team.py",
+      "old_string": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )",
+      "new_string": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )"
+    },
+    "tool_response": {
+      "filePath": "./backend/app/models/event_team.py",
+      "oldString": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )",
+      "newString": "    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )",
+      "originalFile": "from sqlmodel import SQLModel, Field, Relationship, Index\nfrom typing import Optional, TYPE_CHECKING\nfrom datetime import datetime\nimport uuid\nfrom sqlalchemy import Column, Integer, ForeignKey, DateTime\nfrom sqlalchemy.dialects.postgresql import UUID\n\nif TYPE_CHECKING:\n    from .event import Event\n    from .team import Team\n\nclass EventTeam(SQLModel, table=True):\n    \"\"\"\n    Association table for many-to-many relationship between Events and Teams.\n\n    This table tracks which teams are participating in scheduled events,\n    enabling queries for events by team and teams by event.\n    \"\"\"\n    __tablename__ = \"event_teams\"\n\n    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        primary_key=True,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )\n\n    event_id: uuid.UUID = Field(\n        foreign_key=\"events.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"events.id\", ondelete=\"CASCADE\"), nullable=False)\n    )\n\n    team_id: int = Field(\n        foreign_key=\"teams.id\",\n        sa_column=Column(Integer, ForeignKey(\"teams.id\", ondelete=\"CASCADE\"), nullable=False)\n    )\n\n    created_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow)\n    )\n\n    # Relationships to parent tables\n    event: Optional[\"Event\"] = Relationship(back_populates=\"event_teams\")\n    team: Optional[\"Team\"] = Relationship(back_populates=\"event_teams\")\n\n    __table_args__ = (\n        # Prevent duplicate team assignments to the same event\n        Index('ix_event_teams_unique_event_team', 'event_id', 'team_id', unique=True),\n        # Optimize queries by event\n        Index('ix_event_teams_event_id', 'event_id'),\n        # Optimize queries by team\n        Index('ix_event_teams_team_id', 'team_id'),\n        # Optimize queries by creation date\n        Index('ix_event_teams_created_at', 'created_at'),\n    )\n\n    def __repr__(self) -> str:\n        return f\"EventTeam(id={self.id}, event_id={self.event_id}, team_id={self.team_id})\"",
+      "structuredPatch": [
+        {
+          "oldStart": 20,
+          "oldLines": 7,
+          "newStart": 20,
+          "newLines": 6,
+          "lines": [
+            " ",
+            "     id: uuid.UUID = Field(",
+            "         default_factory=uuid.uuid4,",
+            "-        primary_key=True,",
+            "         sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)",
+            "     )",
+            " "
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "primary_key=True",
+      "path": "./backend/app/models/",
+      "output_mode": "files_with_matches"
+    },
+    "tool_response": {
+      "mode": "files_with_matches",
+      "filenames": [
+        "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models/event_team.py",
+        "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models/team.py",
+        "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models/event.py",
+        "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models/venue_has_amenity.py",
+        "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models/venue_amenity.py",
+        "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models/venue.py",
+        "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models/payment.py",
+        "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models/registration.py"
+      ],
+      "numFiles": 8
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "primary_key=True,\\s*sa_column.*primary_key=True",
+      "path": "./backend/app/models/payment.py",
+      "output_mode": "content",
+      "multiline": true
+    },
+    "tool_response": {
+      "mode": "content",
+      "numFiles": 0,
+      "filenames": [],
+      "content": "",
+      "numLines": 0
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "primary_key=True,\\s*sa_column.*primary_key=True",
+      "path": "./backend/app/models/registration.py",
+      "output_mode": "content",
+      "multiline": true
+    },
+    "tool_response": {
+      "mode": "content",
+      "numFiles": 0,
+      "filenames": [],
+      "content": "",
+      "numLines": 0
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/venue.py",
+      "old_string": "    name: str = Field(\n        max_length=255,\n        unique=True,\n        sa_column=Column(String(255), unique=True, nullable=False)\n    )",
+      "new_string": "    name: str = Field(\n        max_length=255,\n        sa_column=Column(String(255), unique=True, nullable=False)\n    )"
+    },
+    "tool_response": {
+      "filePath": "./backend/app/models/venue.py",
+      "oldString": "    name: str = Field(\n        max_length=255,\n        unique=True,\n        sa_column=Column(String(255), unique=True, nullable=False)\n    )",
+      "newString": "    name: str = Field(\n        max_length=255,\n        sa_column=Column(String(255), unique=True, nullable=False)\n    )",
+      "originalFile": "from sqlmodel import SQLModel, Field, Index, Relationship\nfrom typing import Optional, List, TYPE_CHECKING\nfrom datetime import datetime\nimport uuid\nfrom sqlalchemy import Column, String, Text, Integer, Boolean, DateTime\nfrom sqlalchemy.dialects.postgresql import UUID\n\nif TYPE_CHECKING:\n    from .event import Event\n    from .venue_has_amenity import VenueHasAmenity\n\nclass Venue(SQLModel, table=True):\n    __tablename__ = \"venues\"\n\n    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )\n    name: str = Field(\n        max_length=255,\n        unique=True,\n        sa_column=Column(String(255), unique=True, nullable=False)\n    )\n    address: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n    city: Optional[str] = Field(\n        default=None,\n        max_length=100,\n        sa_column=Column(String(100), nullable=True)\n    )\n    state: Optional[str] = Field(\n        default=None,\n        max_length=100,\n        sa_column=Column(String(100), nullable=True)\n    )\n    zip_code: Optional[str] = Field(\n        default=None,\n        max_length=20,\n        sa_column=Column(String(20), nullable=True)\n    )\n    capacity: Optional[int] = Field(\n        default=None,\n        sa_column=Column(Integer, nullable=True)\n    )\n    description: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n    is_active: bool = Field(\n        default=True,\n        sa_column=Column(Boolean, nullable=False, default=True)\n    )\n    created_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow)\n    )\n    updated_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)\n    )\n\n    # Relationship to events\n    events: List[\"Event\"] = Relationship(back_populates=\"venue\")\n\n    # Relationship to amenities\n    amenities: List[\"VenueHasAmenity\"] = Relationship(back_populates=\"venue\")\n\n    __table_args__ = (\n        Index('ix_venues_name', 'name'),\n        Index('ix_venues_city', 'city'),\n        Index('ix_venues_is_active', 'is_active'),\n    )",
+      "structuredPatch": [
+        {
+          "oldStart": 18,
+          "oldLines": 7,
+          "newStart": 18,
+          "newLines": 6,
+          "lines": [
+            "     )",
+            "     name: str = Field(",
+            "         max_length=255,",
+            "-        unique=True,",
+            "         sa_column=Column(String(255), unique=True, nullable=False)",
+            "     )",
+            "     address: Optional[str] = Field("
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/venue_amenity.py",
+      "old_string": "    name: str = Field(\n        max_length=255,\n        unique=True,\n        sa_column=Column(String(255), unique=True, nullable=False)\n    )",
+      "new_string": "    name: str = Field(\n        max_length=255,\n        sa_column=Column(String(255), unique=True, nullable=False)\n    )"
+    },
+    "tool_response": {
+      "filePath": "./backend/app/models/venue_amenity.py",
+      "oldString": "    name: str = Field(\n        max_length=255,\n        unique=True,\n        sa_column=Column(String(255), unique=True, nullable=False)\n    )",
+      "newString": "    name: str = Field(\n        max_length=255,\n        sa_column=Column(String(255), unique=True, nullable=False)\n    )",
+      "originalFile": "from sqlmodel import SQLModel, Field, Index\nfrom typing import Optional\nfrom datetime import datetime\nimport uuid\nfrom sqlalchemy import Column, String, Text, DateTime, Boolean\nfrom sqlalchemy.dialects.postgresql import UUID\n\n\nclass VenueAmenity(SQLModel, table=True):\n    __tablename__ = \"venue_amenities\"\n\n    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )\n    name: str = Field(\n        max_length=255,\n        unique=True,\n        sa_column=Column(String(255), unique=True, nullable=False)\n    )\n    description: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n    is_active: bool = Field(\n        default=True,\n        sa_column=Column(Boolean, nullable=False, default=True)\n    )\n    created_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow)\n    )\n    updated_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)\n    )\n\n    __table_args__ = (\n        Index('ix_venue_amenities_name', 'name'),\n        Index('ix_venue_amenities_is_active', 'is_active'),\n    )",
+      "structuredPatch": [
+        {
+          "oldStart": 15,
+          "oldLines": 7,
+          "newStart": 15,
+          "newLines": 6,
+          "lines": [
+            "     )",
+            "     name: str = Field(",
+            "         max_length=255,",
+            "-        unique=True,",
+            "         sa_column=Column(String(255), unique=True, nullable=False)",
+            "     )",
+            "     description: Optional[str] = Field("
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "unique=True.*sa_column.*unique=True",
+      "path": "./backend/app/models/",
+      "output_mode": "files_with_matches"
+    },
+    "tool_response": {
+      "mode": "files_with_matches",
+      "filenames": [],
+      "numFiles": 0
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "unique=True,\\s*\\n.*sa_column.*unique=True",
+      "path": "./backend/app/models/",
+      "output_mode": "files_with_matches",
+      "multiline": true
+    },
+    "tool_response": {
+      "mode": "files_with_matches",
+      "filenames": [
+        "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models/team.py"
+      ],
+      "numFiles": 1
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/team.py",
+      "offset": 24,
+      "limit": 10
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "./backend/app/models/team.py",
+        "content": "    name: str = Field(\n        max_length=255,\n        unique=True,\n        sa_column=Column(Text, nullable=False, unique=True)\n    )\n\n    organization: str = Field(\n        sa_column=Column(Text, nullable=False)\n    )\n",
+        "numLines": 10,
+        "startLine": 24,
+        "totalLines": 102
+      }
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/team.py",
+      "old_string": "    name: str = Field(\n        max_length=255,\n        unique=True,\n        sa_column=Column(Text, nullable=False, unique=True)\n    )",
+      "new_string": "    name: str = Field(\n        max_length=255,\n        sa_column=Column(Text, nullable=False, unique=True)\n    )"
+    },
+    "tool_response": {
+      "filePath": "./backend/app/models/team.py",
+      "oldString": "    name: str = Field(\n        max_length=255,\n        unique=True,\n        sa_column=Column(Text, nullable=False, unique=True)\n    )",
+      "newString": "    name: str = Field(\n        max_length=255,\n        sa_column=Column(Text, nullable=False, unique=True)\n    )",
+      "originalFile": "from sqlmodel import SQLModel, Field, Relationship, Index\nfrom typing import Optional, List, TYPE_CHECKING\nfrom datetime import datetime\nimport uuid\nfrom sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey\nfrom sqlalchemy.dialects.postgresql import UUID\n\nif TYPE_CHECKING:\n    from .event_team import EventTeam\n\nclass Team(SQLModel, table=True):\n    \"\"\"\n    Team model representing sports teams in the system.\n\n    Teams can be associated with multiple events through the EventTeam\n    association table, enabling many-to-many relationships.\n    \"\"\"\n    __tablename__ = \"teams\"\n\n    id: int = Field(\n        sa_column=Column(Integer, primary_key=True, autoincrement=True)\n    )\n\n    name: str = Field(\n        max_length=255,\n        unique=True,\n        sa_column=Column(Text, nullable=False, unique=True)\n    )\n\n    organization: str = Field(\n        sa_column=Column(Text, nullable=False)\n    )\n\n    division: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n\n    age_group: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n\n    skill_level: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n\n    description: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n\n    # UUID field for external references (existing in database)\n    uuid: Optional[uuid.UUID] = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), nullable=True, default=uuid.uuid4)\n    )\n\n    # Foreign key relationships to lookup tables\n    division_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"divisions.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"divisions.id\"), nullable=True)\n    )\n\n    age_group_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"age_groups.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"age_groups.id\"), nullable=True)\n    )\n\n    skill_level_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"skill_levels.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"skill_levels.id\"), nullable=True)\n    )\n\n    created_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow)\n    )\n\n    updated_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)\n    )\n\n    # Relationships\n    event_teams: List[\"EventTeam\"] = Relationship(back_populates=\"team\")\n\n    __table_args__ = (\n        Index('ix_teams_name', 'name'),\n        Index('ix_teams_organization', 'organization'),\n        Index('ix_teams_division_id', 'division_id'),\n        Index('ix_teams_age_group_id', 'age_group_id'),\n        Index('ix_teams_skill_level_id', 'skill_level_id'),\n        Index('ix_teams_created_at', 'created_at'),\n    )\n\n    def __repr__(self) -> str:\n        return f\"Team(id={self.id}, name='{self.name}', organization='{self.organization}')\"",
+      "structuredPatch": [
+        {
+          "oldStart": 23,
+          "oldLines": 7,
+          "newStart": 23,
+          "newLines": 6,
+          "lines": [
+            " ",
+            "     name: str = Field(",
+            "         max_length=255,",
+            "-        unique=True,",
+            "         sa_column=Column(Text, nullable=False, unique=True)",
+            "     )",
+            " "
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/event.py",
+      "offset": 44,
+      "limit": 10
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "./backend/app/models/event.py",
+        "content": "    )\n    venue_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"venues.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\", ondelete=\"SET NULL\"), nullable=True)\n    )\n    created_by_user_id: int = Field(\n        foreign_key=\"users.id\",\n        sa_column=Column(Integer, ForeignKey(\"users.id\"), nullable=False)\n    )",
+        "numLines": 10,
+        "startLine": 44,
+        "totalLines": 91
+      }
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "foreign_key=.*sa_column.*ForeignKey",
+      "path": "./backend/app/models/",
+      "output_mode": "files_with_matches",
+      "multiline": true
+    },
+    "tool_response": {
+      "mode": "files_with_matches",
+      "filenames": [
+        "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models/team.py",
+        "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models/event_team.py",
+        "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models/event.py",
+        "/Users/jacksontumbidge/Projects/GamePlanPro/backend/app/models/venue_has_amenity.py"
+      ],
+      "numFiles": 4
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/event.py",
+      "old_string": "    venue_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"venues.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\", ondelete=\"SET NULL\"), nullable=True)\n    )",
+      "new_string": "    venue_id: Optional[uuid.UUID] = Field(\n        default=None,\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\", ondelete=\"SET NULL\"), nullable=True)\n    )"
+    },
+    "tool_response": {
+      "filePath": "./backend/app/models/event.py",
+      "oldString": "    venue_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"venues.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\", ondelete=\"SET NULL\"), nullable=True)\n    )",
+      "newString": "    venue_id: Optional[uuid.UUID] = Field(\n        default=None,\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\", ondelete=\"SET NULL\"), nullable=True)\n    )",
+      "originalFile": "from sqlmodel import SQLModel, Field, Relationship, Index\nfrom typing import Optional, List, TYPE_CHECKING\nfrom datetime import datetime\nimport uuid\nfrom enum import Enum\nfrom sqlalchemy import Column, String, Text, DateTime, Boolean, Integer, ForeignKey, CheckConstraint\nfrom sqlalchemy.dialects.postgresql import UUID\nfrom pydantic import validator\n\nif TYPE_CHECKING:\n    from .event_team import EventTeam\n    from .venue import Venue\n\nclass EventType(str, Enum):\n    PRACTICE = \"Practice\"\n    GAME = \"Game\"\n    MEETING = \"Meeting\"\n    TOURNAMENT = \"Tournament\"\n    OTHER = \"Other\"\n\nclass Event(SQLModel, table=True):\n    __tablename__ = \"events\"\n\n    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )\n    name: str = Field(\n        max_length=255,\n        sa_column=Column(String(255), nullable=False)\n    )\n    description: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n    event_type: EventType = Field(\n        sa_column=Column(String(50), nullable=False)\n    )\n    start_time: datetime = Field(\n        sa_column=Column(DateTime, nullable=False)\n    )\n    end_time: datetime = Field(\n        sa_column=Column(DateTime, nullable=False)\n    )\n    venue_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"venues.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\", ondelete=\"SET NULL\"), nullable=True)\n    )\n    created_by_user_id: int = Field(\n        foreign_key=\"users.id\",\n        sa_column=Column(Integer, ForeignKey(\"users.id\"), nullable=False)\n    )\n    is_recurring: bool = Field(\n        default=False,\n        sa_column=Column(Boolean, nullable=False, default=False)\n    )\n    recurrence_rule: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n    created_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow)\n    )\n    updated_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)\n    )\n\n    # Relationship to venue\n    venue: Optional[\"Venue\"] = Relationship(back_populates=\"events\")\n\n    # Relationship to event teams (many-to-many through EventTeam)\n    event_teams: List[\"EventTeam\"] = Relationship(back_populates=\"event\")\n\n    @validator('end_time')\n    def validate_end_time_after_start(cls, v, values):\n        if 'start_time' in values and v <= values['start_time']:\n            raise ValueError('end_time must be after start_time')\n        return v\n\n    __table_args__ = (\n        CheckConstraint('start_time < end_time', name='check_start_before_end'),\n        Index('ix_events_start_time', 'start_time'),\n        Index('ix_events_end_time', 'end_time'),\n        Index('ix_events_event_type', 'event_type'),\n        Index('ix_events_venue_id', 'venue_id'),\n        Index('ix_events_created_by_user_id', 'created_by_user_id'),\n        Index('ix_events_is_recurring', 'is_recurring'),\n    )",
+      "structuredPatch": [
+        {
+          "oldStart": 44,
+          "oldLines": 7,
+          "newStart": 44,
+          "newLines": 6,
+          "lines": [
+            "     )",
+            "     venue_id: Optional[uuid.UUID] = Field(",
+            "         default=None,",
+            "-        foreign_key=\"venues.id\",",
+            "         sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\", ondelete=\"SET NULL\"), nullable=True)",
+            "     )",
+            "     created_by_user_id: int = Field("
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/event.py",
+      "old_string": "    created_by_user_id: int = Field(\n        foreign_key=\"users.id\",\n        sa_column=Column(Integer, ForeignKey(\"users.id\"), nullable=False)\n    )",
+      "new_string": "    created_by_user_id: int = Field(\n        sa_column=Column(Integer, ForeignKey(\"users.id\"), nullable=False)\n    )"
+    },
+    "tool_response": {
+      "filePath": "./backend/app/models/event.py",
+      "oldString": "    created_by_user_id: int = Field(\n        foreign_key=\"users.id\",\n        sa_column=Column(Integer, ForeignKey(\"users.id\"), nullable=False)\n    )",
+      "newString": "    created_by_user_id: int = Field(\n        sa_column=Column(Integer, ForeignKey(\"users.id\"), nullable=False)\n    )",
+      "originalFile": "from sqlmodel import SQLModel, Field, Relationship, Index\nfrom typing import Optional, List, TYPE_CHECKING\nfrom datetime import datetime\nimport uuid\nfrom enum import Enum\nfrom sqlalchemy import Column, String, Text, DateTime, Boolean, Integer, ForeignKey, CheckConstraint\nfrom sqlalchemy.dialects.postgresql import UUID\nfrom pydantic import validator\n\nif TYPE_CHECKING:\n    from .event_team import EventTeam\n    from .venue import Venue\n\nclass EventType(str, Enum):\n    PRACTICE = \"Practice\"\n    GAME = \"Game\"\n    MEETING = \"Meeting\"\n    TOURNAMENT = \"Tournament\"\n    OTHER = \"Other\"\n\nclass Event(SQLModel, table=True):\n    __tablename__ = \"events\"\n\n    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )\n    name: str = Field(\n        max_length=255,\n        sa_column=Column(String(255), nullable=False)\n    )\n    description: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n    event_type: EventType = Field(\n        sa_column=Column(String(50), nullable=False)\n    )\n    start_time: datetime = Field(\n        sa_column=Column(DateTime, nullable=False)\n    )\n    end_time: datetime = Field(\n        sa_column=Column(DateTime, nullable=False)\n    )\n    venue_id: Optional[uuid.UUID] = Field(\n        default=None,\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\", ondelete=\"SET NULL\"), nullable=True)\n    )\n    created_by_user_id: int = Field(\n        foreign_key=\"users.id\",\n        sa_column=Column(Integer, ForeignKey(\"users.id\"), nullable=False)\n    )\n    is_recurring: bool = Field(\n        default=False,\n        sa_column=Column(Boolean, nullable=False, default=False)\n    )\n    recurrence_rule: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n    created_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow)\n    )\n    updated_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)\n    )\n\n    # Relationship to venue\n    venue: Optional[\"Venue\"] = Relationship(back_populates=\"events\")\n\n    # Relationship to event teams (many-to-many through EventTeam)\n    event_teams: List[\"EventTeam\"] = Relationship(back_populates=\"event\")\n\n    @validator('end_time')\n    def validate_end_time_after_start(cls, v, values):\n        if 'start_time' in values and v <= values['start_time']:\n            raise ValueError('end_time must be after start_time')\n        return v\n\n    __table_args__ = (\n        CheckConstraint('start_time < end_time', name='check_start_before_end'),\n        Index('ix_events_start_time', 'start_time'),\n        Index('ix_events_end_time', 'end_time'),\n        Index('ix_events_event_type', 'event_type'),\n        Index('ix_events_venue_id', 'venue_id'),\n        Index('ix_events_created_by_user_id', 'created_by_user_id'),\n        Index('ix_events_is_recurring', 'is_recurring'),\n    )",
+      "structuredPatch": [
+        {
+          "oldStart": 47,
+          "oldLines": 7,
+          "newStart": 47,
+          "newLines": 6,
+          "lines": [
+            "         sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\", ondelete=\"SET NULL\"), nullable=True)",
+            "     )",
+            "     created_by_user_id: int = Field(",
+            "-        foreign_key=\"users.id\",",
+            "         sa_column=Column(Integer, ForeignKey(\"users.id\"), nullable=False)",
+            "     )",
+            "     is_recurring: bool = Field("
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/venue_has_amenity.py",
+      "old_string": "    venue_id: uuid.UUID = Field(\n        foreign_key=\"venues.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\"), nullable=False)\n    )",
+      "new_string": "    venue_id: uuid.UUID = Field(\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\"), nullable=False)\n    )"
+    },
+    "tool_response": {
+      "filePath": "./backend/app/models/venue_has_amenity.py",
+      "oldString": "    venue_id: uuid.UUID = Field(\n        foreign_key=\"venues.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\"), nullable=False)\n    )",
+      "newString": "    venue_id: uuid.UUID = Field(\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\"), nullable=False)\n    )",
+      "originalFile": "from sqlmodel import SQLModel, Field, Index, Relationship\nfrom typing import Optional, TYPE_CHECKING\nfrom datetime import datetime\nimport uuid\nfrom sqlalchemy import Column, Text, Integer, DateTime, ForeignKey\nfrom sqlalchemy.dialects.postgresql import UUID\n\nif TYPE_CHECKING:\n    from .venue import Venue\n    from .venue_amenity import VenueAmenity\n\n\nclass VenueHasAmenity(SQLModel, table=True):\n    __tablename__ = \"venue_has_amenities\"\n\n    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )\n    venue_id: uuid.UUID = Field(\n        foreign_key=\"venues.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\"), nullable=False)\n    )\n    amenity_id: uuid.UUID = Field(\n        foreign_key=\"venue_amenities.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venue_amenities.id\"), nullable=False)\n    )\n    quantity: Optional[int] = Field(\n        default=None,\n        sa_column=Column(Integer, nullable=True)\n    )\n    notes: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n    created_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow)\n    )\n    updated_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)\n    )\n\n    # Relationships\n    venue: Optional[\"Venue\"] = Relationship(back_populates=\"amenities\")\n    amenity: Optional[\"VenueAmenity\"] = Relationship()\n\n    __table_args__ = (\n        Index('ix_venue_has_amenities_venue_id', 'venue_id'),\n        Index('ix_venue_has_amenities_amenity_id', 'amenity_id'),\n        Index('ix_venue_has_amenities_unique', 'venue_id', 'amenity_id', unique=True),\n    )",
+      "structuredPatch": [
+        {
+          "oldStart": 18,
+          "oldLines": 7,
+          "newStart": 18,
+          "newLines": 6,
+          "lines": [
+            "         sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)",
+            "     )",
+            "     venue_id: uuid.UUID = Field(",
+            "-        foreign_key=\"venues.id\",",
+            "         sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\"), nullable=False)",
+            "     )",
+            "     amenity_id: uuid.UUID = Field("
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/venue_has_amenity.py",
+      "old_string": "    amenity_id: uuid.UUID = Field(\n        foreign_key=\"venue_amenities.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venue_amenities.id\"), nullable=False)\n    )",
+      "new_string": "    amenity_id: uuid.UUID = Field(\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venue_amenities.id\"), nullable=False)\n    )"
+    },
+    "tool_response": {
+      "filePath": "./backend/app/models/venue_has_amenity.py",
+      "oldString": "    amenity_id: uuid.UUID = Field(\n        foreign_key=\"venue_amenities.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venue_amenities.id\"), nullable=False)\n    )",
+      "newString": "    amenity_id: uuid.UUID = Field(\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venue_amenities.id\"), nullable=False)\n    )",
+      "originalFile": "from sqlmodel import SQLModel, Field, Index, Relationship\nfrom typing import Optional, TYPE_CHECKING\nfrom datetime import datetime\nimport uuid\nfrom sqlalchemy import Column, Text, Integer, DateTime, ForeignKey\nfrom sqlalchemy.dialects.postgresql import UUID\n\nif TYPE_CHECKING:\n    from .venue import Venue\n    from .venue_amenity import VenueAmenity\n\n\nclass VenueHasAmenity(SQLModel, table=True):\n    __tablename__ = \"venue_has_amenities\"\n\n    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )\n    venue_id: uuid.UUID = Field(\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\"), nullable=False)\n    )\n    amenity_id: uuid.UUID = Field(\n        foreign_key=\"venue_amenities.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venue_amenities.id\"), nullable=False)\n    )\n    quantity: Optional[int] = Field(\n        default=None,\n        sa_column=Column(Integer, nullable=True)\n    )\n    notes: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n    created_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow)\n    )\n    updated_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)\n    )\n\n    # Relationships\n    venue: Optional[\"Venue\"] = Relationship(back_populates=\"amenities\")\n    amenity: Optional[\"VenueAmenity\"] = Relationship()\n\n    __table_args__ = (\n        Index('ix_venue_has_amenities_venue_id', 'venue_id'),\n        Index('ix_venue_has_amenities_amenity_id', 'amenity_id'),\n        Index('ix_venue_has_amenities_unique', 'venue_id', 'amenity_id', unique=True),\n    )",
+      "structuredPatch": [
+        {
+          "oldStart": 21,
+          "oldLines": 7,
+          "newStart": 21,
+          "newLines": 6,
+          "lines": [
+            "         sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venues.id\"), nullable=False)",
+            "     )",
+            "     amenity_id: uuid.UUID = Field(",
+            "-        foreign_key=\"venue_amenities.id\",",
+            "         sa_column=Column(UUID(as_uuid=True), ForeignKey(\"venue_amenities.id\"), nullable=False)",
+            "     )",
+            "     quantity: Optional[int] = Field("
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/event_team.py",
+      "offset": 26,
+      "limit": 15
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "./backend/app/models/event_team.py",
+        "content": "    event_id: uuid.UUID = Field(\n        foreign_key=\"events.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"events.id\", ondelete=\"CASCADE\"), nullable=False)\n    )\n\n    team_id: int = Field(\n        foreign_key=\"teams.id\",\n        sa_column=Column(Integer, ForeignKey(\"teams.id\", ondelete=\"CASCADE\"), nullable=False)\n    )\n\n    created_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow)\n    )\n",
+        "numLines": 15,
+        "startLine": 26,
+        "totalLines": 57
+      }
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/event_team.py",
+      "old_string": "    event_id: uuid.UUID = Field(\n        foreign_key=\"events.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"events.id\", ondelete=\"CASCADE\"), nullable=False)\n    )",
+      "new_string": "    event_id: uuid.UUID = Field(\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"events.id\", ondelete=\"CASCADE\"), nullable=False)\n    )"
+    },
+    "tool_response": {
+      "filePath": "./backend/app/models/event_team.py",
+      "oldString": "    event_id: uuid.UUID = Field(\n        foreign_key=\"events.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"events.id\", ondelete=\"CASCADE\"), nullable=False)\n    )",
+      "newString": "    event_id: uuid.UUID = Field(\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"events.id\", ondelete=\"CASCADE\"), nullable=False)\n    )",
+      "originalFile": "from sqlmodel import SQLModel, Field, Relationship, Index\nfrom typing import Optional, TYPE_CHECKING\nfrom datetime import datetime\nimport uuid\nfrom sqlalchemy import Column, Integer, ForeignKey, DateTime\nfrom sqlalchemy.dialects.postgresql import UUID\n\nif TYPE_CHECKING:\n    from .event import Event\n    from .team import Team\n\nclass EventTeam(SQLModel, table=True):\n    \"\"\"\n    Association table for many-to-many relationship between Events and Teams.\n\n    This table tracks which teams are participating in scheduled events,\n    enabling queries for events by team and teams by event.\n    \"\"\"\n    __tablename__ = \"event_teams\"\n\n    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )\n\n    event_id: uuid.UUID = Field(\n        foreign_key=\"events.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"events.id\", ondelete=\"CASCADE\"), nullable=False)\n    )\n\n    team_id: int = Field(\n        foreign_key=\"teams.id\",\n        sa_column=Column(Integer, ForeignKey(\"teams.id\", ondelete=\"CASCADE\"), nullable=False)\n    )\n\n    created_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow)\n    )\n\n    # Relationships to parent tables\n    event: Optional[\"Event\"] = Relationship(back_populates=\"event_teams\")\n    team: Optional[\"Team\"] = Relationship(back_populates=\"event_teams\")\n\n    __table_args__ = (\n        # Prevent duplicate team assignments to the same event\n        Index('ix_event_teams_unique_event_team', 'event_id', 'team_id', unique=True),\n        # Optimize queries by event\n        Index('ix_event_teams_event_id', 'event_id'),\n        # Optimize queries by team\n        Index('ix_event_teams_team_id', 'team_id'),\n        # Optimize queries by creation date\n        Index('ix_event_teams_created_at', 'created_at'),\n    )\n\n    def __repr__(self) -> str:\n        return f\"EventTeam(id={self.id}, event_id={self.event_id}, team_id={self.team_id})\"",
+      "structuredPatch": [
+        {
+          "oldStart": 24,
+          "oldLines": 7,
+          "newStart": 24,
+          "newLines": 6,
+          "lines": [
+            "     )",
+            " ",
+            "     event_id: uuid.UUID = Field(",
+            "-        foreign_key=\"events.id\",",
+            "         sa_column=Column(UUID(as_uuid=True), ForeignKey(\"events.id\", ondelete=\"CASCADE\"), nullable=False)",
+            "     )",
+            " "
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/event_team.py",
+      "old_string": "    team_id: int = Field(\n        foreign_key=\"teams.id\",\n        sa_column=Column(Integer, ForeignKey(\"teams.id\", ondelete=\"CASCADE\"), nullable=False)\n    )",
+      "new_string": "    team_id: int = Field(\n        sa_column=Column(Integer, ForeignKey(\"teams.id\", ondelete=\"CASCADE\"), nullable=False)\n    )"
+    },
+    "tool_response": {
+      "filePath": "./backend/app/models/event_team.py",
+      "oldString": "    team_id: int = Field(\n        foreign_key=\"teams.id\",\n        sa_column=Column(Integer, ForeignKey(\"teams.id\", ondelete=\"CASCADE\"), nullable=False)\n    )",
+      "newString": "    team_id: int = Field(\n        sa_column=Column(Integer, ForeignKey(\"teams.id\", ondelete=\"CASCADE\"), nullable=False)\n    )",
+      "originalFile": "from sqlmodel import SQLModel, Field, Relationship, Index\nfrom typing import Optional, TYPE_CHECKING\nfrom datetime import datetime\nimport uuid\nfrom sqlalchemy import Column, Integer, ForeignKey, DateTime\nfrom sqlalchemy.dialects.postgresql import UUID\n\nif TYPE_CHECKING:\n    from .event import Event\n    from .team import Team\n\nclass EventTeam(SQLModel, table=True):\n    \"\"\"\n    Association table for many-to-many relationship between Events and Teams.\n\n    This table tracks which teams are participating in scheduled events,\n    enabling queries for events by team and teams by event.\n    \"\"\"\n    __tablename__ = \"event_teams\"\n\n    id: uuid.UUID = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)\n    )\n\n    event_id: uuid.UUID = Field(\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"events.id\", ondelete=\"CASCADE\"), nullable=False)\n    )\n\n    team_id: int = Field(\n        foreign_key=\"teams.id\",\n        sa_column=Column(Integer, ForeignKey(\"teams.id\", ondelete=\"CASCADE\"), nullable=False)\n    )\n\n    created_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow)\n    )\n\n    # Relationships to parent tables\n    event: Optional[\"Event\"] = Relationship(back_populates=\"event_teams\")\n    team: Optional[\"Team\"] = Relationship(back_populates=\"event_teams\")\n\n    __table_args__ = (\n        # Prevent duplicate team assignments to the same event\n        Index('ix_event_teams_unique_event_team', 'event_id', 'team_id', unique=True),\n        # Optimize queries by event\n        Index('ix_event_teams_event_id', 'event_id'),\n        # Optimize queries by team\n        Index('ix_event_teams_team_id', 'team_id'),\n        # Optimize queries by creation date\n        Index('ix_event_teams_created_at', 'created_at'),\n    )\n\n    def __repr__(self) -> str:\n        return f\"EventTeam(id={self.id}, event_id={self.event_id}, team_id={self.team_id})\"",
+      "structuredPatch": [
+        {
+          "oldStart": 28,
+          "oldLines": 7,
+          "newStart": 28,
+          "newLines": 6,
+          "lines": [
+            "     )",
+            " ",
+            "     team_id: int = Field(",
+            "-        foreign_key=\"teams.id\",",
+            "         sa_column=Column(Integer, ForeignKey(\"teams.id\", ondelete=\"CASCADE\"), nullable=False)",
+            "     )",
+            " "
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Grep",
+    "tool_input": {
+      "pattern": "foreign_key=",
+      "path": "./backend/app/models/team.py",
+      "output_mode": "content",
+      "-n": true
+    },
+    "tool_response": {
+      "mode": "content",
+      "numFiles": 0,
+      "filenames": [],
+      "content": "62:        foreign_key=\"divisions.id\",\n68:        foreign_key=\"age_groups.id\",\n74:        foreign_key=\"skill_levels.id\",",
+      "numLines": 3
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/team.py",
+      "offset": 60,
+      "limit": 20
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "./backend/app/models/team.py",
+        "content": "    division_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"divisions.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"divisions.id\"), nullable=True)\n    )\n\n    age_group_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"age_groups.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"age_groups.id\"), nullable=True)\n    )\n\n    skill_level_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"skill_levels.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"skill_levels.id\"), nullable=True)\n    )\n\n    created_at: datetime = Field(\n        default_factory=datetime.utcnow,",
+        "numLines": 20,
+        "startLine": 60,
+        "totalLines": 101
+      }
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "MultiEdit",
+    "tool_input": {
+      "file_path": "./backend/app/models/team.py",
+      "edits": [
+        {
+          "old_string": "    division_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"divisions.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"divisions.id\"), nullable=True)\n    )",
+          "new_string": "    division_id: Optional[uuid.UUID] = Field(\n        default=None,\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"divisions.id\"), nullable=True)\n    )"
+        },
+        {
+          "old_string": "    age_group_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"age_groups.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"age_groups.id\"), nullable=True)\n    )",
+          "new_string": "    age_group_id: Optional[uuid.UUID] = Field(\n        default=None,\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"age_groups.id\"), nullable=True)\n    )"
+        },
+        {
+          "old_string": "    skill_level_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"skill_levels.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"skill_levels.id\"), nullable=True)\n    )",
+          "new_string": "    skill_level_id: Optional[uuid.UUID] = Field(\n        default=None,\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"skill_levels.id\"), nullable=True)\n    )"
+        }
+      ]
+    },
+    "tool_response": {
+      "filePath": "./backend/app/models/team.py",
+      "edits": [
+        {
+          "old_string": "    division_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"divisions.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"divisions.id\"), nullable=True)\n    )",
+          "new_string": "    division_id: Optional[uuid.UUID] = Field(\n        default=None,\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"divisions.id\"), nullable=True)\n    )",
+          "replace_all": false
+        },
+        {
+          "old_string": "    age_group_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"age_groups.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"age_groups.id\"), nullable=True)\n    )",
+          "new_string": "    age_group_id: Optional[uuid.UUID] = Field(\n        default=None,\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"age_groups.id\"), nullable=True)\n    )",
+          "replace_all": false
+        },
+        {
+          "old_string": "    skill_level_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"skill_levels.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"skill_levels.id\"), nullable=True)\n    )",
+          "new_string": "    skill_level_id: Optional[uuid.UUID] = Field(\n        default=None,\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"skill_levels.id\"), nullable=True)\n    )",
+          "replace_all": false
+        }
+      ],
+      "originalFileContents": "from sqlmodel import SQLModel, Field, Relationship, Index\nfrom typing import Optional, List, TYPE_CHECKING\nfrom datetime import datetime\nimport uuid\nfrom sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey\nfrom sqlalchemy.dialects.postgresql import UUID\n\nif TYPE_CHECKING:\n    from .event_team import EventTeam\n\nclass Team(SQLModel, table=True):\n    \"\"\"\n    Team model representing sports teams in the system.\n\n    Teams can be associated with multiple events through the EventTeam\n    association table, enabling many-to-many relationships.\n    \"\"\"\n    __tablename__ = \"teams\"\n\n    id: int = Field(\n        sa_column=Column(Integer, primary_key=True, autoincrement=True)\n    )\n\n    name: str = Field(\n        max_length=255,\n        sa_column=Column(Text, nullable=False, unique=True)\n    )\n\n    organization: str = Field(\n        sa_column=Column(Text, nullable=False)\n    )\n\n    division: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n\n    age_group: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n\n    skill_level: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n\n    description: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n\n    # UUID field for external references (existing in database)\n    uuid: Optional[uuid.UUID] = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), nullable=True, default=uuid.uuid4)\n    )\n\n    # Foreign key relationships to lookup tables\n    division_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"divisions.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"divisions.id\"), nullable=True)\n    )\n\n    age_group_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"age_groups.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"age_groups.id\"), nullable=True)\n    )\n\n    skill_level_id: Optional[uuid.UUID] = Field(\n        default=None,\n        foreign_key=\"skill_levels.id\",\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"skill_levels.id\"), nullable=True)\n    )\n\n    created_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow)\n    )\n\n    updated_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)\n    )\n\n    # Relationships\n    event_teams: List[\"EventTeam\"] = Relationship(back_populates=\"team\")\n\n    __table_args__ = (\n        Index('ix_teams_name', 'name'),\n        Index('ix_teams_organization', 'organization'),\n        Index('ix_teams_division_id', 'division_id'),\n        Index('ix_teams_age_group_id', 'age_group_id'),\n        Index('ix_teams_skill_level_id', 'skill_level_id'),\n        Index('ix_teams_created_at', 'created_at'),\n    )\n\n    def __repr__(self) -> str:\n        return f\"Team(id={self.id}, name='{self.name}', organization='{self.organization}')\"",
+      "structuredPatch": [
+        {
+          "oldStart": 59,
+          "oldLines": 19,
+          "newStart": 59,
+          "newLines": 16,
+          "lines": [
+            "     # Foreign key relationships to lookup tables",
+            "     division_id: Optional[uuid.UUID] = Field(",
+            "         default=None,",
+            "-        foreign_key=\"divisions.id\",",
+            "         sa_column=Column(UUID(as_uuid=True), ForeignKey(\"divisions.id\"), nullable=True)",
+            "     )",
+            " ",
+            "     age_group_id: Optional[uuid.UUID] = Field(",
+            "         default=None,",
+            "-        foreign_key=\"age_groups.id\",",
+            "         sa_column=Column(UUID(as_uuid=True), ForeignKey(\"age_groups.id\"), nullable=True)",
+            "     )",
+            " ",
+            "     skill_level_id: Optional[uuid.UUID] = Field(",
+            "         default=None,",
+            "-        foreign_key=\"skill_levels.id\",",
+            "         sa_column=Column(UUID(as_uuid=True), ForeignKey(\"skill_levels.id\"), nullable=True)",
+            "     )",
+            " "
+          ]
+        }
+      ],
+      "userModified": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Read",
+    "tool_input": {
+      "file_path": "./backend/app/models/team.py",
+      "offset": 52,
+      "limit": 10
+    },
+    "tool_response": {
+      "type": "text",
+      "file": {
+        "filePath": "./backend/app/models/team.py",
+        "content": "\n    # UUID field for external references (existing in database)\n    uuid: Optional[uuid.UUID] = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), nullable=True, default=uuid.uuid4)\n    )\n\n    # Foreign key relationships to lookup tables\n    division_id: Optional[uuid.UUID] = Field(\n        default=None,",
+        "numLines": 10,
+        "startLine": 52,
+        "totalLines": 98
+      }
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/app/models/team.py",
+      "old_string": "    # UUID field for external references (existing in database)\n    uuid: Optional[uuid.UUID] = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), nullable=True, default=uuid.uuid4)\n    )",
+      "new_string": "    # UUID field for external references (existing in database)\n    external_uuid: Optional[uuid.UUID] = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), nullable=True, default=uuid.uuid4)\n    )"
+    },
+    "tool_response": {
+      "filePath": "./backend/app/models/team.py",
+      "oldString": "    # UUID field for external references (existing in database)\n    uuid: Optional[uuid.UUID] = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), nullable=True, default=uuid.uuid4)\n    )",
+      "newString": "    # UUID field for external references (existing in database)\n    external_uuid: Optional[uuid.UUID] = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), nullable=True, default=uuid.uuid4)\n    )",
+      "originalFile": "from sqlmodel import SQLModel, Field, Relationship, Index\nfrom typing import Optional, List, TYPE_CHECKING\nfrom datetime import datetime\nimport uuid\nfrom sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey\nfrom sqlalchemy.dialects.postgresql import UUID\n\nif TYPE_CHECKING:\n    from .event_team import EventTeam\n\nclass Team(SQLModel, table=True):\n    \"\"\"\n    Team model representing sports teams in the system.\n\n    Teams can be associated with multiple events through the EventTeam\n    association table, enabling many-to-many relationships.\n    \"\"\"\n    __tablename__ = \"teams\"\n\n    id: int = Field(\n        sa_column=Column(Integer, primary_key=True, autoincrement=True)\n    )\n\n    name: str = Field(\n        max_length=255,\n        sa_column=Column(Text, nullable=False, unique=True)\n    )\n\n    organization: str = Field(\n        sa_column=Column(Text, nullable=False)\n    )\n\n    division: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n\n    age_group: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n\n    skill_level: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n\n    description: Optional[str] = Field(\n        default=None,\n        sa_column=Column(Text, nullable=True)\n    )\n\n    # UUID field for external references (existing in database)\n    uuid: Optional[uuid.UUID] = Field(\n        default_factory=uuid.uuid4,\n        sa_column=Column(UUID(as_uuid=True), nullable=True, default=uuid.uuid4)\n    )\n\n    # Foreign key relationships to lookup tables\n    division_id: Optional[uuid.UUID] = Field(\n        default=None,\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"divisions.id\"), nullable=True)\n    )\n\n    age_group_id: Optional[uuid.UUID] = Field(\n        default=None,\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"age_groups.id\"), nullable=True)\n    )\n\n    skill_level_id: Optional[uuid.UUID] = Field(\n        default=None,\n        sa_column=Column(UUID(as_uuid=True), ForeignKey(\"skill_levels.id\"), nullable=True)\n    )\n\n    created_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow)\n    )\n\n    updated_at: datetime = Field(\n        default_factory=datetime.utcnow,\n        sa_column=Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)\n    )\n\n    # Relationships\n    event_teams: List[\"EventTeam\"] = Relationship(back_populates=\"team\")\n\n    __table_args__ = (\n        Index('ix_teams_name', 'name'),\n        Index('ix_teams_organization', 'organization'),\n        Index('ix_teams_division_id', 'division_id'),\n        Index('ix_teams_age_group_id', 'age_group_id'),\n        Index('ix_teams_skill_level_id', 'skill_level_id'),\n        Index('ix_teams_created_at', 'created_at'),\n    )\n\n    def __repr__(self) -> str:\n        return f\"Team(id={self.id}, name='{self.name}', organization='{self.organization}')\"",
+      "structuredPatch": [
+        {
+          "oldStart": 51,
+          "oldLines": 7,
+          "newStart": 51,
+          "newLines": 7,
+          "lines": [
+            "     )",
+            " ",
+            "     # UUID field for external references (existing in database)",
+            "-    uuid: Optional[uuid.UUID] = Field(",
+            "+    external_uuid: Optional[uuid.UUID] = Field(",
+            "         default_factory=uuid.uuid4,",
+            "         sa_column=Column(UUID(as_uuid=True), nullable=True, default=uuid.uuid4)",
+            "     )"
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/alembic/env.py",
+      "old_string": "# Import our models for autogenerate support\nfrom app.models import Venue, Event, VenueAmenity, VenueHasAmenity, Team, EventTeam, Registration, Payment\nfrom sqlmodel import SQLModel",
+      "new_string": "# Import our models for autogenerate support\nfrom app.models import Venue, VenueAmenity, VenueHasAmenity\nfrom sqlmodel import SQLModel"
+    },
+    "tool_response": {
+      "filePath": "./backend/alembic/env.py",
+      "oldString": "# Import our models for autogenerate support\nfrom app.models import Venue, Event, VenueAmenity, VenueHasAmenity, Team, EventTeam, Registration, Payment\nfrom sqlmodel import SQLModel",
+      "newString": "# Import our models for autogenerate support\nfrom app.models import Venue, VenueAmenity, VenueHasAmenity\nfrom sqlmodel import SQLModel",
+      "originalFile": "from logging.config import fileConfig\nimport os\nfrom dotenv import load_dotenv\n\nfrom sqlalchemy import engine_from_config\nfrom sqlalchemy import pool\n\nfrom alembic import context\n\n# Load environment variables\nload_dotenv()\n\n# this is the Alembic Config object, which provides\n# access to the values within the .ini file in use.\nconfig = context.config\n\n# Set the database URL from environment variable\ndatabase_url = os.getenv(\"DATABASE_URL\", \"postgresql://username:password@localhost:5432/gameplanpro\")\nconfig.set_main_option(\"sqlalchemy.url\", database_url)\n\n# Interpret the config file for Python logging.\n# This line sets up loggers basically.\nif config.config_file_name is not None:\n    fileConfig(config.config_file_name)\n\n# Import our models for autogenerate support\nfrom app.models import Venue, Event, VenueAmenity, VenueHasAmenity, Team, EventTeam, Registration, Payment\nfrom sqlmodel import SQLModel\n\n# Set target metadata to our SQLModel metadata\ntarget_metadata = SQLModel.metadata\n\n# other values from the config, defined by the needs of env.py,\n# can be acquired:\n# my_important_option = config.get_main_option(\"my_important_option\")\n# ... etc.\n\n\ndef run_migrations_offline() -> None:\n    \"\"\"Run migrations in 'offline' mode.\n\n    This configures the context with just a URL\n    and not an Engine, though an Engine is acceptable\n    here as well.  By skipping the Engine creation\n    we don't even need a DBAPI to be available.\n\n    Calls to context.execute() here emit the given string to the\n    script output.\n\n    \"\"\"\n    url = config.get_main_option(\"sqlalchemy.url\")\n    context.configure(\n        url=url,\n        target_metadata=target_metadata,\n        literal_binds=True,\n        dialect_opts={\"paramstyle\": \"named\"},\n    )\n\n    with context.begin_transaction():\n        context.run_migrations()\n\n\ndef run_migrations_online() -> None:\n    \"\"\"Run migrations in 'online' mode.\n\n    In this scenario we need to create an Engine\n    and associate a connection with the context.\n\n    \"\"\"\n    connectable = engine_from_config(\n        config.get_section(config.config_ini_section, {}),\n        prefix=\"sqlalchemy.\",\n        poolclass=pool.NullPool,\n    )\n\n    with connectable.connect() as connection:\n        context.configure(\n            connection=connection, target_metadata=target_metadata\n        )\n\n        with context.begin_transaction():\n            context.run_migrations()\n\n\nif context.is_offline_mode():\n    run_migrations_offline()\nelse:\n    run_migrations_online()\n",
+      "structuredPatch": [
+        {
+          "oldStart": 24,
+          "oldLines": 7,
+          "newStart": 24,
+          "newLines": 7,
+          "lines": [
+            "     fileConfig(config.config_file_name)",
+            " ",
+            " # Import our models for autogenerate support",
+            "-from app.models import Venue, Event, VenueAmenity, VenueHasAmenity, Team, EventTeam, Registration, Payment",
+            "+from app.models import Venue, VenueAmenity, VenueHasAmenity",
+            " from sqlmodel import SQLModel",
+            " ",
+            " # Set target metadata to our SQLModel metadata"
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
+  },
+  {
+    "session_id": "1d459d35-f417-4aff-9257-7491ae1755b4",
+    "transcript_path": "/Users/jacksontumbidge/.claude/projects/-Users-jacksontumbidge-Projects-GamePlanPro/1d459d35-f417-4aff-9257-7491ae1755b4.jsonl",
+    "cwd": "/Users/jacksontumbidge/Projects/GamePlanPro",
+    "permission_mode": "bypassPermissions",
+    "hook_event_name": "PostToolUse",
+    "tool_name": "Edit",
+    "tool_input": {
+      "file_path": "./backend/alembic/env.py",
+      "old_string": "# Import our models for autogenerate support\nfrom app.models import Venue, VenueAmenity, VenueHasAmenity\nfrom sqlmodel import SQLModel",
+      "new_string": "# Import our models for autogenerate support\nfrom app.models.venue import Venue\nfrom app.models.venue_amenity import VenueAmenity\nfrom app.models.venue_has_amenity import VenueHasAmenity\nfrom sqlmodel import SQLModel"
+    },
+    "tool_response": {
+      "filePath": "./backend/alembic/env.py",
+      "oldString": "# Import our models for autogenerate support\nfrom app.models import Venue, VenueAmenity, VenueHasAmenity\nfrom sqlmodel import SQLModel",
+      "newString": "# Import our models for autogenerate support\nfrom app.models.venue import Venue\nfrom app.models.venue_amenity import VenueAmenity\nfrom app.models.venue_has_amenity import VenueHasAmenity\nfrom sqlmodel import SQLModel",
+      "originalFile": "from logging.config import fileConfig\nimport os\nfrom dotenv import load_dotenv\n\nfrom sqlalchemy import engine_from_config\nfrom sqlalchemy import pool\n\nfrom alembic import context\n\n# Load environment variables\nload_dotenv()\n\n# this is the Alembic Config object, which provides\n# access to the values within the .ini file in use.\nconfig = context.config\n\n# Set the database URL from environment variable\ndatabase_url = os.getenv(\"DATABASE_URL\", \"postgresql://username:password@localhost:5432/gameplanpro\")\nconfig.set_main_option(\"sqlalchemy.url\", database_url)\n\n# Interpret the config file for Python logging.\n# This line sets up loggers basically.\nif config.config_file_name is not None:\n    fileConfig(config.config_file_name)\n\n# Import our models for autogenerate support\nfrom app.models import Venue, VenueAmenity, VenueHasAmenity\nfrom sqlmodel import SQLModel\n\n# Set target metadata to our SQLModel metadata\ntarget_metadata = SQLModel.metadata\n\n# other values from the config, defined by the needs of env.py,\n# can be acquired:\n# my_important_option = config.get_main_option(\"my_important_option\")\n# ... etc.\n\n\ndef run_migrations_offline() -> None:\n    \"\"\"Run migrations in 'offline' mode.\n\n    This configures the context with just a URL\n    and not an Engine, though an Engine is acceptable\n    here as well.  By skipping the Engine creation\n    we don't even need a DBAPI to be available.\n\n    Calls to context.execute() here emit the given string to the\n    script output.\n\n    \"\"\"\n    url = config.get_main_option(\"sqlalchemy.url\")\n    context.configure(\n        url=url,\n        target_metadata=target_metadata,\n        literal_binds=True,\n        dialect_opts={\"paramstyle\": \"named\"},\n    )\n\n    with context.begin_transaction():\n        context.run_migrations()\n\n\ndef run_migrations_online() -> None:\n    \"\"\"Run migrations in 'online' mode.\n\n    In this scenario we need to create an Engine\n    and associate a connection with the context.\n\n    \"\"\"\n    connectable = engine_from_config(\n        config.get_section(config.config_ini_section, {}),\n        prefix=\"sqlalchemy.\",\n        poolclass=pool.NullPool,\n    )\n\n    with connectable.connect() as connection:\n        context.configure(\n            connection=connection, target_metadata=target_metadata\n        )\n\n        with context.begin_transaction():\n            context.run_migrations()\n\n\nif context.is_offline_mode():\n    run_migrations_offline()\nelse:\n    run_migrations_online()\n",
+      "structuredPatch": [
+        {
+          "oldStart": 24,
+          "oldLines": 7,
+          "newStart": 24,
+          "newLines": 9,
+          "lines": [
+            "     fileConfig(config.config_file_name)",
+            " ",
+            " # Import our models for autogenerate support",
+            "-from app.models import Venue, VenueAmenity, VenueHasAmenity",
+            "+from app.models.venue import Venue",
+            "+from app.models.venue_amenity import VenueAmenity",
+            "+from app.models.venue_has_amenity import VenueHasAmenity",
+            " from sqlmodel import SQLModel",
+            " ",
+            " # Set target metadata to our SQLModel metadata"
+          ]
+        }
+      ],
+      "userModified": false,
+      "replaceAll": false
+    }
   }
 ]

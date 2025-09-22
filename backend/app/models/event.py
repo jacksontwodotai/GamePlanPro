@@ -23,7 +23,6 @@ class Event(SQLModel, table=True):
 
     id: uuid.UUID = Field(
         default_factory=uuid.uuid4,
-        primary_key=True,
         sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     )
     name: str = Field(
@@ -45,11 +44,9 @@ class Event(SQLModel, table=True):
     )
     venue_id: Optional[uuid.UUID] = Field(
         default=None,
-        foreign_key="venues.id",
         sa_column=Column(UUID(as_uuid=True), ForeignKey("venues.id", ondelete="SET NULL"), nullable=True)
     )
     created_by_user_id: int = Field(
-        foreign_key="users.id",
         sa_column=Column(Integer, ForeignKey("users.id"), nullable=False)
     )
     is_recurring: bool = Field(

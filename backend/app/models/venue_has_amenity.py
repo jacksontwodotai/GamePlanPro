@@ -15,15 +15,12 @@ class VenueHasAmenity(SQLModel, table=True):
 
     id: uuid.UUID = Field(
         default_factory=uuid.uuid4,
-        primary_key=True,
         sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     )
     venue_id: uuid.UUID = Field(
-        foreign_key="venues.id",
         sa_column=Column(UUID(as_uuid=True), ForeignKey("venues.id"), nullable=False)
     )
     amenity_id: uuid.UUID = Field(
-        foreign_key="venue_amenities.id",
         sa_column=Column(UUID(as_uuid=True), ForeignKey("venue_amenities.id"), nullable=False)
     )
     quantity: Optional[int] = Field(
