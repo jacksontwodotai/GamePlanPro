@@ -32,6 +32,8 @@ import VenueCreatePage from './components/VenueCreatePage'
 import VenueEditPage from './components/VenueEditPage'
 import VenueDetailPage from './components/VenueDetailPage'
 import AmenityTypeManagement from './components/AmenityTypeManagement'
+import ConflictDashboard from './components/ConflictDashboard'
+import ConflictReportView from './components/ConflictReportView'
 import { AuthProvider } from './contexts/AuthContext'
 
 function App() {
@@ -65,6 +67,8 @@ function App() {
           <Route path="venues/:venueId" element={<VenueDetailPage />} />
           <Route path="venues/:venueId/edit" element={<VenueEditPage />} />
           <Route path="amenity-types" element={<AmenityTypeManagement />} />
+          <Route path="conflicts" element={<ConflictDashboard />} />
+          <Route path="conflicts/report" element={<ConflictReportView />} />
         </Route>
         <Route path="/teams" element={<Layout />}>
           <Route index element={<TeamListView />} />

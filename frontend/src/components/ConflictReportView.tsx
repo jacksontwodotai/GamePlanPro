@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import {
   AlertTriangle,
   Calendar,
@@ -9,6 +10,7 @@ import {
   ChevronUp,
   ChevronLeft,
   ChevronRight,
+  ArrowLeft,
   Search,
   MapPin,
   Users,
@@ -49,6 +51,10 @@ interface SortConfig {
 }
 
 const ConflictReportView: React.FC = () => {
+  // Navigation hooks
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+
   // State for filters and pagination
   const [filters, setFilters] = useState<ConflictReportFilters>({
     limit: 10,
@@ -72,6 +78,23 @@ const ConflictReportView: React.FC = () => {
     error: conflictsError,
     execute: fetchConflicts
   } = useApi<ConflictReportResponse>()
+
+  // Initialize filters from URL parameters
+  useEffect(() => {
+    const conflictType = searchParams.get('type')
+    if (conflictType) {
+      setFilters(prev => ({
+        ...prev,
+        conflict_type: conflictType as any // Will be handled by the API
+      }))
+      setShowFilters(true) // Show filters if coming from specific type
+    }
+  }, [searchParams])
+
+  // Navigate back to dashboard
+  const handleBackToDashboard = () => {
+    navigate('/dashboard/conflicts')
+  }
 
   // Load conflicts when filters change
   const loadConflicts = useCallback(async () => {
@@ -170,11 +193,21 @@ const ConflictReportView: React.FC = () => {
     <div className="max-w-7xl mx-auto p-6 space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Conflict Report</h1>
-          <p className="text-gray-600 mt-2">
-            View and manage scheduling conflicts across your organization
-          </p>
+        <div className="flex items-center space-x-4">
+          <Button
+            variant="outline"
+            onClick={handleBackToDashboard}
+            className="flex items-center space-x-2"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Back to Dashboard</span>
+          </Button>
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Conflict Report</h1>
+            <p className="text-gray-600 mt-2">
+              View and manage scheduling conflicts across your organization
+            </p>
+          </div>
         </div>
         <div className="flex space-x-2">
           <Button

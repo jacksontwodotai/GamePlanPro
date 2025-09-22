@@ -202,6 +202,30 @@ export const api = {
       console.error('Error fetching conflicts:', error)
       throw error
     }
+  },
+
+  async getConflictSummary(): Promise<{
+    total_conflicts: number
+    resolved_conflicts: number
+    unresolved_conflicts: number
+    venue_conflicts: number
+    team_conflicts: number
+    resolution_rate: number
+  }> {
+    try {
+      const response = await fetch(`${API_BASE_URL}/scheduling/conflicts/summary`, {
+        headers: getAuthHeaders()
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
+      return await response.json()
+    } catch (error) {
+      console.error('Error fetching conflict summary:', error)
+      throw error
+    }
   }
 }
 
